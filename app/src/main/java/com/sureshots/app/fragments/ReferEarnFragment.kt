@@ -18,14 +18,14 @@ import kotlinx.android.synthetic.main.fragment_refer_earn.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn),View.OnClickListener {
+class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn)/*,View.OnClickListener*/ {
 
     private lateinit var verticalStepView : VerticalStepView
     private var mStepList: ArrayList<String> = ArrayList()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.buttonShareNow.setOnClickListener(this)
+        //view.buttonShareNow.setOnClickListener(this)
         verticalStepView = view.findViewById(R.id.stepViewReferEarn)
         mStepList.clear()
         mStepList.add("Get Rs.2 in winnings for every new signup  from your referral link")
@@ -43,13 +43,13 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn),View.OnClickLis
             .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(requireActivity(),R.drawable.ic_step_icon_24dp))
     }
 
-    override fun onClick(v: View?) {
+    /*override fun onClick(v: View?) {
         when (v?.id) {
             R.id.buttonShareNow -> view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_referEarn_to_rechargeFragment)
             }
         }
-    }
+    }*/
 
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshots.app.R
@@ -16,7 +17,18 @@ class SimCompanyAdapter(
     private var mSimCompanyModelList: List<SimCompanyModel>
 ) : RecyclerView.Adapter<SimCompanyAdapter.SimCompanyViewHolder>() {
 
-    inner class SimCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView) {
+    inner class SimCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),View.OnClickListener {
+
+        init {
+            mItemView.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View?) {
+            view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_dashboard_to_rechargeOneFragment)
+            }
+        }
 
     }
 

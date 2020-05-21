@@ -33,6 +33,10 @@
             android:id="@+id/action_dashboard_to_referEarnFragment"
             app:destination="@id/ReferEarnFragment"
             app:popUpTo="@id/DashboardFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_rechargeOneFragment"
+            app:destination="@id/RechargeOneFragment"
+            app:popUpTo="@id/DashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/MobileRechargeFragment"
@@ -49,10 +53,6 @@
         android:name="com.sureshots.app.fragments.ReferEarnFragment"
         android:label="Refer and Earn"
         tools:layout="@layout/fragment_refer_earn">
-        <action
-            android:id="@+id/action_referEarn_to_rechargeFragment"
-            app:destination="@id/RechargeOneFragment"
-            app:popUpTo="@id/ReferEarnFragment" />
     </fragment>
     <fragment
         android:id="@+id/RechargeOneFragment"
