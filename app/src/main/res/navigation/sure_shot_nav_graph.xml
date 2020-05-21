@@ -79,6 +79,26 @@
         android:name="com.sureshots.app.fragments.RechargeTwoFragment"
         android:label="Recharge"
         tools:layout="@layout/fragment_recharge_two">
+        <action
+            android:id="@+id/action_rechargeTwoFragment_to_subscriptionFragment"
+            app:destination="@id/SubscriptionFragment"
+            app:popUpTo="@id/RechargeTwoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SubscriptionFragment"
+        android:name="com.sureshots.app.fragments.SubscriptionFragment"
+        android:label="Benefits of Subscription"
+        tools:layout="@layout/fragment_subscription">
+        <action
+            android:id="@+id/action_subscriptionFragment_to_paymentSuccessFragment"
+            app:destination="@id/PaymentSuccesFragment"
+            app:popUpTo="@id/SubscriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PaymentSuccesFragment"
+        android:name="com.sureshots.app.fragments.PaymentSuccesfulFragment"
+        android:label=""
+        tools:layout="@layout/fragment_payment_succesful">
     </fragment>
 
 </navigation>
