@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.sureshots.app.MiddleDividerItemDecoration
 
 import com.sureshots.app.R
 import com.sureshots.app.adapter.SimCompanyAdapter
@@ -31,6 +32,7 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge),View.
                 mSimCompanyModelList
             )
         }!!
+        mRecyclerViewSimCompany.addItemDecoration(MiddleDividerItemDecoration(requireContext(), MiddleDividerItemDecoration.ALL))
         mRecyclerViewSimCompany.adapter = mSimCompanyAdapter
         mSimCompanyAdapter.notifyDataSetChanged()
 
