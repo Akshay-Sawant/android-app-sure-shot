@@ -46,7 +46,7 @@
                     android:layout_marginStart="@dimen/standard_margin_x2"
                     android:text="Idea"
                     android:layout_marginTop="@dimen/standard_margin"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:textAppearance="@android:style/TextAppearance.Large"
                     app:layout_constraintEnd_toStartOf="@id/textViewChange"
                     app:layout_constraintStart_toEndOf="@id/imageViewCompanyLogo"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Change"
-                    android:textAppearance="@android:style/TextAppearance.Small"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@id/textViewCompanyName"
@@ -78,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_margin_x2"
                     android:text="Prepaid"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/viewHorizontalDevider" />
@@ -87,6 +88,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_margin"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
                     android:text="+91-8108744785"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Change"
-                    android:textAppearance="@android:style/TextAppearance.Small"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@id/textViewMobileNumber"
@@ -124,6 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standard_margin_x2"
             android:layout_marginTop="@dimen/material_dimen_hdpi"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintEnd_toStartOf="@id/textViewSeePlan"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/materialCardSelectSim">
@@ -133,6 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
+                android:textAppearance="@android:style/TextAppearance.Large"
                 android:hint="Enter Amount"
                 android:inputType="phone"
                 android:maxLines="1" />
@@ -144,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_margin_x2"
             android:text="See Plan"
-            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textAppearance="@android:style/TextAppearance.Medium"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayoutAmount"
@@ -171,7 +175,7 @@
             android:layout_marginStart="@dimen/standard_margin_x2"
             android:layout_marginEnd="@dimen/standard_margin_x2"
             android:text="Enter amount equal to or Above $10"
-            android:textStyle="bold"
+            android:textAppearance="@android:style/TextAppearance.Small"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/viewHorizontalDevider3" />
@@ -196,6 +200,7 @@
                     android:id="@+id/textViewTokens"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
                     android:text="Tokens and Promo Cash cannot be used for mobile recharges"/>
             </LinearLayout>
 
