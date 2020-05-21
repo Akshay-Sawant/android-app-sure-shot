@@ -19,4 +19,5 @@
     <string name="text_verification_code">Verification Code</string>
     <string name="hint_time">time</string>
     <string name="text_did_not_receive_the_code">Did not receive the code? Resend SMS</string>
+    <string name="text_t_c_apply"><![CDATA[*T&C Apply]]></string>
 </resources>
