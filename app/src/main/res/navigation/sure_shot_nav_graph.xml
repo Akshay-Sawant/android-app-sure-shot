@@ -59,6 +59,26 @@
         android:name="com.sureshots.app.fragments.RechargeOneFragment"
         android:label="Recharge"
         tools:layout="@layout/fragment_recharge_one">
+        <action
+            android:id="@+id/action_rechargeOneFragment_to_rechargeTwoFragment"
+            app:destination="@id/RechargeTwoFragment"
+            app:popUpTo="@id/RechargeOneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PrepaidFragment"
+        android:name="com.sureshots.app.fragments.PrepaidFragment"
+        tools:layout="@layout/fragment_prepaid">
+    </fragment>
+    <fragment
+        android:id="@+id/PostpaidFragment"
+        android:name="com.sureshots.app.fragments.PostpaidFragment"
+        tools:layout="@layout/fragment_postpaid">
+    </fragment>
+    <fragment
+        android:id="@+id/RechargeTwoFragment"
+        android:name="com.sureshots.app.fragments.RechargeTwoFragment"
+        android:label="Recharge"
+        tools:layout="@layout/fragment_recharge_two">
     </fragment>
 
 </navigation>
