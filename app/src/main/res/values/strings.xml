@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Sure Shots</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--Sign Up Fragment-->
+    <string name="text_sign_up">Sign up</string>
+    <string name="text_enter_your_mobile">Enter your mobile number to create account.</string>
+    <string name="text_mobile_number">Mobile Number</string>
+    <string name="button_text_continue">Continue</string>
+
+
+    <!--Verify OTP-->
+    <string name="text_label_verify_proceed"><![CDATA[Verify & Proceed]]></string>
+    <string name="text_verification">Verification</string>
+    <string name="text_enter_4_digit">Enter 4 digit verification code sent on below given number</string>
+    <string name="text_verification_code">Verification Code</string>
+    <string name="hint_time">time</string>
+    <string name="text_did_not_receive_the_code">Did not receive the code? Resend SMS</string>
+</resources>
