@@ -174,7 +174,7 @@
             android:layout_marginTop="@dimen/standard_margin"
             android:layout_marginStart="@dimen/standard_margin_x2"
             android:layout_marginEnd="@dimen/standard_margin_x2"
-            android:text="Enter amount equal to or Above $10"
+            android:text="Enter amount equal to or Above ₹ 10"
             android:textAppearance="@android:style/TextAppearance.Small"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"

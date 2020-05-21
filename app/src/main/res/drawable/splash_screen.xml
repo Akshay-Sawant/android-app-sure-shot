@@ -4,8 +4,8 @@
     <item
         android:drawable="@drawable/ic_splash_screen"/>
 
-    <item
+    <!--<item
         android:drawable="@drawable/airtel"
-        android:gravity="center"/>
+        android:gravity="center"/>-->
 
 </layer-list>
