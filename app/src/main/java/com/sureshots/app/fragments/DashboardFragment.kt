@@ -36,15 +36,15 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 when (position) {
                     0 -> {
                         tab.text = "Mobile Recharge"
-                        tab.setIcon(R.drawable.ic_mobile_24dp)
+                        tab.setIcon(R.drawable.ic_smartphone)
                     }
                     1 -> {
                         tab.text = "DTH"
-                        tab.setIcon(R.drawable.ic_toys_black_24dp)
+                        tab.setIcon(R.drawable.ic_satellite_tv)
                     }
                     else -> {
                         tab.text = "Mobile Recharge"
-                        tab.setIcon(R.drawable.ic_mobile_24dp)
+                        tab.setIcon(R.drawable.ic_smartphone)
                     }
                 }
             }).attach()

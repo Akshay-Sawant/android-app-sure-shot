@@ -22,7 +22,7 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge),View.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.materialcardReferEarn.setOnClickListener(this)
+        view.buttonReferNow.setOnClickListener(this)
         mRecyclerViewSimCompany = view.findViewById(R.id.recyclerViewSimCompany)
         mSimCompanyModelList.clear()
         mSimCompanyAdapter = context?.let {
@@ -50,7 +50,7 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge),View.
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.materialcardReferEarn -> view?.let {
+            R.id.buttonReferNow -> view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_dashboard_to_referEarnFragment)
             }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.sureshots.app.MiddleDividerItemDecoration
 
 import com.sureshots.app.R
 import com.sureshots.app.adapter.DTHCompanyAdapter
@@ -32,6 +33,7 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h) {
                 mDTHCompanyModelList
             )
         }!!
+        mRecyclerViewDTHCompany.addItemDecoration(MiddleDividerItemDecoration(requireContext(), MiddleDividerItemDecoration.ALL))
             mRecyclerViewDTHCompany.adapter = mDTHCompanyAdapter
             mDTHCompanyAdapter.notifyDataSetChanged()
 

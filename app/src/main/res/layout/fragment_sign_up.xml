@@ -14,14 +14,14 @@
 
         <ImageView
             android:id="@+id/imageViewSignUp"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_smartphone"
-            android:scaleType="fitCenter"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/material_dimen_small_xxhdpi"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="4:1"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/guidelineTop"
-            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"/>
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
         <TextView
             android:id="@+id/textViewSignUpHeader"
@@ -31,6 +31,7 @@
             android:layout_marginStart="@dimen/standard_margin_x2"
             android:layout_marginTop="@dimen/standard_margin_x2"
             android:textSize="@dimen/material_text_display1"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/imageViewSignUp"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"/>
