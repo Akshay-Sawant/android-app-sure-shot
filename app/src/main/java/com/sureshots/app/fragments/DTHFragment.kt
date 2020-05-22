@@ -5,17 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshots.app.MiddleDividerItemDecoration
 
 import com.sureshots.app.R
 import com.sureshots.app.adapter.DTHCompanyAdapter
 import com.sureshots.app.model.DTHCompanyModel
+import kotlinx.android.synthetic.main.fragment_d_t_h.view.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class DTHFragment : Fragment(R.layout.fragment_d_t_h) {
+class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener {
 
     private lateinit var mRecyclerViewDTHCompany: RecyclerView
     private lateinit var mDTHCompanyAdapter: DTHCompanyAdapter
@@ -23,7 +25,7 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        view.buttonReferNow.setOnClickListener(this)
         mRecyclerViewDTHCompany = view.findViewById(R.id.recyclerViewDishCompany)
         mDTHCompanyModelList.clear()
         mDTHCompanyAdapter = context?.let {
@@ -39,6 +41,15 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h) {
 
 
         onLoadDTHCompany()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.buttonReferNow -> view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_dashboard_to_referEarnFragment)
+            }
+        }
     }
 
     private fun onLoadDTHCompany() {
