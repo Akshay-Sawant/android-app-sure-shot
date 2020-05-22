@@ -16,8 +16,8 @@
             android:id="@+id/materialCardSelectSim"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:cardElevation="10dp"
-            app:cardCornerRadius="5dp"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation"
             app:cardBackgroundColor="@color/colorPrimary"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
@@ -58,7 +58,7 @@
                     android:textAppearance="@android:style/TextAppearance.Medium"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:text="Change"
+                    android:text="@string/text_change"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -71,6 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin_x2"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
             app:layout_constraintTop_toBottomOf="@id/materialCardSelectSim">
@@ -79,7 +80,8 @@
                 android:id="@+id/textInputMobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Mobile Number"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:hint="@string/hint_text_enter_mobile_number"
                 android:inputType="phone"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -89,7 +91,7 @@
             android:id="@+id/buttonProceed"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:text="PROCEED"
+            android:text="@string/button_proceed"
             android:layout_marginStart="@dimen/standard_margin_x2"
             android:layout_marginEnd="@dimen/standard_margin_x2"
             android:layout_marginTop="@dimen/standard_margin_x2"

@@ -13,8 +13,8 @@
         android:layout_height="0dp"
         android:contentDescription="company logo"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_constraintDimensionRatio="4:3"
+        android:src="@drawable/jio"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

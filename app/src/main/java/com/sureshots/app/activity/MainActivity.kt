@@ -14,50 +14,32 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.sureshots.app.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()
     ,NavController.OnDestinationChangedListener
-    ,NavigationView.OnNavigationItemSelectedListener {
+    /*,NavigationView.OnNavigationItemSelectedListener*/ {
 
     private lateinit var mNavController: NavController
-    private lateinit var toolbar: Toolbar
+    //private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        /*supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)*/
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.navigationView)
 
         mNavController = Navigation.findNavController(this,R.id.sure_shot_nav_host)
-        NavigationUI.setupActionBarWithNavController(this, mNavController, drawerLayout)
         NavigationUI.setupWithNavController(navigationView, mNavController)
-        navigationView.setNavigationItemSelectedListener(this)
+        NavigationUI.setupActionBarWithNavController(this, mNavController, drawerLayout)
+        //navigationView.setNavigationItemSelectedListener(this)
         mNavController.addOnDestinationChangedListener(this@MainActivity)
-      /*  mNavController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.SignUpFragment, R.id.VerifyOTPFragment -> {
-                    //supportActionBar!!.hide()
-                    toolbar.visibility = View.GONE
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                }
-                R.id.DashboardFragment ->{
-                    //supportActionBar!!.show()
-                    toolbar.visibility = View.VISIBLE
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                }
-                else -> {
-                    toolbar.visibility = View.VISIBLE
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                }
-            }
-        }*/
 
     }
 
@@ -97,7 +79,7 @@ class MainActivity : AppCompatActivity()
         }
     }
 
-    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+    /*override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         menuItem.isChecked = true
         drawerLayout.closeDrawers()
         val id = menuItem.itemId
@@ -107,5 +89,5 @@ class MainActivity : AppCompatActivity()
             R.id.third -> mNavController.navigate(R.id.ReferEarnFragment)
         }
         return true
-    }
+    }*/
 }

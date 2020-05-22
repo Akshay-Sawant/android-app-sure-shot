@@ -20,4 +20,34 @@
     <string name="hint_time">time</string>
     <string name="text_did_not_receive_the_code">Did not receive the code? Resend SMS</string>
     <string name="text_t_c_apply"><![CDATA[*T&C Apply]]></string>
+
+
+    <!--Dashboard Fragment-->
+    <string name="text_refer_and_earn">Refer and Earn!</string>
+    <string name="text_invite_your_friends">Invite Your friends</string>
+    <string name="text_refer_now">Refer Now</string>
+    <string name="text_subscription_plan">Subscription Plan</string>
+    <string name="text_payment_successful">Payment Successful !</string>
+    <string name="button_continue">CONTINUE</string>
+
+    <!--Recharge One-->
+    <string name="text_change">Change</string>
+    <string name="hint_text_enter_mobile_number">Enter Mobile Number</string>
+    <string name="button_proceed">PROCEED</string>
+
+    <!--Recharge Two-->
+    <string name="text_prepaid">Prepaid</string>
+    <string name="hint_text_enter_amount">Enter Amount</string>
+    <string name="text_see_plan">See Plan</string>
+    <string name="text_enter_amount_equal_to_or_above_10">Enter amount equal to or Above ₹ 10</string>
+    <string name="text_tokens_and_promo">Tokens and Promo Cash cannot be used for mobile recharges</string>
+    <string name="button_proceed_to_recharge">PROCEED TO RECHARGE</string>
+
+
+    <!--Refer and Earn-->
+    <string name="text_get_rs_5_for_every_referral">Get Rs.5 for every Referral</string>
+    <string name="text_your_referral_code">Your Referral code</string>
+    <string name="text_tap_to_copy">Tap to copy</string>
+    <string name="button_share_now">Share Now</string>
+    <string name="button_pay_now">Pay Now</string>
 </resources>

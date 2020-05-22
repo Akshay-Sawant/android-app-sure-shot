@@ -5,14 +5,12 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
         <item name="fontFamily">@font/crimsontext_roman</item>
         <item name="actionBarTheme">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
@@ -59,7 +57,7 @@
 
     <!--Light Rounded Corners Button-->
     <style name="AppTheme.Button.Light.Rounded" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-        <item name="android:textAllCaps">false</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:padding">@dimen/material_dimen_ldpi</item>
         <item name="android:textStyle">bold</item>

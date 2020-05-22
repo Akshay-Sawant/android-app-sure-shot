@@ -27,7 +27,7 @@
             android:id="@+id/buttonPayNow"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:text="Pay Now"
+            android:text="@string/button_pay_now"
             android:layout_marginStart="@dimen/standard_margin_x2"
             android:layout_marginEnd="@dimen/standard_margin_x2"
             android:layout_marginTop="@dimen/standard_margin_x2"
