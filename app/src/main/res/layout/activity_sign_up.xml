@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/ic_sign_up"
+    tools:context=".activity.SignUpActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewSignUp"
+            android:layout_width="130dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/material_dimen_small_xxhdpi"
+            android:src="@drawable/ic_mail"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="4:4"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
+
+        <TextView
+            android:id="@+id/textViewSignUpHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_sign_up"
+            android:layout_marginStart="@dimen/standard_margin_x2"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:textSize="@dimen/material_text_display1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/imageViewSignUp"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"/>
+
+        <TextView
+            android:id="@+id/textViewSignUpSubHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin_x2"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:text="@string/text_enter_your_mobile"
+            android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/textViewSignUpHeader"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme.TextInputLayout"
+            android:id="@+id/textInputLayoutMobileNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/textViewSignUpSubHeader">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_mobile_number"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:inputType="phone"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            style="@style/AppTheme.Button.Light.Rounded"
+            android:id="@+id/buttonContinue"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/button_text_continue"
+            android:layout_marginStart="@dimen/standard_margin_x2"
+            android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutMobileNumber"
+            app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+            app:layout_constraintVertical_bias="0"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

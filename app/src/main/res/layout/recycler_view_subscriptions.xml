@@ -2,8 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="@dimen/standard_margin_x2"
+    android:paddingEnd="@dimen/standard_margin_x2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/imageViewDash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/standard_margin_x2"
+        app:layout_constraintBaseline_toBaselineOf="@id/textViewSubscriptions"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_remove_black_24dp"/>
 
     <TextView
         android:id="@+id/textViewSubscriptions"
@@ -11,9 +23,10 @@
         android:layout_height="wrap_content"
         tools:text="@tools:sample/lorem"
         android:textAppearance="@android:style/TextAppearance.Medium"
-        android:padding="@dimen/standard_margin_x2"
+        android:paddingTop="@dimen/standard_margin_x2"
+        android:paddingBottom="@dimen/standard_margin_x2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewDash"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

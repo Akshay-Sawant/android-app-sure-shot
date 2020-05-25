@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.sureshots.app.R
+import com.sureshots.app.fragments.SignUpFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()
@@ -24,17 +25,23 @@ class MainActivity : AppCompatActivity()
     //private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
+    val signUpFragment = SignUpFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        /*supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)*/
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.navigationView)
 
+        /*if(savedInstanceState == null) { // initial transaction should be wrapped like this
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, signUpFragment)
+                .commitAllowingStateLoss()
+        }*/
         mNavController = Navigation.findNavController(this,R.id.sure_shot_nav_host)
         NavigationUI.setupWithNavController(navigationView, mNavController)
         NavigationUI.setupActionBarWithNavController(this, mNavController, drawerLayout)
@@ -55,11 +62,7 @@ class MainActivity : AppCompatActivity()
         return NavigationUI.navigateUp(mNavController, drawerLayout)
     }
 
-    override fun onDestinationChanged(
-        controller: NavController,
-        destination: NavDestination,
-        arguments: Bundle?
-    ) {
+    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
         when (destination.id) {
             R.id.SignUpFragment -> {
                 supportActionBar?.hide()
