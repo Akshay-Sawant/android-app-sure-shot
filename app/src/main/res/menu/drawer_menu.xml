@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/ReferEarnFragment"
+            android:id="@+id/item1"
             android:title="Recharge History" />
 
         <item
-            android:id="@+id/DTHFragment"
+            android:id="@+id/item2"
             android:title="Subscription Plan" />
 
         <item
-            android:id="@+id/SubscriptionFragment"
+            android:id="@+id/item3"
             android:title="Referrals List" />
 
         <item
-            android:id="@+id/RechargeOneFragment"
+            android:id="@+id/item4"
             android:title="Contact" />
 
     </group>
