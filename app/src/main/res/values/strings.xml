@@ -50,4 +50,12 @@
     <string name="text_tap_to_copy">Tap to copy</string>
     <string name="button_share_now">Share Now</string>
     <string name="button_pay_now">Pay Now</string>
+    <string name="title_activity_dashboard_main">DashboardMainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sure_shot_nav_graph"
-    app:startDestination="@id/SignUpFragment">
+    app:startDestination="@id/DashboardFragment">
 
     <fragment
         android:id="@+id/SignUpFragment"
@@ -63,6 +63,10 @@
             android:id="@+id/action_rechargeOneFragment_to_rechargeTwoFragment"
             app:destination="@id/RechargeTwoFragment"
             app:popUpTo="@id/RechargeOneFragment" />
+        <action
+            android:id="@+id/action_rechargeOneFragment_to_dashboardFragment"
+            app:destination="@id/DashboardFragment"
+            app:popUpTo="@id/RechargeOneFragment" />
     </fragment>
     <fragment
         android:id="@+id/PrepaidFragment"
@@ -82,6 +86,14 @@
         <action
             android:id="@+id/action_rechargeTwoFragment_to_subscriptionFragment"
             app:destination="@id/SubscriptionFragment"
+            app:popUpTo="@id/RechargeTwoFragment" />
+        <action
+            android:id="@+id/action_rechargeTwoFragment_to_dashboardFragment"
+            app:destination="@id/DashboardFragment"
+            app:popUpTo="@id/RechargeTwoFragment" />
+        <action
+            android:id="@+id/action_rechargeTwoFragment_to_rechargeOneFragment"
+            app:destination="@id/RechargeOneFragment"
             app:popUpTo="@id/RechargeTwoFragment" />
     </fragment>
     <fragment
