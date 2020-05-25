@@ -30,8 +30,8 @@
                     android:id="@+id/recyclerViewSimCompany"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     android:padding="@dimen/standard_margin_x2"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="3"
                     tools:itemCount="6"
                     tools:listitem="@layout/recycler_view_sim_company" />
@@ -50,128 +50,74 @@
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/materialcardSimCompany" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialcardSubscriptionPlan"
+        <!-- <com.google.android.material.card.MaterialCardView
+             android:id="@+id/materialcardSubscriptionPlan"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/standard_margin_x2"
+             app:cardBackgroundColor="@android:color/white"
+             app:cardCornerRadius="@dimen/cardCornerRadius"
+             app:cardElevation="@dimen/cardElevation"
+             app:cardPreventCornerOverlap="false"
+             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+             app:layout_constraintStart_toStartOf="@id/guidelineStart"
+             app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionPlan">
+
+             <androidx.constraintlayout.widget.ConstraintLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">-->
+
+        <ImageView
+            android:id="@+id/imageViewSubscriptionPlan"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin_x2"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/cardElevation"
-            app:layout_constraintDimensionRatio="16:6"
+            android:elevation="@dimen/standard_margin"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cashback"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionPlan">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imageViewSubscriptionPlan"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:background="@color/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionPlan" />
+        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
-        </com.google.android.material.card.MaterialCardView>
+        <!-- </com.google.android.material.card.MaterialCardView>-->
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialcardReferEarn"
+        <!-- <com.google.android.material.card.MaterialCardView
+             android:id="@+id/materialcardReferEarn"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/standard_margin_x2"
+             android:layout_marginBottom="@dimen/standard_margin_x2"
+             app:cardBackgroundColor="@android:color/white"
+             app:cardCornerRadius="@dimen/cardCornerRadius"
+             app:cardElevation="@dimen/cardElevation"
+             app:cardPreventCornerOverlap="false"
+             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+             app:layout_constraintStart_toEndOf="@id/guidelineStart"
+             app:layout_constraintTop_toBottomOf="@id/materialcardSubscriptionPlan"
+             app:layout_constraintBottom_toBottomOf="parent">
+
+             <androidx.constraintlayout.widget.ConstraintLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">-->
+
+        <ImageView
+            android:id="@+id/imageViewReferEarn"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin_x2"
-            android:layout_marginBottom="@dimen/standard_margin_x2"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/cardElevation"
-            app:layout_constraintDimensionRatio="16:6"
+            android:scaleType="centerCrop"
+            android:src="@drawable/refernow"
+            android:elevation="@dimen/standard_margin_x2"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/materialcardSubscriptionPlan">
+            app:layout_constraintTop_toBottomOf="@id/imageViewSubscriptionPlan" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/standard_margin_x2">
-
-                <ImageView
-                    android:id="@+id/bannner_image"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:padding="@dimen/material_dimen_small_mdpi"
-                    android:src="@drawable/ic_cash"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textViewReferEarn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_refer_and_earn"
-                    android:layout_marginStart="@dimen/standard_margin_x2"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textViewInviteFriends"
-                    app:layout_constraintStart_toEndOf="@id/bannner_image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textViewInviteFriends"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_invite_your_friends"
-                    android:layout_marginStart="@dimen/standard_margin_x2"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="@color/colorPink"
-                    app:layout_constraintBottom_toTopOf="@+id/buttonReferNow"
-                    app:layout_constraintStart_toEndOf="@id/bannner_image"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewReferEarn" />
-
-                <Button
-                    android:id="@+id/buttonReferNow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPink"
-                    android:layout_marginStart="@dimen/standard_margin_x2"
-                    android:text="@string/text_refer_now"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/bannner_image"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewInviteFriends" />
-
-                <TextView
-                    android:id="@+id/textViewTC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_t_c_apply"
-                    android:textSize="@dimen/material_text_tag"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <!-- <ImageView
-                    android:id="@+id/imageViewReferEarn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:background="@color/colorPrimaryDark"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />-->
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </com.google.android.material.card.MaterialCardView>
+     </com.google.android.material.card.MaterialCardView>-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"

@@ -15,8 +15,12 @@ import kotlinx.android.synthetic.main.recycler_view_dth_company.view.*
 class DTHCompanyAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mDTHCompanyModelList: List<DTHCompanyModel>
+    private var mDTHCompanyModelList: List<DTHCompanyModel>,private val onItemSelectedListener: OnItemSelectedListener
 ) : RecyclerView.Adapter<DTHCompanyAdapter.DTHCompanyViewHolder>() {
+
+    interface OnItemSelectedListener {
+        fun onItemSelected(adapterPosition: Int)
+    }
 
     inner class DTHCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),View.OnClickListener {
 
@@ -25,10 +29,11 @@ class DTHCompanyAdapter(
         }
 
         override fun onClick(view: View?) {
-            view?.let {
+            onItemSelectedListener.onItemSelected(adapterPosition)
+            /*view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_dashboard_to_rechargeOneFragment)
-            }
+            }*/
         }
 
     }
