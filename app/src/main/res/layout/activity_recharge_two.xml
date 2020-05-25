@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#f6f7fa"
     android:fillViewport="true"
-    tools:context=".fragments.RechargeTwoFragment">
+    tools:context=".activity.RechargeTwoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -83,14 +83,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/viewHorizontalDevider" />
 
-                <TextView
+                <EditText
                     android:id="@+id/textViewMobileNumber"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:layout_marginTop="@dimen/standard_margin"
+                    android:inputType="phone"
                     android:textAppearance="@android:style/TextAppearance.Medium"
                     android:text="+91-8108744785"
                     android:textStyle="bold"
+                    android:focusable="false"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/textViewChangeNumber"
                     app:layout_constraintTop_toBottomOf="@id/textViewPrepaid" />

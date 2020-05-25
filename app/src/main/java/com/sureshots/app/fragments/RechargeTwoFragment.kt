@@ -18,7 +18,8 @@ class RechargeTwoFragment : Fragment(R.layout.fragment_recharge_two),View.OnClic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.buttonProceed.setOnClickListener(this)
-
+        view.textViewChangeSim.setOnClickListener(this)
+        view.textViewChangeNumber.setOnClickListener(this)
 
     }
 
@@ -27,6 +28,14 @@ class RechargeTwoFragment : Fragment(R.layout.fragment_recharge_two),View.OnClic
             R.id.buttonProceed -> view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_rechargeTwoFragment_to_subscriptionFragment)
+            }
+            R.id.textViewChangeSim -> view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_rechargeTwoFragment_to_dashboardFragment)
+            }
+            R.id.textViewChangeNumber -> view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_rechargeTwoFragment_to_rechargeOneFragment)
             }
         }
     }
