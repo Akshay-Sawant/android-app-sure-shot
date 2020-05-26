@@ -50,9 +50,9 @@ class RechargeTwoActivity : AppCompatActivity(), View.OnClickListener {
                 // startActivity(DashboardMainActivity.newIntentFromReTwo(this))
             }
             R.id.textViewChangeNumber -> {
-                //textViewMobileNumber.isEnabled = true
+                textViewMobileNumber.isFocusableInTouchMode = true
                 //textViewMobileNumber.requestFocus()
-                ///Toast.makeText(this, "Text Editable", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Text Editable", Toast.LENGTH_SHORT).show()
                 //startActivity(RechargeOneActivity.newIntentFromReTwo(this))
             }
         }
