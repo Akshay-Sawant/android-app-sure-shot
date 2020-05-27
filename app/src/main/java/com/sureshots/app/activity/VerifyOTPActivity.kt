@@ -5,13 +5,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.Navigation
@@ -19,6 +19,8 @@ import com.sureshots.app.R
 import kotlinx.android.synthetic.main.activity_verify_o_t_p.*
 
 class VerifyOTPActivity : AppCompatActivity(),View.OnClickListener {
+
+    private lateinit var textViewResend : TextView
 
     companion object {
         private lateinit var mIntent: Intent
@@ -33,11 +35,14 @@ class VerifyOTPActivity : AppCompatActivity(),View.OnClickListener {
         setContentView(R.layout.activity_verify_o_t_p)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         buttonOTPVerifyAndProceed.setOnClickListener(this)
+        textViewResend = findViewById(R.id.textViewResend)
         reverseTimer(60,textViewOTPTime)
         val ss = SpannableString(getString(R.string.text_did_not_receive_the_code))
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 Toast.makeText(this@VerifyOTPActivity, "OTP sent again succesfully!", Toast.LENGTH_SHORT).show()
+                textViewResend.movementMethod = null
+                reverseTimer(60,textViewOTPTime)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -46,9 +51,48 @@ class VerifyOTPActivity : AppCompatActivity(),View.OnClickListener {
             }
         }
         ss.setSpan(clickableSpan, 26, 36, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        val textView = findViewById(R.id.textViewResend) as TextView
-        textView.text = ss
-        textView.movementMethod = LinkMovementMethod.getInstance()
+        textViewResend.text = ss
+        //textViewResend.movementMethod = LinkMovementMethod.getInstance()
+
+        editTextOTPOne.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
+                if(count > 0){
+                    editTextOTPTwo.requestFocus()
+                }
+            }
+        })
+        editTextOTPTwo.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
+                if(count > 0){
+                    editTextOTPThree.requestFocus()
+                }
+            }
+        })
+        editTextOTPThree.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
+                if(count > 0){
+                    editTextOTPFour.requestFocus()
+                }
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -76,8 +120,26 @@ class VerifyOTPActivity : AppCompatActivity(),View.OnClickListener {
                 tv.text = String.format("%02d", minutes) + ":" + String.format("%02d", seconds)
             }
             override fun onFinish() {
-                tv.text = "Completed"
+                tv.text = "0.00"
+                textViewResend.movementMethod = LinkMovementMethod.getInstance()
             }
         }.start()
     }
+
+    private fun verifyOtp() {
+        /*Form Validation*/
+        val firstDigit = editTextOTPOne.text.toString().trim()
+        val secondDigit = editTextOTPTwo.text.toString().trim()
+        val thirdDigit = editTextOTPThree.text.toString().trim()
+        val fourthDigit = editTextOTPFour.text.toString().trim()
+
+        if (firstDigit == "" || secondDigit == "" || thirdDigit == "" || fourthDigit == "") {
+            val toast =
+                Toast.makeText(this, "Please enter the OTP to continue!", Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.CENTER, 0, 0)
+            toast.show()
+            return
+        }
+    }
+        /*Form Validation*/
 }
