@@ -73,7 +73,7 @@ class ReferEarnActivity : AppCompatActivity(),View.OnClickListener {
             R.id.textViewTaptoCopy ->{
                 myClip = ClipData.newPlainText("text", textViewReferralCode.text)
                 myClipboard?.setPrimaryClip(myClip)
-                Toast.makeText(this, "Text Copied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Code Copied", Toast.LENGTH_SHORT).show();
             }
             R.id.buttonShareNow -> {
                 val shareIntent = Intent()

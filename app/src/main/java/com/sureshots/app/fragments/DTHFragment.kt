@@ -59,7 +59,7 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,DTHCo
 
     private fun onLoadDTHCompany() {
         mDTHCompanyModelList.add(DTHCompanyModel("1", "Airtel Digital TV", R.drawable.airteldish))
-        mDTHCompanyModelList.add(DTHCompanyModel("2", "Dish TV", R.drawable.dishtv))
+        mDTHCompanyModelList.add(DTHCompanyModel("2", "Videocon D2H", R.drawable.videocon))
         mDTHCompanyModelList.add(DTHCompanyModel("3", "Reliance Digital TV", R.drawable.reliance))
         mDTHCompanyModelList.add(DTHCompanyModel("4", "Sun Direct", R.drawable.sundirect))
         mDTHCompanyModelList.add(DTHCompanyModel("5", "Tata Sky", R.drawable.tatasky))
