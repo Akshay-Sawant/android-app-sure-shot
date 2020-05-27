@@ -30,7 +30,7 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid),View.OnClickListen
                 //Navigation.findNavController(it).navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)
             }
             R.id.textViewChange -> view?.let {
-                startActivity(DashboardMainActivity.newIntentFromPostpaid(requireContext()))
+                //startActivity(DashboardMainActivity.newIntentFromPostpaid(requireContext()))
                 //Navigation.findNavController(it).navigate(R.id.action_rechargeOneFragment_to_dashboardFragment)
             }
         }

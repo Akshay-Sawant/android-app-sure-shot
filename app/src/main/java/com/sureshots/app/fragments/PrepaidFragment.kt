@@ -32,7 +32,7 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid),View.OnClickListener
                     .navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)*/
             }
             R.id.textViewChange -> view?.let {
-                startActivity(DashboardMainActivity.newIntentFromPrepaid(requireContext()))
+                //startActivity(DashboardMainActivity.newIntentFromPrepaid(requireContext()))
                 //Navigation.findNavController(it).navigate(R.id.action_rechargeOneFragment_to_dashboardFragment)
             }
         }
