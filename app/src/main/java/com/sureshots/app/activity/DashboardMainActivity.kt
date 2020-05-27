@@ -29,7 +29,7 @@ class DashboardMainActivity : AppCompatActivity(),NavigationView.OnNavigationIte
             mIntent = Intent(context, DashboardMainActivity::class.java)
             return mIntent
         }
-        fun newIntentFromReTwo(context: Context): Intent {
+        fun newIntentFromPaySuccess(context: Context): Intent {
             mIntent = Intent(context, DashboardMainActivity::class.java)
             mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             return mIntent

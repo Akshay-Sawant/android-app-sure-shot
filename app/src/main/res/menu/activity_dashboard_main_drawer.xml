@@ -5,6 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_my_account"
+            android:title="My Account" />
+        <item
             android:id="@+id/nav_recharge_history"
             android:title="Recharge History" />
         <item
