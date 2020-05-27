@@ -50,23 +50,6 @@
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/materialcardSimCompany" />
 
-        <!-- <com.google.android.material.card.MaterialCardView
-             android:id="@+id/materialcardSubscriptionPlan"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="@dimen/standard_margin_x2"
-             app:cardBackgroundColor="@android:color/white"
-             app:cardCornerRadius="@dimen/cardCornerRadius"
-             app:cardElevation="@dimen/cardElevation"
-             app:cardPreventCornerOverlap="false"
-             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-             app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionPlan">
-
-             <androidx.constraintlayout.widget.ConstraintLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content">-->
-
         <ImageView
             android:id="@+id/imageViewSubscriptionPlan"
             android:layout_width="0dp"
@@ -78,29 +61,6 @@
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionPlan" />
-        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-        <!-- </com.google.android.material.card.MaterialCardView>-->
-
-        <!-- <com.google.android.material.card.MaterialCardView
-             android:id="@+id/materialcardReferEarn"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="@dimen/standard_margin_x2"
-             android:layout_marginBottom="@dimen/standard_margin_x2"
-             app:cardBackgroundColor="@android:color/white"
-             app:cardCornerRadius="@dimen/cardCornerRadius"
-             app:cardElevation="@dimen/cardElevation"
-             app:cardPreventCornerOverlap="false"
-             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-             app:layout_constraintTop_toBottomOf="@id/materialcardSubscriptionPlan"
-             app:layout_constraintBottom_toBottomOf="parent">
-
-             <androidx.constraintlayout.widget.ConstraintLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content">-->
 
         <ImageView
             android:id="@+id/imageViewReferEarn"
@@ -112,12 +72,8 @@
             android:elevation="@dimen/standard_margin_x2"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/imageViewSubscriptionPlan" />
-
-        <!-- </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-     </com.google.android.material.card.MaterialCardView>-->
+            app:layout_constraintTop_toBottomOf="@id/imageViewSubscriptionPlan"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"
