@@ -91,7 +91,6 @@
                     android:layout_marginTop="@dimen/standard_margin"
                     android:inputType="phone"
                     android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:text="+91-8108744785"
                     android:textStyle="bold"
                     android:focusable="false"
                     app:layout_constraintStart_toStartOf="parent"

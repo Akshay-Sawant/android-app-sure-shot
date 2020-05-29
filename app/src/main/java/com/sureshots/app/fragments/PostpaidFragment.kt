@@ -1,15 +1,17 @@
 package com.sureshots.app.fragments
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 
 import com.sureshots.app.R
-import com.sureshots.app.activity.DashboardMainActivity
 import com.sureshots.app.activity.RechargeTwoActivity
+import kotlinx.android.synthetic.main.fragment_postpaid.*
 import kotlinx.android.synthetic.main.fragment_postpaid.view.*
 
 /**
@@ -26,7 +28,7 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid),View.OnClickListen
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.buttonProceed -> view?.let {
-                startActivity(RechargeTwoActivity.newIntentNewTask(requireContext()))
+                postPaidNumber()
                 //Navigation.findNavController(it).navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)
             }
             R.id.textViewChange -> view?.let {
@@ -34,5 +36,22 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid),View.OnClickListen
                 //Navigation.findNavController(it).navigate(R.id.action_rechargeOneFragment_to_dashboardFragment)
             }
         }
+    }
+
+    private fun postPaidNumber(){
+        textInputLayoutMobileNumber.error =null
+        val number = textInputMobileNumber.text.toString().trim()
+        var hasError = false
+        if(number == ""){
+            textInputLayoutMobileNumber.error = "Enter your mobile number!"
+            hasError = true
+        }
+        if (hasError) {
+            val toast = Toast.makeText(requireContext(), "Please correct highlighted fields!", Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.CENTER, 0, 0)
+            toast.show()
+            return
+        }
+        startActivity(RechargeTwoActivity.newIntentNewTask(requireContext(),number))
     }
 }

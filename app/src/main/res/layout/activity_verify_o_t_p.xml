@@ -40,7 +40,6 @@
             android:id="@+id/textViewMobile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="8108744965"
             android:textStyle="bold"
             android:layout_marginTop="@dimen/standard_margin_x2"
             android:textAppearance="@android:style/TextAppearance.Large"

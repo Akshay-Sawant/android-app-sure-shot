@@ -21,11 +21,14 @@ import kotlinx.android.synthetic.main.activity_verify_o_t_p.*
 class VerifyOTPActivity : AppCompatActivity(),View.OnClickListener {
 
     private lateinit var textViewResend : TextView
+    private lateinit var Number: String
+
 
     companion object {
         private lateinit var mIntent: Intent
-        fun newIntent(context: Context): Intent {
+        fun newIntent(context: Context,phoneNumber : String): Intent {
             mIntent = Intent(context, VerifyOTPActivity::class.java)
+            mIntent.putExtra("number",phoneNumber)
             return mIntent
         }
     }
@@ -35,7 +38,9 @@ class VerifyOTPActivity : AppCompatActivity(),View.OnClickListener {
         setContentView(R.layout.activity_verify_o_t_p)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         buttonOTPVerifyAndProceed.setOnClickListener(this)
+        Number = intent.getSerializableExtra("number") as String
         textViewResend = findViewById(R.id.textViewResend)
+        textViewMobile.text = Number
         reverseTimer(60,textViewOTPTime)
         val ss = SpannableString(getString(R.string.text_did_not_receive_the_code))
         val clickableSpan: ClickableSpan = object : ClickableSpan() {

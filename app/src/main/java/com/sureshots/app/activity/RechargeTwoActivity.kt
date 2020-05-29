@@ -12,14 +12,18 @@ import kotlinx.android.synthetic.main.activity_recharge_two.*
 
 class RechargeTwoActivity : AppCompatActivity(), View.OnClickListener {
 
+    private lateinit var phoneNumber :String
+
     companion object {
         private lateinit var mIntent: Intent
-        fun newIntent(context: Context): Intent {
+        fun newIntent(context: Context,phoneNumber:String): Intent {
             mIntent = Intent(context, RechargeTwoActivity::class.java)
+            mIntent.putExtra("phoneNumber",phoneNumber)
             return mIntent
         }
-        fun newIntentNewTask(context: Context): Intent {
+        fun newIntentNewTask(context: Context,phoneNumber:String): Intent {
             mIntent = Intent(context, RechargeTwoActivity::class.java)
+            mIntent.putExtra("phoneNumber",phoneNumber)
             return mIntent
         }
     }
@@ -31,6 +35,8 @@ class RechargeTwoActivity : AppCompatActivity(), View.OnClickListener {
         buttonProceed.setOnClickListener(this)
         textViewChangeSim.setOnClickListener(this)
         textViewChangeNumber.setOnClickListener(this)
+        phoneNumber = intent.getSerializableExtra("phoneNumber") as String
+        textViewMobileNumber.setText(phoneNumber)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
