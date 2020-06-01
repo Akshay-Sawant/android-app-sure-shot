@@ -20,6 +20,9 @@
     <string name="hint_time">time</string>
     <string name="text_did_not_receive_the_code">Did not receive the code? Resend SMS</string>
     <string name="text_t_c_apply"><![CDATA[*T&C Apply]]></string>
+    <string name="alert_login_failed_title">Unable to login!</string>
+    <string name="alert_login_failed_message">Please make sure you have entered correct mobile number and password</string>
+    <string name="alert_login_error_message">Something went wrong while logging you in, please login again!</string>
 
 
     <!--Dashboard Fragment-->
@@ -63,5 +66,7 @@
     <string name="alert_logout_heads_up_title">Are you sure?</string>
     <string name="alert_logout_heads_up_message">You are about to logout from your account!</string>
     <!--Logout-->
+
+
 
 </resources>

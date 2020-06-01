@@ -95,4 +95,12 @@ interface APIInterface {
     fun sendInvoiceEmail(@Field("userLoginToken") userLoginToken: String,
                          @Field("orderId") orderId: String): Call<APIActionResponse>
 
+    @FormUrlEncoded
+    @POST("$API_VERSION/SimCompany.php")
+    fun getSimCompany(@Field("userLoginToken") userLoginToken: String): Call<List<SimCompanyModel>>
+
+    @FormUrlEncoded
+    @POST("$API_VERSION/DTHCompany.php")
+    fun getDTHCompany(@Field("userLoginToken") userLoginToken: String): Call<List<DTHCompanyModel>>
+
 }

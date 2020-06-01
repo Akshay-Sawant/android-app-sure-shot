@@ -139,7 +139,7 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/standard_margin"
             android:text="@string/action_retry"
-            android:theme="@style/AppTheme.Button.OutlinedButton.Dark" />
+            android:theme="@style/AppTheme.Button.Light.Rounded" />
 
     </LinearLayout>
 

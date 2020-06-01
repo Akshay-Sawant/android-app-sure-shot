@@ -71,10 +71,10 @@ class SignUpActivity : AppCompatActivity(),View.OnClickListener {
             toast.show()
             return
         }
-        if (!APIClient.isNetworkConnected(applicationContext)) {
+        /*if (!APIClient.isNetworkConnected(applicationContext)) {
             AlertDialogManager.instance.displayNoConnectionAlert(this)
             return
-        }
+        }*/
         startActivity(VerifyOTPActivity.newIntent(this,number))
         /*loadingViewManager.showLoadingView(this@SignUpActivity, "Signing up for an account, please wait...")
 

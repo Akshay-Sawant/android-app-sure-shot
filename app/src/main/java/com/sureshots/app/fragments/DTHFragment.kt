@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.innovins.helperlibrary.helper.LoadingViewManager
 import com.sureshots.app.MiddleDividerItemDecoration
 
 import com.sureshots.app.R
@@ -15,7 +16,13 @@ import com.sureshots.app.activity.RechargeOneActivity
 import com.sureshots.app.activity.ReferEarnActivity
 import com.sureshots.app.adapter.DTHCompanyAdapter
 import com.sureshots.app.model.DTHCompanyModel
+import com.sureshots.app.network.APIClient
+import com.sureshots.app.network.ErrorUtils
+import com.sureshots.app.network.ServerInvalidResponseException
 import kotlinx.android.synthetic.main.fragment_d_t_h.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -25,11 +32,13 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,DTHCo
     private lateinit var mRecyclerViewDTHCompany: RecyclerView
     private lateinit var mDTHCompanyAdapter: DTHCompanyAdapter
     private var mDTHCompanyModelList: ArrayList<DTHCompanyModel> = ArrayList()
+    private lateinit var loadingViewManager: LoadingViewManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.imageViewReferEarn.setOnClickListener(this)
         mRecyclerViewDTHCompany = view.findViewById(R.id.recyclerViewDishCompany)
+        loadingViewManager = LoadingViewManager(view, R.id.mainView,this)
         mDTHCompanyModelList.clear()
         mDTHCompanyAdapter = context?.let {
             DTHCompanyAdapter(
@@ -68,6 +77,51 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,DTHCo
 
     override fun onItemSelected(adapterPosition: Int) {
         startActivity(RechargeOneActivity.newIntentNewTask(requireContext()))
+    }
+
+    private fun getDTHCompany() {
+        /*val loginHelper = LoginHelper(this)
+        if(!loginHelper.isUserLogin()){
+            LoginHelper.startLoginFlow(this)
+            return
+        }*/
+        if (!APIClient.isNetworkConnected(activity?.applicationContext!!)) {
+            //AlertDialogManager.instance.displayNoConnectionAlert(this)
+            loadingViewManager.showErrorView(
+                getString(R.string.alert_error_no_internet_connection_title),
+                getString(R.string.alert_error_no_internet_connection))
+            return
+        }
+        loadingViewManager.showLoadingView(requireActivity(), "Loading files...")
+        val call: Call<List<DTHCompanyModel>> = APIClient.apiInterface.getDTHCompany("abc")
+        call.enqueue(object : Callback<List<DTHCompanyModel>> {
+            override fun onResponse(call: Call<List<DTHCompanyModel>>, response: Response<List<DTHCompanyModel>>) {
+                loadingViewManager.hideLoadingView()
+                if (response.isSuccessful) {
+                    val simCompanyList: List<DTHCompanyModel>? = response.body()
+                    if (simCompanyList != null) {
+                        mDTHCompanyModelList.clear()
+                        mDTHCompanyModelList.addAll(simCompanyList)
+                        mDTHCompanyAdapter.notifyDataSetChanged()
+                    } else {
+                        // server returned 200 with a blank response :/
+                        ErrorUtils.logNetworkError(
+                            ServerInvalidResponseException
+                                .ERROR_200_BLANK_RESPONSE + "\nResponse: " + response.toString(),
+                            null
+                        )
+                        loadingViewManager.showErrorView(
+                            getString(R.string.alert_connection_status_not_ok_title),
+                            getString(R.string.alert_connection_status_not_ok_message))
+                        // server returned 200 with a blank response :/
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<DTHCompanyModel>>, t: Throwable) {
+                ErrorUtils.parseOnFailureException(activity!!, call, t, loadingViewManager)
+            }
+
+        })
     }
 
 }
