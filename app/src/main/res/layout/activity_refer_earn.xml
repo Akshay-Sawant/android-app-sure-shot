@@ -12,23 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-       <!-- <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialcardInviteFriends"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/standard_margin"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/cardElevation"
-            app:layout_constraintDimensionRatio="16:5"
-            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/guidelineTop">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">-->
-
                 <ImageView
                     android:id="@+id/imageViewInviteFriends"
                     android:layout_width="0dp"
@@ -40,10 +23,6 @@
                     app:layout_constraintStart_toEndOf="@id/guidelineStart"
                     app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
                     app:layout_constraintTop_toBottomOf="@id/guidelineTop"/>
-
-
-           <!-- </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>-->
 
         <TextView
             android:id="@+id/textViewReferel"

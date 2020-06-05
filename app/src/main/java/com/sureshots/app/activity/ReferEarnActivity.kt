@@ -79,7 +79,7 @@ class ReferEarnActivity : AppCompatActivity(),View.OnClickListener {
                 val shareIntent = Intent()
                 shareIntent.action = Intent.ACTION_SEND
                 shareIntent.type="text/plain"
-                //shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello do");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Download Sure Shot app and get discount on recharges!");
                 startActivity(Intent.createChooser(shareIntent,"Share"))
             }
         }

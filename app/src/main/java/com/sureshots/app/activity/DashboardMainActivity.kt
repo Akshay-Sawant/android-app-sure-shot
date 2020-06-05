@@ -92,13 +92,13 @@ class DashboardMainActivity : AppCompatActivity(),NavigationView.OnNavigationIte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.nav_recharge_history ->{
-                //startActivity(PaymentSuccessActivity.newIntent(this))
+                startActivity(RechargeHistoryActivity.newIntent(this))
             }
             R.id.nav_subscription ->{
-                //startActivity(LeaveApplicationActivity.newIntent(this))
+                startActivity(SubscriptionMainActivity.newIntent(this))
             }
             R.id.nav_referrals ->{
-                //startActivity(OnBoardingActivity.newIntentToChangeLanguage(this))
+                startActivity(ReferralsListActivity.newIntent(this))
             }
             R.id.nav_contact ->{
                 //LoginHelper(this).requestLogout(this)

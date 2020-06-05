@@ -65,8 +65,8 @@
     <string name="action_logout">Logout</string>
     <string name="alert_logout_heads_up_title">Are you sure?</string>
     <string name="alert_logout_heads_up_message">You are about to logout from your account!</string>
+    <string name="text_recharge_amount">500</string>
     <!--Logout-->
-
 
 
 </resources>
