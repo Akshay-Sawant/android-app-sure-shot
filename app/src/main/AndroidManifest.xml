@@ -22,7 +22,7 @@
             android:label="Recharge History" />
         <activity
             android:name=".activity.DashboardMainActivity"
-            android:label="Super Shot Discounts"
+            android:label="Sure Shot Discounts"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.PaymentSuccessActivity"
