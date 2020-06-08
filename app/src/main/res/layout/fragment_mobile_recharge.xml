@@ -68,6 +68,18 @@
                 app:layout_constraintStart_toEndOf="@id/guidelineStart"
                 app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionPlan" />
 
+            <TextView
+                android:id="@+id/textViewReferEarn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin_x2"
+                android:text="@string/text_refer_earn"
+                android:textSize="@dimen/material_text_title"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/imageViewSubscriptionPlan" />
+
             <ImageView
                 android:id="@+id/imageViewReferEarn"
                 android:layout_width="0dp"
@@ -78,7 +90,19 @@
                 android:src="@drawable/refernow"
                 app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
                 app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/imageViewSubscriptionPlan" />
+                app:layout_constraintTop_toBottomOf="@id/textViewReferEarn" />
+
+            <TextView
+                android:id="@+id/textViewSavingsEarnings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin_x2"
+                android:text="@string/text_savings_earnings"
+                android:textSize="@dimen/material_text_title"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/imageViewReferEarn" />
 
             <ImageView
                 android:id="@+id/imageViewUnknown"
@@ -91,7 +115,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
                 app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
                 app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/imageViewReferEarn" />
+                app:layout_constraintTop_toBottomOf="@id/textViewSavingsEarnings" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineStart"
