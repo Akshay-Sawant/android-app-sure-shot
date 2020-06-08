@@ -75,6 +75,27 @@
                     android:textAppearance="@android:style/TextAppearance.Large" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutReferralsId"
+                style="@style/AppTheme.TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                app:hintTextAppearance="@android:style/TextAppearance.Medium"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutMobileNumber">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputReferralsId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/text_referrals_id"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textAppearance="@android:style/TextAppearance.Large" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/buttonContinue"
                 style="@style/AppTheme.Button.Light.Rounded"
@@ -87,7 +108,7 @@
                 app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
                 app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
                 app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/textInputLayoutMobileNumber"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutReferralsId"
                 app:layout_constraintVertical_bias="0" />
 
             <androidx.constraintlayout.widget.Guideline
