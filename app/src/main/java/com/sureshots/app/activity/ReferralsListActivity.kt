@@ -33,8 +33,6 @@ class ReferralsListActivity : AppCompatActivity() {
         mReferralsListModelList.clear()
         mReferralsListAdapter = this.let {
             ReferralsListAdapter(
-                it,
-                R.layout.recycler_view_referrals_list,
                 mReferralsListModelList
             )
         }
@@ -54,26 +52,30 @@ class ReferralsListActivity : AppCompatActivity() {
     }
 
     private fun onLoadReferrals(){
-        mReferralsListModelList.add(ReferralsModel("1","9876543210","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9638527410","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9873216547","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9516238740","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","7258410398","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","8189784510","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9898989898","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9184623847","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","8567412390","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9000700088","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9090909090","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9060302010","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9123456789","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9876543210","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9456123004","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9000990009","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","8568564123","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9639529841","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9876543210","Subscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","8459621750","Unsubscribed"))
-        mReferralsListModelList.add(ReferralsModel("1","9784561230","Unsubscribed"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 1","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 2","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 3","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 4","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 5","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 6","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 7","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 8","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 9","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 10","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 11","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 12","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 13","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 14","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 15","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 16","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 17","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 18","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 19","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 20","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 21","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 22","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 23","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 24","Rs. 0"))
+        mReferralsListModelList.add(ReferralsModel("1","LEVEL 25","Rs. 0"))
     }
 }

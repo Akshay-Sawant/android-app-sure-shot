@@ -1,27 +1,32 @@
 package com.sureshots.app.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshots.app.R
-import com.sureshots.app.model.RechargeHistoryModel
 import com.sureshots.app.model.ReferralsModel
+import com.sureshots.app.model.SubUnsubModel
 
-class ReferralsListAdapter(private var mContext: Context,
-                           private var mItemLayout: Int,
+
+class ReferralsListAdapter(
                            private var mList : List<ReferralsModel>)
     : RecyclerView.Adapter<ReferralsListAdapter.ViewHolder>() {
-
-
+    var mExpandedPosition = -1
+    var previousExpandedPosition = -1
+    private lateinit var mRecyclerViewSubUnSub: RecyclerView
+    private lateinit var mSubUnSubAdapter: SubUnsubAdapter
+    private var mSubUnSubModelList: ArrayList<SubUnsubModel> = ArrayList()
     /*interface OnItemSelectedListener {
         fun onItemSelected(bestCampSites: BestCampSites, adapterPosition: Int)
     }*/
     inner class ViewHolder(itemView : View):RecyclerView.ViewHolder(itemView), View.OnClickListener{
-        val textViewMobileNumber : TextView = itemView.findViewById(R.id.textViewMobileNumber)
-        val textViewSubscription : TextView = itemView.findViewById(R.id.textViewSubscription)
+        val textViewLevel : TextView = itemView.findViewById(R.id.textViewLevel)
+        val textViewAmount : TextView = itemView.findViewById(R.id.textViewAmount)
+        val layoutSubUnsub : ConstraintLayout = itemView.findViewById(R.id.layoutSubUnsub)
+        val recyclerViewList : RecyclerView = itemView.findViewById(R.id.recyclerViewPhoneNumbers)
 
 
         init {
@@ -34,19 +39,42 @@ class ReferralsListAdapter(private var mContext: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(mContext)
-                .inflate(
-                    mItemLayout,
-                    parent,
-                    false
-                )
-        )
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_referrals_list, parent, false)
+        mRecyclerViewSubUnSub = itemView.findViewById(R.id.recyclerViewPhoneNumbers)
+        mSubUnSubModelList.clear()
+        mSubUnSubAdapter = this.let {
+            SubUnsubAdapter(mSubUnSubModelList)
+        }
+        mRecyclerViewSubUnSub.adapter = mSubUnSubAdapter
+        mSubUnSubAdapter.notifyDataSetChanged()
+        mSubUnSubModelList.add(SubUnsubModel("1","9876543210","Unsubscribed"))
+        mSubUnSubModelList.add(SubUnsubModel("1","9638527410","Subscribed"))
+        mSubUnSubModelList.add(SubUnsubModel("1","7894561230","Unsubscribed"))
+        mSubUnSubModelList.add(SubUnsubModel("1","9412563879","Subscribed"))
+        mSubUnSubModelList.add(SubUnsubModel("1","9978844552","Subscribed"))
+        mSubUnSubModelList.add(SubUnsubModel("1","8289848789","Unsubscribed"))
+        return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-        holder.textViewMobileNumber.text = mList[position].mobileNumber
-        holder.textViewSubscription.text = mList[position].subscriptionStatus
+        holder.textViewLevel.text = mList[position].level
+        holder.textViewAmount.text = mList[position].amount
+        val isExpanded = position == mExpandedPosition
+        if(position == 0){
+            holder.recyclerViewList.visibility = View.VISIBLE
+            holder.recyclerViewList.setVisibility(if (isExpanded) View.VISIBLE else View.GONE)
+        }
+        else{
+            holder.recyclerViewList.visibility = View.GONE
+        }
+        holder.layoutSubUnsub.setVisibility(if (isExpanded) View.VISIBLE else View.GONE)
+        holder.itemView.isActivated = isExpanded
+        if (isExpanded) previousExpandedPosition = position
+        holder.itemView.setOnClickListener {
+            mExpandedPosition = if (isExpanded) -1 else position
+            notifyItemChanged(previousExpandedPosition)
+            notifyItemChanged(position)
+        }
     }
 
     override fun getItemCount(): Int = mList.size
