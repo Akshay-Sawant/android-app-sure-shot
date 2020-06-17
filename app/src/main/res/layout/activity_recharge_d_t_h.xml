@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f7fa"
+    android:fillViewport="true"
+    tools:context=".activity.RechargeDTHActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardSelectSim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/material_dimen_hdpi">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageViewCompanyLogo"
+                    android:layout_width="60dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/tatasky"
+                    app:layout_constraintBottom_toTopOf="@id/viewHorizontalDevider"
+                    app:layout_constraintDimensionRatio="4:3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewCompanyName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin_x2"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:text="Tata Sky"
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    app:layout_constraintEnd_toStartOf="@id/textViewChangeSim"
+                    app:layout_constraintStart_toEndOf="@id/imageViewCompanyLogo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewChangeSim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_change"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textViewCompanyName"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:id="@+id/viewHorizontalDevider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="@dimen/standard_margin_x2"
+                    android:background="@android:color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewCompanyLogo" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutCustomerID"
+                    style="@style/AppTheme.TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    app:hintTextAppearance="@android:style/TextAppearance.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewHorizontalDevider">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputMobileNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Customer ID"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textAppearance="@android:style/TextAppearance.Large" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutAmount"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin_x2"
+            android:layout_marginTop="@dimen/material_dimen_hdpi"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@id/textViewSeePlan"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/materialCardSelectSim">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/hint_text_enter_amount"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textViewSeePlan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:text="@string/text_see_plan"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayoutAmount"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+
+        <View
+            android:id="@+id/viewHorizontalDevider3"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="@dimen/standard_margin_x2"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutAmount" />
+
+        <TextView
+            android:id="@+id/textViewAmountHelper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin_x2"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:text="@string/text_enter_amount_equal_to_or_above_10"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/viewHorizontalDevider3" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardTokenHelper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            app:cardBackgroundColor="#e7f0f8"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewAmountHelper">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/standard_margin_x2">
+
+                <TextView
+                    android:id="@+id/textViewTokens"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/text_tokens_and_promo_dth"
+                    android:textAppearance="@android:style/TextAppearance.Medium" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/buttonProceed"
+            style="@style/AppTheme.Button.Light.Rounded"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/standard_margin_x2"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:text="@string/button_proceed_to_recharge"
+            app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/materialCardTokenHelper"
+            app:layout_constraintVertical_bias="0" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
