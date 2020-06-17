@@ -69,7 +69,10 @@
     <string name="alert_logout_heads_up_title">Are you sure?</string>
     <string name="alert_logout_heads_up_message">You are about to logout from your account!</string>
     <string name="text_recharge_amount">500</string>
+    <string name="text_order_id">Order Id %1$s</string>
 
+
+    <string name="text_tokens_and_promo_dth">Tokens and Promo Cash cannot be used for dth recharges</string>
 
 
 </resources>

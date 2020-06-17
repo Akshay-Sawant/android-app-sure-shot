@@ -12,11 +12,14 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,android:supportsRtl">
         <activity
+            android:name=".activity.RechargeDTHActivity"
+            android:label="Recharge"/>
+        <activity
             android:name=".activity.ReferralsListActivity"
-            android:label="Referrals List"/>
+            android:label="Referrals List" />
         <activity
             android:name=".activity.SubscriptionMainActivity"
-            android:label="Subscription"/>
+            android:label="Subscription" />
         <activity
             android:name=".activity.RechargeHistoryActivity"
             android:label="Recharge History" />
