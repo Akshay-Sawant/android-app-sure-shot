@@ -15,6 +15,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object APIClient {
 
      const val baseUrl = "http://192.168.1.113/staging/php/webmandi/"
+
+    const val baseUrl2 = "https://api.goprocessing.in/"
     //const val baseUrl = "http://shareittofriends.com/demo/webmandi/"
     const val API_VERSION = "app/v0" // api version dir, do not add / in the end
     // const val API_VERSION = "app/v1" // api version dir, do not add / in the end
@@ -45,7 +47,7 @@ object APIClient {
                 val okClient = builder.build()
 
                 retrofit = Retrofit.Builder()
-                    .baseUrl(baseUrl)
+                    .baseUrl(baseUrl2)
                     //.addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(MoshiConverterFactory.create())
                     .client(okClient)
