@@ -12,6 +12,7 @@ import com.innovins.helperlibrary.helper.LoadingViewManager
 import com.sureshots.app.MiddleDividerItemDecoration
 
 import com.sureshots.app.R
+import com.sureshots.app.activity.RechargeDTHActivity
 import com.sureshots.app.activity.RechargeOneActivity
 import com.sureshots.app.activity.ReferEarnActivity
 import com.sureshots.app.adapter.DTHCompanyAdapter
@@ -76,7 +77,7 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,DTHCo
     }
 
     override fun onItemSelected(adapterPosition: Int) {
-        startActivity(RechargeOneActivity.newIntentNewTask(requireContext()))
+        startActivity(RechargeDTHActivity.newIntent(requireContext()))
     }
 
     private fun getDTHCompany() {
