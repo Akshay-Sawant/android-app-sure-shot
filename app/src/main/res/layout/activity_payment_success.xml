@@ -100,7 +100,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_margin_x2"
-                    android:text="Order Id 145789789"
+                    android:text="@string/text_order_id"
                     android:textAppearance="@android:style/TextAppearance.Medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
