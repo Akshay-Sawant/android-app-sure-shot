@@ -12,41 +12,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,android:supportsRtl">
         <activity
-            android:name=".activity.RechargeDTHActivity"
-            android:label="Recharge"/>
-        <activity
-            android:name=".activity.ReferralsListActivity"
-            android:label="Referrals List" />
-        <activity
-            android:name=".activity.SubscriptionMainActivity"
-            android:label="Subscription" />
-        <activity
-            android:name=".activity.RechargeHistoryActivity"
-            android:label="Recharge History" />
-        <activity
-            android:name=".activity.DashboardMainActivity"
-            android:label="Sure Shot Discounts"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.PaymentSuccessActivity"
-            android:label="" />
-        <activity
-            android:name=".activity.SubscriptionActivity"
-            android:label="Benefits of Subscription" />
-        <activity
-            android:name=".activity.RechargeTwoActivity"
-            android:label="Recharge" />
-        <activity
-            android:name=".activity.RechargeOneActivity"
-            android:label="Recharge" />
-        <activity
-            android:name=".activity.ReferEarnActivity"
-            android:label="Refer and Earn" />
-        <activity
-            android:name=".activity.VerifyOTPActivity"
-            android:label="" />
-        <activity
-            android:name=".activity.SignUpActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>
