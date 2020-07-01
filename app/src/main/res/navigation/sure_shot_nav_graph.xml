@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/SignUpFragment"
-        android:name="com.sureshots.app.fragments.SignUpFragment"
+        android:name="com.sureshots.app.fragments.auth.SignUpFragment"
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUp_to_verifyOTP"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/VerifyOTPFragment"
-        android:name="com.sureshots.app.fragments.VerifyOTPFragment"
+        android:name="com.sureshots.app.fragments.auth.VerifyOTPFragment"
         android:label=""
         tools:layout="@layout/fragment_verify_o_t_p">
         <action
