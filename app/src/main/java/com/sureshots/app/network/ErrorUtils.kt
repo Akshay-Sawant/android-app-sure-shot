@@ -8,8 +8,8 @@ import com.sureshots.app.R
 import com.sureshots.app.constant.IS_DEBUG_ON
 import com.sureshots.app.login.LoginHelper
 import com.sureshots.app.model.response.APIErrorResponse
-import com.innovins.helperlibrary.helper.AlertDialogManager
-import com.innovins.helperlibrary.helper.LoadingViewManager
+/*import com.innovins.helperlibrary.helper.AlertDialogManager
+import com.innovins.helperlibrary.helper.LoadingViewManager*/
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonEncodingException
 import okhttp3.ResponseBody
@@ -39,7 +39,7 @@ object ErrorUtils {
         return apiErrorResponse
     }
 
-    fun parseOnFailureException(
+    /*fun parseOnFailureException(
         context: Context,
         call: Call<*>,
         t: Throwable,
@@ -87,9 +87,9 @@ object ErrorUtils {
                 "JSONMismatch " + t.message +
                         "\n\nRequest: " + call.request().toString(), t
             )
-            /* todo: uncomment later
+            *//* todo: uncomment later
             Crashlytics.log("JSONMismatch " + t.getMessage() +
-                    "\n\nRequest: " + call.request().toString());*/
+                    "\n\nRequest: " + call.request().toString());*//*
 
             if (loadingViewManager != null) {
                 loadingViewManager.showErrorView(
@@ -109,9 +109,9 @@ object ErrorUtils {
                 "JSONMismatch " + t.message +
                         "\n\nRequest: " + call.request().toString(), t
             )
-            /*  todo: uncomment later
+            *//*  todo: uncomment later
             Crashlytics.log("JSONMismatch " + t.getMessage() +
-                    "\n\nRequest: " + call.request().toString());*/
+                    "\n\nRequest: " + call.request().toString());*//*
 
             if (loadingViewManager != null) {
                 loadingViewManager.showErrorView(
@@ -149,7 +149,7 @@ object ErrorUtils {
             }
         }
 
-    }
+    }*/
 
     fun logNetworkError(message: String, e: Throwable?) {
         val call = APIClient.apiInterface.logNetworkError(message)

@@ -51,8 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/text_loading" />
+            android:gravity="center" />
+
+<!--        android:text="@string/text_loading"-->
 
     </LinearLayout>
 
@@ -114,9 +115,10 @@
             android:layout_alignParentLeft="true"
             android:layout_toStartOf="@id/buttonRetry"
             android:layout_toLeftOf="@id/buttonRetry"
-            android:text="@string/alert_error_no_internet_connection_title"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
+
+<!--        android:text="@string/alert_error_no_internet_connection_title"-->
 
         <TextView
             android:id="@+id/textViewErrorMessage"
@@ -127,8 +129,8 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
             android:layout_toStartOf="@id/buttonRetry"
-            android:layout_toLeftOf="@id/buttonRetry"
-            android:text="@string/alert_error_no_internet_connection" />
+            android:layout_toLeftOf="@id/buttonRetry" />
+<!--        android:text="@string/alert_error_no_internet_connection"-->
 
         <Button
             android:id="@+id/buttonRetry"
@@ -138,8 +140,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/standard_margin"
-            android:text="@string/action_retry"
             android:theme="@style/AppTheme.Button.Light.Rounded" />
+
+<!--        android:text="@string/action_retry"-->
 
     </LinearLayout>
 

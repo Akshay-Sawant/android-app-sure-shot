@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 
 import com.sureshots.app.R
-import com.sureshots.app.activity.RechargeTwoActivity
+//import com.sureshots.app.activity.RechargeTwoActivity
 import kotlinx.android.synthetic.main.fragment_postpaid.*
 import kotlinx.android.synthetic.main.fragment_postpaid.view.*
 
@@ -33,7 +33,7 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid),View.OnClickListen
             }
             R.id.textViewChange -> view?.let {
                 //startActivity(DashboardMainActivity.newIntentFromPostpaid(requireContext()))
-                //Navigation.findNavController(it).navigate(R.id.action_rechargeOneFragment_to_dashboardFragment)
+                Navigation.findNavController(it).navigate(R.id.action_rechargeOneFragment_to_dashboardFragment)
             }
         }
     }
@@ -52,6 +52,6 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid),View.OnClickListen
             toast.show()
             return
         }
-        startActivity(RechargeTwoActivity.newIntentNewTask(requireContext(),number))
+//        startActivity(RechargeTwoActivity.newIntentNewTask(requireContext(),number))
     }
 }

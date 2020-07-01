@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.innovins.helperlibrary.helper.LoadingViewManager
+//import com.innovins.helperlibrary.helper.LoadingViewManager
 import com.sureshots.app.MiddleDividerItemDecoration
 
 import com.sureshots.app.R
-import com.sureshots.app.activity.RechargeOneActivity
-import com.sureshots.app.activity.ReferEarnActivity
+/*import com.sureshots.app.activity.RechargeOneActivity
+import com.sureshots.app.activity.ReferEarnActivity*/
 import com.sureshots.app.adapter.SimCompanyAdapter
 import com.sureshots.app.model.SimCompanyModel
 import com.sureshots.app.network.APIClient
@@ -24,12 +24,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge),View.OnClickListener,SimCompanyAdapter.OnItemSelectedListener {
+class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View.OnClickListener,
+    SimCompanyAdapter.OnItemSelectedListener {
 
     private lateinit var mRecyclerViewSimCompany: RecyclerView
     private lateinit var mSimCompanyAdapter: SimCompanyAdapter
     private var mSimCompanyModelList: ArrayList<SimCompanyModel> = ArrayList()
-    private lateinit var loadingViewManager: LoadingViewManager
+//    private lateinit var loadingViewManager: LoadingViewManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,7 +46,12 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge),View.
                 this
             )
         }!!
-        mRecyclerViewSimCompany.addItemDecoration(MiddleDividerItemDecoration(requireContext(), MiddleDividerItemDecoration.ALL))
+        mRecyclerViewSimCompany.addItemDecoration(
+            MiddleDividerItemDecoration(
+                requireContext(),
+                MiddleDividerItemDecoration.ALL
+            )
+        )
         mRecyclerViewSimCompany.adapter = mSimCompanyAdapter
         mSimCompanyAdapter.notifyDataSetChanged()
 
@@ -64,15 +70,15 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge),View.
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.imageViewReferEarn -> view?.let {
-                startActivity(ReferEarnActivity.newIntent(requireActivity()))
-               /* Navigation.findNavController(it)
-                    .navigate(R.id.action_dashboard_to_referEarnFragment)*/
+//                startActivity(ReferEarnActivity.newIntent(requireActivity()))
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_dashboard_to_referEarnFragment)
             }
         }
     }
 
     override fun onItemSelected(adapterPosition: Int) {
-        startActivity(RechargeOneActivity.newIntent(requireContext()))
+//        startActivity(RechargeOneActivity.newIntent(requireContext()))
     }
 
     private fun getSimCompany() {
@@ -83,16 +89,19 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge),View.
         }*/
         if (!APIClient.isNetworkConnected(activity?.applicationContext!!)) {
             //AlertDialogManager.instance.displayNoConnectionAlert(this)
-            loadingViewManager.showErrorView(
+            /*loadingViewManager.showErrorView(
                 getString(R.string.alert_error_no_internet_connection_title),
-                getString(R.string.alert_error_no_internet_connection))
+                getString(R.string.alert_error_no_internet_connection))*/
             return
         }
-        loadingViewManager.showLoadingView(requireActivity(), "Loading files...")
+//        loadingViewManager.showLoadingView(requireActivity(), "Loading files...")
         val call: Call<List<SimCompanyModel>> = APIClient.apiInterface.getSimCompany("abc")
         call.enqueue(object : Callback<List<SimCompanyModel>> {
-            override fun onResponse(call: Call<List<SimCompanyModel>>, response: Response<List<SimCompanyModel>>) {
-                loadingViewManager.hideLoadingView()
+            override fun onResponse(
+                call: Call<List<SimCompanyModel>>,
+                response: Response<List<SimCompanyModel>>
+            ) {
+//                loadingViewManager.hideLoadingView()
                 if (response.isSuccessful) {
                     val simCompanyList: List<SimCompanyModel>? = response.body()
                     if (simCompanyList != null) {
@@ -106,15 +115,16 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge),View.
                                 .ERROR_200_BLANK_RESPONSE + "\nResponse: " + response.toString(),
                             null
                         )
-                        loadingViewManager.showErrorView(
+                        /*loadingViewManager.showErrorView(
                             getString(R.string.alert_connection_status_not_ok_title),
-                            getString(R.string.alert_connection_status_not_ok_message))
+                            getString(R.string.alert_connection_status_not_ok_message))*/
                         // server returned 200 with a blank response :/
                     }
                 }
             }
+
             override fun onFailure(call: Call<List<SimCompanyModel>>, t: Throwable) {
-                ErrorUtils.parseOnFailureException(activity!!, call, t, loadingViewManager)
+//                ErrorUtils.parseOnFailureException(activity!!, call, t, loadingViewManager)
             }
 
         })

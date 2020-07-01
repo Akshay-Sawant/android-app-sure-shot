@@ -10,8 +10,8 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 
 import com.sureshots.app.R
-import com.sureshots.app.activity.DashboardMainActivity
-import com.sureshots.app.activity.RechargeTwoActivity
+/*import com.sureshots.app.activity.DashboardMainActivity
+import com.sureshots.app.activity.RechargeTwoActivity*/
 import kotlinx.android.synthetic.main.fragment_prepaid.*
 import kotlinx.android.synthetic.main.fragment_prepaid.view.*
 
@@ -55,7 +55,7 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid),View.OnClickListener
             toast.show()
             return
         }
-        startActivity(RechargeTwoActivity.newIntent(requireContext(),number))
+//        startActivity(RechargeTwoActivity.newIntent(requireContext(),number))
     }
 
 }

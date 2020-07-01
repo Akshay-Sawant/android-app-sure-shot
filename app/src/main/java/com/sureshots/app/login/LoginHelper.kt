@@ -14,9 +14,9 @@ import com.sureshots.app.model.response.APIActionResponse
 import com.sureshots.app.network.APIClient
 import com.sureshots.app.network.ErrorUtils
 import com.sureshots.app.network.ServerInvalidResponseException
-import com.innovins.helperlibrary.constant.REQUEST_CODE_LOGIN_SUCCESS
+/*import com.innovins.helperlibrary.constant.REQUEST_CODE_LOGIN_SUCCESS
 import com.innovins.helperlibrary.helper.AlertDialogManager
-import com.innovins.helperlibrary.helper.ProgressDialogManager
+import com.innovins.helperlibrary.helper.ProgressDialogManager*/
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -134,7 +134,7 @@ class LoginHelper(context: Context) {
     fun isUserLogin(): Boolean = (mLoggedInUser.loginToken != "")
 
     fun requestLogout(context: Context){
-        AlertDialogManager.instance.showAlertDialog(context,
+        /*AlertDialogManager.instance.showAlertDialog(context,
             R.drawable.ic_warning_black_24dp,
             context.getString(R.string.alert_logout_heads_up_title),
             context.getString(R.string.alert_logout_heads_up_message),
@@ -142,28 +142,28 @@ class LoginHelper(context: Context) {
             DialogInterface.OnClickListener { dialogInterface, i ->
                 doServerLogout(context)
             },
-            context.getString(android.R.string.no), null);
+            context.getString(android.R.string.no), null);*/
     }
 
     fun doServerLogout(context: Context){
         // doLogout(context)
         // startLoginFlow(context as Activity)
         if (!APIClient.isNetworkConnected(context)) {
-            AlertDialogManager.instance.displayNoConnectionAlert(context)
+//            AlertDialogManager.instance.displayNoConnectionAlert(context)
             return
         }
 
                 if (!APIClient.isNetworkConnected(context)) {
-                    AlertDialogManager.instance.displayNoConnectionAlert(context)
+//                    AlertDialogManager.instance.displayNoConnectionAlert(context)
                     return
                 }
 
-                ProgressDialogManager.instance.showProgressDialog(context, "Logging out...")
+//                ProgressDialogManager.instance.showProgressDialog(context, "Logging out...")
                 val call: Call<APIActionResponse> = APIClient.apiInterface.doLogout(mLoggedInUser.loginToken)
                 call.enqueue(object: Callback<APIActionResponse> {
 
                     override fun onResponse(call: Call<APIActionResponse>, response: Response<APIActionResponse>) {
-                        ProgressDialogManager.instance.hideProgressDialog()
+//                        ProgressDialogManager.instance.hideProgressDialog()
 
                         if(response.isSuccessful) {
                             val apiActionResponse: APIActionResponse  ?= response.body()
@@ -172,17 +172,17 @@ class LoginHelper(context: Context) {
                                     doLogout(context)
                                     startLoginFlow(context as Activity)
                                 } else {
-                                    AlertDialogManager.instance.showAlertDialog(context,
+                                    /*AlertDialogManager.instance.showAlertDialog(context,
                                                                     R.drawable.ic_warning_black_24dp,
                                                                     apiActionResponse.title,
-                                                                    apiActionResponse.message)
+                                                                    apiActionResponse.message)*/
                                 }
                             } else {
                                 // server returned 200 with a blank response :/
                                 ErrorUtils.logNetworkError(
                                     ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
                                         "\nResponse: " + response.toString(), null)
-                                AlertDialogManager.instance.displayInvalidResponseAlert(context);
+//                                AlertDialogManager.instance.displayInvalidResponseAlert(context);
                                 // server returned 200 with a blank response :/
                             }
                         }
@@ -190,8 +190,8 @@ class LoginHelper(context: Context) {
 
                     override fun onFailure(call: Call<APIActionResponse>, t: Throwable) {
                         // progressDialog.dismiss();
-                        ProgressDialogManager.instance.hideProgressDialog()
-                        ErrorUtils.parseOnFailureException(context, call, t, null)
+//                        ProgressDialogManager.instance.hideProgressDialog()
+//                        ErrorUtils.parseOnFailureException(context, call, t, null)
                     }
                 })
     }

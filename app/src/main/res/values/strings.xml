@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Sure Shots</string>
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
     <!--Sign Up Fragment-->
     <string name="text_sign_up">Sign up</string>
@@ -11,7 +9,6 @@
     <string name="text_mobile_number">Mobile Number</string>
     <string name="button_text_continue">Continue</string>
     <string name="text_referrals_id">Referral ID</string>
-
 
     <!--Verify OTP-->
     <string name="text_label_verify_proceed"><![CDATA[Verify & Proceed]]></string>
@@ -24,7 +21,6 @@
     <string name="alert_login_failed_title">Unable to login!</string>
     <string name="alert_login_failed_message">Please make sure you have entered correct mobile number and password</string>
     <string name="alert_login_error_message">Something went wrong while logging you in, please login again!</string>
-
 
     <!--Dashboard -->
     <string name="text_refer_and_earn">Refer and Earn!</string>
@@ -49,7 +45,6 @@
     <string name="text_tokens_and_promo">Tokens and Promo Cash cannot be used for mobile recharges</string>
     <string name="button_proceed_to_recharge">PROCEED TO RECHARGE</string>
 
-
     <!--Refer and Earn-->
     <string name="text_get_rs_5_for_every_referral">Get Rs.5 for every Referral</string>
     <string name="text_your_referral_code">Your Referral code</string>
@@ -70,9 +65,8 @@
     <string name="alert_logout_heads_up_message">You are about to logout from your account!</string>
     <string name="text_recharge_amount">500</string>
     <string name="text_order_id">Order Id %1$s</string>
-
-
     <string name="text_tokens_and_promo_dth">Tokens and Promo Cash cannot be used for dth recharges</string>
 
+    <string name="text_no_data_found">No data Found</string>
 
 </resources>

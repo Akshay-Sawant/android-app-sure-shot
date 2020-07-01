@@ -28,7 +28,7 @@ internal class ErrorInterceptor : Interceptor {
 
         if (response.isSuccessful) {
             return response
-        } else if (response.code() == 500) { // 500 Internal Server Error
+        } else if (response.code == 500) { // 500 Internal Server Error
             /**
              * A generic error message, given when an unexpected condition was
              * encountered and no more specific message is suitable.
@@ -46,7 +46,7 @@ internal class ErrorInterceptor : Interceptor {
                                             " \nRequest: " + request.toString() +
                                              "\nResponse: " + response.toString()); */
             throw e
-        } else if (response.code() == 401) { // 401 Unauthorized (RFC 7235)
+        } else if (response.code == 401) { // 401 Unauthorized (RFC 7235)
             /**
              * Similar to 403 Forbidden, but specifically for use when authentication
              * is required and has failed or has not yet been provided.
@@ -66,9 +66,9 @@ internal class ErrorInterceptor : Interceptor {
              * The user might not have the necessary permissions for a resource,
              * or may need an account of some sort.
              */
-        } else if (response.code() == 400) { // Bad Request
+        } else if (response.code == 400) { // Bad Request
             // https://github.com/square/okhttp/blob/master/okhttp-logging-interceptor/src/main/java/okhttp3/logging/HttpLoggingInterceptor.java#L218-L261
-            val responseBody = response.body()
+            val responseBody = response.body
             if (responseBody != null) {
                 val source: BufferedSource = responseBody.source()
                 source.request(Long.MAX_VALUE) // Buffer the entire body.
@@ -84,7 +84,8 @@ internal class ErrorInterceptor : Interceptor {
                     String s = bufferCopy.readString(charset);
                 } */
 
-                val responseBodyCopy = ResponseBody.create(responseBody.contentType(), bufferCopy.size(), bufferCopy)
+                val responseBodyCopy = ResponseBody.create(responseBody.contentType(),
+                    bufferCopy.size, bufferCopy)
                 val apiErrorResponse: APIErrorResponse = ErrorUtils.parseError(responseBodyCopy)
                 throw Server400ResponseException(apiErrorResponse)
 

@@ -18,10 +18,11 @@ import com.sureshots.app.fragments.SignUpFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()
-    ,NavController.OnDestinationChangedListener
-    /*,NavigationView.OnNavigationItemSelectedListener*/ {
+    , NavController.OnDestinationChangedListener
+/*,NavigationView.OnNavigationItemSelectedListener*/ {
 
     private lateinit var mNavController: NavController
+
     //private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity()
                 .replace(R.id.fragment_container, signUpFragment)
                 .commitAllowingStateLoss()
         }*/
-        mNavController = Navigation.findNavController(this,R.id.sure_shot_nav_host)
+        mNavController = Navigation.findNavController(this, R.id.sure_shot_nav_host)
         NavigationUI.setupWithNavController(navigationView, mNavController)
         NavigationUI.setupActionBarWithNavController(this, mNavController, drawerLayout)
         //navigationView.setNavigationItemSelectedListener(this)
@@ -62,7 +63,11 @@ class MainActivity : AppCompatActivity()
         return NavigationUI.navigateUp(mNavController, drawerLayout)
     }
 
-    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
         when (destination.id) {
             R.id.SignUpFragment -> {
                 supportActionBar?.hide()
