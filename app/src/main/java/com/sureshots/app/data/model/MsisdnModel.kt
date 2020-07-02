@@ -1,4 +1,4 @@
-package com.sureshots.app.model
+package com.sureshots.app.data.model
 
 class MsisdnModel(val status : String,
                   val message : String,

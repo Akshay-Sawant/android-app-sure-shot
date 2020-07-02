@@ -1,4 +1,4 @@
-package com.sureshots.app.model.response
+package com.sureshots.app.data.model.response
 
 import com.squareup.moshi.Json
 

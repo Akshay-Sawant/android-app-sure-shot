@@ -5,8 +5,9 @@ import android.content.Context
 import android.view.Gravity
 import android.widget.Toast
 /*import com.sureshots.app.LoginActivity*/
-import com.sureshots.app.model.response.APIActionResponse
-import com.sureshots.app.network.APIClient
+import com.sureshots.app.data.model.response.APIActionResponse
+import com.sureshots.app.data.api.APIClient
+import com.sureshots.app.data.model.LoggedInUser
 import com.sureshots.app.network.ErrorUtils
 import com.sureshots.app.network.ServerInvalidResponseException
 /*import com.innovins.helperlibrary.constant.REQUEST_CODE_LOGIN_SUCCESS

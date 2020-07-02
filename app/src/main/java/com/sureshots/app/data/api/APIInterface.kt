@@ -1,15 +1,14 @@
-package com.sureshots.app.network
+package com.sureshots.app.data.api
 
-import com.sureshots.app.login.LoggedInUser
-import com.sureshots.app.model.*
-import com.sureshots.app.model.response.*
+import com.sureshots.app.data.model.LoggedInUser
+import com.sureshots.app.data.model.response.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
-import com.sureshots.app.network.APIClient.API_VERSION
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import com.sureshots.app.data.api.APIClient.API_VERSION
+import com.sureshots.app.data.model.DTHCompanyModel
+import com.sureshots.app.data.model.SimCompanyModel
 
 interface APIInterface {
 

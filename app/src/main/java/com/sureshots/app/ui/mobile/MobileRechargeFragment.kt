@@ -11,8 +11,8 @@ import com.sureshots.app.MiddleDividerItemDecoration
 import com.sureshots.app.R
 /*import com.sureshots.app.ui.activity.RechargeOneActivity
 import com.sureshots.app.ui.activity.ReferEarnActivity*/
-import com.sureshots.app.model.SimCompanyModel
-import com.sureshots.app.network.APIClient
+import com.sureshots.app.data.model.SimCompanyModel
+import com.sureshots.app.data.api.APIClient
 import com.sureshots.app.network.ErrorUtils
 import com.sureshots.app.network.ServerInvalidResponseException
 import kotlinx.android.synthetic.main.fragment_mobile_recharge.view.*
@@ -55,12 +55,48 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
     }
 
     private fun onLoadSimCompany() {
-        mSimCompanyModelList.add(SimCompanyModel("1", "Airtel", R.drawable.airtel))
-        mSimCompanyModelList.add(SimCompanyModel("2", "Jio", R.drawable.jio))
-        mSimCompanyModelList.add(SimCompanyModel("3", "BSNL", R.drawable.bsnllogo))
-        mSimCompanyModelList.add(SimCompanyModel("4", "idea", R.drawable.idea))
-        mSimCompanyModelList.add(SimCompanyModel("5", "vodafone", R.drawable.vodafone))
-        mSimCompanyModelList.add(SimCompanyModel("6", "Tata", R.drawable.tata))
+        mSimCompanyModelList.add(
+            SimCompanyModel(
+                "1",
+                "Airtel",
+                R.drawable.airtel
+            )
+        )
+        mSimCompanyModelList.add(
+            SimCompanyModel(
+                "2",
+                "Jio",
+                R.drawable.jio
+            )
+        )
+        mSimCompanyModelList.add(
+            SimCompanyModel(
+                "3",
+                "BSNL",
+                R.drawable.bsnllogo
+            )
+        )
+        mSimCompanyModelList.add(
+            SimCompanyModel(
+                "4",
+                "idea",
+                R.drawable.idea
+            )
+        )
+        mSimCompanyModelList.add(
+            SimCompanyModel(
+                "5",
+                "vodafone",
+                R.drawable.vodafone
+            )
+        )
+        mSimCompanyModelList.add(
+            SimCompanyModel(
+                "6",
+                "Tata",
+                R.drawable.tata
+            )
+        )
     }
 
     override fun onClick(v: View?) {

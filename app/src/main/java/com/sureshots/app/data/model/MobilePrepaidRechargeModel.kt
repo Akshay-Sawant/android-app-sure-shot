@@ -1,4 +1,4 @@
-package com.sureshots.app.model
+package com.sureshots.app.data.model
 
 class MobilePrepaidRechargeModel(val plan_id : String,
                                  val operator_code : String,

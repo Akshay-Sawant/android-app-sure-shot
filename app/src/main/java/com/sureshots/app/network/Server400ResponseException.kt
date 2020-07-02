@@ -1,6 +1,6 @@
 package com.sureshots.app.network
 
-import com.sureshots.app.model.response.APIErrorResponse
+import com.sureshots.app.data.model.response.APIErrorResponse
 import java.io.IOException
 
 /**

@@ -1,4 +1,4 @@
-package com.sureshots.app.model
+package com.sureshots.app.data.model
 
 class Subscription(
     val subscriptionId: String,

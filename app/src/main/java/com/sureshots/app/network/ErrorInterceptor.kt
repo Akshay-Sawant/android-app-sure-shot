@@ -1,7 +1,7 @@
 package com.sureshots.app.network
 
 /*import com.crashlytics.android.Crashlytics;*/
-import com.sureshots.app.model.response.APIErrorResponse
+import com.sureshots.app.data.model.response.APIErrorResponse
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response

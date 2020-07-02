@@ -1,4 +1,4 @@
-package com.sureshots.app.model
+package com.sureshots.app.data.model
 
 class SimCompanyModel(
     val companyId: String,

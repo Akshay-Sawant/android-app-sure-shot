@@ -12,8 +12,8 @@ import com.sureshots.app.R
 /*import com.sureshots.app.ui.activity.RechargeDTHActivity
 import com.sureshots.app.ui.activity.RechargeOneActivity
 import com.sureshots.app.ui.activity.ReferEarnActivity*/
-import com.sureshots.app.model.DTHCompanyModel
-import com.sureshots.app.network.APIClient
+import com.sureshots.app.data.model.DTHCompanyModel
+import com.sureshots.app.data.api.APIClient
 import com.sureshots.app.network.ErrorUtils
 import com.sureshots.app.network.ServerInvalidResponseException
 import kotlinx.android.synthetic.main.fragment_d_t_h.view.*
@@ -65,12 +65,48 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,
     }
 
     private fun onLoadDTHCompany() {
-        mDTHCompanyModelList.add(DTHCompanyModel("1", "Airtel Digital TV", R.drawable.airteldish))
-        mDTHCompanyModelList.add(DTHCompanyModel("2", "Videocon D2H", R.drawable.videocon))
-        mDTHCompanyModelList.add(DTHCompanyModel("3", "Reliance Digital TV", R.drawable.reliance))
-        mDTHCompanyModelList.add(DTHCompanyModel("4", "Sun Direct", R.drawable.sundirect))
-        mDTHCompanyModelList.add(DTHCompanyModel("5", "Tata Sky", R.drawable.tatasky))
-        mDTHCompanyModelList.add(DTHCompanyModel("6", "Dish TV", R.drawable.dishtv))
+        mDTHCompanyModelList.add(
+            DTHCompanyModel(
+                "1",
+                "Airtel Digital TV",
+                R.drawable.airteldish
+            )
+        )
+        mDTHCompanyModelList.add(
+            DTHCompanyModel(
+                "2",
+                "Videocon D2H",
+                R.drawable.videocon
+            )
+        )
+        mDTHCompanyModelList.add(
+            DTHCompanyModel(
+                "3",
+                "Reliance Digital TV",
+                R.drawable.reliance
+            )
+        )
+        mDTHCompanyModelList.add(
+            DTHCompanyModel(
+                "4",
+                "Sun Direct",
+                R.drawable.sundirect
+            )
+        )
+        mDTHCompanyModelList.add(
+            DTHCompanyModel(
+                "5",
+                "Tata Sky",
+                R.drawable.tatasky
+            )
+        )
+        mDTHCompanyModelList.add(
+            DTHCompanyModel(
+                "6",
+                "Dish TV",
+                R.drawable.dishtv
+            )
+        )
     }
 
     override fun onItemSelected(adapterPosition: Int) {

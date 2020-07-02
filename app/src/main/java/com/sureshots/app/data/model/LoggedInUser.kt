@@ -1,4 +1,4 @@
-package com.sureshots.app.login
+package com.sureshots.app.data.model
 
 import com.squareup.moshi.Json
 import java.io.Serializable
