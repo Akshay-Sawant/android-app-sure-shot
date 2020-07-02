@@ -43,13 +43,12 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
     }
 
     override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.buttonContinue -> view?.let {
-                Navigation.findNavController(it)
+        view?.let {
+            when (v?.id) {
+                R.id.buttonContinue -> Navigation.findNavController(it)
                     .navigate(R.id.action_signUp_to_verifyOTP)
-            }
-            R.id.textViewSignUpHaveAccount -> {
-
+                R.id.textViewSignUpHaveAccount -> Navigation.findNavController(it)
+                    .navigate(R.id.action_signUp_to_signIn)
             }
         }
     }
