@@ -17,12 +17,20 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
     private lateinit var mTextInputLayoutMobileNumber: TextInputLayout
     private lateinit var mTextInputEditTextMobileNumber: TextInputEditText
 
+    private lateinit var mTextInputLayoutSignUpReferralId: TextInputLayout
+    private lateinit var mTextInputEditTextSignUpReferralId: TextInputEditText
+
     private lateinit var mButtonContinue: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         mTextInputLayoutMobileNumber = view.findViewById(R.id.textInputLayoutMobileNumber)
         mTextInputEditTextMobileNumber = view.findViewById(R.id.textInputEditTextMobileNumber)
+
+        mTextInputLayoutSignUpReferralId = view.findViewById(R.id.textInputLayoutReferralsId)
+        mTextInputEditTextSignUpReferralId =
+            view.findViewById(R.id.textInputEditTextSignUpReferralId)
 
         mButtonContinue = view.findViewById(R.id.buttonContinue)
         mButtonContinue.setOnClickListener(this)
