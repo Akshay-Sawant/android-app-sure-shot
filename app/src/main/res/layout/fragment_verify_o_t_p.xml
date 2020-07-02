@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     android:background="@drawable/ic_sign_up"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.verification.VerifyOTPFragment">
+    android:fillViewport="true"
+    tools:context=".ui.verification.VerifyOTPFragment"
+    tools:ignore="Autofill,LabelFor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,49 +17,49 @@
             android:id="@+id/textViewVerifyHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/text_verification"
             android:layout_marginTop="@dimen/standard_margin_x2"
+            android:text="@string/text_verification"
             android:textSize="@dimen/material_text_display1"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/guidelineTop"
-            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"/>
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
         <TextView
             android:id="@+id/textViewVerifySubHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin_x2"
-            android:text="@string/text_enter_4_digit"
             android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:text="@string/text_enter_4_digit"
             android:textAppearance="@android:style/TextAppearance.Large"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@id/textViewVerifyHeader"/>
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewVerifyHeader" />
 
         <TextView
             android:id="@+id/textViewMobile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="8108744965"
-            android:textStyle="bold"
             android:layout_marginTop="@dimen/standard_margin_x2"
+            android:hint="@string/text_mobile_number"
             android:textAppearance="@android:style/TextAppearance.Large"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@id/textViewVerifySubHeader"/>
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewVerifySubHeader" />
 
         <TextView
             android:id="@+id/textViewVerificationCode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/text_verification_code"
-            android:textStyle="bold"
             android:layout_marginTop="@dimen/standard_margin_x2"
+            android:text="@string/text_verification_code"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@id/textViewMobile"/>
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewMobile" />
 
         <EditText
             android:id="@+id/editTextOTPOne"
@@ -135,11 +136,11 @@
             android:id="@+id/textViewResend"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/text_did_not_receive_the_code"
             android:gravity="center"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            android:text="@string/text_did_not_receive_the_code"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@id/textViewOTPTime"/>
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewOTPTime" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"
