@@ -9,6 +9,7 @@
     <string name="text_mobile_number">Mobile Number</string>
     <string name="button_text_continue">Continue</string>
     <string name="text_referrals_id">Referral ID</string>
+    <string name="text_cd_sign_up_image">Sign up image</string>
 
     <!--Verify OTP-->
     <string name="text_label_verify_proceed"><![CDATA[Verify & Proceed]]></string>
