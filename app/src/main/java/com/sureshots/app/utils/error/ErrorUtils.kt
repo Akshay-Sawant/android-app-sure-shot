@@ -1,4 +1,4 @@
-package com.sureshots.app.network
+package com.sureshots.app.utils.error
 
 /*import com.crashlytics.android.Crashlytics;*/
 import com.sureshots.app.data.api.APIClient

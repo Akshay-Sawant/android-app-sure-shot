@@ -1,4 +1,4 @@
-package com.sureshots.app.network
+package com.sureshots.app.utils.server
 
 import com.sureshots.app.data.model.response.APIErrorResponse
 import java.io.IOException

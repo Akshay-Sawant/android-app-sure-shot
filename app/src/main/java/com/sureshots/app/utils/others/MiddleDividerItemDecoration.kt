@@ -1,5 +1,5 @@
 
-package com.sureshots.app
+package com.sureshots.app.utils.others
 
 import android.content.Context
 import android.graphics.Canvas

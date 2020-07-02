@@ -2,7 +2,7 @@ package com.sureshots.app.data.api
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.sureshots.app.network.ErrorInterceptor
+import com.sureshots.app.utils.error.ErrorInterceptor
 import com.sureshots.app.utils.IS_DEBUG_ON
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

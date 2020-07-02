@@ -6,7 +6,7 @@ import android.view.View
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 //import com.innovins.helperlibrary.helper.LoadingViewManager
-import com.sureshots.app.MiddleDividerItemDecoration
+import com.sureshots.app.utils.others.MiddleDividerItemDecoration
 
 import com.sureshots.app.R
 /*import com.sureshots.app.ui.activity.RechargeDTHActivity
@@ -14,8 +14,8 @@ import com.sureshots.app.ui.activity.RechargeOneActivity
 import com.sureshots.app.ui.activity.ReferEarnActivity*/
 import com.sureshots.app.data.model.DTHCompanyModel
 import com.sureshots.app.data.api.APIClient
-import com.sureshots.app.network.ErrorUtils
-import com.sureshots.app.network.ServerInvalidResponseException
+import com.sureshots.app.utils.error.ErrorUtils
+import com.sureshots.app.utils.server.ServerInvalidResponseException
 import kotlinx.android.synthetic.main.fragment_d_t_h.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,7 +46,12 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,
                 this
             )
         }!!
-        mRecyclerViewDTHCompany.addItemDecoration(MiddleDividerItemDecoration(requireContext(), MiddleDividerItemDecoration.ALL))
+        mRecyclerViewDTHCompany.addItemDecoration(
+            MiddleDividerItemDecoration(
+                requireContext(),
+                MiddleDividerItemDecoration.ALL
+            )
+        )
             mRecyclerViewDTHCompany.adapter = mDTHCompanyAdapter
             mDTHCompanyAdapter.notifyDataSetChanged()
 

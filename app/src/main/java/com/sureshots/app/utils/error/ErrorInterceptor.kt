@@ -1,11 +1,14 @@
-package com.sureshots.app.network
+package com.sureshots.app.utils.error
 
 /*import com.crashlytics.android.Crashlytics;*/
 import com.sureshots.app.data.model.response.APIErrorResponse
+import com.sureshots.app.utils.server.Server400ResponseException
+import com.sureshots.app.utils.server.Server401ResponseException
+import com.sureshots.app.utils.server.ServerInvalidResponseException
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.asResponseBody
 import okio.Buffer
 import okio.BufferedSource
 
@@ -38,10 +41,15 @@ internal class ErrorInterceptor : Interceptor {
             // 028, 28-Jun-18 log error, server crashed
             // 010, 10-Jul-18 done
             // 028, 28-Sep-18 updated to throw ServerInvalidResponseException.ERROR_500_RESPONSE
-            val e = ServerInvalidResponseException(ServerInvalidResponseException.ERROR_500_RESPONSE)
-            ErrorUtils.logNetworkError(ServerInvalidResponseException.ERROR_500_RESPONSE +
-                                            " \nRequest: " + request.toString() +
-                                            "\nResponse: " + response.toString(), e)
+            val e =
+                ServerInvalidResponseException(
+                    ServerInvalidResponseException.ERROR_500_RESPONSE
+                )
+            ErrorUtils.logNetworkError(
+                ServerInvalidResponseException.ERROR_500_RESPONSE +
+                        " \nRequest: " + request.toString() +
+                        "\nResponse: " + response.toString(), e
+            )
             /* Crashlytics.log(ServerInvalidResponseException.ERROR_500_RESPONSE +
                                             " \nRequest: " + request.toString() +
                                              "\nResponse: " + response.toString()); */
@@ -72,7 +80,7 @@ internal class ErrorInterceptor : Interceptor {
             if (responseBody != null) {
                 val source: BufferedSource = responseBody.source()
                 source.request(Long.MAX_VALUE) // Buffer the entire body.
-                val bufferCopy: Buffer = source.buffer().clone()
+                val bufferCopy: Buffer = source.buffer.clone()
                 /*
                  to read bufferCopy as String
                 Charset charset = UTF8;
@@ -84,10 +92,17 @@ internal class ErrorInterceptor : Interceptor {
                     String s = bufferCopy.readString(charset);
                 } */
 
-                val responseBodyCopy = ResponseBody.create(responseBody.contentType(),
-                    bufferCopy.size, bufferCopy)
-                val apiErrorResponse: APIErrorResponse = ErrorUtils.parseError(responseBodyCopy)
-                throw Server400ResponseException(apiErrorResponse)
+                val responseBodyCopy = bufferCopy.asResponseBody(
+                    responseBody.contentType(),
+                    bufferCopy.size
+                )
+                val apiErrorResponse: APIErrorResponse =
+                    ErrorUtils.parseError(
+                        responseBodyCopy
+                    )
+                throw Server400ResponseException(
+                    apiErrorResponse
+                )
 
                 /* Handler handler = new Handler(mContext.getMainLooper());
                 handler.post(new Runnable() {
@@ -103,20 +118,30 @@ internal class ErrorInterceptor : Interceptor {
                 // AlertDialogManager.getInstance().displayInvalidResponseAlert(mContext);
                 // 029, 29-Jun-18 log error, 400 blank response
                 // 010, 10-Jul-18 done
-                val e = ServerInvalidResponseException(ServerInvalidResponseException.ERROR_400_BLANK_RESPONSE)
-                ErrorUtils.logNetworkError(ServerInvalidResponseException.ERROR_400_BLANK_RESPONSE +
-                                                    " \nRequest: " + request.toString() +
-                                                     "\nResponse: " + response.toString(), e)
+                val e =
+                    ServerInvalidResponseException(
+                        ServerInvalidResponseException.ERROR_400_BLANK_RESPONSE
+                    )
+                ErrorUtils.logNetworkError(
+                    ServerInvalidResponseException.ERROR_400_BLANK_RESPONSE +
+                            " \nRequest: " + request.toString() +
+                            "\nResponse: " + response.toString(), e
+                )
                 throw e
             }
         } else {
             // unexpected status code returned
             // 029, 29-Jun-18 log error, unexpected status code
             // 010, 10-Jul-18 done
-            val e = ServerInvalidResponseException(ServerInvalidResponseException.ERROR_UNEXPECTED_STATUS_CODE)
-            ErrorUtils.logNetworkError(ServerInvalidResponseException.ERROR_UNEXPECTED_STATUS_CODE +
-                                                " \nRequest: " + request.toString() +
-                                                 "\nResponse: " + response.toString(), e)
+            val e =
+                ServerInvalidResponseException(
+                    ServerInvalidResponseException.ERROR_UNEXPECTED_STATUS_CODE
+                )
+            ErrorUtils.logNetworkError(
+                ServerInvalidResponseException.ERROR_UNEXPECTED_STATUS_CODE +
+                        " \nRequest: " + request.toString() +
+                        "\nResponse: " + response.toString(), e
+            )
             throw e
             /* Handler handler = new Handler(mContext.getMainLooper());
             handler.post(new Runnable() {

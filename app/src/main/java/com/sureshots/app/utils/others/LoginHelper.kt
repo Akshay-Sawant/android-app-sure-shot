@@ -1,4 +1,4 @@
-package com.sureshots.app.login
+package com.sureshots.app.utils.others
 
 import android.app.Activity
 import android.content.Context
@@ -8,8 +8,8 @@ import android.widget.Toast
 import com.sureshots.app.data.model.response.APIActionResponse
 import com.sureshots.app.data.api.APIClient
 import com.sureshots.app.data.model.LoggedInUser
-import com.sureshots.app.network.ErrorUtils
-import com.sureshots.app.network.ServerInvalidResponseException
+import com.sureshots.app.utils.error.ErrorUtils
+import com.sureshots.app.utils.server.ServerInvalidResponseException
 /*import com.innovins.helperlibrary.constant.REQUEST_CODE_LOGIN_SUCCESS
 import com.innovins.helperlibrary.helper.AlertDialogManager
 import com.innovins.helperlibrary.helper.ProgressDialogManager*/
@@ -166,7 +166,9 @@ class LoginHelper(context: Context) {
                             if(apiActionResponse != null){
                                 if(apiActionResponse.isActionSuccess){
                                     doLogout(context)
-                                    startLoginFlow(context as Activity)
+                                    startLoginFlow(
+                                        context as Activity
+                                    )
                                 } else {
                                     /*AlertDialogManager.instance.showAlertDialog(context,
                                                                     R.drawable.ic_warning_black_24dp,
