@@ -8,7 +8,7 @@
     <string name="text_enter_your_mobile">Enter your mobile number to create account.</string>
     <string name="text_mobile_number">Mobile Number</string>
     <string name="button_text_continue">Continue</string>
-    <string name="text_referrals_id">Referral ID</string>
+    <string name="text_referrals_id">Referral ID(Optional)</string>
     <string name="text_cd_sign_up_image">Sign up image</string>
 
     <!--Verify OTP-->
@@ -68,6 +68,9 @@
     <string name="text_order_id">Order Id %1$s</string>
     <string name="text_tokens_and_promo_dth">Tokens and Promo Cash cannot be used for dth recharges</string>
 
+    <!--Sign In-->
     <string name="text_no_data_found">No data Found</string>
+    <string name="text_label_sign_in">Sign In</string>
+    <string name="text_label_sign_in_sub_header">Enter your details to sign in.</string>
 
 </resources>
