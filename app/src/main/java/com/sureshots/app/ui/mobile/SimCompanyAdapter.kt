@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshots.app.R
-import com.sureshots.app.model.SimCompanyModel
+import com.sureshots.app.data.model.SimCompanyModel
 import kotlinx.android.synthetic.main.recycler_view_sim_company.view.*
 
 class SimCompanyAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mSimCompanyModelList: List<SimCompanyModel>,private val onItemSelectedListener: OnItemSelectedListener
+    private var mSimCompanyModelList: List<SimCompanyModel>, private val onItemSelectedListener: OnItemSelectedListener
 ) : RecyclerView.Adapter<SimCompanyAdapter.SimCompanyViewHolder>() {
 
     interface OnItemSelectedListener {

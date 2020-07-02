@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshots.app.R
-import com.sureshots.app.model.DTHCompanyModel
+import com.sureshots.app.data.model.DTHCompanyModel
 import kotlinx.android.synthetic.main.recycler_view_dth_company.view.*
 
 
 class DTHCompanyAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mDTHCompanyModelList: List<DTHCompanyModel>,private val onItemSelectedListener: OnItemSelectedListener
+    private var mDTHCompanyModelList: List<DTHCompanyModel>, private val onItemSelectedListener: OnItemSelectedListener
 ) : RecyclerView.Adapter<DTHCompanyAdapter.DTHCompanyViewHolder>() {
 
     interface OnItemSelectedListener {

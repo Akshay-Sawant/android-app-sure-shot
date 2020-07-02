@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
 import com.sureshots.app.R
-import com.sureshots.app.model.Subscription
+import com.sureshots.app.data.model.Subscription
 import kotlinx.android.synthetic.main.fragment_subscription.view.*
 
 /**
@@ -47,11 +47,36 @@ class SubscriptionFragment : Fragment(R.layout.fragment_subscription),View.OnCli
     }
 
     private fun onLoadSubscriptions(){
-        mSubscriptionModelList.add(Subscription("1", "- Fixed discounts for recharges as per chart\n" + " ( In chart we will give range and mention the present %ages)."))
-        mSubscriptionModelList.add(Subscription("2", "- No cashbacks only Discounts."))
-        mSubscriptionModelList.add(Subscription("3", "- No validity period."))
-        mSubscriptionModelList.add(Subscription("4", "- You will automatically subscribed for discounts of future services in this app."))
-        mSubscriptionModelList.add(Subscription("5", "- Also you will be eligible for referral eamings. (As referral cash in wallet)"))
+        mSubscriptionModelList.add(
+            Subscription(
+                "1",
+                "- Fixed discounts for recharges as per chart\n" + " ( In chart we will give range and mention the present %ages)."
+            )
+        )
+        mSubscriptionModelList.add(
+            Subscription(
+                "2",
+                "- No cashbacks only Discounts."
+            )
+        )
+        mSubscriptionModelList.add(
+            Subscription(
+                "3",
+                "- No validity period."
+            )
+        )
+        mSubscriptionModelList.add(
+            Subscription(
+                "4",
+                "- You will automatically subscribed for discounts of future services in this app."
+            )
+        )
+        mSubscriptionModelList.add(
+            Subscription(
+                "5",
+                "- Also you will be eligible for referral eamings. (As referral cash in wallet)"
+            )
+        )
     }
 
 }

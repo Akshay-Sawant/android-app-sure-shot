@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sureshots.app.model.Subscription
+import com.sureshots.app.data.model.Subscription
 import kotlinx.android.synthetic.main.recycler_view_subscriptions.view.*
 
 class SubscriptionAdapter(

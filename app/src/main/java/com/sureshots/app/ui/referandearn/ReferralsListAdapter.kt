@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshots.app.R
-import com.sureshots.app.model.ReferralsModel
-import com.sureshots.app.model.SubUnsubModel
+import com.sureshots.app.data.model.ReferralsModel
+import com.sureshots.app.data.model.SubUnsubModel
 
 
 class ReferralsListAdapter(
@@ -47,12 +47,48 @@ class ReferralsListAdapter(
         }
         mRecyclerViewSubUnSub.adapter = mSubUnSubAdapter
         mSubUnSubAdapter.notifyDataSetChanged()
-        mSubUnSubModelList.add(SubUnsubModel("1","9876543210","Unsubscribed"))
-        mSubUnSubModelList.add(SubUnsubModel("1","9638527410","Subscribed"))
-        mSubUnSubModelList.add(SubUnsubModel("1","7894561230","Unsubscribed"))
-        mSubUnSubModelList.add(SubUnsubModel("1","9412563879","Subscribed"))
-        mSubUnSubModelList.add(SubUnsubModel("1","9978844552","Subscribed"))
-        mSubUnSubModelList.add(SubUnsubModel("1","8289848789","Unsubscribed"))
+        mSubUnSubModelList.add(
+            SubUnsubModel(
+                "1",
+                "9876543210",
+                "Unsubscribed"
+            )
+        )
+        mSubUnSubModelList.add(
+            SubUnsubModel(
+                "1",
+                "9638527410",
+                "Subscribed"
+            )
+        )
+        mSubUnSubModelList.add(
+            SubUnsubModel(
+                "1",
+                "7894561230",
+                "Unsubscribed"
+            )
+        )
+        mSubUnSubModelList.add(
+            SubUnsubModel(
+                "1",
+                "9412563879",
+                "Subscribed"
+            )
+        )
+        mSubUnSubModelList.add(
+            SubUnsubModel(
+                "1",
+                "9978844552",
+                "Subscribed"
+            )
+        )
+        mSubUnSubModelList.add(
+            SubUnsubModel(
+                "1",
+                "8289848789",
+                "Unsubscribed"
+            )
+        )
         return ViewHolder(itemView)
     }
 

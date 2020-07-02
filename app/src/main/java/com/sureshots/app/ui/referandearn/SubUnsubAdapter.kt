@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshots.app.R
-import com.sureshots.app.model.SubUnsubModel
+import com.sureshots.app.data.model.SubUnsubModel
 
 
 class SubUnsubAdapter(private var mList: List<SubUnsubModel>)

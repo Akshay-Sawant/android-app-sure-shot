@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshots.app.R
-import com.sureshots.app.model.RechargeHistoryModel
+import com.sureshots.app.data.model.RechargeHistoryModel
 
 class RechargeHistoryAdapter(private var mContext: Context,
                              private var mItemLayout: Int,
