@@ -1,15 +1,12 @@
-package com.sureshots.app.fragments
+package com.sureshots.app.ui.subscription
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
 import com.sureshots.app.R
-import com.sureshots.app.adapter.SubscriptionAdapter
 import com.sureshots.app.model.Subscription
 import kotlinx.android.synthetic.main.fragment_subscription.view.*
 

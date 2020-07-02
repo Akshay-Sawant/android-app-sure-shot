@@ -1,17 +1,9 @@
 package com.sureshots.app.network
 
-import android.app.Activity
-import android.content.Context
-import android.widget.Toast
 /*import com.crashlytics.android.Crashlytics;*/
-import com.sureshots.app.R
-import com.sureshots.app.constant.IS_DEBUG_ON
-import com.sureshots.app.login.LoginHelper
 import com.sureshots.app.model.response.APIErrorResponse
 /*import com.innovins.helperlibrary.helper.AlertDialogManager
 import com.innovins.helperlibrary.helper.LoadingViewManager*/
-import com.squareup.moshi.JsonDataException
-import com.squareup.moshi.JsonEncodingException
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

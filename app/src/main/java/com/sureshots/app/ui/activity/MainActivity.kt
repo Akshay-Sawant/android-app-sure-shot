@@ -1,4 +1,4 @@
-package com.sureshots.app.activity
+package com.sureshots.app.ui.activity
 
 import android.os.Bundle
 import android.view.View
@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.sureshots.app.R
-import com.sureshots.app.fragments.auth.SignUpFragment
+import com.sureshots.app.ui.signup.SignUpFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()

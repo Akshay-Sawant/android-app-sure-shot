@@ -1,21 +1,17 @@
-package com.sureshots.app.fragments
+package com.sureshots.app.ui.dth
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 //import com.innovins.helperlibrary.helper.LoadingViewManager
 import com.sureshots.app.MiddleDividerItemDecoration
 
 import com.sureshots.app.R
-/*import com.sureshots.app.activity.RechargeDTHActivity
-import com.sureshots.app.activity.RechargeOneActivity
-import com.sureshots.app.activity.ReferEarnActivity*/
-import com.sureshots.app.adapter.DTHCompanyAdapter
+/*import com.sureshots.app.ui.activity.RechargeDTHActivity
+import com.sureshots.app.ui.activity.RechargeOneActivity
+import com.sureshots.app.ui.activity.ReferEarnActivity*/
 import com.sureshots.app.model.DTHCompanyModel
 import com.sureshots.app.network.APIClient
 import com.sureshots.app.network.ErrorUtils
@@ -28,7 +24,8 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,DTHCompanyAdapter.OnItemSelectedListener {
+class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,
+    DTHCompanyAdapter.OnItemSelectedListener {
 
     private lateinit var mRecyclerViewDTHCompany: RecyclerView
     private lateinit var mDTHCompanyAdapter: DTHCompanyAdapter

@@ -1,10 +1,8 @@
-package com.sureshots.app.fragments
+package com.sureshots.app.ui.recharge
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.Navigation
 
 import com.sureshots.app.R

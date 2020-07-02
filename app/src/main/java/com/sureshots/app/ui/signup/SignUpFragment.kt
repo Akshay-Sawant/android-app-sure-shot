@@ -1,4 +1,4 @@
-package com.sureshots.app.fragments.auth
+package com.sureshots.app.ui.signup
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

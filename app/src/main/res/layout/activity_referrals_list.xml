@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     android:fillViewport="true"
-    tools:context=".activity.ReferralsListActivity">
+    tools:context=".ui.activity.ReferralsListActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

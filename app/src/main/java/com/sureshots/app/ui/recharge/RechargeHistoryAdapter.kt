@@ -1,4 +1,4 @@
-package com.sureshots.app.adapter
+package com.sureshots.app.ui.recharge
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -35,7 +35,7 @@ class RechargeHistoryAdapter(private var mContext: Context,
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(mContext)
                 .inflate(
@@ -46,7 +46,7 @@ class RechargeHistoryAdapter(private var mContext: Context,
         )
     }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textViewMobileNumber.text = mList[position].mobileNumber
         holder.textViewRechargeAmount.text = mList[position].rechargeAmount
         holder.textViewRechargeDate.text = mList[position].rechargeDate

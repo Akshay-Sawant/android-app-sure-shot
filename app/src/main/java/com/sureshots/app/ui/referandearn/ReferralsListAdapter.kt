@@ -1,4 +1,4 @@
-package com.sureshots.app.adapter
+package com.sureshots.app.ui.referandearn
 
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +38,7 @@ class ReferralsListAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_referrals_list, parent, false)
         mRecyclerViewSubUnSub = itemView.findViewById(R.id.recyclerViewPhoneNumbers)
         mSubUnSubModelList.clear()
@@ -56,7 +56,7 @@ class ReferralsListAdapter(
         return ViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textViewLevel.text = mList[position].level
         holder.textViewAmount.text = mList[position].amount
         val isExpanded = position == mExpandedPosition

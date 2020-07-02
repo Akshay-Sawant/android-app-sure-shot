@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".fragments.MobileRechargeFragment">
+    tools:context=".ui.mobile.MobileRechargeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/mainView"

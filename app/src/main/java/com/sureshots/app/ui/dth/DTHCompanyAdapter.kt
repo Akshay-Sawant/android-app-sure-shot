@@ -1,28 +1,27 @@
-package com.sureshots.app.adapter
+package com.sureshots.app.ui.dth
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshots.app.R
-import com.sureshots.app.model.SimCompanyModel
-import kotlinx.android.synthetic.main.recycler_view_sim_company.view.*
+import com.sureshots.app.model.DTHCompanyModel
+import kotlinx.android.synthetic.main.recycler_view_dth_company.view.*
 
-class SimCompanyAdapter(
+
+class DTHCompanyAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mSimCompanyModelList: List<SimCompanyModel>,private val onItemSelectedListener: OnItemSelectedListener
-) : RecyclerView.Adapter<SimCompanyAdapter.SimCompanyViewHolder>() {
+    private var mDTHCompanyModelList: List<DTHCompanyModel>,private val onItemSelectedListener: OnItemSelectedListener
+) : RecyclerView.Adapter<DTHCompanyAdapter.DTHCompanyViewHolder>() {
 
     interface OnItemSelectedListener {
         fun onItemSelected(adapterPosition: Int)
     }
 
-    inner class SimCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),View.OnClickListener {
+    inner class DTHCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),View.OnClickListener {
 
         init {
             mItemView.setOnClickListener(this)
@@ -31,7 +30,6 @@ class SimCompanyAdapter(
         override fun onClick(view: View?) {
             onItemSelectedListener.onItemSelected(adapterPosition)
             /*view?.let {
-
                 Navigation.findNavController(it)
                     .navigate(R.id.action_dashboard_to_rechargeOneFragment)
             }*/
@@ -39,8 +37,8 @@ class SimCompanyAdapter(
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimCompanyViewHolder {
-        return SimCompanyViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DTHCompanyViewHolder {
+        return DTHCompanyViewHolder(
             LayoutInflater.from(mContext)
                 .inflate(
                     mItemLayout,
@@ -51,14 +49,14 @@ class SimCompanyAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mSimCompanyModelList.size
+        return mDTHCompanyModelList.size
     }
 
-    override fun onBindViewHolder(holder: SimCompanyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DTHCompanyViewHolder, position: Int) {
         Glide.with(holder.itemView.context)
-            .load(mSimCompanyModelList[position].companyLogoUrl)
+            .load(mDTHCompanyModelList[position].companyLogoUrl)
             .error(R.drawable.ic_launcher_background)
-            .into(holder.itemView.imageViewRVSimComany)
-        holder.itemView.textViewCompanyName.text = mSimCompanyModelList[position].companyName
+            .into(holder.itemView.imageViewRVDTHCompany)
+        holder.itemView.textViewCompanyName.text = mDTHCompanyModelList[position].companyName
     }
 }

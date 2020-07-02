@@ -2,14 +2,9 @@ package com.sureshots.app.login
 
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
 /*import com.sureshots.app.LoginActivity*/
-import com.sureshots.app.R
-import com.sureshots.app.constant.IS_DEBUG_ON
 import com.sureshots.app.model.response.APIActionResponse
 import com.sureshots.app.network.APIClient
 import com.sureshots.app.network.ErrorUtils

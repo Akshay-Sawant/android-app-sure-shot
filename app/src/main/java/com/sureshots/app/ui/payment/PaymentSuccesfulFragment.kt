@@ -1,4 +1,4 @@
-package com.sureshots.app.fragments
+package com.sureshots.app.ui.payment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

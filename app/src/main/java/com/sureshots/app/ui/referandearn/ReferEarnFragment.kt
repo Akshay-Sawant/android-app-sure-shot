@@ -1,4 +1,4 @@
-package com.sureshots.app.fragments
+package com.sureshots.app.ui.referandearn
 
 import android.graphics.Color
 import android.os.Bundle

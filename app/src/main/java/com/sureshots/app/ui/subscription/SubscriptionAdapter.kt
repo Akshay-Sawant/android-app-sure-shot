@@ -1,4 +1,4 @@
-package com.sureshots.app.adapter
+package com.sureshots.app.ui.subscription
 
 import android.content.Context
 import android.view.LayoutInflater

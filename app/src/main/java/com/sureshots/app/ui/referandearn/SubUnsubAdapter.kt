@@ -1,4 +1,4 @@
-package com.sureshots.app.adapter
+package com.sureshots.app.ui.referandearn
 
 import android.view.LayoutInflater
 import android.view.View
@@ -29,12 +29,12 @@ class SubUnsubAdapter(private var mList: List<SubUnsubModel>)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_subunsub_numbers, parent, false)
         return ViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textViewPhoneNumber.text = mList[position].number
         holder.textViewSubStatus.text = mList[position].status
     }
