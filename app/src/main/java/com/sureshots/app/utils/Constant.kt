@@ -1,4 +1,4 @@
-package com.sureshots.app.constant
+package com.sureshots.app.utils
 
 const val IS_DEBUG_ON = true // TODO: false on live
 
