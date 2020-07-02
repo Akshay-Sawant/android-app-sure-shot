@@ -13,6 +13,10 @@
             android:id="@+id/action_signUp_to_verifyOTP"
             app:destination="@id/VerifyOTPFragment"
             app:popUpTo="@id/SignUpFragment" />
+        <action
+            android:id="@+id/action_signUp_to_signIn"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/SignUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/VerifyOTPFragment"
@@ -109,5 +113,15 @@
                 app:popUpTo="@id/SubscriptionFragment" />
         </fragment>
     </navigation>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.sureshots.app.ui.signin.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signIn_to_VerifyOTP"
+            app:destination="@id/VerifyOTPFragment"
+            app:popUpTo="@id/signInFragment" />
+    </fragment>
 
 </navigation>
