@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -22,6 +23,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
 
     private lateinit var mButtonContinue: Button
 
+    private lateinit var mTextViewSignUpHaveAccount: TextView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -34,6 +37,9 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
 
         mButtonContinue = view.findViewById(R.id.buttonContinue)
         mButtonContinue.setOnClickListener(this)
+
+        mTextViewSignUpHaveAccount = view.findViewById(R.id.textViewSignUpHaveAccount)
+        mTextViewSignUpHaveAccount.setOnClickListener(this@SignUpFragment)
     }
 
     override fun onClick(v: View?) {
@@ -41,6 +47,9 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
             R.id.buttonContinue -> view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_signUp_to_verifyOTP)
+            }
+            R.id.textViewSignUpHaveAccount -> {
+
             }
         }
     }

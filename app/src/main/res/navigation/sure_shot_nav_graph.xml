@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sure_shot_nav_graph"
-    app:startDestination="@id/DashboardFragment">
+    app:startDestination="@id/SignUpFragment">
 
     <fragment
         android:id="@+id/SignUpFragment"

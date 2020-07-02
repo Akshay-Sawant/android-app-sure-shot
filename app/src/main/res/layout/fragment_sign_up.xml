@@ -101,11 +101,23 @@
             android:layout_marginTop="@dimen/standard_margin_x2"
             android:layout_marginEnd="@dimen/standard_margin_x2"
             android:text="@string/button_text_continue"
-            app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSignUpReferralId"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSignUpReferralId" />
+
+        <TextView
+            android:id="@+id/textViewSignUpHaveAccount"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_mdpi"
+            android:gravity="center"
+            android:text="@string/text_label_have_account"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/buttonContinue"
+            app:layout_constraintVertical_bias="1" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"

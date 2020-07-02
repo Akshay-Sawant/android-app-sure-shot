@@ -10,6 +10,7 @@
     <string name="button_text_continue">Continue</string>
     <string name="text_referrals_id">Referral ID(Optional)</string>
     <string name="text_cd_sign_up_image">Sign up image</string>
+    <string name="text_label_have_account">Already have an account? Sign In</string>
 
     <!--Verify OTP-->
     <string name="text_label_verify_proceed"><![CDATA[Verify & Proceed]]></string>
@@ -72,5 +73,6 @@
     <string name="text_no_data_found">No data Found</string>
     <string name="text_label_sign_in">Sign In</string>
     <string name="text_label_sign_in_sub_header">Enter your details to sign in.</string>
+    <string name="text_label_no_account">Not registered yet? Sign Up</string>
 
 </resources>
