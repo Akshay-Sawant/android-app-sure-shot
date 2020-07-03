@@ -47,8 +47,6 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
         view?.let {
             when (v?.id) {
                 R.id.buttonContinue -> isSignUpValidated()
-                /*Navigation.findNavController(it)
-                .navigate(R.id.action_signUp_to_verifyOTP)*/
                 R.id.textViewSignUpHaveAccount -> Navigation.findNavController(it)
                     .navigate(R.id.action_signUp_to_signIn)
             }
@@ -65,7 +63,10 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                     getString(R.string.text_error_mobile)
                 ) -> return
                 else -> {
-
+                    view?.let { it1 ->
+                        Navigation.findNavController(it1)
+                            .navigate(R.id.action_signUp_to_verifyOTP)
+                    }
                 }
             }
         }
