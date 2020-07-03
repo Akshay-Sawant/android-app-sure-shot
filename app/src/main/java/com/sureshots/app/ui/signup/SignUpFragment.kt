@@ -31,7 +31,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
         mTextInputLayoutMobileNumber = view.findViewById(R.id.textInputLayoutMobileNumber)
         mTextInputEditTextMobileNumber = view.findViewById(R.id.textInputEditTextMobileNumber)
 
-        mTextInputLayoutSignUpReferralId = view.findViewById(R.id.textInputLayoutReferralsId)
+        mTextInputLayoutSignUpReferralId = view.findViewById(R.id.textInputLayoutSignUpReferralId)
         mTextInputEditTextSignUpReferralId =
             view.findViewById(R.id.textInputEditTextSignUpReferralId)
 

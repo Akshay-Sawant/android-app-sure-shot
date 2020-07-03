@@ -81,7 +81,7 @@ thirdParty.circleImageView = "de.hdodenhof:circleimageview:$versions.circleImage
 thirdParty.stepView = "com.github.baoyachi:StepView:$versions.stepView"
 deps.thirdParty = thirdParty
 
-def addRepos(RepositoryHandler mHandler) {
+static def addRepos(RepositoryHandler mHandler) {
     mHandler.google()
     mHandler.jcenter()
     mHandler.maven { url "https://jitpack.io" }
