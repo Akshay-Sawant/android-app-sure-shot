@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshots.app.R
+import com.sureshots.app.utils.others.ValidationUtils
 
 /**
  * A simple [Fragment] subclass.
@@ -45,10 +46,27 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
     override fun onClick(v: View?) {
         view?.let {
             when (v?.id) {
-                R.id.buttonContinue -> Navigation.findNavController(it)
-                    .navigate(R.id.action_signUp_to_verifyOTP)
+                R.id.buttonContinue -> isSignUpValidated()
+                /*Navigation.findNavController(it)
+                .navigate(R.id.action_signUp_to_verifyOTP)*/
                 R.id.textViewSignUpHaveAccount -> Navigation.findNavController(it)
                     .navigate(R.id.action_signUp_to_signIn)
+            }
+        }
+    }
+
+    private fun isSignUpValidated() {
+        context?.let {
+            when {
+                !ValidationUtils(it).isInputEditTextLengthFunc(
+                    mTextInputLayoutMobileNumber,
+                    mTextInputEditTextMobileNumber,
+                    10,
+                    getString(R.string.text_error_mobile)
+                ) -> return
+                else -> {
+
+                }
             }
         }
     }

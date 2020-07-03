@@ -75,4 +75,8 @@
     <string name="text_label_sign_in_sub_header">Enter your details to sign in.</string>
     <string name="text_label_no_account">Not registered yet? Sign Up</string>
 
+    <!--Errors-->
+    <string name="text_error_mobile">Invalid mobile number</string>
+    <string name="text_error_empty_field">Field cannot be empty</string>
+
 </resources>
