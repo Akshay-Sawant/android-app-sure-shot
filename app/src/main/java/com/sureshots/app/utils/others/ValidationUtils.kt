@@ -14,17 +14,11 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
-class ValidationHelper(private val mContext: Context) {
+class ValidationUtils(private val mContext: Context) {
 
-    private val mValue: String? by lazy {
-        "value"
-    }
-    private val mMatch: String? by lazy {
-        "match"
-    }
-    private val mMatcher: String? by lazy {
-        "matcher"
-    }
+    private var mValue: String? = ""
+    private var mMatch: String? = ""
+    private var mMatcher: String? = ""
 
     /**
      * Method to check mobile number
@@ -40,9 +34,7 @@ class ValidationHelper(private val mContext: Context) {
         mNumLength: Int,
         mMessage: String
     ): Boolean {
-        mValue.apply {
-            Objects.requireNonNull(mTextInputEditText.text).toString().trim()
-        }
+        mValue = Objects.requireNonNull(mTextInputEditText.text).toString().trim()
         if (mValue?.length!! < mNumLength) {
             mTextInputLayout.error = mMessage
             hideKeyboardFunc(mTextInputEditText)
@@ -58,9 +50,7 @@ class ValidationHelper(private val mContext: Context) {
         mTextInputEditText: TextInputEditText,
         mMessage: String
     ): Boolean {
-        mValue.apply {
-            Objects.requireNonNull(mTextInputEditText.text).toString().trim()
-        }
+        mValue = Objects.requireNonNull(mTextInputEditText.text).toString().trim()
         if (!Patterns.PHONE.matcher(mValue!!).matches()) {
             mTextInputLayout.error = mMessage
             hideKeyboardFunc(mTextInputEditText)
@@ -83,9 +73,7 @@ class ValidationHelper(private val mContext: Context) {
         mTextInputLayout: TextInputLayout,
         mMessage: String
     ): Boolean {
-        mValue.apply {
-            Objects.requireNonNull(mTextInputEditText.text).toString().trim()
-        }
+        mValue = Objects.requireNonNull(mTextInputEditText.text).toString().trim()
 
         if (mValue?.isEmpty()!!) {
             mTextInputLayout.error = mMessage
@@ -110,9 +98,7 @@ class ValidationHelper(private val mContext: Context) {
         mTextInputLayout: TextInputLayout,
         mMessage: String
     ): Boolean {
-        mValue.apply {
-            Objects.requireNonNull(mTextInputEditText.text).toString().trim()
-        }
+        mValue = Objects.requireNonNull(mTextInputEditText.text).toString().trim()
 
         if (mValue?.isEmpty()!! || !Patterns.EMAIL_ADDRESS.matcher(mValue).matches()) {
             mTextInputLayout.error = mMessage
@@ -139,12 +125,8 @@ class ValidationHelper(private val mContext: Context) {
         mTextInputLayout: TextInputLayout,
         mMessage: String
     ): Boolean {
-        mMatch.apply {
-            Objects.requireNonNull(mTextInputEditText1.text).toString().trim()
-        }
-        mMatcher.apply {
-            Objects.requireNonNull(mTextInputEditText2.text).toString().trim()
-        }
+        mMatch = Objects.requireNonNull(mTextInputEditText1.text).toString().trim()
+        mMatcher = Objects.requireNonNull(mTextInputEditText2.text).toString().trim()
 
         if (!mMatcher?.let { mMatch?.contentEquals(it) }!!) {
             mTextInputLayout.error = mMessage
@@ -165,9 +147,7 @@ class ValidationHelper(private val mContext: Context) {
      * @return
      */
     fun isEditTextFilledFunc(mEditText: EditText, mLength: Int, mMessage: String): Boolean {
-        mValue.apply {
-            mEditText.text.toString().trim()
-        }
+        mValue = mEditText.text.toString().trim()
 
         when {
             mValue?.length!! < mLength -> {
@@ -222,7 +202,12 @@ class ValidationHelper(private val mContext: Context) {
                 }
             }
 
-            override fun beforeTextChanged(mCharSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun beforeTextChanged(
+                mCharSequence: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
 
             }
 
@@ -234,7 +219,7 @@ class ValidationHelper(private val mContext: Context) {
 
     fun isImageValidated(mUrl: String, mView: ViewGroup, mMsg: String): Boolean {
         if (mUrl.isEmpty()) {
-            PopUpHelper(mContext).onShortSnackbar(mView, mMsg)
+            PopUpUtils(mContext).onShortSnackbar(mView, mMsg)
             return false
         }
         return true

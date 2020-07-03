@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
-class PopUpHelper(private val mContext: Context) {
+class PopUpUtils(private val mContext: Context) {
 
     /**
      * Toast

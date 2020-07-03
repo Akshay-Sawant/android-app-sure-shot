@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginHelper(context: Context) {
+class SharedPreferenceUtils(context: Context) {
 
     private val LOGIN_PREF_FILE: String = "LOGIN_PREF_FILE"
 
