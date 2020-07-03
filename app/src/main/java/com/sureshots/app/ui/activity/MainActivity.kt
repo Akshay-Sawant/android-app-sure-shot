@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity()
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(mNavController, drawerLayout)
+
     }
 
     override fun onDestinationChanged(
@@ -71,11 +72,11 @@ class MainActivity : AppCompatActivity()
                 toolbar.visibility = View.GONE
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
-            R.id.DashboardFragment -> {
+            /*R.id.DashboardFragment -> {
                 supportActionBar?.show()
                 toolbar.visibility = View.VISIBLE
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            }
+            }*/
             else -> {
                 supportActionBar?.show()
                 toolbar.visibility = View.VISIBLE
