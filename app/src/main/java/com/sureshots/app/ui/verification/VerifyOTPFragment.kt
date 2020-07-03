@@ -49,7 +49,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
         when (v?.id) {
             R.id.buttonOTPVerifyAndProceed -> view?.let {
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_verifyOTP_to_dashboard)
+                    .navigate(R.id.action_global_Dashboard)
             }
         }
     }

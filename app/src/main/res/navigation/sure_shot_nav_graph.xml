@@ -8,6 +8,7 @@
     <fragment
         android:id="@+id/SignUpFragment"
         android:name="com.sureshots.app.ui.signup.SignUpFragment"
+        android:label=""
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUp_to_verifyOTP"
@@ -15,19 +16,14 @@
             app:popUpTo="@id/SignUpFragment" />
         <action
             android:id="@+id/action_signUp_to_signIn"
-            app:destination="@id/signInFragment"
+            app:destination="@id/SignInFragment"
             app:popUpTo="@id/SignUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/VerifyOTPFragment"
         android:name="com.sureshots.app.ui.verification.VerifyOTPFragment"
         android:label=""
-        tools:layout="@layout/fragment_verify_o_t_p">
-        <action
-            android:id="@+id/action_verifyOTP_to_dashboard"
-            app:destination="@id/DashboardFragment"
-            app:popUpTo="@id/VerifyOTPFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_verify_o_t_p" />
     <fragment
         android:id="@+id/DashboardFragment"
         android:name="com.sureshots.app.ui.dashboard.DashboardFragment"
@@ -46,7 +42,7 @@
         android:id="@+id/ReferEarnFragment"
         android:name="com.sureshots.app.ui.referandearn.ReferEarnFragment"
         android:label="Refer and Earn"
-        tools:layout="@layout/fragment_refer_earn"/>
+        tools:layout="@layout/fragment_refer_earn" />
     <fragment
         android:id="@+id/RechargeOneFragment"
         android:name="com.sureshots.app.ui.recharge.RechargeOneFragment"
@@ -61,7 +57,8 @@
             app:destination="@id/DashboardFragment"
             app:popUpTo="@id/RechargeOneFragment" />
     </fragment>
-    <navigation android:id="@+id/navigation"
+    <navigation
+        android:id="@+id/navigation"
         app:startDestination="@id/RechargeTwoFragment">
         <fragment
             android:id="@+id/MobileRechargeFragment"
@@ -114,14 +111,18 @@
         </fragment>
     </navigation>
     <fragment
-        android:id="@+id/signInFragment"
+        android:id="@+id/SignInFragment"
         android:name="com.sureshots.app.ui.signin.SignInFragment"
-        android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        android:label=""
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signIn_to_VerifyOTP"
             app:destination="@id/VerifyOTPFragment"
-            app:popUpTo="@id/signInFragment" />
+            app:popUpTo="@id/SignInFragment" />
     </fragment>
-
+    <action
+        android:id="@+id/action_global_Dashboard"
+        app:destination="@id/DashboardFragment"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true" />
 </navigation>
