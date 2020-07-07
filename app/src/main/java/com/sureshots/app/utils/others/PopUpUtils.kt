@@ -5,17 +5,32 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
-class PopUpUtils(private val mContext: Context) {
+class PopUpUtils {
+
+    companion object {
+        private var INSTANCE: PopUpUtils? = null
+
+        fun getPopUpUtils(): PopUpUtils {
+            synchronized(this@Companion) {
+                var mPopUpUtilsInstance = INSTANCE
+
+                if (mPopUpUtilsInstance == null) {
+                    mPopUpUtilsInstance = PopUpUtils()
+                }
+                return mPopUpUtilsInstance
+            }
+        }
+    }
 
     /**
      * Toast
      * @param mMessage
      * */
-    fun onShortToast(mMessage: String) {
+    fun onShortToast(mContext: Context, mMessage: String) {
         return Toast.makeText(mContext, mMessage, Toast.LENGTH_SHORT).show()
     }
 
-    fun onLongToast(mMessage: String) {
+    fun onLongToast(mContext: Context, mMessage: String) {
         return Toast.makeText(mContext, mMessage, Toast.LENGTH_LONG).show()
     }
 

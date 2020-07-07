@@ -56,7 +56,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
     private fun isSignUpValidated() {
         context?.let {
             when {
-                !ValidationUtils(it).isInputEditTextLengthFunc(
+                !ValidationUtils.getValidationUtils().isInputEditTextLengthFunc(
                     mTextInputLayoutMobileNumber,
                     mTextInputEditTextMobileNumber,
                     10,

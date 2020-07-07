@@ -1,7 +1,6 @@
 package com.sureshots.app.utils.others
 
 import android.app.Activity
-import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
@@ -14,7 +13,21 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
-class ValidationUtils(private val mContext: Context) {
+class ValidationUtils {
+
+    companion object {
+        private var VALIDATION_UTILS_INSTANCE: ValidationUtils? = null
+
+        fun getValidationUtils(): ValidationUtils {
+            synchronized(this@Companion) {
+                var mValidationUtilsInstance = VALIDATION_UTILS_INSTANCE
+                if (mValidationUtilsInstance == null) {
+                    mValidationUtilsInstance = ValidationUtils()
+                }
+                return mValidationUtilsInstance
+            }
+        }
+    }
 
     private var mValue: String? = ""
     private var mMatch: String? = ""
@@ -166,7 +179,7 @@ class ValidationUtils(private val mContext: Context) {
      */
     fun hideKeyboardFunc(mView: View) {
         val mInputMethodManager =
-            mContext.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            mView.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         mInputMethodManager.hideSoftInputFromWindow(
             mView.windowToken,
             WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
@@ -219,7 +232,7 @@ class ValidationUtils(private val mContext: Context) {
 
     fun isImageValidated(mUrl: String, mView: ViewGroup, mMsg: String): Boolean {
         if (mUrl.isEmpty()) {
-            PopUpUtils(mContext).onShortSnackbar(mView, mMsg)
+            PopUpUtils.getPopUpUtils().onShortSnackbar(mView, mMsg)
             return false
         }
         return true
