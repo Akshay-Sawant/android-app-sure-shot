@@ -3,62 +3,54 @@ package com.sureshots.app.ui.activity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.findNavController
+import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
 import com.sureshots.app.R
-import com.sureshots.app.ui.signup.SignUpFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity()
-    , NavController.OnDestinationChangedListener
-/*,NavigationView.OnNavigationItemSelectedListener*/ {
+class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
-    private lateinit var mNavController: NavController
-
-    //private lateinit var toolbar: Toolbar
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView: NavigationView
-    val signUpFragment = SignUpFragment()
+    private lateinit var mToolbarMain: Toolbar
+    private lateinit var mDrawerLayoutMain: DrawerLayout
+    private lateinit var mNavigationViewMain: NavigationView
+    private lateinit var mNavControllerMain: NavController
+    private lateinit var mAppBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.navigationView)
+        mToolbarMain = findViewById(R.id.toolbarMain)
 
-        /*if(savedInstanceState == null) { // initial transaction should be wrapped like this
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, signUpFragment)
-                .commitAllowingStateLoss()
-        }*/
-        mNavController = Navigation.findNavController(this, R.id.sure_shot_nav_host)
-        NavigationUI.setupWithNavController(navigationView, mNavController)
-        NavigationUI.setupActionBarWithNavController(this, mNavController, drawerLayout)
-        //navigationView.setNavigationItemSelectedListener(this)
-        mNavController.addOnDestinationChangedListener(this@MainActivity)
+        setSupportActionBar(mToolbarMain)
 
-    }
+        mDrawerLayoutMain = findViewById(R.id.drawerLayoutMain)
+        mNavigationViewMain = findViewById(R.id.navigationViewMain)
 
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
+        mNavControllerMain = findNavController(R.id.fragmentNavHost)
+        mAppBarConfiguration = AppBarConfiguration(setOf(R.id.DashboardFragment), mDrawerLayoutMain)
+
+        setupActionBarWithNavController(mNavControllerMain, mAppBarConfiguration)
+
+        mNavigationViewMain.setupWithNavController(mNavControllerMain)
+        mNavControllerMain.addOnDestinationChangedListener(this@MainActivity)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(mNavController, drawerLayout)
+        return mNavControllerMain.navigateUp(mAppBarConfiguration) || super.onSupportNavigateUp()
+    }
 
+    override fun onBackPressed() {
+        if (mDrawerLayoutMain.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayoutMain.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun onDestinationChanged(
@@ -69,8 +61,8 @@ class MainActivity : AppCompatActivity()
         when (destination.id) {
             R.id.SignUpFragment -> {
                 supportActionBar?.hide()
-                toolbar.visibility = View.GONE
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                mToolbarMain.visibility = View.GONE
+                mDrawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
             /*R.id.DashboardFragment -> {
                 supportActionBar?.show()
@@ -79,21 +71,9 @@ class MainActivity : AppCompatActivity()
             }*/
             else -> {
                 supportActionBar?.show()
-                toolbar.visibility = View.VISIBLE
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                mToolbarMain.visibility = View.VISIBLE
+                mDrawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
         }
     }
-
-    /*override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        menuItem.isChecked = true
-        drawerLayout.closeDrawers()
-        val id = menuItem.itemId
-        when (id) {
-            R.id.first -> mNavController.navigate(R.id.RechargeOneFragment)
-            R.id.second -> mNavController.navigate(R.id.RechargeTwoFragment)
-            R.id.third -> mNavController.navigate(R.id.ReferEarnFragment)
-        }
-        return true
-    }*/
 }
