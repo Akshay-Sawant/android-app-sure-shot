@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshots.app.R
+import com.sureshots.app.utils.others.ValidationUtils
 
 class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener {
 
@@ -45,6 +46,20 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                     Navigation.findNavController(it)
                         .popBackStack()
                 }
+            }
+        }
+    }
+
+    private fun isSignInValidated() {
+        when {
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextMobileFunc(
+                    mTextInputLayoutSignInMobileNumber,
+                    mTextInputEditTextSignInMobileNumber,
+                    getString(R.string.text_error_mobile)
+                ) -> return
+            else -> {
+
             }
         }
     }
