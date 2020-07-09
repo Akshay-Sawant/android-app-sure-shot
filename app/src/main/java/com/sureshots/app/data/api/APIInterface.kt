@@ -12,14 +12,6 @@ import com.sureshots.app.data.model.SimCompanyModel
 
 interface APIInterface {
 
-    companion object {
-
-    }
-
-    /*@Deprecated("Test api")
-    @GET("$API_VERSION/sample.php")
-    fun getSample(@Query("id") cityID: Int, @Query("APPID") appID: String): Call<APIErrorResponse>*/
-
     @FormUrlEncoded
     @POST("$API_VERSION/AndroidLogError.php")
     fun logNetworkError(@Field("error") error: String): Call<ResponseBody>
@@ -38,7 +30,8 @@ interface APIInterface {
     /*Register*/
     @FormUrlEncoded
     @POST("$API_VERSION/SignUp.php")
-    fun doSignUp(@Field("mobile") mobile: String
+    fun doSignUp(
+        @Field("mobile") mobile: String
     ): Call<LoggedInUser>
 
     @FormUrlEncoded
@@ -47,8 +40,10 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("$API_VERSION/VerifySignUpOTP.php")
-    fun verifySignUpOTP(@Field("mobile") mobile: String,
-                        @Field("otp") otp: String): Call<LoggedInUser>
+    fun verifySignUpOTP(
+        @Field("mobile") mobile: String,
+        @Field("otp") otp: String
+    ): Call<LoggedInUser>
 
     /*Login*/
     @FormUrlEncoded
@@ -81,18 +76,22 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("$API_VERSION/ResetPassword.php")
-    fun resetPassword(@Field("mobile") mobile: String,
-                      @Field("otp") otp: String,
-                      @Field("newPassword") newPassword: String,
-                      @Field("reTypedNewPassword") reTypeNewPassword: String): Call<APIActionResponse>
+    fun resetPassword(
+        @Field("mobile") mobile: String,
+        @Field("otp") otp: String,
+        @Field("newPassword") newPassword: String,
+        @Field("reTypedNewPassword") reTypeNewPassword: String
+    ): Call<APIActionResponse>
     /*Login*/
 
 
     @Deprecated("to be removed")
     @FormUrlEncoded
     @POST("$API_VERSION/SendInvoiceEmail.php")
-    fun sendInvoiceEmail(@Field("userLoginToken") userLoginToken: String,
-                         @Field("orderId") orderId: String): Call<APIActionResponse>
+    fun sendInvoiceEmail(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("orderId") orderId: String
+    ): Call<APIActionResponse>
 
     @FormUrlEncoded
     @POST("$API_VERSION/SimCompany.php")
@@ -105,33 +104,40 @@ interface APIInterface {
     /*Prepaid Recharge APIs*/
     @FormUrlEncoded
     @POST("/getServiceData.go")
-    fun getCircleList(@Field("goid") goid: String,
-                      @Field("apikey") apikey: String,
-                      @Field("rtype") rtype: String,
-                      @Field("type") type: String): Call<APIActionResponse>
+    fun getCircleList(
+        @Field("goid") goid: String,
+        @Field("apikey") apikey: String,
+        @Field("rtype") rtype: String,
+        @Field("type") type: String
+    ): Call<APIActionResponse>
 
     @FormUrlEncoded
     @POST("/getServiceData.go")
-    fun getOperatorList(@Field("goid") goid: String,
-                      @Field("apikey") apikey: String,
-                      @Field("rtype") rtype: String,
-                      @Field("service_family") service_family: String): Call<APIActionResponse>
+    fun getOperatorList(
+        @Field("goid") goid: String,
+        @Field("apikey") apikey: String,
+        @Field("rtype") rtype: String,
+        @Field("service_family") service_family: String
+    ): Call<APIActionResponse>
 
     @FormUrlEncoded
     @POST("/getMsisdnInfo.go")
-    fun getMsisdnInfo(@Field("goid") goid: String,
-                        @Field("apikey") apikey: String,
-                        @Field("rtype") rtype: String,
-                        @Field("service_family") service_family: String,
-                        @Field("msisdn") msisdn: String): Call<APIActionResponse>
+    fun getMsisdnInfo(
+        @Field("goid") goid: String,
+        @Field("apikey") apikey: String,
+        @Field("rtype") rtype: String,
+        @Field("service_family") service_family: String,
+        @Field("msisdn") msisdn: String
+    ): Call<APIActionResponse>
 
     @FormUrlEncoded
     @POST("/getRechargePlan.go")
-    fun getRechargePlan(@Field("goid") goid: String,
-                      @Field("apikey") apikey: String,
-                      @Field("rtype") rtype: String,
-                      @Field("service_family") service_family: String,
-                      @Field("operator_code") operator_code: String,
-                      @Field("circle_code") circle_code: String): Call<APIActionResponse>
-
+    fun getRechargePlan(
+        @Field("goid") goid: String,
+        @Field("apikey") apikey: String,
+        @Field("rtype") rtype: String,
+        @Field("service_family") service_family: String,
+        @Field("operator_code") operator_code: String,
+        @Field("circle_code") circle_code: String
+    ): Call<APIActionResponse>
 }
