@@ -78,5 +78,9 @@
     <!--Errors-->
     <string name="text_error_mobile">Invalid mobile number</string>
     <string name="text_error_empty_field">Field cannot be empty</string>
-
+    <string name="alert_connection_status_not_ok_title">Connection Error!</string>
+    <string name="alert_connection_status_not_ok_message">Unable to connect to server!</string>
+    <string name="alert_connection_lost_title">Oops!!</string>
+    <string name="alert_connection_lost_message">Connection Lost! Please try again</string>
+    <string name="text_login_to_continue">Please login to continue!</string>
 </resources>

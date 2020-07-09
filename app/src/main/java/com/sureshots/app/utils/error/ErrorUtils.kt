@@ -1,15 +1,23 @@
 package com.sureshots.app.utils.error
 
 /*import com.crashlytics.android.Crashlytics;*/
+import android.app.Activity
+import android.content.Context
+import android.widget.Toast
+import com.squareup.moshi.JsonDataException
+import com.squareup.moshi.JsonEncodingException
+import com.sureshots.app.R
 import com.sureshots.app.data.api.APIClient
 import com.sureshots.app.data.model.response.APIErrorResponse
-/*import com.innovins.helperlibrary.helper.AlertDialogManager
-import com.innovins.helperlibrary.helper.LoadingViewManager*/
+import com.sureshots.app.utils.IS_DEBUG_ON
+import com.sureshots.app.utils.others.SharedPreferenceUtils
+import com.sureshots.app.utils.server.Server400ResponseException
+import com.sureshots.app.utils.server.Server401ResponseException
+import com.sureshots.app.utils.server.ServerInvalidResponseException
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 import java.io.IOException
 
 /**
@@ -20,7 +28,7 @@ import java.io.IOException
 object ErrorUtils {
     internal fun parseError(response: ResponseBody): APIErrorResponse {
         val converter = APIClient.retrofitInstance
-                        .responseBodyConverter<APIErrorResponse>(APIErrorResponse::class.java, arrayOfNulls(0))
+            .responseBodyConverter<APIErrorResponse>(APIErrorResponse::class.java, arrayOfNulls(0))
 
         val apiErrorResponse: APIErrorResponse
         try {
@@ -32,42 +40,42 @@ object ErrorUtils {
         return apiErrorResponse
     }
 
-    /*fun parseOnFailureException(
+    fun parseOnFailureException(
         context: Context,
         call: Call<*>,
-        t: Throwable,
-        loadingViewManager: LoadingViewManager?
+        t: Throwable/*,
+        loadingViewManager: LoadingViewManager?*/
     ) {
         if (t is Server400ResponseException) {
             val apiErrorResponse = t.apiErrorResponse as APIErrorResponse
-            if (loadingViewManager != null) {
+            /*if (loadingViewManager != null) {
                 loadingViewManager.showErrorView(apiErrorResponse.title, apiErrorResponse.message)
             } else {
-                AlertDialogManager.instance
-                    .showAlertDialog(
-                        context, R.drawable.ic_warning_black_24dp,
-                        apiErrorResponse.title, apiErrorResponse.message
-                    )
-            }
+                AlertDialogUtils.getInstance().showAlert(
+                    context,
+                    R.drawable.ic_warning_black,
+                    apiErrorResponse.title, apiErrorResponse.message
+                )
+            }*/
         } else if (t is Server401ResponseException) {
             if (context is Activity) {
-                LoginHelper.startLoginFlow(context)
+                SharedPreferenceUtils.startLoginFlow(context)
             } else {
-                Toast.makeText(context,"Please login to continue!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.text_login_to_continue, Toast.LENGTH_SHORT).show()
             }
         } else if (t is ServerInvalidResponseException) {
             if (IS_DEBUG_ON) {
                 t.printStackTrace()
             }
 
-            if (loadingViewManager != null) {
+            /*if (loadingViewManager != null) {
                 loadingViewManager.showErrorView(
                     context.getString(R.string.alert_connection_status_not_ok_title),
                     context.getString(R.string.alert_connection_status_not_ok_message)
                 )
             } else {
-                AlertDialogManager.instance.displayInvalidResponseAlert(context)
-            }
+                AlertDialogUtils.getInstance().displayInvalidResponseAlert(context)
+            }*/
         } else if (t is JsonEncodingException) {
             // conversion issue! big problems, malformed JSON :(
             if (IS_DEBUG_ON) {
@@ -80,18 +88,18 @@ object ErrorUtils {
                 "JSONMismatch " + t.message +
                         "\n\nRequest: " + call.request().toString(), t
             )
-            *//* todo: uncomment later
-            Crashlytics.log("JSONMismatch " + t.getMessage() +
-                    "\n\nRequest: " + call.request().toString());*//*
+//             todo: uncomment later
+            /*Crashlytics.log("JSONMismatch " + t.getMessage() +
+                    "\n\nRequest: " + call.request().toString());*/
 
-            if (loadingViewManager != null) {
+            /*if (loadingViewManager != null) {
                 loadingViewManager.showErrorView(
                     context.getString(R.string.alert_connection_status_not_ok_title),
                     context.getString(R.string.alert_connection_status_not_ok_message)
                 )
             } else {
-                AlertDialogManager.instance.displayInvalidResponseAlert(context)
-            }
+                AlertDialogUtils.getInstance().displayInvalidResponseAlert(context)
+            }*/
         } else if (t is JsonDataException) {
             // conversion issue! big problems, malformed JSON :(
             if (IS_DEBUG_ON) {
@@ -102,55 +110,58 @@ object ErrorUtils {
                 "JSONMismatch " + t.message +
                         "\n\nRequest: " + call.request().toString(), t
             )
-            *//*  todo: uncomment later
-            Crashlytics.log("JSONMismatch " + t.getMessage() +
-                    "\n\nRequest: " + call.request().toString());*//*
+//              todo: uncomment later
+            /*Crashlytics.log("JSONMismatch " + t.getMessage() +
+                    "\n\nRequest: " + call.request().toString());*/
 
-            if (loadingViewManager != null) {
+            /*if (loadingViewManager != null) {
                 loadingViewManager.showErrorView(
                     context.getString(R.string.alert_connection_status_not_ok_title),
                     context.getString(R.string.alert_connection_status_not_ok_message)
                 )
             } else {
-                AlertDialogManager.instance.displayInvalidResponseAlert(context)
-            }
+                AlertDialogUtils.getInstance().displayInvalidResponseAlert(context)
+            }*/
         } else if (t is IOException) {
             // this is an actual network failure :( inform the user and possibly retry
-            if (loadingViewManager != null) {
+            // t.printStackTrace()
+            /*if (loadingViewManager != null) {
                 loadingViewManager.showErrorView(
                     context.getString(R.string.alert_connection_lost_title),
                     context.getString(R.string.alert_connection_lost_message)
                 )
             } else {
-                AlertDialogManager.instance.displayConnectionLostAlert(context)
-            }
+                AlertDialogUtils.getInstance().displayInvalidResponseAlert(context)
+            }*/
         } else {
             // unknown error :/
             if (IS_DEBUG_ON) {
                 t.printStackTrace()
             }
 
-            ErrorUtils.logNetworkError("UnhandledError \n\nRequest: " + call.request().toString(), t)
+            ErrorUtils.logNetworkError(
+                "UnhandledError \n\nRequest: " + call.request().toString(),
+                t
+            )
 
-            if (loadingViewManager != null) {
+            /*if (loadingViewManager != null) {
                 loadingViewManager.showErrorView(
                     context.getString(R.string.alert_connection_status_not_ok_title),
                     context.getString(R.string.alert_connection_status_not_ok_message)
                 )
             } else {
-                AlertDialogManager.instance.displayInvalidResponseAlert(context)// malformed JSON :(
-            }
+                AlertDialogUtils.getInstance().displayInvalidResponseAlert(context)
+            }*/
         }
-
-    }*/
+    }
 
     fun logNetworkError(message: String, e: Throwable?) {
         val call = APIClient.apiInterface.logNetworkError(message)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                /*if(response.isSuccessful()) {
+                if (response.isSuccessful) {
 
-                }*/
+                }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
