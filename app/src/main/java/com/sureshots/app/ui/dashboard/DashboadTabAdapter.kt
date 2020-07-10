@@ -6,7 +6,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.sureshots.app.ui.dth.DTHFragment
 import com.sureshots.app.ui.mobile.MobileRechargeFragment
 
-class DashboadTabAdapter(mFragmentActivity: FragmentActivity): FragmentStateAdapter(mFragmentActivity) {
+class DashboadTabAdapter(mFragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(mFragmentActivity) {
     override fun getItemCount(): Int {
         return 2
     }

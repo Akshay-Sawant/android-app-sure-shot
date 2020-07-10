@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-
 import com.sureshots.app.R
 
 /**
@@ -46,7 +45,5 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                     }
                 }
             }).attach()
-
     }
-
 }
