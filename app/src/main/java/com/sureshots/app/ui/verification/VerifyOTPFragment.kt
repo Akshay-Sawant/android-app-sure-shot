@@ -143,4 +143,76 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             }
         }
     }
+
+    private fun onClickSignUpOTP() {
+        context?.let {
+            when {
+                APIClient.isNetworkConnected(it) -> {
+                    APIClient.apiInterface
+                        .doLogin(
+                            "",
+                            mEditTextOTPOne.text.toString().trim() +
+                                    mEditTextOTPTwo.text.toString().trim() +
+                                    mEditTextOTPThree.text.toString().trim() +
+                                    mEditTextOTPFour.text.toString().trim()
+                        )
+                        .enqueue(object : Callback<LoggedInUser> {
+                            override fun onResponse(
+                                call: Call<LoggedInUser>,
+                                response: Response<LoggedInUser>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val mLoggedInUser: LoggedInUser? = response.body()
+
+                                    if (mLoggedInUser != null) {
+                                        mSharedPreferenceUtils =
+                                            SharedPreferenceUtils(it, mLoggedInUser)
+                                        mSharedPreferenceUtils.saveUpdatedLoggedInUser(it)
+
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_check_circle_black,
+                                            "Registration Successful",
+                                            "Your OTP has been verified successfully!",
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener {
+                                                view?.let { it1 ->
+                                                    Navigation.findNavController(it1)
+                                                        .navigate(R.id.action_global_Dashboard)
+                                                }
+                                                it.dismiss()
+                                            }
+                                        )
+                                    } else {
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_warning_black,
+                                            "Registration Failed",
+                                            "Your OTP is invalid. Please to check and try again!",
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener {
+                                                it.dismiss()
+                                            }
+                                        )
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
+                                ErrorUtils.parseOnFailureException(
+                                    it,
+                                    call,
+                                    t
+                                )
+                            }
+                        })
+                }
+                else -> {
+                    AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+                }
+            }
+        }
+    }
 }
