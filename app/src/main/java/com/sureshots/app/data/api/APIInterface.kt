@@ -36,7 +36,10 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("$API_VERSION/RequestSignUpOTP.php")
-    fun requestSignUpOTP(@Field("mobile") mobile: String): Call<APIActionResponse>
+    fun requestSignUpOTP(
+        @Field("mobile") mobile: String,
+        @Field("referralId") referralId: String
+    ): Call<APIActionResponse>
 
     @FormUrlEncoded
     @POST("$API_VERSION/VerifySignUpOTP.php")
