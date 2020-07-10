@@ -56,10 +56,8 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$API_VERSION/Login.php")
     fun doLogin(
-        @Field("userName") username: String,
-        @Field("password") password: String,
-        @Field("FCMToken") FCMToken: String?,
-        @Field("lang") language: String?
+        @Field("mobile") mobile: String,
+        @Field("otp") otp: String
     ): Call<LoggedInUser>
 
     @FormUrlEncoded

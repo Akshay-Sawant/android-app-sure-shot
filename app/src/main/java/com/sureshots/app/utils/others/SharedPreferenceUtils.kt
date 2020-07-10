@@ -51,7 +51,8 @@ class SharedPreferenceUtils(context: Context) {
         mLoggedInUser.fullName = prefs.getString(LOGIN_USER_FULL_NAME_KEY, "").toString()
         // mLoggedInUser.firstName = prefs.getString(LOGIN_USER_FIRST_NAME_KEY, "")
         // mLoggedInUser.lastName = prefs.getString(LOGIN_USER_LAST_NAME_KEY, "")
-        mLoggedInUser.countryCode = prefs.getString(LOGIN_USER_MOBILE_COUNTRY_CODE_KEY, "").toString()
+        mLoggedInUser.countryCode =
+            prefs.getString(LOGIN_USER_MOBILE_COUNTRY_CODE_KEY, "").toString()
         mLoggedInUser.mobile = prefs.getString(LOGIN_USER_MOBILE_KEY, "").toString()
         mLoggedInUser.isMobileVerified = prefs.getBoolean(LOGIN_IS_MOBILE_VERIFIED_KEY, false)
         mLoggedInUser.email = prefs.getString(LOGIN_USER_EMAIL_KEY, "").toString()
@@ -77,9 +78,9 @@ class SharedPreferenceUtils(context: Context) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             activity.startActivity(intent)*/
 
-           /* val intent = LoginActivity.newIntent(activity)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            activity.startActivityForResult(intent, REQUEST_CODE_LOGIN_SUCCESS)*/
+            /* val intent = LoginActivity.newIntent(activity)
+             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+             activity.startActivityForResult(intent, REQUEST_CODE_LOGIN_SUCCESS)*/
 
             /*val intent = SelectUserTypeActivity.newIntent(activity)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -118,7 +119,7 @@ class SharedPreferenceUtils(context: Context) {
     /**
      * clears all login related data from device
      */
-    private fun doLogout(context: Context){
+    private fun doLogout(context: Context) {
         val prefEditor = context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE).edit()
         prefEditor.clear()
         prefEditor.apply()
@@ -129,7 +130,7 @@ class SharedPreferenceUtils(context: Context) {
      */
     fun isUserLogin(): Boolean = (mLoggedInUser.loginToken != "")
 
-    fun requestLogout(context: Context){
+    fun requestLogout(context: Context) {
         /*AlertDialogManager.instance.showAlertDialog(context,
             R.drawable.ic_warning_black_24dp,
             context.getString(R.string.alert_logout_heads_up_title),
@@ -141,7 +142,7 @@ class SharedPreferenceUtils(context: Context) {
             context.getString(android.R.string.no), null);*/
     }
 
-    fun doServerLogout(context: Context){
+    fun doServerLogout(context: Context) {
         // doLogout(context)
         // startLoginFlow(context as Activity)
         if (!APIClient.isNetworkConnected(context)) {
@@ -149,49 +150,53 @@ class SharedPreferenceUtils(context: Context) {
             return
         }
 
-                if (!APIClient.isNetworkConnected(context)) {
+        if (!APIClient.isNetworkConnected(context)) {
 //                    AlertDialogManager.instance.displayNoConnectionAlert(context)
-                    return
-                }
+            return
+        }
 
 //                ProgressDialogManager.instance.showProgressDialog(context, "Logging out...")
-                val call: Call<APIActionResponse> = APIClient.apiInterface.doLogout(mLoggedInUser.loginToken)
-                call.enqueue(object: Callback<APIActionResponse> {
+        val call: Call<APIActionResponse> =
+            APIClient.apiInterface.doLogout(mLoggedInUser.loginToken)
+        call.enqueue(object : Callback<APIActionResponse> {
 
-                    override fun onResponse(call: Call<APIActionResponse>, response: Response<APIActionResponse>) {
+            override fun onResponse(
+                call: Call<APIActionResponse>,
+                response: Response<APIActionResponse>
+            ) {
 //                        ProgressDialogManager.instance.hideProgressDialog()
 
-                        if(response.isSuccessful) {
-                            val apiActionResponse: APIActionResponse  ?= response.body()
-                            if(apiActionResponse != null){
-                                if(apiActionResponse.isActionSuccess){
-                                    doLogout(context)
-                                    startLoginFlow(
-                                        context as Activity
-                                    )
-                                } else {
-                                    /*AlertDialogManager.instance.showAlertDialog(context,
-                                                                    R.drawable.ic_warning_black_24dp,
-                                                                    apiActionResponse.title,
-                                                                    apiActionResponse.message)*/
-                                }
-                            } else {
-                                // server returned 200 with a blank response :/
-                                ErrorUtils.logNetworkError(
-                                    ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
-                                        "\nResponse: " + response.toString(), null)
-//                                AlertDialogManager.instance.displayInvalidResponseAlert(context);
-                                // server returned 200 with a blank response :/
-                            }
+                if (response.isSuccessful) {
+                    val apiActionResponse: APIActionResponse? = response.body()
+                    if (apiActionResponse != null) {
+                        if (apiActionResponse.isActionSuccess) {
+                            doLogout(context)
+                            startLoginFlow(
+                                context as Activity
+                            )
+                        } else {
+                            /*AlertDialogManager.instance.showAlertDialog(context,
+                                                            R.drawable.ic_warning_black_24dp,
+                                                            apiActionResponse.title,
+                                                            apiActionResponse.message)*/
                         }
+                    } else {
+                        // server returned 200 with a blank response :/
+                        ErrorUtils.logNetworkError(
+                            ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                    "\nResponse: " + response.toString(), null
+                        )
+//                                AlertDialogManager.instance.displayInvalidResponseAlert(context);
+                        // server returned 200 with a blank response :/
                     }
+                }
+            }
 
-                    override fun onFailure(call: Call<APIActionResponse>, t: Throwable) {
-                        // progressDialog.dismiss();
+            override fun onFailure(call: Call<APIActionResponse>, t: Throwable) {
+                // progressDialog.dismiss();
 //                        ProgressDialogManager.instance.hideProgressDialog()
 //                        ErrorUtils.parseOnFailureException(context, call, t, null)
-                    }
-                })
+            }
+        })
     }
-
 }
