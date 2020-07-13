@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-
 import com.sureshots.app.R
 
 /**
@@ -31,18 +30,10 @@ class RechargeOneFragment : Fragment(R.layout.fragment_recharge_one) {
         TabLayoutMediator(mTabLayoutRecharge, mViewPagerTwoRecharge,
             TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 when (position) {
-                    0 -> {
-                        tab.text = "Prepaid"
-                    }
-                    1 -> {
-                        tab.text = "Postpaid"
-                    }
-                    else -> {
-                        tab.text = "Prepaid"
-                    }
+                    0 -> tab.text = getString(R.string.text_label_prepaid)
+                    1 -> tab.text = getString(R.string.text_label_postpaid)
+                    else -> tab.text = getString(R.string.text_label_prepaid)
                 }
             }).attach()
-
     }
-
 }
