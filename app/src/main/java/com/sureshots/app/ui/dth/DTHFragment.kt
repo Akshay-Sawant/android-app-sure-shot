@@ -3,19 +3,17 @@ package com.sureshots.app.ui.dth
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-//import com.innovins.helperlibrary.helper.LoadingViewManager
+import com.google.android.material.card.MaterialCardView
 import com.sureshots.app.utils.others.MiddleDividerItemDecoration
-
 import com.sureshots.app.R
-/*import com.sureshots.app.ui.activity.RechargeDTHActivity
-import com.sureshots.app.ui.activity.RechargeOneActivity
-import com.sureshots.app.ui.activity.ReferEarnActivity*/
 import com.sureshots.app.data.model.DTHCompanyModel
 import com.sureshots.app.data.api.APIClient
 import com.sureshots.app.utils.error.ErrorUtils
-import com.sureshots.app.utils.server.ServerInvalidResponseException
+import com.sureshots.app.utils.others.AlertDialogUtils
+import com.sureshots.app.utils.others.SharedPreferenceUtils
 import kotlinx.android.synthetic.main.fragment_d_t_h.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,19 +22,27 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,
+class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
     DTHCompanyAdapter.OnItemSelectedListener {
+
+    private lateinit var mTextViewDTHNoDataFound: TextView
+    private lateinit var mMaterialCardViewDTHDishCompany: MaterialCardView
 
     private lateinit var mRecyclerViewDTHCompany: RecyclerView
     private lateinit var mDTHCompanyAdapter: DTHCompanyAdapter
     private var mDTHCompanyModelList: ArrayList<DTHCompanyModel> = ArrayList()
-//    private lateinit var loadingViewManager: LoadingViewManager
+
+    private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.imageViewReferEarn.setOnClickListener(this)
+
+        mTextViewDTHNoDataFound = view.findViewById(R.id.textViewDTHNoDataFound)
+        mMaterialCardViewDTHDishCompany = view.findViewById(R.id.materialCardViewDTHDishCompany)
+
         mRecyclerViewDTHCompany = view.findViewById(R.id.recyclerViewDishCompany)
-//        loadingViewManager = LoadingViewManager(view, R.id.mainView,this)
+
         mDTHCompanyModelList.clear()
         mDTHCompanyAdapter = context?.let {
             DTHCompanyAdapter(
@@ -52,9 +58,12 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,
                 MiddleDividerItemDecoration.ALL
             )
         )
-            mRecyclerViewDTHCompany.adapter = mDTHCompanyAdapter
-            mDTHCompanyAdapter.notifyDataSetChanged()
+        mRecyclerViewDTHCompany.adapter = mDTHCompanyAdapter
+        mDTHCompanyAdapter.notifyDataSetChanged()
 
+        context?.let {
+            mSharedPreferenceUtils = SharedPreferenceUtils(it)
+        }
 
         onLoadDTHCompany()
     }
@@ -62,10 +71,15 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.imageViewReferEarn -> view?.let {
-//                startActivity(ReferEarnActivity.newIntentNewTask(requireActivity()))
                 Navigation.findNavController(it)
                     .navigate(R.id.action_dashboard_to_referEarnFragment)
             }
+        }
+    }
+
+    override fun onItemSelected(mView: View, mPosition: DTHCompanyModel) {
+        view?.let {
+            Navigation.findNavController(it).navigate(R.id.action_dashboard_to_rechargeOneFragment)
         }
     }
 
@@ -114,53 +128,67 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h),View.OnClickListener,
         )
     }
 
-    override fun onItemSelected(adapterPosition: Int) {
-//        startActivity(RechargeDTHActivity.newIntent(requireContext()))
-    }
-
     private fun getDTHCompany() {
-        /*val loginHelper = LoginHelper(this)
-        if(!loginHelper.isUserLogin()){
-            LoginHelper.startLoginFlow(this)
-            return
-        }*/
-        if (!APIClient.isNetworkConnected(activity?.applicationContext!!)) {
-            //AlertDialogManager.instance.displayNoConnectionAlert(this)
-            /*loadingViewManager.showErrorView(
-                getString(R.string.alert_error_no_internet_connection_title),
-                getString(R.string.alert_error_no_internet_connection))
-            return*/
-        }
-//        loadingViewManager.showLoadingView(requireActivity(), "Loading files...")
-        val call: Call<List<DTHCompanyModel>> = APIClient.apiInterface.getDTHCompany("abc")
-        call.enqueue(object : Callback<List<DTHCompanyModel>> {
-            override fun onResponse(call: Call<List<DTHCompanyModel>>, response: Response<List<DTHCompanyModel>>) {
-//                loadingViewManager.hideLoadingView()
-                if (response.isSuccessful) {
-                    val simCompanyList: List<DTHCompanyModel>? = response.body()
-                    if (simCompanyList != null) {
-                        mDTHCompanyModelList.clear()
-                        mDTHCompanyModelList.addAll(simCompanyList)
-                        mDTHCompanyAdapter.notifyDataSetChanged()
-                    } else {
-                        // server returned 200 with a blank response :/
-                        ErrorUtils.logNetworkError(
-                            ServerInvalidResponseException
-                                .ERROR_200_BLANK_RESPONSE + "\nResponse: " + response.toString(),
-                            null
-                        )
-                        /*loadingViewManager.showErrorView(
-                            getString(R.string.alert_connection_status_not_ok_title),
-                            getString(R.string.alert_connection_status_not_ok_message))*/
-                        // server returned 200 with a blank response :/
-                    }
+        context?.let {
+            when {
+                APIClient.isNetworkConnected(it) -> {
+                    APIClient.apiInterface
+                        .getDTHCompany(mSharedPreferenceUtils.getLoggedInUser().loginToken)
+                        .enqueue(object : Callback<List<DTHCompanyModel>> {
+                            override fun onResponse(
+                                call: Call<List<DTHCompanyModel>>,
+                                response: Response<List<DTHCompanyModel>>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val mDTHCompanyModel: List<DTHCompanyModel>? = response.body()
+
+                                    if (mDTHCompanyModel.isNullOrEmpty()) {
+                                        mTextViewDTHNoDataFound.visibility = View.VISIBLE
+                                        mMaterialCardViewDTHDishCompany.visibility = View.GONE
+                                    } else {
+                                        mTextViewDTHNoDataFound.visibility = View.GONE
+                                        mMaterialCardViewDTHDishCompany.visibility = View.VISIBLE
+
+                                        mDTHCompanyModelList =
+                                            mDTHCompanyModel as ArrayList<DTHCompanyModel>
+
+                                        mDTHCompanyModelList.clear()
+                                        mDTHCompanyAdapter = context?.let {
+                                            DTHCompanyAdapter(
+                                                it,
+                                                R.layout.recycler_view_dth_company,
+                                                mDTHCompanyModelList,
+                                                this@DTHFragment
+                                            )
+                                        }!!
+                                        mRecyclerViewDTHCompany.addItemDecoration(
+                                            MiddleDividerItemDecoration(
+                                                requireContext(),
+                                                MiddleDividerItemDecoration.ALL
+                                            )
+                                        )
+                                        mRecyclerViewDTHCompany.adapter = mDTHCompanyAdapter
+                                        mDTHCompanyAdapter.notifyDataSetChanged()
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(
+                                call: Call<List<DTHCompanyModel>>,
+                                t: Throwable
+                            ) {
+                                ErrorUtils.parseOnFailureException(
+                                    it,
+                                    call,
+                                    t
+                                )
+                            }
+                        })
+                }
+                else -> {
+                    AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
                 }
             }
-            override fun onFailure(call: Call<List<DTHCompanyModel>>, t: Throwable) {
-//                ErrorUtils.parseOnFailureException(activity!!, call, t, loadingViewManager)
-            }
-
-        })
+        }
     }
-
 }

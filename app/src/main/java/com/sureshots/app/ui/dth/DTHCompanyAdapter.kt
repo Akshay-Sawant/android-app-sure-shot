@@ -4,37 +4,39 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshots.app.R
 import com.sureshots.app.data.model.DTHCompanyModel
 import kotlinx.android.synthetic.main.recycler_view_dth_company.view.*
 
-
 class DTHCompanyAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mDTHCompanyModelList: List<DTHCompanyModel>, private val onItemSelectedListener: OnItemSelectedListener
+    private var mDTHCompanyModelList: List<DTHCompanyModel>,
+    private val onItemSelectedListener: OnItemSelectedListener
 ) : RecyclerView.Adapter<DTHCompanyAdapter.DTHCompanyViewHolder>() {
 
     interface OnItemSelectedListener {
-        fun onItemSelected(adapterPosition: Int)
+        fun onItemSelected(mView: View, mPosition: DTHCompanyModel)
     }
 
-    inner class DTHCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),View.OnClickListener {
+    inner class DTHCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
+        View.OnClickListener {
+        private val mConstrainLayoutDTHCompany: ConstraintLayout =
+            mItemView.findViewById(R.id.constrainLayoutDTHCompany)
 
         init {
-            mItemView.setOnClickListener(this)
+            mConstrainLayoutDTHCompany.setOnClickListener(this)
         }
 
         override fun onClick(view: View?) {
-            onItemSelectedListener.onItemSelected(adapterPosition)
-            /*view?.let {
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_dashboard_to_rechargeOneFragment)
-            }*/
+            onItemSelectedListener.onItemSelected(
+                mConstrainLayoutDTHCompany,
+                mDTHCompanyModelList[adapterPosition]
+            )
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DTHCompanyViewHolder {

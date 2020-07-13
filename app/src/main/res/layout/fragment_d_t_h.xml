@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,148 +8,150 @@
     android:orientation="vertical"
     tools:context=".ui.dth.DTHFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/textViewDTHNoDataFound"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/text_no_data_found"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mainView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardViewDTHDishCompany"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="@dimen/cardElevation"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewDTHNoDataFound">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialcardDishCompany"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="@dimen/cardCornerRadius"
-                app:cardElevation="@dimen/cardElevation"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/guidelineTop">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewDishCompany"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/standard_margin_x2"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"
+                tools:listitem="@layout/recycler_view_sim_company" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+        </com.google.android.material.card.MaterialCardView>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewDishCompany"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/standard_margin_x2"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                        app:spanCount="3"
-                        tools:itemCount="6"
-                        tools:listitem="@layout/recycler_view_sim_company" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/textViewSubscriptionPlan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            android:text="@string/text_subscription_plan"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/materialCardViewDTHDishCompany" />
 
-            <TextView
-                android:id="@+id/textViewSubscriptionPlan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin_x2"
-                android:text="@string/text_subscription_plan"
-                android:textSize="@dimen/material_text_title"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/materialcardDishCompany" />
+        <ImageView
+            android:id="@+id/imageViewSubscriptionPlan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            android:contentDescription="@string/text_subscription_plan"
+            android:elevation="@dimen/standard_margin_x2"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cashback"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionPlan" />
 
-            <ImageView
-                android:id="@+id/imageViewSubscriptionPlan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin_x2"
-                android:elevation="@dimen/standard_margin_x2"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cashback"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionPlan" />
+        <TextView
+            android:id="@+id/textViewReferEarn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            android:text="@string/text_refer_earn"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/imageViewSubscriptionPlan" />
 
-            <TextView
-                android:id="@+id/textViewReferEarn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin_x2"
-                android:text="@string/text_refer_earn"
-                android:textSize="@dimen/material_text_title"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/imageViewSubscriptionPlan" />
+        <ImageView
+            android:id="@+id/imageViewReferEarn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:contentDescription="@string/text_refer_and_earn"
+            android:elevation="@dimen/standard_margin_x2"
+            android:scaleType="centerCrop"
+            android:src="@drawable/refernow"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewReferEarn" />
 
-            <ImageView
-                android:id="@+id/imageViewReferEarn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin_x2"
-                android:elevation="@dimen/standard_margin_x2"
-                android:scaleType="centerCrop"
-                android:src="@drawable/refernow"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/textViewReferEarn" />
+        <TextView
+            android:id="@+id/textViewSavingsEarnings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            android:text="@string/text_savings_earnings"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/imageViewReferEarn" />
 
-            <TextView
-                android:id="@+id/textViewSavingsEarnings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin_x2"
-                android:text="@string/text_savings_earnings"
-                android:textSize="@dimen/material_text_title"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/imageViewReferEarn" />
+        <ImageView
+            android:id="@+id/imageViewUnknown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:contentDescription="@string/text_savings_earnings"
+            android:elevation="@dimen/standard_margin_x2"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cashback"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewSavingsEarnings" />
 
-            <ImageView
-                android:id="@+id/imageViewUnknown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin_x2"
-                android:elevation="@dimen/standard_margin_x2"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cashback"
-                app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/textViewSavingsEarnings" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineTop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/include_common_layout" />
 
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
