@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshots.app.R
@@ -13,28 +14,26 @@ import kotlinx.android.synthetic.main.recycler_view_sim_company.view.*
 class SimCompanyAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mSimCompanyModelList: List<SimCompanyModel>, private val onItemSelectedListener: OnItemSelectedListener
+    private var mSimCompanyModelList: List<SimCompanyModel>,
+    private val onItemSelectedListener: OnItemSelectedListener
 ) : RecyclerView.Adapter<SimCompanyAdapter.SimCompanyViewHolder>() {
 
     interface OnItemSelectedListener {
-        fun onItemSelected(adapterPosition: Int)
+        fun onItemSelected(mPosition: SimCompanyModel)
     }
 
-    inner class SimCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),View.OnClickListener {
+    inner class SimCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
+        View.OnClickListener {
+        private var mConstraintRvSimCompany: ConstraintLayout =
+            mItemView.findViewById(R.id.constraintRvSimCompany)
 
         init {
-            mItemView.setOnClickListener(this)
+            mConstraintRvSimCompany.setOnClickListener(this)
         }
 
         override fun onClick(view: View?) {
-            onItemSelectedListener.onItemSelected(adapterPosition)
-            /*view?.let {
-
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_dashboard_to_rechargeOneFragment)
-            }*/
+            onItemSelectedListener.onItemSelected(mSimCompanyModelList[adapterPosition])
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimCompanyViewHolder {
@@ -56,7 +55,7 @@ class SimCompanyAdapter(
         Glide.with(holder.itemView.context)
             .load(mSimCompanyModelList[position].companyLogoUrl)
             .error(R.drawable.ic_launcher_background)
-            .into(holder.itemView.imageViewRVSimComany)
+            .into(holder.itemView.imageViewRVSimCompany)
         holder.itemView.textViewCompanyName.text = mSimCompanyModelList[position].companyName
     }
 }
