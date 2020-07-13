@@ -83,5 +83,9 @@
     <string name="alert_connection_lost_title">Oops!!</string>
     <string name="alert_connection_lost_message">Connection Lost! Please try again</string>
     <string name="text_login_to_continue">Please login to continue!</string>
+
+    <!--Recharge One-->
     <string name="text_cd_company_logo">Company Logo</string>
+    <string name="text_label_prepaid">Prepaid</string>
+    <string name="text_label_postpaid">Postpaid</string>
 </resources>
