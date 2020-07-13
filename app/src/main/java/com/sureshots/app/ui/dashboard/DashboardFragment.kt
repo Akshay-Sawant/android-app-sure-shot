@@ -32,15 +32,15 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 when (position) {
                     0 -> {
-                        tab.text = "Mobile Recharge"
+                        tab.text = getString(R.string.text_label_mobile_recharge)
                         tab.setIcon(R.drawable.ic_smartphone)
                     }
                     1 -> {
-                        tab.text = "DTH"
+                        tab.text = getString(R.string.text_label_dth)
                         tab.setIcon(R.drawable.ic_satellite_tv)
                     }
                     else -> {
-                        tab.text = "Mobile Recharge"
+                        tab.text = getString(R.string.text_label_mobile_recharge)
                         tab.setIcon(R.drawable.ic_smartphone)
                     }
                 }
