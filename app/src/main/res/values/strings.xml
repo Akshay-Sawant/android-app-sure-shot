@@ -83,4 +83,5 @@
     <string name="alert_connection_lost_title">Oops!!</string>
     <string name="alert_connection_lost_message">Connection Lost! Please try again</string>
     <string name="text_login_to_continue">Please login to continue!</string>
+    <string name="text_cd_company_logo">Company Logo</string>
 </resources>

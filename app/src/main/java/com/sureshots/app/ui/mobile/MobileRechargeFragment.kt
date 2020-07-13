@@ -3,18 +3,17 @@ package com.sureshots.app.ui.mobile
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-//import com.innovins.helperlibrary.helper.LoadingViewManager
+import com.google.android.material.card.MaterialCardView
 import com.sureshots.app.utils.others.MiddleDividerItemDecoration
-
 import com.sureshots.app.R
-/*import com.sureshots.app.ui.activity.RechargeOneActivity
-import com.sureshots.app.ui.activity.ReferEarnActivity*/
 import com.sureshots.app.data.model.SimCompanyModel
 import com.sureshots.app.data.api.APIClient
 import com.sureshots.app.utils.error.ErrorUtils
-import com.sureshots.app.utils.server.ServerInvalidResponseException
+import com.sureshots.app.utils.others.AlertDialogUtils
+import com.sureshots.app.utils.others.SharedPreferenceUtils
 import kotlinx.android.synthetic.main.fragment_mobile_recharge.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,16 +22,26 @@ import retrofit2.Response
 class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View.OnClickListener,
     SimCompanyAdapter.OnItemSelectedListener {
 
+    private lateinit var mTextViewMobileRechargeNoDataFound: TextView
+    private lateinit var mMaterialCardSimCompany: MaterialCardView
     private lateinit var mRecyclerViewSimCompany: RecyclerView
     private lateinit var mSimCompanyAdapter: SimCompanyAdapter
     private var mSimCompanyModelList: ArrayList<SimCompanyModel> = ArrayList()
-//    private lateinit var loadingViewManager: LoadingViewManager
+
+    private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mTextViewMobileRechargeNoDataFound =
+            view.findViewById(R.id.textViewMobileRechargeNoDataFound)
+
+        mMaterialCardSimCompany = view
+            .findViewById(R.id.materialCardSimCompany)
+
         view.imageViewReferEarn.setOnClickListener(this)
         mRecyclerViewSimCompany = view.findViewById(R.id.recyclerViewSimCompany)
-        //loadingViewManager = LoadingViewManager(view, R.id.mainView,this)
+
         mSimCompanyModelList.clear()
         mSimCompanyAdapter = context?.let {
             SimCompanyAdapter(
@@ -51,7 +60,26 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
         mRecyclerViewSimCompany.adapter = mSimCompanyAdapter
         mSimCompanyAdapter.notifyDataSetChanged()
 
+        context?.let {
+            mSharedPreferenceUtils = SharedPreferenceUtils(it)
+        }
+
         onLoadSimCompany()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.imageViewReferEarn -> view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_dashboard_to_referEarnFragment)
+            }
+        }
+    }
+
+    override fun onItemSelected(mPosition: SimCompanyModel) {
+        view?.let {
+            Navigation.findNavController(it).navigate(R.id.action_dashboard_to_rechargeOneFragment)
+        }
     }
 
     private fun onLoadSimCompany() {
@@ -99,67 +127,69 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
         )
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.imageViewReferEarn -> view?.let {
-//                startActivity(ReferEarnActivity.newIntent(requireActivity()))
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_dashboard_to_referEarnFragment)
-            }
-        }
-    }
-
-    override fun onItemSelected(adapterPosition: Int) {
-//        startActivity(RechargeOneActivity.newIntent(requireContext()))
-    }
-
     private fun getSimCompany() {
-        /*val loginHelper = LoginHelper(this)
-        if(!loginHelper.isUserLogin()){
-            LoginHelper.startLoginFlow(this)
-            return
-        }*/
-        if (!APIClient.isNetworkConnected(activity?.applicationContext!!)) {
-            //AlertDialogManager.instance.displayNoConnectionAlert(this)
-            /*loadingViewManager.showErrorView(
-                getString(R.string.alert_error_no_internet_connection_title),
-                getString(R.string.alert_error_no_internet_connection))*/
-            return
-        }
-//        loadingViewManager.showLoadingView(requireActivity(), "Loading files...")
-        val call: Call<List<SimCompanyModel>> = APIClient.apiInterface.getSimCompany("abc")
-        call.enqueue(object : Callback<List<SimCompanyModel>> {
-            override fun onResponse(
-                call: Call<List<SimCompanyModel>>,
-                response: Response<List<SimCompanyModel>>
-            ) {
-//                loadingViewManager.hideLoadingView()
-                if (response.isSuccessful) {
-                    val simCompanyList: List<SimCompanyModel>? = response.body()
-                    if (simCompanyList != null) {
-                        mSimCompanyModelList.clear()
-                        mSimCompanyModelList.addAll(simCompanyList)
-                        mSimCompanyAdapter.notifyDataSetChanged()
-                    } else {
-                        // server returned 200 with a blank response :/
-                        ErrorUtils.logNetworkError(
-                            ServerInvalidResponseException
-                                .ERROR_200_BLANK_RESPONSE + "\nResponse: " + response.toString(),
-                            null
+        context?.let {
+            when {
+                APIClient.isNetworkConnected(it) -> {
+                    APIClient.apiInterface
+                        .getSimCompany(
+                            mSharedPreferenceUtils.getLoggedInUser().loginToken
                         )
-                        /*loadingViewManager.showErrorView(
-                            getString(R.string.alert_connection_status_not_ok_title),
-                            getString(R.string.alert_connection_status_not_ok_message))*/
-                        // server returned 200 with a blank response :/
-                    }
+                        .enqueue(object : Callback<List<SimCompanyModel>> {
+                            override fun onResponse(
+                                call: Call<List<SimCompanyModel>>,
+                                response: Response<List<SimCompanyModel>>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val mSimCompanyModel: List<SimCompanyModel>? = response.body()
+
+                                    if (mSimCompanyModel.isNullOrEmpty()) {
+                                        mTextViewMobileRechargeNoDataFound.visibility = View.VISIBLE
+                                        mMaterialCardSimCompany.visibility = View.GONE
+                                    } else {
+                                        mTextViewMobileRechargeNoDataFound.visibility = View.GONE
+                                        mMaterialCardSimCompany.visibility = View.VISIBLE
+
+                                        mSimCompanyModelList =
+                                            mSimCompanyModel as ArrayList<SimCompanyModel>
+
+                                        mSimCompanyModelList.clear()
+                                        mSimCompanyAdapter = context?.let {
+                                            SimCompanyAdapter(
+                                                it,
+                                                R.layout.recycler_view_sim_company,
+                                                mSimCompanyModelList,
+                                                this@MobileRechargeFragment
+                                            )
+                                        }!!
+                                        mRecyclerViewSimCompany.addItemDecoration(
+                                            MiddleDividerItemDecoration(
+                                                requireContext(),
+                                                MiddleDividerItemDecoration.ALL
+                                            )
+                                        )
+                                        mRecyclerViewSimCompany.adapter = mSimCompanyAdapter
+                                        mSimCompanyAdapter.notifyDataSetChanged()
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(
+                                call: Call<List<SimCompanyModel>>,
+                                t: Throwable
+                            ) {
+                                ErrorUtils.parseOnFailureException(
+                                    it,
+                                    call,
+                                    t
+                                )
+                            }
+                        })
+                }
+                else -> {
+                    AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
                 }
             }
-
-            override fun onFailure(call: Call<List<SimCompanyModel>>, t: Throwable) {
-//                ErrorUtils.parseOnFailureException(activity!!, call, t, loadingViewManager)
-            }
-
-        })
+        }
     }
-
 }
