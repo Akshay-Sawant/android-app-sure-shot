@@ -23,8 +23,8 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
     SimCompanyAdapter.OnItemSelectedListener {
 
     private lateinit var mTextViewMobileRechargeNoDataFound: TextView
-    private lateinit var mMaterialCardSimCompany: MaterialCardView
-    private lateinit var mRecyclerViewSimCompany: RecyclerView
+    private lateinit var mMaterialCardMobileRecharge: MaterialCardView
+    private lateinit var mRecyclerViewMobileRecharge: RecyclerView
     private lateinit var mSimCompanyAdapter: SimCompanyAdapter
     private var mSimCompanyModelList: ArrayList<SimCompanyModel> = ArrayList()
 
@@ -36,11 +36,11 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
         mTextViewMobileRechargeNoDataFound =
             view.findViewById(R.id.textViewMobileRechargeNoDataFound)
 
-        mMaterialCardSimCompany = view
-            .findViewById(R.id.materialCardSimCompany)
+        mMaterialCardMobileRecharge = view
+            .findViewById(R.id.materialCardViewMobileRecharge)
 
         view.imageViewReferEarn.setOnClickListener(this)
-        mRecyclerViewSimCompany = view.findViewById(R.id.recyclerViewSimCompany)
+        mRecyclerViewMobileRecharge = view.findViewById(R.id.recyclerViewMobileRecharge)
 
         mSimCompanyModelList.clear()
         mSimCompanyAdapter = context?.let {
@@ -51,13 +51,13 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
                 this
             )
         }!!
-        mRecyclerViewSimCompany.addItemDecoration(
+        mRecyclerViewMobileRecharge.addItemDecoration(
             MiddleDividerItemDecoration(
                 requireContext(),
                 MiddleDividerItemDecoration.ALL
             )
         )
-        mRecyclerViewSimCompany.adapter = mSimCompanyAdapter
+        mRecyclerViewMobileRecharge.adapter = mSimCompanyAdapter
         mSimCompanyAdapter.notifyDataSetChanged()
 
         context?.let {
@@ -145,10 +145,10 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
 
                                     if (mSimCompanyModel.isNullOrEmpty()) {
                                         mTextViewMobileRechargeNoDataFound.visibility = View.VISIBLE
-                                        mMaterialCardSimCompany.visibility = View.GONE
+                                        mMaterialCardMobileRecharge.visibility = View.GONE
                                     } else {
                                         mTextViewMobileRechargeNoDataFound.visibility = View.GONE
-                                        mMaterialCardSimCompany.visibility = View.VISIBLE
+                                        mMaterialCardMobileRecharge.visibility = View.VISIBLE
 
                                         mSimCompanyModelList =
                                             mSimCompanyModel as ArrayList<SimCompanyModel>
@@ -162,13 +162,13 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
                                                 this@MobileRechargeFragment
                                             )
                                         }!!
-                                        mRecyclerViewSimCompany.addItemDecoration(
+                                        mRecyclerViewMobileRecharge.addItemDecoration(
                                             MiddleDividerItemDecoration(
                                                 requireContext(),
                                                 MiddleDividerItemDecoration.ALL
                                             )
                                         )
-                                        mRecyclerViewSimCompany.adapter = mSimCompanyAdapter
+                                        mRecyclerViewMobileRecharge.adapter = mSimCompanyAdapter
                                         mSimCompanyAdapter.notifyDataSetChanged()
                                     }
                                 }
