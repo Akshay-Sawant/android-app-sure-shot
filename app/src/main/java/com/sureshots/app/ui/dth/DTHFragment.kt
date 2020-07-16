@@ -3,6 +3,7 @@ package com.sureshots.app.ui.dth
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,6 @@ import com.sureshots.app.data.api.APIClient
 import com.sureshots.app.utils.error.ErrorUtils
 import com.sureshots.app.utils.others.AlertDialogUtils
 import com.sureshots.app.utils.others.SharedPreferenceUtils
-import kotlinx.android.synthetic.main.fragment_d_t_h.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,22 +26,30 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
     DTHCompanyAdapter.OnItemSelectedListener {
 
     private lateinit var mTextViewDTHNoDataFound: TextView
-    private lateinit var mMaterialCardViewDTHDishCompany: MaterialCardView
+    private lateinit var mMaterialCardViewDTH: MaterialCardView
 
-    private lateinit var mRecyclerViewDTHCompany: RecyclerView
+    private lateinit var mRecyclerViewDTH: RecyclerView
     private lateinit var mDTHCompanyAdapter: DTHCompanyAdapter
     private var mDTHCompanyModelList: ArrayList<DTHCompanyModel> = ArrayList()
+
+    private lateinit var mImageViewDTHSubscriptionPlan: ImageView
+    private lateinit var mImageViewDTHReferAndEarn: ImageView
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.imageViewReferEarn.setOnClickListener(this)
 
         mTextViewDTHNoDataFound = view.findViewById(R.id.textViewDTHNoDataFound)
-        mMaterialCardViewDTHDishCompany = view.findViewById(R.id.materialCardViewDTHDishCompany)
+        mMaterialCardViewDTH = view.findViewById(R.id.materialCardViewDTH)
 
-        mRecyclerViewDTHCompany = view.findViewById(R.id.recyclerViewDishCompany)
+        mRecyclerViewDTH = view.findViewById(R.id.recyclerViewDTH)
+
+        mImageViewDTHSubscriptionPlan = view.findViewById(R.id.imageViewDTHSubscriptionPlan)
+        mImageViewDTHSubscriptionPlan.setOnClickListener(this@DTHFragment)
+
+        mImageViewDTHReferAndEarn = view.findViewById(R.id.imageViewDTHReferEarn)
+        mImageViewDTHReferAndEarn.setOnClickListener(this@DTHFragment)
 
         mDTHCompanyModelList.clear()
         mDTHCompanyAdapter = context?.let {
@@ -52,13 +60,13 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
                 this
             )
         }!!
-        mRecyclerViewDTHCompany.addItemDecoration(
+        mRecyclerViewDTH.addItemDecoration(
             MiddleDividerItemDecoration(
                 requireContext(),
                 MiddleDividerItemDecoration.ALL
             )
         )
-        mRecyclerViewDTHCompany.adapter = mDTHCompanyAdapter
+        mRecyclerViewDTH.adapter = mDTHCompanyAdapter
         mDTHCompanyAdapter.notifyDataSetChanged()
 
         context?.let {
@@ -70,6 +78,9 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.imageViewDTHSubscriptionPlan -> {
+
+            }
             R.id.imageViewReferEarn -> view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_dashboard_to_referEarnFragment)
@@ -80,6 +91,70 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
     override fun onItemSelected(mView: View, mPosition: DTHCompanyModel) {
         view?.let {
             Navigation.findNavController(it).navigate(R.id.action_dashboard_to_rechargeOneFragment)
+        }
+    }
+
+    private fun getDTHCompany() {
+        context?.let {
+            when {
+                APIClient.isNetworkConnected(it) -> {
+                    APIClient.apiInterface
+                        .getDTHCompany(mSharedPreferenceUtils.getLoggedInUser().loginToken)
+                        .enqueue(object : Callback<List<DTHCompanyModel>> {
+                            override fun onResponse(
+                                call: Call<List<DTHCompanyModel>>,
+                                response: Response<List<DTHCompanyModel>>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val mDTHCompanyModel: List<DTHCompanyModel>? = response.body()
+
+                                    if (mDTHCompanyModel.isNullOrEmpty()) {
+                                        mTextViewDTHNoDataFound.visibility = View.VISIBLE
+                                        mMaterialCardViewDTH.visibility = View.GONE
+                                    } else {
+                                        mTextViewDTHNoDataFound.visibility = View.GONE
+                                        mMaterialCardViewDTH.visibility = View.VISIBLE
+
+                                        mDTHCompanyModelList =
+                                            mDTHCompanyModel as ArrayList<DTHCompanyModel>
+
+                                        mDTHCompanyModelList.clear()
+                                        mDTHCompanyAdapter = context?.let {
+                                            DTHCompanyAdapter(
+                                                it,
+                                                R.layout.recycler_view_dth_company,
+                                                mDTHCompanyModelList,
+                                                this@DTHFragment
+                                            )
+                                        }!!
+                                        mRecyclerViewDTH.addItemDecoration(
+                                            MiddleDividerItemDecoration(
+                                                requireContext(),
+                                                MiddleDividerItemDecoration.ALL
+                                            )
+                                        )
+                                        mRecyclerViewDTH.adapter = mDTHCompanyAdapter
+                                        mDTHCompanyAdapter.notifyDataSetChanged()
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(
+                                call: Call<List<DTHCompanyModel>>,
+                                t: Throwable
+                            ) {
+                                ErrorUtils.parseOnFailureException(
+                                    it,
+                                    call,
+                                    t
+                                )
+                            }
+                        })
+                }
+                else -> {
+                    AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+                }
+            }
         }
     }
 
@@ -126,69 +201,5 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
                 R.drawable.dishtv
             )
         )
-    }
-
-    private fun getDTHCompany() {
-        context?.let {
-            when {
-                APIClient.isNetworkConnected(it) -> {
-                    APIClient.apiInterface
-                        .getDTHCompany(mSharedPreferenceUtils.getLoggedInUser().loginToken)
-                        .enqueue(object : Callback<List<DTHCompanyModel>> {
-                            override fun onResponse(
-                                call: Call<List<DTHCompanyModel>>,
-                                response: Response<List<DTHCompanyModel>>
-                            ) {
-                                if (response.isSuccessful) {
-                                    val mDTHCompanyModel: List<DTHCompanyModel>? = response.body()
-
-                                    if (mDTHCompanyModel.isNullOrEmpty()) {
-                                        mTextViewDTHNoDataFound.visibility = View.VISIBLE
-                                        mMaterialCardViewDTHDishCompany.visibility = View.GONE
-                                    } else {
-                                        mTextViewDTHNoDataFound.visibility = View.GONE
-                                        mMaterialCardViewDTHDishCompany.visibility = View.VISIBLE
-
-                                        mDTHCompanyModelList =
-                                            mDTHCompanyModel as ArrayList<DTHCompanyModel>
-
-                                        mDTHCompanyModelList.clear()
-                                        mDTHCompanyAdapter = context?.let {
-                                            DTHCompanyAdapter(
-                                                it,
-                                                R.layout.recycler_view_dth_company,
-                                                mDTHCompanyModelList,
-                                                this@DTHFragment
-                                            )
-                                        }!!
-                                        mRecyclerViewDTHCompany.addItemDecoration(
-                                            MiddleDividerItemDecoration(
-                                                requireContext(),
-                                                MiddleDividerItemDecoration.ALL
-                                            )
-                                        )
-                                        mRecyclerViewDTHCompany.adapter = mDTHCompanyAdapter
-                                        mDTHCompanyAdapter.notifyDataSetChanged()
-                                    }
-                                }
-                            }
-
-                            override fun onFailure(
-                                call: Call<List<DTHCompanyModel>>,
-                                t: Throwable
-                            ) {
-                                ErrorUtils.parseOnFailureException(
-                                    it,
-                                    call,
-                                    t
-                                )
-                            }
-                        })
-                }
-                else -> {
-                    AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
-                }
-            }
-        }
     }
 }
