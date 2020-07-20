@@ -12,7 +12,7 @@ import com.sureshots.app.R
 /**
  * A simple [Fragment] subclass.
  */
-class RechargeOneFragment : Fragment(R.layout.fragment_recharge_one) {
+class RechargeFragment : Fragment(R.layout.fragment_recharge) {
 
     private lateinit var mTabLayoutRecharge: TabLayout
     private lateinit var mViewPagerTwoRecharge: ViewPager2
