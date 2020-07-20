@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorRecharge"
     android:fillViewport="true"
-    android:background="#f6f7fa"
     tools:context=".ui.prepaid.PrepaidFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,12 +13,12 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardSelectSim"
+            android:id="@+id/materialCardViewPostPaid"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             app:cardElevation="@dimen/cardElevation"
-            app:cardBackgroundColor="@color/colorPrimary"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/guidelineTop">
@@ -29,77 +29,79 @@
                 android:padding="@dimen/material_dimen_small_hdpi">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageViewCompanyLogo"
+                    android:id="@+id/circleImageViewPostPaidCompanyLogo"
                     android:layout_width="60dp"
                     android:layout_height="0dp"
-                    android:src="@drawable/idea"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/idea"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="4:3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <TextView
-                    android:id="@+id/textViewCompanyName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/standard_margin_x2"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:text="Idea"
-                    app:layout_constraintEnd_toStartOf="@id/textViewChange"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imageViewCompanyLogo"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textViewChange"
+                    android:id="@+id/textViewPostPaidCompanyName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin_x2"
+                    android:layout_marginEnd="@dimen/material_dimen_mdpi"
+                    android:hint="@string/app_name"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textViewPostPaidChange"
+                    app:layout_constraintStart_toEndOf="@id/circleImageViewPostPaidCompanyLogo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewPostPaidChange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/text_change"
                     android:textAppearance="@android:style/TextAppearance.Medium"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:text="@string/text_change"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutPostPaidMobileNumber"
             style="@style/AppTheme.TextInputLayout"
-            android:id="@+id/textInputLayoutMobileNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin_x2"
             app:hintTextAppearance="@android:style/TextAppearance.Medium"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@id/materialCardSelectSim">
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/materialCardViewPostPaid">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputMobileNumber"
+                android:id="@+id/textInputEditTextPostPaidMobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Large"
                 android:hint="@string/hint_text_enter_mobile_number"
                 android:inputType="phone"
-                android:maxLines="1" />
+                android:maxLength="10"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/buttonPostPaidProceed"
             style="@style/AppTheme.Button.Light.Rounded"
-            android:id="@+id/buttonProceed"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:text="@string/button_proceed"
             android:layout_marginStart="@dimen/standard_margin_x2"
-            android:layout_marginEnd="@dimen/standard_margin_x2"
             android:layout_marginTop="@dimen/standard_margin_x2"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutMobileNumber"
+            android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:text="@string/button_proceed"
             app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
-            app:layout_constraintVertical_bias="0"/>
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutPostPaidMobileNumber"
+            app:layout_constraintVertical_bias="0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"
