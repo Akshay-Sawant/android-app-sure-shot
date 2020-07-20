@@ -4,15 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.view.Gravity
 import android.widget.Toast
-/*import com.sureshots.app.LoginActivity*/
 import com.sureshots.app.data.model.response.APIActionResponse
 import com.sureshots.app.data.api.APIClient
 import com.sureshots.app.data.model.LoggedInUser
 import com.sureshots.app.utils.error.ErrorUtils
 import com.sureshots.app.utils.server.ServerInvalidResponseException
-/*import com.innovins.helperlibrary.constant.REQUEST_CODE_LOGIN_SUCCESS
-import com.innovins.helperlibrary.helper.AlertDialogManager
-import com.innovins.helperlibrary.helper.ProgressDialogManager*/
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,8 +21,6 @@ class SharedPreferenceUtils(context: Context) {
     private val LOGIN_USER_ID_KEY = "userId"
     private val LOGIN_USERNAME_KEY = "userName"
     private val LOGIN_USER_FULL_NAME_KEY = "userFullName"
-    // private val LOGIN_USER_FIRST_NAME_KEY = "userFirstName"
-    // private val LOGIN_USER_LAST_NAME_KEY = "userLastName"
 
     private val LOGIN_USER_MOBILE_COUNTRY_CODE_KEY = "userMobileCountryCode"
     private val LOGIN_USER_MOBILE_KEY = "userMobile"
@@ -40,7 +34,14 @@ class SharedPreferenceUtils(context: Context) {
 
     private val isSocialLoginKey = "isSocialLoginKey"
 
+    private val RECHARGE_ID = "rechargeId"
+    private val RECHARGE_COMPANY_LOGO = "rechargeCompanyLogo"
+    private val RECHARGE_COMPANY_NAME = "rechargeCompanyName"
+
     private var mLoggedInUser: LoggedInUser
+
+    private var prefEditor =
+        context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE).edit()
 
     init {
         val prefs = context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
@@ -49,8 +50,6 @@ class SharedPreferenceUtils(context: Context) {
         mLoggedInUser.userId = prefs.getString(LOGIN_USER_ID_KEY, "").toString()
         mLoggedInUser.userName = prefs.getString(LOGIN_USERNAME_KEY, "").toString()
         mLoggedInUser.fullName = prefs.getString(LOGIN_USER_FULL_NAME_KEY, "").toString()
-        // mLoggedInUser.firstName = prefs.getString(LOGIN_USER_FIRST_NAME_KEY, "")
-        // mLoggedInUser.lastName = prefs.getString(LOGIN_USER_LAST_NAME_KEY, "")
         mLoggedInUser.countryCode =
             prefs.getString(LOGIN_USER_MOBILE_COUNTRY_CODE_KEY, "").toString()
         mLoggedInUser.mobile = prefs.getString(LOGIN_USER_MOBILE_KEY, "").toString()
@@ -73,18 +72,6 @@ class SharedPreferenceUtils(context: Context) {
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
             activity.finish()
-
-            /*val intent = Intent(activity, OnBoardingActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            activity.startActivity(intent)*/
-
-            /* val intent = LoginActivity.newIntent(activity)
-             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-             activity.startActivityForResult(intent, REQUEST_CODE_LOGIN_SUCCESS)*/
-
-            /*val intent = SelectUserTypeActivity.newIntent(activity)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            activity.startActivity(intent)*/
         }
     }
 
@@ -96,14 +83,11 @@ class SharedPreferenceUtils(context: Context) {
      * For logging in a user or updating a user profile on device
      */
     fun saveUpdatedLoggedInUser(context: Context): Boolean {
-        val prefEditor = context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE).edit()
+
         prefEditor.putString(LOGIN_USER_LOGIN_TOKEN_KEY, mLoggedInUser.loginToken)
         prefEditor.putString(LOGIN_USER_ID_KEY, mLoggedInUser.userId)
         prefEditor.putString(LOGIN_USERNAME_KEY, mLoggedInUser.userName)
         prefEditor.putString(LOGIN_USER_FULL_NAME_KEY, mLoggedInUser.fullName)
-        // prefEditor.putString(LOGIN_USER_SALUTATION_KEY, mLoggedInUser.salutation)
-        // prefEditor.putString(LOGIN_USER_FIRST_NAME_KEY, mLoggedInUser.firstName)
-        // prefEditor.putString(LOGIN_USER_LAST_NAME_KEY, mLoggedInUser.lastName)
         prefEditor.putString(LOGIN_USER_MOBILE_COUNTRY_CODE_KEY, mLoggedInUser.countryCode)
         prefEditor.putString(LOGIN_USER_MOBILE_KEY, mLoggedInUser.mobile)
         prefEditor.putBoolean(LOGIN_IS_MOBILE_VERIFIED_KEY, mLoggedInUser.isMobileVerified)
@@ -123,6 +107,31 @@ class SharedPreferenceUtils(context: Context) {
         val prefEditor = context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE).edit()
         prefEditor.clear()
         prefEditor.apply()
+    }
+
+    fun saveRechargeDetails(
+        mRechargeId: String,
+        mRechargeCompanyLogo: String,
+        mRechargeCompanyName: String
+    ) {
+        prefEditor.putString(RECHARGE_ID, mRechargeId)
+        prefEditor.putString(RECHARGE_COMPANY_LOGO, mRechargeCompanyLogo)
+        prefEditor.putString(RECHARGE_COMPANY_NAME, mRechargeCompanyName)
+    }
+
+    fun getRechargeId(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(RECHARGE_ID, "")
+    }
+
+    fun getRechargeCompanyLogo(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(RECHARGE_COMPANY_LOGO, "")
+    }
+
+    fun getRechargeCompanyName(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(RECHARGE_COMPANY_NAME, "")
     }
 
     /**
