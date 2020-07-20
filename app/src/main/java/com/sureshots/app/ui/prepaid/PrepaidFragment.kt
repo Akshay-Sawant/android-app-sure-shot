@@ -47,8 +47,7 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.textViewPrepaidChange -> view?.let {
-                Navigation.findNavController(it)
-                    .popBackStack(R.id.action_rechargeOneFragment_to_dashboardFragment, false)
+                Navigation.findNavController(it).popBackStack()
             }
             R.id.buttonPrepaidProceed -> view?.let {
 //                isPrepaidValidated()
