@@ -45,9 +45,9 @@
         tools:layout="@layout/fragment_refer_earn" />
     <fragment
         android:id="@+id/RechargeOneFragment"
-        android:name="com.sureshots.app.ui.recharge.RechargeOneFragment"
+        android:name="com.sureshots.app.ui.recharge.RechargeFragment"
         android:label="Recharge"
-        tools:layout="@layout/fragment_recharge_one">
+        tools:layout="@layout/fragment_recharge">
         <action
             android:id="@+id/action_rechargeOneFragment_to_rechargeTwoFragment"
             app:destination="@id/navigation"
@@ -70,9 +70,9 @@
             tools:layout="@layout/fragment_prepaid" />
         <fragment
             android:id="@+id/RechargeTwoFragment"
-            android:name="com.sureshots.app.ui.recharge.RechargeTwoFragment"
+            android:name="com.sureshots.app.ui.rechargedetails.RechargeDetailsFragment"
             android:label="Recharge"
-            tools:layout="@layout/fragment_recharge_two">
+            tools:layout="@layout/fragment_recharge_details">
             <action
                 android:id="@+id/action_rechargeTwoFragment_to_subscriptionFragment"
                 app:destination="@id/SubscriptionFragment"
