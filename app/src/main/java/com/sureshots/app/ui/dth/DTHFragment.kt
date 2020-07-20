@@ -81,7 +81,7 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
             R.id.imageViewDTHSubscriptionPlan -> {
 
             }
-            R.id.imageViewReferEarn -> view?.let {
+            R.id.imageViewDTHReferEarn -> view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_dashboard_to_referEarnFragment)
             }
