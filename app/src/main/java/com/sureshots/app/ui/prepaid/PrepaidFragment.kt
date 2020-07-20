@@ -38,7 +38,7 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
         mTextInputLayoutPrepaidMobileNumber =
             view.findViewById(R.id.textInputLayoutPrepaidMobileNumber)
         mTextInputEditTextPrepaidMobileNumber =
-            view.findViewById(R.id.textInputEditTextSignInMobileNumber)
+            view.findViewById(R.id.textInputEditTextPrepaidMobileNumber)
 
         mButtonPrepaidProceed = view.findViewById(R.id.buttonPrepaidProceed)
         mButtonPrepaidProceed.setOnClickListener(this@PrepaidFragment)

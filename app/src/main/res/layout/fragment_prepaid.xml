@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f7fa"
+    android:background="@color/colorRecharge"
     android:fillViewport="true"
     tools:context=".ui.prepaid.PrepaidFragment">
 
@@ -78,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/materialCardViewPrepaid">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputPrepaidMobileNumber"
+                android:id="@+id/textInputEditTextPrepaidMobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text_enter_mobile_number"
