@@ -1,58 +1,85 @@
 package com.sureshots.app.ui.prepaid
 
 import android.os.Bundle
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
-
+import android.widget.Button
+import android.widget.TextView
+import androidx.navigation.Navigation
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.sureshots.app.R
-/*import com.sureshots.app.ui.activity.DashboardMainActivity
-import com.sureshots.app.ui.activity.RechargeTwoActivity*/
-import kotlinx.android.synthetic.main.fragment_prepaid.*
-import kotlinx.android.synthetic.main.fragment_prepaid.view.*
+import com.sureshots.app.utils.others.ValidationUtils
+import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * A simple [Fragment] subclass.
  */
-class PrepaidFragment : Fragment(R.layout.fragment_prepaid),View.OnClickListener {
+class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListener {
+
+    private lateinit var mCircleImageViewPrepaidCompanyLogo: CircleImageView
+    private lateinit var mTextViewPrepaidCompanyName: TextView
+    private lateinit var mTextViewPrepaidChange: TextView
+
+    private lateinit var mTextInputLayoutPrepaidMobileNumber: TextInputLayout
+    private lateinit var mTextInputEditTextPrepaidMobileNumber: TextInputEditText
+
+    private lateinit var mButtonPrepaidProceed: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.buttonProceed.setOnClickListener(this)
-        view.textViewChange.setOnClickListener(this)
 
+        mCircleImageViewPrepaidCompanyLogo =
+            view.findViewById(R.id.circleImageViewPrepaidCompanyLogo)
+        mTextViewPrepaidCompanyName = view.findViewById(R.id.textViewPrepaidCompanyName)
+        mTextViewPrepaidChange = view.findViewById(R.id.textViewPrepaidChange)
+        mTextViewPrepaidChange.setOnClickListener(this@PrepaidFragment)
+
+        mTextInputLayoutPrepaidMobileNumber =
+            view.findViewById(R.id.textInputLayoutPrepaidMobileNumber)
+        mTextInputEditTextPrepaidMobileNumber =
+            view.findViewById(R.id.textInputEditTextSignInMobileNumber)
+
+        mButtonPrepaidProceed = view.findViewById(R.id.buttonPrepaidProceed)
+        mButtonPrepaidProceed.setOnClickListener(this@PrepaidFragment)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonProceed -> view?.let {
-                prepaidNumber()
-                /*Navigation.findNavController(it)
-                    .navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)*/
+            R.id.textViewPrepaidChange -> view?.let {
+                Navigation.findNavController(it)
+                    .popBackStack(R.id.action_rechargeOneFragment_to_dashboardFragment, false)
             }
-            R.id.textViewChange -> view?.let {
-                //startActivity(DashboardMainActivity.newIntentFromPrepaid(requireContext()))
-                //Navigation.findNavController(it).navigate(R.id.action_rechargeOneFragment_to_dashboardFragment)
+            R.id.buttonPrepaidProceed -> view?.let {
+//                isPrepaidValidated()
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)
             }
         }
     }
 
-    private fun prepaidNumber(){
-        textInputLayoutMobileNumber.error =null
-        val number = textInputMobileNumber.text.toString().trim()
-        var hasError = false
-        if(number == ""){
-            textInputLayoutMobileNumber.error = "Enter your mobile number!"
-            hasError = true
-        }
-        if (hasError) {
-            val toast = Toast.makeText(requireContext(), "Please correct highlighted fields!", Toast.LENGTH_SHORT)
-            toast.setGravity(Gravity.CENTER, 0, 0)
-            toast.show()
-            return
-        }
-//        startActivity(RechargeTwoActivity.newIntent(requireContext(),number))
-    }
+    /*private fun onLoadPrepaid() {
+        Glide.with(this@PrepaidFragment)
+            .load("")
+            .placeholder(R.drawable.ic_launcher_foreground)
+            .into(mCircleImageViewPrepaidCompanyLogo)
+        mTextViewPrepaidCompanyName.text
+    }*/
 
+    private fun isPrepaidValidated() {
+        when {
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextMobileFunc(
+                    mTextInputLayoutPrepaidMobileNumber,
+                    mTextInputEditTextPrepaidMobileNumber,
+                    getString(R.string.text_error_mobile)
+                ) -> return
+            else -> {
+                view?.let {
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)
+                }
+            }
+        }
+    }
 }
