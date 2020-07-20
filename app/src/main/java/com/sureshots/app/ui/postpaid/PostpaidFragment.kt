@@ -46,8 +46,7 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.textViewPostPaidChange -> view?.let {
-                Navigation.findNavController(it)
-                    .popBackStack(R.id.action_rechargeOneFragment_to_dashboardFragment, false)
+                Navigation.findNavController(it).popBackStack()
             }
             R.id.buttonPostPaidProceed -> view?.let {
 //                isPostpaidValidated()
