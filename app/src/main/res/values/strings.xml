@@ -92,4 +92,11 @@
     <!--Dashboard-->
     <string name="text_label_mobile_recharge">Mobile Recharge</string>
     <string name="text_label_dth">DTH</string>
+
+    <!--Benefits of Subscription-->
+    <string name="subscription_one">- Fixed discounts for recharges as per chart\n" + " ( In chart we will give range and mention the present %ages).</string>
+    <string name="subscription_two">- No cashbacks only Discounts.</string>
+    <string name="subscription_three">- No validity period.</string>
+    <string name="subscription_four">- You will automatically subscribed for discounts of future services in this app.</string>
+    <string name="subscription_five">- Also you will be eligible for referral eamings. (As referral cash in wallet)</string>
 </resources>

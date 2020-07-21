@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Button
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.model.Subscription
 
@@ -55,31 +54,31 @@ class SubscriptionFragment : Fragment(R.layout.fragment_subscription), View.OnCl
         mSubscriptionModelList.add(
             Subscription(
                 "1",
-                "- Fixed discounts for recharges as per chart\n" + " ( In chart we will give range and mention the present %ages)."
+                getString(R.string.subscription_one)
             )
         )
         mSubscriptionModelList.add(
             Subscription(
                 "2",
-                "- No cashbacks only Discounts."
+                getString(R.string.subscription_two)
             )
         )
         mSubscriptionModelList.add(
             Subscription(
                 "3",
-                "- No validity period."
+                getString(R.string.subscription_three)
             )
         )
         mSubscriptionModelList.add(
             Subscription(
                 "4",
-                "- You will automatically subscribed for discounts of future services in this app."
+                getString(R.string.subscription_four)
             )
         )
         mSubscriptionModelList.add(
             Subscription(
                 "5",
-                "- Also you will be eligible for referral eamings. (As referral cash in wallet)"
+                getString(R.string.subscription_five)
             )
         )
     }
