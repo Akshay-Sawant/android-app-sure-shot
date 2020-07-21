@@ -96,9 +96,9 @@
             tools:layout="@layout/fragment_d_t_h" />
         <fragment
             android:id="@+id/PaymentSuccesFragment"
-            android:name="com.sureshotdiscount.app.ui.payment.PaymentSuccesfulFragment"
+            android:name="com.sureshotdiscount.app.ui.payment.PaymentSuccessfulFragment"
             android:label=""
-            tools:layout="@layout/fragment_payment_succesful" />
+            tools:layout="@layout/fragment_payment_successful" />
         <fragment
             android:id="@+id/SubscriptionFragment"
             android:name="com.sureshotdiscount.app.ui.subscription.SubscriptionFragment"

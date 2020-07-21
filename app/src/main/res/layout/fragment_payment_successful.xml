@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
-    tools:context=".ui.payment.PaymentSuccesfulFragment">
+    android:fillViewport="true"
+    tools:context=".ui.payment.PaymentSuccessfulFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageViewSucces"
+            android:id="@+id/imageViewPaymentSuccessfulStatus"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:contentDescription="@string/text_hint_status"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_checked"
-            android:layout_marginTop="@dimen/material_dimen_xhdpi"
-            app:layout_constraintDimensionRatio="16:4"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintDimensionRatio="16:7"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@id/guidelineTop"/>
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
         <TextView
-            android:id="@+id/textViewPaymentSuccess"
+            android:id="@+id/textViewPaymentSuccessfulStatus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/text_payment_successful"
-            android:layout_marginTop="@dimen/standard_margin_x2"
             android:gravity="center"
-            android:textStyle="bold"
+            android:hint="@string/text_hint_status"
             android:textAppearance="@android:style/TextAppearance.Large"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@id/imageViewSucces"/>
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/imageViewPaymentSuccessfulStatus" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardPaymentDetails"
+            android:id="@+id/materialCardViewPaymentSuccessful"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin_x2"
@@ -46,7 +46,7 @@
             app:cardElevation="@dimen/cardElevation"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/textViewPaymentSuccess">
+            app:layout_constraintTop_toBottomOf="@id/textViewPaymentSuccessfulStatus">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -54,75 +54,80 @@
                 android:padding="@dimen/material_dimen_hdpi">
 
                 <TextView
-                    android:id="@+id/textViewRecharge"
+                    android:id="@+id/textViewPaymentSuccessfulRechargeFor"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Recharge for Idea"
-                    android:textStyle="bold"
+                    android:text="@string/text_label_recharge_for"
                     android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/circleImageViewPaymentSuccessfulCompanyLogo"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/imageViewCompanyLogo"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textViewMobileNumber"
+                    android:id="@+id/textViewPaymentSuccessfulMobileNumber"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="+91-81087 44785"
+                    android:hint="@string/text_mobile_number"
                     android:textAppearance="@android:style/TextAppearance.Large"
+                    app:layout_constraintEnd_toStartOf="@id/circleImageViewPaymentSuccessfulCompanyLogo"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewRecharge"
-                    app:layout_constraintEnd_toStartOf="@id/imageViewCompanyLogo"/>
+                    app:layout_constraintTop_toBottomOf="@id/textViewPaymentSuccessfulRechargeFor" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageViewCompanyLogo"
-                    android:layout_width="80dp"
+                    android:id="@+id/circleImageViewPaymentSuccessfulCompanyLogo"
+                    android:layout_width="@dimen/material_dimen_regular"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/idea"
-                    app:layout_constraintDimensionRatio="3:3"
+                    app:layout_constraintBottom_toTopOf="@id/viewPaymentSuccessfulDivider"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/viewHorizontalDevider"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
-                    android:id="@+id/viewHorizontalDevider"
+                    android:id="@+id/viewPaymentSuccessfulDivider"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginTop="@dimen/material_dimen_mdpi"
                     android:background="@android:color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageViewCompanyLogo" />
+                    app:layout_constraintTop_toBottomOf="@id/circleImageViewPaymentSuccessfulCompanyLogo" />
 
                 <TextView
-                    android:id="@+id/textViewOrderId"
+                    android:id="@+id/textViewPaymentSuccessfulOrderId"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_margin_x2"
-                    android:text="Order Id 145789789"
+                    android:text="@string/text_label_order_id"
                     android:textAppearance="@android:style/TextAppearance.Medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/viewHorizontalDevider" />
+                    app:layout_constraintTop_toBottomOf="@id/viewPaymentSuccessfulDivider" />
 
                 <TextView
-                    android:id="@+id/textViewPaymentType"
+                    android:id="@+id/textViewPaymentSuccessfulPaymentMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/standard_margin"
-                    android:background="@drawable/bg_rounded_corners_blue"
                     android:layout_marginTop="@dimen/standard_margin"
-                    android:text="Via Card"
+                    android:background="@drawable/bg_rounded_corners_blue"
+                    android:hint="@string/text_hint_payment_medium"
+                    android:padding="@dimen/standard_margin"
+                    android:textAppearance="@android:style/TextAppearance.Large"
                     android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewOrderId"/>
+                    app:layout_constraintTop_toBottomOf="@id/textViewPaymentSuccessfulOrderId"
+                    app:layout_constraintVertical_bias="0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <Button
-            android:id="@+id/buttonContinue"
+            android:id="@+id/buttonPaymentSuccessfulContinue"
             style="@style/AppTheme.Button.Light.Rounded"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -133,7 +138,7 @@
             app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/materialCardPaymentDetails"
+            app:layout_constraintTop_toBottomOf="@id/materialCardViewPaymentSuccessful"
             app:layout_constraintVertical_bias="0" />
 
         <androidx.constraintlayout.widget.Guideline

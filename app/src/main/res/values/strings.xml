@@ -1,7 +1,5 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Sure Shots</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Sign Up Fragment-->
     <string name="text_sign_up">Sign up</string>
@@ -98,5 +96,11 @@
     <string name="subscription_two">- No cashbacks only Discounts.</string>
     <string name="subscription_three">- No validity period.</string>
     <string name="subscription_four">- You will automatically subscribed for discounts of future services in this app.</string>
-    <string name="subscription_five">- Also you will be eligible for referral eamings. (As referral cash in wallet)</string>
+    <string name="subscription_five">- Also you will be eligible for referral earnings. (As referral cash in wallet)</string>
+
+    <!--Payment-->
+    <string name="text_hint_payment_medium">Payment Medium</string>
+    <string name="text_label_order_id">Order Id: <xliff:g example="145789789" id="order_id">%s</xliff:g></string>
+    <string name="text_label_recharge_for">Recharge for <xliff:g example="Idea" id="company_name">%s</xliff:g></string>
+    <string name="text_hint_status">Status</string>
 </resources>
