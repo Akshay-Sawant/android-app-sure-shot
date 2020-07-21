@@ -1,13 +1,15 @@
 package com.sureshotdiscount.app.ui.verification
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
@@ -19,6 +21,7 @@ import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 /**
  * A simple [Fragment] subclass.
@@ -76,7 +79,26 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                 Navigation.findNavController(it)
                     .navigate(R.id.action_global_Dashboard)
             }
+            R.id.textViewResend -> onLoadTimer()
         }
+    }
+
+    private fun onLoadTimer() {
+        val mMilliSeconds = 60000L
+        val mCountDownInterval = 1000L
+
+        object : CountDownTimer(mMilliSeconds, mCountDownInterval) {
+            @SuppressLint("SetTextI18n")
+            override fun onTick(millisUntilFinished: Long) {
+                mTextViewOTPTime.text = (millisUntilFinished / 1000).toString() + " Sec"
+                mTextViewResend.isClickable = false
+            }
+
+            override fun onFinish() {
+                mTextViewOTPTime.text = getString(R.string.hint_time)
+                mTextViewResend.isClickable = true
+            }
+        }.start()
     }
 
     private fun onClickSignInOtp() {
