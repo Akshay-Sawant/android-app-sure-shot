@@ -38,18 +38,19 @@
     <string name="text_refer_earn"><![CDATA[REFER & EARN]]></string>
     <string name="text_savings_earnings"><![CDATA[SAVINGS & EARNINGS]]></string>
 
-    <!--Recharge One-->
+    <!--Recharge-->
     <string name="text_change">Change</string>
     <string name="hint_text_enter_mobile_number">Enter Mobile Number</string>
     <string name="button_proceed">PROCEED</string>
 
-    <!--Recharge Two-->
-    <string name="text_prepaid">Prepaid</string>
+    <!--Recharge Details-->
+    <string name="text_label_recharge_type">Recharge Type</string>
     <string name="hint_text_enter_amount">Enter Amount</string>
     <string name="text_see_plan">See Plan</string>
     <string name="text_enter_amount_equal_to_or_above_10">Enter amount equal to or Above ₹ 10</string>
     <string name="text_tokens_and_promo">Tokens and Promo Cash cannot be used for mobile recharges</string>
     <string name="button_proceed_to_recharge">PROCEED TO RECHARGE</string>
+    <string name="text_label_rupees">₹ <xliff:g example="250" id="enter_amount">%s</xliff:g></string>
 
     <!--Refer and Earn-->
     <string name="text_get_rs_5_for_every_referral">Get Rs.5 for every Referral</string>

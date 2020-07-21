@@ -74,11 +74,11 @@
                     app:layout_constraintTop_toBottomOf="@id/circleImageViewRechargeDetailsCompanyLogo" />
 
                 <TextView
-                    android:id="@+id/textViewRechargeDetailsMethod"
+                    android:id="@+id/textViewRechargeDetailsRechargeType"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_margin_x2"
-                    android:text="@string/text_prepaid"
+                    android:text="@string/text_label_recharge_type"
                     android:textAppearance="@android:style/TextAppearance.Medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +94,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@id/textViewRechargeDetailsChangeMethod"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewRechargeDetailsMethod" />
+                    app:layout_constraintTop_toBottomOf="@id/textViewRechargeDetailsRechargeType" />
 
                 <TextView
                     android:id="@+id/textViewRechargeDetailsChangeMethod"
@@ -140,7 +140,10 @@
                 android:hint="@string/hint_text_enter_amount"
                 android:inputType="number"
                 android:maxLines="1"
-                android:textAppearance="@android:style/TextAppearance.Large" />
+                android:paddingTop="@dimen/material_dimen_mdpi"
+                android:text="@string/text_label_rupees"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

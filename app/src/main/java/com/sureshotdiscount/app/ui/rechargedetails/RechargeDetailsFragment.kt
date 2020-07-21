@@ -21,7 +21,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
     private lateinit var mTextViewRechargeDetailsCompanyName: TextView
     private lateinit var mTextViewRechargeDetailsChange: TextView
 
-    private lateinit var mTextViewRechargeDetailsMethod: TextView
+    private lateinit var mTextViewRechargeDetailsRechargeType: TextView
     private lateinit var mTextViewRechargeDetailsChangeMethod: TextView
     private lateinit var mTextViewRechargeDetailsMobileNumber: TextView
 
@@ -41,7 +41,8 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
         mTextViewRechargeDetailsChange = view.findViewById(R.id.textViewRechargeDetailsChange)
         mTextViewRechargeDetailsChange.setOnClickListener(this@RechargeDetailsFragment)
 
-        mTextViewRechargeDetailsMethod = view.findViewById(R.id.textViewRechargeDetailsMethod)
+        mTextViewRechargeDetailsRechargeType =
+            view.findViewById(R.id.textViewRechargeDetailsRechargeType)
         mTextViewRechargeDetailsChangeMethod =
             view.findViewById(R.id.textViewRechargeDetailsChangeMethod)
         mTextViewRechargeDetailsChangeMethod.setOnClickListener(this@RechargeDetailsFragment)
@@ -52,6 +53,8 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
             view.findViewById(R.id.textInputLayoutRechargeDetailsEnterAmount)
         mTextInputEditTextRechargeDetailsEnterAmount =
             view.findViewById(R.id.textInputEditTextRechargeDetailsEnterAmount)
+        mTextInputEditTextRechargeDetailsEnterAmount.isEnabled = false
+
         mTextViewRechargeDetailsSeePlan =
             view.findViewById(R.id.textViewRechargeDetailsSeePlan)
         mTextViewRechargeDetailsSeePlan.setOnClickListener(this@RechargeDetailsFragment)
