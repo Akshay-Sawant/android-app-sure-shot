@@ -1,6 +1,7 @@
 package com.sureshotdiscount.app.ui.signin
 
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -13,6 +14,7 @@ import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.data.model.response.APIActionResponse
 import com.sureshotdiscount.app.utils.error.ErrorUtils
+import com.sureshotdiscount.app.utils.onDecorateText
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
@@ -42,6 +44,13 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
 
         mTextViewSignInNoAccount = view.findViewById(R.id.textViewSignInNoAccount)
         mTextViewSignInNoAccount.setOnClickListener(this@SignInFragment)
+
+        onDecorateText(
+            getString(R.string.text_label_no_account),
+            20,
+            mTextViewSignInNoAccount,
+            Color.BLUE
+        )
     }
 
     override fun onClick(v: View?) {

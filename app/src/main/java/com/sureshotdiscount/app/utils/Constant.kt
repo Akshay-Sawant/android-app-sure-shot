@@ -1,5 +1,13 @@
 package com.sureshotdiscount.app.utils
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
+import android.widget.TextView
+import com.sureshotdiscount.app.R
+
 const val IS_DEBUG_ON = true // TODO: false on live
 
 const val INTENT_EXTRA_OPEN_AS_EDIT_FORM = "INTENT_EXTRA_OPEN_AS_EDIT_FORM"
@@ -16,5 +24,14 @@ const val REQUEST_CODE_CAPTURE_IMAGE = 10012
 // const val REQUEST_CODE_GET_LOCATION = 10013
 
 
-
 class Constant
+
+fun onDecorateText(mText: String, mStart: Int, mTextView: TextView, mColor: Int) {
+    val mSpannable: Spannable = SpannableString(mText)
+    mSpannable.setSpan(
+        ForegroundColorSpan(mColor), mStart, mText.length,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    mSpannable.setSpan(UnderlineSpan(), mStart, mText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    mTextView.text = mSpannable
+}

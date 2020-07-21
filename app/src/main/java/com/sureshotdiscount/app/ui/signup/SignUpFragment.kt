@@ -1,11 +1,16 @@
 package com.sureshotdiscount.app.ui.signup
 
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -13,12 +18,14 @@ import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.data.model.response.APIActionResponse
 import com.sureshotdiscount.app.utils.error.ErrorUtils
+import com.sureshotdiscount.app.utils.onDecorateText
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 /**
  * A simple [Fragment] subclass.
@@ -50,6 +57,13 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
 
         mTextViewSignUpHaveAccount = view.findViewById(R.id.textViewSignUpHaveAccount)
         mTextViewSignUpHaveAccount.setOnClickListener(this@SignUpFragment)
+
+        onDecorateText(
+            getString(R.string.text_label_have_account),
+            25,
+            mTextViewSignUpHaveAccount,
+            Color.BLUE
+        )
     }
 
     override fun onClick(v: View?) {

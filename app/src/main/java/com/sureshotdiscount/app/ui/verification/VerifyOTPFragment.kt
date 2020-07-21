@@ -1,6 +1,7 @@
 package com.sureshotdiscount.app.ui.verification
 
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -12,6 +13,7 @@ import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.data.model.LoggedInUser
 import com.sureshotdiscount.app.utils.error.ErrorUtils
+import com.sureshotdiscount.app.utils.onDecorateText
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import retrofit2.Call
@@ -58,6 +60,13 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
         }
+
+        onDecorateText(
+            getString(R.string.text_did_not_receive_the_code),
+            26,
+            mTextViewResend,
+            Color.BLUE
+        )
     }
 
     override fun onClick(v: View?) {
