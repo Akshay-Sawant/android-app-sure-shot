@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/SignUpFragment"
-        android:name="com.sureshots.app.ui.signup.SignUpFragment"
+        android:name="com.sureshotdiscount.app.ui.signup.SignUpFragment"
         android:label=""
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -21,12 +21,12 @@
     </fragment>
     <fragment
         android:id="@+id/VerifyOTPFragment"
-        android:name="com.sureshots.app.ui.verification.VerifyOTPFragment"
+        android:name="com.sureshotdiscount.app.ui.verification.VerifyOTPFragment"
         android:label=""
         tools:layout="@layout/fragment_verify_o_t_p" />
     <fragment
         android:id="@+id/DashboardFragment"
-        android:name="com.sureshots.app.ui.dashboard.DashboardFragment"
+        android:name="com.sureshotdiscount.app.ui.dashboard.DashboardFragment"
         android:label="Sure Shot Discounts"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -40,12 +40,12 @@
     </fragment>
     <fragment
         android:id="@+id/ReferEarnFragment"
-        android:name="com.sureshots.app.ui.referandearn.ReferEarnFragment"
+        android:name="com.sureshotdiscount.app.ui.referandearn.ReferEarnFragment"
         android:label="Refer and Earn"
         tools:layout="@layout/fragment_refer_earn" />
     <fragment
         android:id="@+id/RechargeOneFragment"
-        android:name="com.sureshots.app.ui.recharge.RechargeFragment"
+        android:name="com.sureshotdiscount.app.ui.recharge.RechargeFragment"
         android:label="Recharge"
         tools:layout="@layout/fragment_recharge">
         <action
@@ -62,15 +62,15 @@
         app:startDestination="@id/RechargeTwoFragment">
         <fragment
             android:id="@+id/MobileRechargeFragment"
-            android:name="com.sureshots.app.ui.mobile.MobileRechargeFragment"
+            android:name="com.sureshotdiscount.app.ui.mobile.MobileRechargeFragment"
             tools:layout="@layout/fragment_mobile_recharge" />
         <fragment
             android:id="@+id/PrepaidFragment"
-            android:name="com.sureshots.app.ui.prepaid.PrepaidFragment"
+            android:name="com.sureshotdiscount.app.ui.prepaid.PrepaidFragment"
             tools:layout="@layout/fragment_prepaid" />
         <fragment
             android:id="@+id/RechargeTwoFragment"
-            android:name="com.sureshots.app.ui.rechargedetails.RechargeDetailsFragment"
+            android:name="com.sureshotdiscount.app.ui.rechargedetails.RechargeDetailsFragment"
             android:label="Recharge"
             tools:layout="@layout/fragment_recharge_details">
             <action
@@ -88,20 +88,20 @@
         </fragment>
         <fragment
             android:id="@+id/PostpaidFragment"
-            android:name="com.sureshots.app.ui.postpaid.PostpaidFragment"
+            android:name="com.sureshotdiscount.app.ui.postpaid.PostpaidFragment"
             tools:layout="@layout/fragment_postpaid" />
         <fragment
             android:id="@+id/DTHFragment"
-            android:name="com.sureshots.app.ui.dth.DTHFragment"
+            android:name="com.sureshotdiscount.app.ui.dth.DTHFragment"
             tools:layout="@layout/fragment_d_t_h" />
         <fragment
             android:id="@+id/PaymentSuccesFragment"
-            android:name="com.sureshots.app.ui.payment.PaymentSuccesfulFragment"
+            android:name="com.sureshotdiscount.app.ui.payment.PaymentSuccesfulFragment"
             android:label=""
             tools:layout="@layout/fragment_payment_succesful" />
         <fragment
             android:id="@+id/SubscriptionFragment"
-            android:name="com.sureshots.app.ui.subscription.SubscriptionFragment"
+            android:name="com.sureshotdiscount.app.ui.subscription.SubscriptionFragment"
             android:label="Benefits of Subscription"
             tools:layout="@layout/fragment_subscription">
             <action
@@ -112,7 +112,7 @@
     </navigation>
     <fragment
         android:id="@+id/SignInFragment"
-        android:name="com.sureshots.app.ui.signin.SignInFragment"
+        android:name="com.sureshotdiscount.app.ui.signin.SignInFragment"
         android:label=""
         tools:layout="@layout/fragment_sign_in">
         <action

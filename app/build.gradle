@@ -8,7 +8,7 @@ android {
     buildToolsVersion buildVersions.buildTools
 
     defaultConfig {
-        applicationId "com.sureshots.app"
+        applicationId "com.sureshotdiscount.app"
         minSdkVersion buildVersions.minSdk
         targetSdkVersion buildVersions.targetSdk
         versionCode buildVersions.versionCode
