@@ -45,7 +45,7 @@ class SubscriptionFragment : Fragment(R.layout.fragment_subscription), View.OnCl
         when (v?.id) {
             R.id.buttonSubscriptionPayNow -> view?.let {
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_subscriptionFragment_to_paymentSuccessFragment)
+                    .navigate(R.id.action_benefitsOfSubscription_to_paymentSuccessful)
             }
         }
     }

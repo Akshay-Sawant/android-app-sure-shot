@@ -78,7 +78,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             R.id.buttonOTPVerifyAndProceed -> view?.let {
 //                onClickSignInOtp()
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_global_Dashboard)
+                    .navigate(R.id.action_verifyOTP_to_dashboard)
             }
             R.id.textViewResend -> onLoadTimer()
         }
@@ -189,7 +189,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                             DialogInterface.OnDismissListener {
                                                 view?.let { it1 ->
                                                     Navigation.findNavController(it1)
-                                                        .navigate(R.id.action_global_Dashboard)
+                                                        .navigate(R.id.action_verifyOTP_to_dashboard)
                                                 }
                                                 it.dismiss()
                                             }
@@ -261,7 +261,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                             DialogInterface.OnDismissListener {
                                                 view?.let { it1 ->
                                                     Navigation.findNavController(it1)
-                                                        .navigate(R.id.action_global_Dashboard)
+                                                        .navigate(R.id.action_verifyOTP_to_dashboard)
                                                 }
                                                 it.dismiss()
                                             }

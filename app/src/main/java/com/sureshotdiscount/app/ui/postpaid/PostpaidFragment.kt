@@ -51,7 +51,7 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
             R.id.buttonPostPaidProceed -> view?.let {
 //                isPostpaidValidated()
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)
+                    .navigate(R.id.action_recharge_to_rechargeDetails)
             }
         }
     }
@@ -67,7 +67,7 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
             else -> {
                 view?.let {
                     Navigation.findNavController(it)
-                        .navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)
+                        .navigate(R.id.action_recharge_to_rechargeDetails)
                 }
             }
         }

@@ -58,7 +58,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
             R.id.buttonSignInContinue -> view?.let {
 //                isSignInValidated()
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_signIn_to_VerifyOTP)
+                    .navigate(R.id.action_signIn_to_verifyOTP)
             }
             R.id.textViewSignInNoAccount -> {
                 view?.let {
@@ -108,7 +108,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                             DialogInterface.OnDismissListener {
                                                 view?.let { it1 ->
                                                     Navigation.findNavController(it1)
-                                                        .navigate(R.id.action_signIn_to_VerifyOTP)
+                                                        .navigate(R.id.action_signIn_to_verifyOTP)
                                                 }
                                                 it.dismiss()
                                             }

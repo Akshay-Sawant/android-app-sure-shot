@@ -52,7 +52,7 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
             R.id.buttonPrepaidProceed -> view?.let {
 //                isPrepaidValidated()
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)
+                    .navigate(R.id.action_recharge_to_rechargeDetails)
             }
         }
     }
@@ -76,7 +76,7 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
             else -> {
                 view?.let {
                     Navigation.findNavController(it)
-                        .navigate(R.id.action_rechargeOneFragment_to_rechargeTwoFragment)
+                        .navigate(R.id.action_recharge_to_rechargeDetails)
                 }
             }
         }

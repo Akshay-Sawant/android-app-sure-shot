@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         mNavigationViewMain = findViewById(R.id.navigationViewMain)
 
         mNavControllerMain = findNavController(R.id.fragmentNavHost)
-        mAppBarConfiguration = AppBarConfiguration(setOf(R.id.DashboardFragment), mDrawerLayoutMain)
+        mAppBarConfiguration = AppBarConfiguration(setOf(R.id.dashboardFragment), mDrawerLayoutMain)
 
         setupActionBarWithNavController(mNavControllerMain, mAppBarConfiguration)
 
@@ -59,16 +59,11 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         arguments: Bundle?
     ) {
         when (destination.id) {
-            R.id.SignUpFragment -> {
+            R.id.signUpFragment -> {
                 supportActionBar?.hide()
                 mToolbarMain.visibility = View.GONE
                 mDrawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
-            /*R.id.DashboardFragment -> {
-                supportActionBar?.show()
-                toolbar.visibility = View.VISIBLE
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            }*/
             else -> {
                 supportActionBar?.show()
                 mToolbarMain.visibility = View.VISIBLE

@@ -71,14 +71,14 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
         when (v?.id) {
             R.id.imageViewReferEarn -> view?.let {
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_dashboard_to_referEarnFragment)
+                    .navigate(R.id.action_dashboard_to_referEarn)
             }
         }
     }
 
     override fun onItemSelected(mPosition: SimCompanyModel) {
         view?.let {
-            Navigation.findNavController(it).navigate(R.id.action_dashboard_to_rechargeOneFragment)
+            Navigation.findNavController(it).navigate(R.id.action_dashboard_to_recharge)
         }
     }
 

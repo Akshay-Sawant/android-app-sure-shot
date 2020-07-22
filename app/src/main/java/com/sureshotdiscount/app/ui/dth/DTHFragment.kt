@@ -83,14 +83,14 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
             }
             R.id.imageViewDTHReferEarn -> view?.let {
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_dashboard_to_referEarnFragment)
+                    .navigate(R.id.action_dashboard_to_referEarn)
             }
         }
     }
 
     override fun onItemSelected(mView: View, mPosition: DTHCompanyModel) {
         view?.let {
-            Navigation.findNavController(it).navigate(R.id.action_dashboard_to_rechargeOneFragment)
+            Navigation.findNavController(it).navigate(R.id.action_dashboard_to_recharge)
         }
     }
 

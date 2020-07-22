@@ -3,126 +3,121 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sure_shot_nav_graph"
-    app:startDestination="@id/SignUpFragment">
+    app:startDestination="@id/signUpFragment">
 
     <fragment
-        android:id="@+id/SignUpFragment"
+        android:id="@+id/signUpFragment"
         android:name="com.sureshotdiscount.app.ui.signup.SignUpFragment"
         android:label=""
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUp_to_verifyOTP"
-            app:destination="@id/VerifyOTPFragment"
-            app:popUpTo="@id/SignUpFragment" />
+            app:destination="@id/verifyOTPFragment"
+            app:popUpTo="@id/signUpFragment" />
         <action
             android:id="@+id/action_signUp_to_signIn"
-            app:destination="@id/SignInFragment"
-            app:popUpTo="@id/SignUpFragment" />
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/signUpFragment" />
     </fragment>
     <fragment
-        android:id="@+id/VerifyOTPFragment"
+        android:id="@+id/verifyOTPFragment"
         android:name="com.sureshotdiscount.app.ui.verification.VerifyOTPFragment"
         android:label=""
-        tools:layout="@layout/fragment_verify_o_t_p" />
+        tools:layout="@layout/fragment_verify_o_t_p">
+        <action
+            android:id="@+id/action_verifyOTP_to_dashboard"
+            app:destination="@id/dashboardFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/verifyOTPFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
-        android:id="@+id/DashboardFragment"
+        android:id="@+id/dashboardFragment"
         android:name="com.sureshotdiscount.app.ui.dashboard.DashboardFragment"
-        android:label="Sure Shot Discounts"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_dashboard">
         <action
-            android:id="@+id/action_dashboard_to_referEarnFragment"
-            app:destination="@id/ReferEarnFragment"
-            app:popUpTo="@id/DashboardFragment" />
+            android:id="@+id/action_dashboard_to_referEarn"
+            app:destination="@id/referEarnFragment"
+            app:popUpTo="@id/dashboardFragment" />
         <action
-            android:id="@+id/action_dashboard_to_rechargeOneFragment"
-            app:destination="@id/RechargeOneFragment"
-            app:popUpTo="@id/DashboardFragment" />
+            android:id="@+id/action_dashboard_to_recharge"
+            app:destination="@id/rechargeFragment"
+            app:popUpTo="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_benefitsOfSubscription"
+            app:destination="@id/benefitsOfSubscriptionFragment"
+            app:popUpTo="@id/dashboardFragment" />
     </fragment>
     <fragment
-        android:id="@+id/ReferEarnFragment"
+        android:id="@+id/referEarnFragment"
         android:name="com.sureshotdiscount.app.ui.referandearn.ReferEarnFragment"
-        android:label="Refer and Earn"
+        android:label="@string/text_refer_and_earn"
         tools:layout="@layout/fragment_refer_earn" />
     <fragment
-        android:id="@+id/RechargeOneFragment"
+        android:id="@+id/rechargeFragment"
         android:name="com.sureshotdiscount.app.ui.recharge.RechargeFragment"
-        android:label="Recharge"
+        android:label="@string/text_label_recharge"
         tools:layout="@layout/fragment_recharge">
         <action
-            android:id="@+id/action_rechargeOneFragment_to_rechargeTwoFragment"
-            app:destination="@id/navigation"
-            app:popUpTo="@id/RechargeOneFragment" />
-        <action
-            android:id="@+id/action_rechargeOneFragment_to_dashboardFragment"
-            app:destination="@id/DashboardFragment"
-            app:popUpTo="@id/RechargeOneFragment" />
+            android:id="@+id/action_recharge_to_rechargeDetails"
+            app:destination="@id/rechargeDetailsFragment"
+            app:popUpTo="@id/rechargeFragment" />
     </fragment>
-    <navigation
-        android:id="@+id/navigation"
-        app:startDestination="@id/RechargeTwoFragment">
-        <fragment
-            android:id="@+id/MobileRechargeFragment"
-            android:name="com.sureshotdiscount.app.ui.mobile.MobileRechargeFragment"
-            tools:layout="@layout/fragment_mobile_recharge" />
-        <fragment
-            android:id="@+id/PrepaidFragment"
-            android:name="com.sureshotdiscount.app.ui.prepaid.PrepaidFragment"
-            tools:layout="@layout/fragment_prepaid" />
-        <fragment
-            android:id="@+id/RechargeTwoFragment"
-            android:name="com.sureshotdiscount.app.ui.rechargedetails.RechargeDetailsFragment"
-            android:label="Recharge"
-            tools:layout="@layout/fragment_recharge_details">
-            <action
-                android:id="@+id/action_rechargeTwoFragment_to_subscriptionFragment"
-                app:destination="@id/SubscriptionFragment"
-                app:popUpTo="@id/RechargeTwoFragment" />
-            <action
-                android:id="@+id/action_rechargeTwoFragment_to_dashboardFragment"
-                app:destination="@id/DashboardFragment"
-                app:popUpTo="@id/RechargeTwoFragment" />
-            <action
-                android:id="@+id/action_rechargeTwoFragment_to_rechargeOneFragment"
-                app:destination="@id/RechargeOneFragment"
-                app:popUpTo="@id/RechargeTwoFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/PostpaidFragment"
-            android:name="com.sureshotdiscount.app.ui.postpaid.PostpaidFragment"
-            tools:layout="@layout/fragment_postpaid" />
-        <fragment
-            android:id="@+id/DTHFragment"
-            android:name="com.sureshotdiscount.app.ui.dth.DTHFragment"
-            tools:layout="@layout/fragment_d_t_h" />
-        <fragment
-            android:id="@+id/PaymentSuccesFragment"
-            android:name="com.sureshotdiscount.app.ui.payment.PaymentSuccessfulFragment"
-            android:label=""
-            tools:layout="@layout/fragment_payment_successful" />
-        <fragment
-            android:id="@+id/SubscriptionFragment"
-            android:name="com.sureshotdiscount.app.ui.subscription.SubscriptionFragment"
-            android:label="Benefits of Subscription"
-            tools:layout="@layout/fragment_subscription">
-            <action
-                android:id="@+id/action_subscriptionFragment_to_paymentSuccessFragment"
-                app:destination="@id/PaymentSuccesFragment"
-                app:popUpTo="@id/SubscriptionFragment" />
-        </fragment>
-    </navigation>
     <fragment
-        android:id="@+id/SignInFragment"
+        android:id="@+id/mobileRechargeFragment"
+        android:name="com.sureshotdiscount.app.ui.mobile.MobileRechargeFragment"
+        tools:layout="@layout/fragment_mobile_recharge" />
+    <fragment
+        android:id="@+id/prepaidFragment"
+        android:name="com.sureshotdiscount.app.ui.prepaid.PrepaidFragment"
+        tools:layout="@layout/fragment_prepaid" />
+    <fragment
+        android:id="@+id/rechargeDetailsFragment"
+        android:name="com.sureshotdiscount.app.ui.rechargedetails.RechargeDetailsFragment"
+        android:label="@string/text_label_recharge"
+        tools:layout="@layout/fragment_recharge_details">
+        <action
+            android:id="@+id/action_rechargeDetails_to_paymentSuccessful"
+            app:destination="@id/paymentSuccessfulFragment"
+            app:popUpTo="@id/rechargeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postpaidFragment"
+        android:name="com.sureshotdiscount.app.ui.postpaid.PostpaidFragment"
+        tools:layout="@layout/fragment_postpaid" />
+    <fragment
+        android:id="@+id/DTHFragment"
+        android:name="com.sureshotdiscount.app.ui.dth.DTHFragment"
+        tools:layout="@layout/fragment_d_t_h" />
+    <fragment
+        android:id="@+id/paymentSuccessfulFragment"
+        android:name="com.sureshotdiscount.app.ui.payment.PaymentSuccessfulFragment"
+        android:label=""
+        tools:layout="@layout/fragment_payment_successful" />
+    <fragment
+        android:id="@+id/benefitsOfSubscriptionFragment"
+        android:name="com.sureshotdiscount.app.ui.subscription.SubscriptionFragment"
+        android:label="@string/text_label_benefits_of_subscription"
+        tools:layout="@layout/fragment_subscription">
+        <action
+            android:id="@+id/action_benefitsOfSubscription_to_paymentSuccessful"
+            app:destination="@id/paymentSuccessfulFragment"
+            app:popUpTo="@id/benefitsOfSubscriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
         android:name="com.sureshotdiscount.app.ui.signin.SignInFragment"
         android:label=""
         tools:layout="@layout/fragment_sign_in">
         <action
-            android:id="@+id/action_signIn_to_VerifyOTP"
-            app:destination="@id/VerifyOTPFragment"
-            app:popUpTo="@id/SignInFragment" />
+            android:id="@+id/action_signIn_to_verifyOTP"
+            app:destination="@id/verifyOTPFragment"
+            app:popUpTo="@id/signInFragment" />
     </fragment>
-    <action
-        android:id="@+id/action_global_Dashboard"
-        app:destination="@id/DashboardFragment"
-        app:launchSingleTop="true"
-        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/rechargeHistoryFragment"
+        android:name="com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryFragment"
+        android:label="fragment_recharge_history"
+        tools:layout="@layout/fragment_recharge_history" />
 </navigation>

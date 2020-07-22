@@ -125,7 +125,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                                 DialogInterface.OnDismissListener {
                                                     view?.let { it1 ->
                                                         Navigation.findNavController(it1)
-                                                            .navigate(R.id.action_signIn_to_VerifyOTP)
+                                                            .navigate(R.id.action_signIn_to_verifyOTP)
                                                     }
                                                     it.dismiss()
                                                 }

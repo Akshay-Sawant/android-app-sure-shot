@@ -66,7 +66,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.textViewRechargeDetailsChange -> view?.let {
-                Navigation.findNavController(it).popBackStack(R.id.DashboardFragment, false)
+                Navigation.findNavController(it).popBackStack(R.id.dashboardFragment, false)
             }
             R.id.textViewRechargeDetailsChangeMethod -> view?.let {
                 Navigation.findNavController(it).popBackStack()
@@ -74,7 +74,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
             R.id.buttonRechargeDetailsProceed -> view?.let {
 //                isRechargeDetailsValidated()
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_rechargeTwoFragment_to_subscriptionFragment)
+                    .navigate(R.id.action_rechargeDetails_to_paymentSuccessful)
             }
         }
     }
@@ -90,7 +90,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
             else -> {
                 view?.let {
                     Navigation.findNavController(it)
-                        .navigate(R.id.action_rechargeTwoFragment_to_subscriptionFragment)
+                        .navigate(R.id.action_rechargeDetails_to_paymentSuccessful)
                 }
             }
         }
