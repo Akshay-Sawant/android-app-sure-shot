@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.sureshotdiscount.app.utils.others.MiddleDividerItemDecoration
 import com.sureshotdiscount.app.R
-import com.sureshotdiscount.app.data.model.DTHCompanyModel
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
@@ -23,14 +22,14 @@ import retrofit2.Response
  * A simple [Fragment] subclass.
  */
 class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
-    DTHCompanyAdapter.OnItemSelectedListener {
+    DTHAdapter.OnItemSelectedListener {
 
     private lateinit var mTextViewDTHNoDataFound: TextView
     private lateinit var mMaterialCardViewDTH: MaterialCardView
 
     private lateinit var mRecyclerViewDTH: RecyclerView
-    private lateinit var mDTHCompanyAdapter: DTHCompanyAdapter
-    private var mDTHCompanyModelList: ArrayList<DTHCompanyModel> = ArrayList()
+    private lateinit var mDTHAdapter: DTHAdapter
+    private var mDTHModelList: ArrayList<DTHModel> = ArrayList()
 
     private lateinit var mImageViewDTHSubscriptionPlan: ImageView
     private lateinit var mImageViewDTHReferAndEarn: ImageView
@@ -51,12 +50,12 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
         mImageViewDTHReferAndEarn = view.findViewById(R.id.imageViewDTHReferEarn)
         mImageViewDTHReferAndEarn.setOnClickListener(this@DTHFragment)
 
-        mDTHCompanyModelList.clear()
-        mDTHCompanyAdapter = context?.let {
-            DTHCompanyAdapter(
+        mDTHModelList.clear()
+        mDTHAdapter = context?.let {
+            DTHAdapter(
                 it,
-                R.layout.recycler_view_dth_company,
-                mDTHCompanyModelList,
+                R.layout.rv_dth,
+                mDTHModelList,
                 this
             )
         }!!
@@ -66,8 +65,8 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
                 MiddleDividerItemDecoration.ALL
             )
         )
-        mRecyclerViewDTH.adapter = mDTHCompanyAdapter
-        mDTHCompanyAdapter.notifyDataSetChanged()
+        mRecyclerViewDTH.adapter = mDTHAdapter
+        mDTHAdapter.notifyDataSetChanged()
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
@@ -78,8 +77,9 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.imageViewDTHSubscriptionPlan -> {
-
+            R.id.imageViewDTHSubscriptionPlan -> view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_dashboard_to_benefitsOfSubscription)
             }
             R.id.imageViewDTHReferEarn -> view?.let {
                 Navigation.findNavController(it)
@@ -88,7 +88,7 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
         }
     }
 
-    override fun onItemSelected(mView: View, mPosition: DTHCompanyModel) {
+    override fun onItemSelected(mView: View, mPosition: DTHModel) {
         view?.let {
             Navigation.findNavController(it).navigate(R.id.action_dashboard_to_recharge)
         }
@@ -100,30 +100,30 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
                 APIClient.isNetworkConnected(it) -> {
                     APIClient.apiInterface
                         .getDTHCompany(mSharedPreferenceUtils.getLoggedInUser().loginToken)
-                        .enqueue(object : Callback<List<DTHCompanyModel>> {
+                        .enqueue(object : Callback<List<DTHModel>> {
                             override fun onResponse(
-                                call: Call<List<DTHCompanyModel>>,
-                                response: Response<List<DTHCompanyModel>>
+                                call: Call<List<DTHModel>>,
+                                response: Response<List<DTHModel>>
                             ) {
                                 if (response.isSuccessful) {
-                                    val mDTHCompanyModel: List<DTHCompanyModel>? = response.body()
+                                    val mDTHModel: List<DTHModel>? = response.body()
 
-                                    if (mDTHCompanyModel.isNullOrEmpty()) {
+                                    if (mDTHModel.isNullOrEmpty()) {
                                         mTextViewDTHNoDataFound.visibility = View.VISIBLE
                                         mMaterialCardViewDTH.visibility = View.GONE
                                     } else {
                                         mTextViewDTHNoDataFound.visibility = View.GONE
                                         mMaterialCardViewDTH.visibility = View.VISIBLE
 
-                                        mDTHCompanyModelList =
-                                            mDTHCompanyModel as ArrayList<DTHCompanyModel>
+                                        mDTHModelList =
+                                            mDTHModel as ArrayList<DTHModel>
 
-                                        mDTHCompanyModelList.clear()
-                                        mDTHCompanyAdapter = context?.let {
-                                            DTHCompanyAdapter(
+                                        mDTHModelList.clear()
+                                        mDTHAdapter = context?.let {
+                                            DTHAdapter(
                                                 it,
-                                                R.layout.recycler_view_dth_company,
-                                                mDTHCompanyModelList,
+                                                R.layout.rv_dth,
+                                                mDTHModelList,
                                                 this@DTHFragment
                                             )
                                         }!!
@@ -133,14 +133,14 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
                                                 MiddleDividerItemDecoration.ALL
                                             )
                                         )
-                                        mRecyclerViewDTH.adapter = mDTHCompanyAdapter
-                                        mDTHCompanyAdapter.notifyDataSetChanged()
+                                        mRecyclerViewDTH.adapter = mDTHAdapter
+                                        mDTHAdapter.notifyDataSetChanged()
                                     }
                                 }
                             }
 
                             override fun onFailure(
-                                call: Call<List<DTHCompanyModel>>,
+                                call: Call<List<DTHModel>>,
                                 t: Throwable
                             ) {
                                 ErrorUtils.parseOnFailureException(
@@ -159,43 +159,43 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
     }
 
     private fun onLoadDTHCompany() {
-        mDTHCompanyModelList.add(
-            DTHCompanyModel(
+        mDTHModelList.add(
+            DTHModel(
                 "1",
                 "Airtel Digital TV",
                 R.drawable.airteldish
             )
         )
-        mDTHCompanyModelList.add(
-            DTHCompanyModel(
+        mDTHModelList.add(
+            DTHModel(
                 "2",
                 "Videocon D2H",
                 R.drawable.videocon
             )
         )
-        mDTHCompanyModelList.add(
-            DTHCompanyModel(
+        mDTHModelList.add(
+            DTHModel(
                 "3",
                 "Reliance Digital TV",
                 R.drawable.reliance
             )
         )
-        mDTHCompanyModelList.add(
-            DTHCompanyModel(
+        mDTHModelList.add(
+            DTHModel(
                 "4",
                 "Sun Direct",
                 R.drawable.sundirect
             )
         )
-        mDTHCompanyModelList.add(
-            DTHCompanyModel(
+        mDTHModelList.add(
+            DTHModel(
                 "5",
                 "Tata Sky",
                 R.drawable.tatasky
             )
         )
-        mDTHCompanyModelList.add(
-            DTHCompanyModel(
+        mDTHModelList.add(
+            DTHModel(
                 "6",
                 "Dish TV",
                 R.drawable.dishtv

@@ -8,21 +8,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshotdiscount.app.R
-import com.sureshotdiscount.app.data.model.DTHCompanyModel
-import kotlinx.android.synthetic.main.recycler_view_dth_company.view.*
+import kotlinx.android.synthetic.main.rv_dth.view.*
 
-class DTHCompanyAdapter(
+class DTHAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mDTHCompanyModelList: List<DTHCompanyModel>,
+    private var mDTHModelList: List<DTHModel>,
     private val onItemSelectedListener: OnItemSelectedListener
-) : RecyclerView.Adapter<DTHCompanyAdapter.DTHCompanyViewHolder>() {
+) : RecyclerView.Adapter<DTHAdapter.DTHViewHolder>() {
 
     interface OnItemSelectedListener {
-        fun onItemSelected(mView: View, mPosition: DTHCompanyModel)
+        fun onItemSelected(mView: View, mPosition: DTHModel)
     }
 
-    inner class DTHCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
+    inner class DTHViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
         View.OnClickListener {
         private val mConstrainLayoutDTHCompany: ConstraintLayout =
             mItemView.findViewById(R.id.constrainLayoutDTHCompany)
@@ -34,13 +33,13 @@ class DTHCompanyAdapter(
         override fun onClick(view: View?) {
             onItemSelectedListener.onItemSelected(
                 mConstrainLayoutDTHCompany,
-                mDTHCompanyModelList[adapterPosition]
+                mDTHModelList[adapterPosition]
             )
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DTHCompanyViewHolder {
-        return DTHCompanyViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DTHViewHolder {
+        return DTHViewHolder(
             LayoutInflater.from(mContext)
                 .inflate(
                     mItemLayout,
@@ -51,14 +50,14 @@ class DTHCompanyAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mDTHCompanyModelList.size
+        return mDTHModelList.size
     }
 
-    override fun onBindViewHolder(holder: DTHCompanyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DTHViewHolder, position: Int) {
         Glide.with(holder.itemView.context)
-            .load(mDTHCompanyModelList[position].companyLogoUrl)
+            .load(mDTHModelList[position].mCompanyLogoUrl)
             .error(R.drawable.ic_launcher_background)
-            .into(holder.itemView.imageViewRVDTHCompany)
-        holder.itemView.textViewCompanyName.text = mDTHCompanyModelList[position].companyName
+            .into(holder.itemView.circleImageViewDTHCompanyLogo)
+        holder.itemView.textViewDTHCompanyName.text = mDTHModelList[position].mCompanyName
     }
 }

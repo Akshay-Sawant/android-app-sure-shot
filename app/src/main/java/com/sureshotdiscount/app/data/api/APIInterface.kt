@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 import com.sureshotdiscount.app.data.api.APIClient.API_VERSION
-import com.sureshotdiscount.app.data.model.DTHCompanyModel
+import com.sureshotdiscount.app.ui.dth.DTHModel
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 
@@ -101,7 +101,7 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("$API_VERSION/DTHCompany.php")
-    fun getDTHCompany(@Field("userLoginToken") userLoginToken: String): Call<List<DTHCompanyModel>>
+    fun getDTHCompany(@Field("userLoginToken") userLoginToken: String): Call<List<DTHModel>>
 
     /*Prepaid Recharge APIs*/
     @FormUrlEncoded
