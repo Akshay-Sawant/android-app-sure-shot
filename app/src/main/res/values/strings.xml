@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Sure Shots</string>
+    <string name="app_name">Sure Shot Discounts</string>
 
     <!--Sign Up Fragment-->
     <string name="text_sign_up">Sign up</string>
@@ -27,6 +27,7 @@
     <string name="alert_login_failed_title">Unable to login!</string>
     <string name="alert_login_failed_message">Please make sure you have entered correct mobile number and password</string>
     <string name="alert_login_error_message">Something went wrong while logging you in, please login again!</string>
+    <string name="text_error_incorrect_o_t_p">Incorrect OTP</string>
 
     <!--Dashboard -->
     <string name="text_refer_and_earn">Refer and Earn!</string>
@@ -42,6 +43,7 @@
     <string name="text_change">Change</string>
     <string name="hint_text_enter_mobile_number">Enter Mobile Number</string>
     <string name="button_proceed">PROCEED</string>
+    <string name="text_label_recharge">Recharge</string>
 
     <!--Recharge Details-->
     <string name="text_label_recharge_type">Recharge Type</string>
@@ -93,6 +95,7 @@
     <string name="text_label_dth">DTH</string>
 
     <!--Benefits of Subscription-->
+    <string name="text_label_benefits_of_subscription">Benefits of Subscription</string>
     <string name="subscription_one">- Fixed discounts for recharges as per chart\n" + " ( In chart we will give range and mention the present %ages).</string>
     <string name="subscription_two">- No cashbacks only Discounts.</string>
     <string name="subscription_three">- No validity period.</string>
@@ -104,4 +107,8 @@
     <string name="text_label_order_id">Order Id: <xliff:g example="145789789" id="order_id">%s</xliff:g></string>
     <string name="text_label_recharge_for">Recharge for <xliff:g example="Idea" id="company_name">%s</xliff:g></string>
     <string name="text_hint_status">Status</string>
+    <string name="text_label_my_account">My Account</string>
+    <string name="text_label_recharge_history">Recharge History</string>
+    <string name="text_label_referrals_list">Referrals List</string>
+    <string name="text_label_contact">Contact</string>
 </resources>

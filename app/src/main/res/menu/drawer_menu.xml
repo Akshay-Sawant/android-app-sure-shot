@@ -4,20 +4,24 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/dashboardFragment"
+            android:title="@string/text_label_my_account" />
+
+        <item
             android:id="@+id/item1"
-            android:title="Recharge History" />
+            android:title="@string/text_label_recharge_history" />
 
         <item
             android:id="@+id/item2"
-            android:title="Subscription Plan" />
+            android:title="@string/text_subscription_plan" />
 
         <item
             android:id="@+id/item3"
-            android:title="Referrals List" />
+            android:title="@string/text_label_referrals_list" />
 
         <item
             android:id="@+id/item4"
-            android:title="Contact" />
+            android:title="@string/text_label_contact" />
 
     </group>
 
