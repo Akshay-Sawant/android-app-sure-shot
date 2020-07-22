@@ -8,21 +8,21 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshotdiscount.app.R
-import com.sureshotdiscount.app.data.model.SimCompanyModel
-import kotlinx.android.synthetic.main.recycler_view_sim_company.view.*
+import com.sureshotdiscount.app.data.model.MobileRechargeModel
+import kotlinx.android.synthetic.main.rv_mobile_recharge.view.*
 
-class SimCompanyAdapter(
+class MobileRechargeAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mSimCompanyModelList: List<SimCompanyModel>,
+    private var mMobileRechargeModelList: List<MobileRechargeModel>,
     private val onItemSelectedListener: OnItemSelectedListener
-) : RecyclerView.Adapter<SimCompanyAdapter.SimCompanyViewHolder>() {
+) : RecyclerView.Adapter<MobileRechargeAdapter.MobileRechargeViewHolder>() {
 
     interface OnItemSelectedListener {
-        fun onItemSelected(mPosition: SimCompanyModel)
+        fun onItemSelected(mPosition: MobileRechargeModel)
     }
 
-    inner class SimCompanyViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
+    inner class MobileRechargeViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
         View.OnClickListener {
         private var mConstraintRvSimCompany: ConstraintLayout =
             mItemView.findViewById(R.id.constraintRvSimCompany)
@@ -32,12 +32,12 @@ class SimCompanyAdapter(
         }
 
         override fun onClick(view: View?) {
-            onItemSelectedListener.onItemSelected(mSimCompanyModelList[adapterPosition])
+            onItemSelectedListener.onItemSelected(mMobileRechargeModelList[adapterPosition])
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimCompanyViewHolder {
-        return SimCompanyViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MobileRechargeViewHolder {
+        return MobileRechargeViewHolder(
             LayoutInflater.from(mContext)
                 .inflate(
                     mItemLayout,
@@ -48,14 +48,15 @@ class SimCompanyAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mSimCompanyModelList.size
+        return mMobileRechargeModelList.size
     }
 
-    override fun onBindViewHolder(holder: SimCompanyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MobileRechargeViewHolder, position: Int) {
         Glide.with(holder.itemView.context)
-            .load(mSimCompanyModelList[position].companyLogoUrl)
+            .load(mMobileRechargeModelList[position].mCompanyLogoUrl)
             .error(R.drawable.ic_launcher_background)
-            .into(holder.itemView.imageViewRVSimCompany)
-        holder.itemView.textViewCompanyName.text = mSimCompanyModelList[position].companyName
+            .into(holder.itemView.circleImageViewMobileRechargeCompanyLogo)
+        holder.itemView.textViewMobileRechargeCompanyName.text =
+            mMobileRechargeModelList[position].mCompanyName
     }
 }

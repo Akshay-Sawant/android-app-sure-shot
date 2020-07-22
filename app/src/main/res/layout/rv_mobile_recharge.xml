@@ -8,7 +8,7 @@
     android:padding="@dimen/standard_margin">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageViewRVSimCompany"
+        android:id="@+id/circleImageViewMobileRechargeCompanyLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/text_cd_company_logo"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewCompanyName"
+        android:id="@+id/textViewMobileRechargeCompanyName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -29,7 +29,7 @@
         android:textAppearance="@android:style/TextAppearance.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewRVSimCompany"
+        app:layout_constraintTop_toBottomOf="@id/circleImageViewMobileRechargeCompanyLogo"
         tools:text="Jio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,30 +3,33 @@ package com.sureshotdiscount.app.ui.mobile
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.sureshotdiscount.app.utils.others.MiddleDividerItemDecoration
 import com.sureshotdiscount.app.R
-import com.sureshotdiscount.app.data.model.SimCompanyModel
+import com.sureshotdiscount.app.data.model.MobileRechargeModel
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
-import kotlinx.android.synthetic.main.fragment_mobile_recharge.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View.OnClickListener,
-    SimCompanyAdapter.OnItemSelectedListener {
+    MobileRechargeAdapter.OnItemSelectedListener {
 
     private lateinit var mTextViewMobileRechargeNoDataFound: TextView
     private lateinit var mMaterialCardMobileRecharge: MaterialCardView
     private lateinit var mRecyclerViewMobileRecharge: RecyclerView
-    private lateinit var mSimCompanyAdapter: SimCompanyAdapter
-    private var mSimCompanyModelList: ArrayList<SimCompanyModel> = ArrayList()
+    private lateinit var mMobileRechargeAdapter: MobileRechargeAdapter
+    private var mMobileRechargeModelList: ArrayList<MobileRechargeModel> = ArrayList()
+
+    private lateinit var mImageViewMobileRechargeSubscriptionPlan: ImageView
+    private lateinit var mImageViewMobileRechargeReferEarn: ImageView
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
@@ -39,15 +42,14 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
         mMaterialCardMobileRecharge = view
             .findViewById(R.id.materialCardViewMobileRecharge)
 
-        view.imageViewReferEarn.setOnClickListener(this)
         mRecyclerViewMobileRecharge = view.findViewById(R.id.recyclerViewMobileRecharge)
 
-        mSimCompanyModelList.clear()
-        mSimCompanyAdapter = context?.let {
-            SimCompanyAdapter(
+        mMobileRechargeModelList.clear()
+        mMobileRechargeAdapter = context?.let {
+            MobileRechargeAdapter(
                 it,
-                R.layout.recycler_view_sim_company,
-                mSimCompanyModelList,
+                R.layout.rv_mobile_recharge,
+                mMobileRechargeModelList,
                 this
             )
         }!!
@@ -57,8 +59,15 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
                 MiddleDividerItemDecoration.ALL
             )
         )
-        mRecyclerViewMobileRecharge.adapter = mSimCompanyAdapter
-        mSimCompanyAdapter.notifyDataSetChanged()
+        mRecyclerViewMobileRecharge.adapter = mMobileRechargeAdapter
+        mMobileRechargeAdapter.notifyDataSetChanged()
+
+        mImageViewMobileRechargeSubscriptionPlan =
+            view.findViewById(R.id.imageViewMobileRechargeSubscriptionPlan)
+        mImageViewMobileRechargeSubscriptionPlan.setOnClickListener(this@MobileRechargeFragment)
+
+        mImageViewMobileRechargeReferEarn = view.findViewById(R.id.imageViewMobileRechargeReferEarn)
+        mImageViewMobileRechargeReferEarn.setOnClickListener(this@MobileRechargeFragment)
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
@@ -69,57 +78,61 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.imageViewReferEarn -> view?.let {
+            R.id.imageViewMobileRechargeSubscriptionPlan -> view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_dashboard_to_benefitsOfSubscription)
+            }
+            R.id.imageViewMobileRechargeReferEarn -> view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_dashboard_to_referEarn)
             }
         }
     }
 
-    override fun onItemSelected(mPosition: SimCompanyModel) {
+    override fun onItemSelected(mPosition: MobileRechargeModel) {
         view?.let {
             Navigation.findNavController(it).navigate(R.id.action_dashboard_to_recharge)
         }
     }
 
     private fun onLoadSimCompany() {
-        mSimCompanyModelList.add(
-            SimCompanyModel(
+        mMobileRechargeModelList.add(
+            MobileRechargeModel(
                 "1",
                 "Airtel",
                 R.drawable.airtel
             )
         )
-        mSimCompanyModelList.add(
-            SimCompanyModel(
+        mMobileRechargeModelList.add(
+            MobileRechargeModel(
                 "2",
                 "Jio",
                 R.drawable.jio
             )
         )
-        mSimCompanyModelList.add(
-            SimCompanyModel(
+        mMobileRechargeModelList.add(
+            MobileRechargeModel(
                 "3",
                 "BSNL",
                 R.drawable.bsnllogo
             )
         )
-        mSimCompanyModelList.add(
-            SimCompanyModel(
+        mMobileRechargeModelList.add(
+            MobileRechargeModel(
                 "4",
                 "idea",
                 R.drawable.idea
             )
         )
-        mSimCompanyModelList.add(
-            SimCompanyModel(
+        mMobileRechargeModelList.add(
+            MobileRechargeModel(
                 "5",
                 "vodafone",
                 R.drawable.vodafone
             )
         )
-        mSimCompanyModelList.add(
-            SimCompanyModel(
+        mMobileRechargeModelList.add(
+            MobileRechargeModel(
                 "6",
                 "Tata",
                 R.drawable.tata
@@ -135,30 +148,30 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
                         .getSimCompany(
                             mSharedPreferenceUtils.getLoggedInUser().loginToken
                         )
-                        .enqueue(object : Callback<List<SimCompanyModel>> {
+                        .enqueue(object : Callback<List<MobileRechargeModel>> {
                             override fun onResponse(
-                                call: Call<List<SimCompanyModel>>,
-                                response: Response<List<SimCompanyModel>>
+                                call: Call<List<MobileRechargeModel>>,
+                                response: Response<List<MobileRechargeModel>>
                             ) {
                                 if (response.isSuccessful) {
-                                    val mSimCompanyModel: List<SimCompanyModel>? = response.body()
+                                    val mMobileRechargeModel: List<MobileRechargeModel>? = response.body()
 
-                                    if (mSimCompanyModel.isNullOrEmpty()) {
+                                    if (mMobileRechargeModel.isNullOrEmpty()) {
                                         mTextViewMobileRechargeNoDataFound.visibility = View.VISIBLE
                                         mMaterialCardMobileRecharge.visibility = View.GONE
                                     } else {
                                         mTextViewMobileRechargeNoDataFound.visibility = View.GONE
                                         mMaterialCardMobileRecharge.visibility = View.VISIBLE
 
-                                        mSimCompanyModelList =
-                                            mSimCompanyModel as ArrayList<SimCompanyModel>
+                                        mMobileRechargeModelList =
+                                            mMobileRechargeModel as ArrayList<MobileRechargeModel>
 
-                                        mSimCompanyModelList.clear()
-                                        mSimCompanyAdapter = context?.let {
-                                            SimCompanyAdapter(
+                                        mMobileRechargeModelList.clear()
+                                        mMobileRechargeAdapter = context?.let {
+                                            MobileRechargeAdapter(
                                                 it,
-                                                R.layout.recycler_view_sim_company,
-                                                mSimCompanyModelList,
+                                                R.layout.rv_mobile_recharge,
+                                                mMobileRechargeModelList,
                                                 this@MobileRechargeFragment
                                             )
                                         }!!
@@ -168,14 +181,14 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
                                                 MiddleDividerItemDecoration.ALL
                                             )
                                         )
-                                        mRecyclerViewMobileRecharge.adapter = mSimCompanyAdapter
-                                        mSimCompanyAdapter.notifyDataSetChanged()
+                                        mRecyclerViewMobileRecharge.adapter = mMobileRechargeAdapter
+                                        mMobileRechargeAdapter.notifyDataSetChanged()
                                     }
                                 }
                             }
 
                             override fun onFailure(
-                                call: Call<List<SimCompanyModel>>,
+                                call: Call<List<MobileRechargeModel>>,
                                 t: Throwable
                             ) {
                                 ErrorUtils.parseOnFailureException(

@@ -43,7 +43,7 @@
                 android:padding="@dimen/standard_margin_x2"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
-                tools:listitem="@layout/recycler_view_sim_company" />
+                tools:listitem="@layout/rv_mobile_recharge" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -85,7 +85,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageViewMobileRechargeSubscriptionPlan" />
 
         <ImageView
-            android:id="@+id/imageViewReferEarn"
+            android:id="@+id/imageViewMobileRechargeReferEarn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/material_dimen_ldpi"

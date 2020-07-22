@@ -44,7 +44,7 @@
                 android:padding="@dimen/standard_margin_x2"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
-                tools:listitem="@layout/recycler_view_sim_company" />
+                tools:listitem="@layout/rv_mobile_recharge" />
 
         </com.google.android.material.card.MaterialCardView>
 
