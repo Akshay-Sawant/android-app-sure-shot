@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.sureshotdiscount.app.utils.others.MiddleDividerItemDecoration
 import com.sureshotdiscount.app.R
-import com.sureshotdiscount.app.data.model.MobileRechargeModel
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils

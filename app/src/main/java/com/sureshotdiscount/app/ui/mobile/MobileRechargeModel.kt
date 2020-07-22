@@ -1,4 +1,4 @@
-package com.sureshotdiscount.app.data.model
+package com.sureshotdiscount.app.ui.mobile
 
 import com.squareup.moshi.Json
 

@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sureshotdiscount.app.R
-import com.sureshotdiscount.app.data.model.MobileRechargeModel
 import kotlinx.android.synthetic.main.rv_mobile_recharge.view.*
 
 class MobileRechargeAdapter(
