@@ -18,10 +18,10 @@ import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.onDecorateText
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
+import com.sureshotdiscount.app.utils.others.ValidationUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 /**
  * A simple [Fragment] subclass.
@@ -64,6 +64,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
         }
 
+        onFocusChanger()
         onDecorateText(
             getString(R.string.text_did_not_receive_the_code),
             26,
@@ -83,6 +84,24 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
         }
     }
 
+    private fun onFocusChanger() {
+        context?.let {
+            mEditTextOTPOne.hasFocus()
+            ValidationUtils.getValidationUtils().focusChanger(
+                mEditTextOTPFour,
+                mEditTextOTPTwo
+            )
+            ValidationUtils.getValidationUtils().focusChanger(
+                mEditTextOTPTwo,
+                mEditTextOTPThree
+            )
+            ValidationUtils.getValidationUtils().focusChanger(
+                mEditTextOTPThree,
+                mEditTextOTPFour
+            )
+        }
+    }
+
     private fun onLoadTimer() {
         val mMilliSeconds = 60000L
         val mCountDownInterval = 1000L
@@ -99,6 +118,40 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                 mTextViewResend.isClickable = true
             }
         }.start()
+    }
+
+    private fun isVerifyOTPValidated() {
+        context?.let {
+            when {
+                ValidationUtils.getValidationUtils().isEditTextFilledFunc(
+                    mEditTextOTPOne,
+                    1,
+                    getString(R.string.text_error_incorrect_o_t_p)
+                ) -> return
+                ValidationUtils.getValidationUtils().isEditTextFilledFunc(
+                    mEditTextOTPTwo,
+                    1,
+                    getString(R.string.text_error_incorrect_o_t_p)
+                ) -> return
+                ValidationUtils.getValidationUtils().isEditTextFilledFunc(
+                    mEditTextOTPThree,
+                    1,
+                    getString(R.string.text_error_incorrect_o_t_p)
+                ) -> return
+                ValidationUtils.getValidationUtils().isEditTextFilledFunc(
+                    mEditTextOTPFour,
+                    1,
+                    getString(R.string.text_error_incorrect_o_t_p)
+                ) -> return
+                else -> {
+                    /*if (is_register == true) {
+                        onClickSignUpOTP()
+                    } else {
+                        onClickSignInOtp()
+                    }*/
+                }
+            }
+        }
     }
 
     private fun onClickSignInOtp() {
