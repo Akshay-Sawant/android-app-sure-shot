@@ -71,46 +71,6 @@ interface APIInterface {
     @POST("$API_VERSION/DTHCompany.php")
     fun getDTHCompany(@Field("userLoginToken") userLoginToken: String): Call<List<DTHModel>>
 
-    /*Prepaid Recharge APIs*/
-    @FormUrlEncoded
-    @POST("/getServiceData.go")
-    fun getCircleList(
-        @Field("goid") goid: String,
-        @Field("apikey") apikey: String,
-        @Field("rtype") rtype: String,
-        @Field("type") type: String
-    ): Call<APIActionResponse>
-
-    @FormUrlEncoded
-    @POST("/getServiceData.go")
-    fun getOperatorList(
-        @Field("goid") goid: String,
-        @Field("apikey") apikey: String,
-        @Field("rtype") rtype: String,
-        @Field("service_family") service_family: String
-    ): Call<APIActionResponse>
-
-    @FormUrlEncoded
-    @POST("/getMsisdnInfo.go")
-    fun getMsisdnInfo(
-        @Field("goid") goid: String,
-        @Field("apikey") apikey: String,
-        @Field("rtype") rtype: String,
-        @Field("service_family") service_family: String,
-        @Field("msisdn") msisdn: String
-    ): Call<APIActionResponse>
-
-    @FormUrlEncoded
-    @POST("/getRechargePlan.go")
-    fun getRechargePlan(
-        @Field("goid") goid: String,
-        @Field("apikey") apikey: String,
-        @Field("rtype") rtype: String,
-        @Field("service_family") service_family: String,
-        @Field("operator_code") operator_code: String,
-        @Field("circle_code") circle_code: String
-    ): Call<APIActionResponse>
-
     @FormUrlEncoded
     @POST("$API_VERSION/RechargeHistory.php")
     fun getRechargeHistory(@Field("userLoginToken") userLoginToken: String): Call<List<RechargeHistoryModel>>
