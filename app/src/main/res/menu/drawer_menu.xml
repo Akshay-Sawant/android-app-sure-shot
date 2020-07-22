@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/dashboardFragment"
+            android:id="@+id/myAccountFragment"
             android:title="@string/text_label_my_account" />
 
         <item

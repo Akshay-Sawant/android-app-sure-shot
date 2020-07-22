@@ -9,6 +9,7 @@ import retrofit2.http.*
 import com.sureshotdiscount.app.data.api.APIClient.API_VERSION
 import com.sureshotdiscount.app.data.model.DTHCompanyModel
 import com.sureshotdiscount.app.data.model.SimCompanyModel
+import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 
 interface APIInterface {
 
@@ -141,4 +142,8 @@ interface APIInterface {
         @Field("operator_code") operator_code: String,
         @Field("circle_code") circle_code: String
     ): Call<APIActionResponse>
+
+    @FormUrlEncoded
+    @POST("$API_VERSION/RechargeHistory.php")
+    fun getRechargeHistory(@Field("userLoginToken") userLoginToken: String): Call<List<RechargeHistoryModel>>
 }

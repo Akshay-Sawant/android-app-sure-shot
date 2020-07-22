@@ -6,10 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.rechargeHistory.RechargeHistoryFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@+id/textViewRechargeHistoryNoDataFound"
         android:layout_width="@dimen/material_dimen_constraint"
         android:layout_height="@dimen/material_dimen_constraint"
+        android:gravity="center"
+        android:text="@string/text_no_data_found"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRechargeHistory"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="@dimen/material_dimen_constraint"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
