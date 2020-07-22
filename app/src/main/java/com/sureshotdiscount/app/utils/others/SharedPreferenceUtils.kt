@@ -30,7 +30,7 @@ class SharedPreferenceUtils(context: Context) {
     private val LOGIN_IS_EMAIL_VERIFIED_KEY = "isEmailVerified"
 
     private val LOGIN_USER_PROFILE_IMAGE_KEY = "userProfileImage"
-    private val LOGIN_USER_REFERENCE_CODE_KEY = "userReferenceCode"
+    private val LOGIN_USER_REFERRAL_ID_KEY = "referralId"
 
     private val isSocialLoginKey = "isSocialLoginKey"
 
@@ -57,7 +57,7 @@ class SharedPreferenceUtils(context: Context) {
         mLoggedInUser.email = prefs.getString(LOGIN_USER_EMAIL_KEY, "").toString()
         mLoggedInUser.isEmailVerified = prefs.getBoolean(LOGIN_IS_EMAIL_VERIFIED_KEY, false)
         mLoggedInUser.profileImage = prefs.getString(LOGIN_USER_PROFILE_IMAGE_KEY, "").toString()
-        mLoggedInUser.referenceCode = prefs.getString(LOGIN_USER_REFERENCE_CODE_KEY, "").toString()
+        mLoggedInUser.referralId = prefs.getString(LOGIN_USER_REFERRAL_ID_KEY, "").toString()
 
         mLoggedInUser.isSocialLogin = prefs.getBoolean(isSocialLoginKey, false)
     }
@@ -94,7 +94,7 @@ class SharedPreferenceUtils(context: Context) {
         prefEditor.putString(LOGIN_USER_EMAIL_KEY, mLoggedInUser.email)
         prefEditor.putBoolean(LOGIN_IS_EMAIL_VERIFIED_KEY, mLoggedInUser.isEmailVerified)
         prefEditor.putString(LOGIN_USER_PROFILE_IMAGE_KEY, mLoggedInUser.profileImage)
-        prefEditor.putString(LOGIN_USER_REFERENCE_CODE_KEY, mLoggedInUser.referenceCode)
+        prefEditor.putString(LOGIN_USER_REFERRAL_ID_KEY, mLoggedInUser.referralId)
 
         prefEditor.putBoolean(isSocialLoginKey, mLoggedInUser.isSocialLogin)
         return prefEditor.commit()

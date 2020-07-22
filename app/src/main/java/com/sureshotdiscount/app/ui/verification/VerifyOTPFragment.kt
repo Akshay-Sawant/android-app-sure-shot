@@ -159,7 +159,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             when {
                 APIClient.isNetworkConnected(it) -> {
                     APIClient.apiInterface
-                        .doLogin(
+                        .verifySignInOTP(
                             "",
                             mEditTextOTPOne.text.toString().trim() +
                                     mEditTextOTPTwo.text.toString().trim() +
@@ -231,7 +231,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             when {
                 APIClient.isNetworkConnected(it) -> {
                     APIClient.apiInterface
-                        .doLogin(
+                        .verifySignUpOTP(
                             "",
                             mEditTextOTPOne.text.toString().trim() +
                                     mEditTextOTPTwo.text.toString().trim() +

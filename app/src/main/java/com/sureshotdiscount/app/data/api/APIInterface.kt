@@ -30,12 +30,6 @@ interface APIInterface {
 
     /*Register*/
     @FormUrlEncoded
-    @POST("$API_VERSION/SignUp.php")
-    fun doSignUp(
-        @Field("mobile") mobile: String
-    ): Call<LoggedInUser>
-
-    @FormUrlEncoded
     @POST("$API_VERSION/RequestSignUpOTP.php")
     fun requestSignUpOTP(
         @Field("mobile") mobile: String,
@@ -52,11 +46,11 @@ interface APIInterface {
     /*Login*/
     @FormUrlEncoded
     @POST("$API_VERSION/RequestLoginOTP.php")
-    fun requestLoginOTP(@Field("mobile") mobile: String): Call<APIActionResponse>
+    fun requestSignInOTP(@Field("mobile") mobile: String): Call<APIActionResponse>
 
     @FormUrlEncoded
     @POST("$API_VERSION/Login.php")
-    fun doLogin(
+    fun verifySignInOTP(
         @Field("mobile") mobile: String,
         @Field("otp") otp: String
     ): Call<LoggedInUser>

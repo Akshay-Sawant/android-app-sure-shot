@@ -5,7 +5,7 @@ import java.io.Serializable
 
 class LoggedInUser : Serializable {
 
-    @field:Json(name = "loginToken")
+    @field:Json(name = "userLoginToken")
     var loginToken: String = ""
 
     @field:Json(name = "userId")
@@ -50,8 +50,8 @@ class LoggedInUser : Serializable {
     @field:Json(name = "profileImage")
     var profileImage: String = ""
 
-    @field:Json(name = "referenceCode")
-    var referenceCode: String = ""
+    @field:Json(name = "referralId")
+    var referralId: String = ""
 
     var isSocialLogin: Boolean = false
 }

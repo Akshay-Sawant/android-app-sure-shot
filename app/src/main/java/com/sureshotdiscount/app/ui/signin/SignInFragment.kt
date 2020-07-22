@@ -87,7 +87,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
         context?.let {
             if (APIClient.isNetworkConnected(it)) {
                 APIClient.apiInterface
-                    .requestLoginOTP(mTextInputEditTextSignInMobileNumber.text.toString().trim())
+                    .requestSignInOTP(mTextInputEditTextSignInMobileNumber.text.toString().trim())
                     .enqueue(object : Callback<APIActionResponse> {
                         override fun onResponse(
                             call: Call<APIActionResponse>,
