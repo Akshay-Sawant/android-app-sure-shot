@@ -108,7 +108,9 @@
     <string name="text_label_recharge_for">Recharge for <xliff:g example="Idea" id="company_name">%s</xliff:g></string>
     <string name="text_hint_status">Status</string>
     <string name="text_label_my_account">My Account</string>
-    <string name="text_label_recharge_history">Recharge History</string>
     <string name="text_label_referrals_list">Referrals List</string>
     <string name="text_label_contact">Contact</string>
+
+    <!--Recharge History-->
+    <string name="text_label_recharge_history">Recharge History</string>
 </resources>

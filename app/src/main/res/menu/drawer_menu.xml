@@ -8,7 +8,7 @@
             android:title="@string/text_label_my_account" />
 
         <item
-            android:id="@+id/item1"
+            android:id="@+id/rechargeHistoryFragment"
             android:title="@string/text_label_recharge_history" />
 
         <item
