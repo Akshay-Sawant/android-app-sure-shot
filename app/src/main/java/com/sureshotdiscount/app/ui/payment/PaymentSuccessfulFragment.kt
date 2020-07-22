@@ -53,7 +53,7 @@ class PaymentSuccessfulFragment : Fragment(R.layout.fragment_payment_successful)
         when (v?.id) {
             R.id.buttonPaymentSuccessfulContinue -> view?.let {
                 Navigation.findNavController(it)
-                    .popBackStack(R.id.dashboardFragment, false)
+                    .popBackStack(R.id.myAccountFragment, false)
             }
         }
     }

@@ -26,8 +26,7 @@
         tools:layout="@layout/fragment_verify_o_t_p">
         <action
             android:id="@+id/action_verifyOTP_to_dashboard"
-            app:destination="@id/dashboardFragment"
-            app:launchSingleTop="true" />
+            app:destination="@id/myAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/myAccountFragment"
@@ -37,15 +36,15 @@
         <action
             android:id="@+id/action_dashboard_to_referEarn"
             app:destination="@id/referEarnFragment"
-            app:popUpTo="@id/dashboardFragment" />
+            app:popUpTo="@id/myAccountFragment" />
         <action
             android:id="@+id/action_dashboard_to_recharge"
             app:destination="@id/rechargeFragment"
-            app:popUpTo="@id/dashboardFragment" />
+            app:popUpTo="@id/myAccountFragment" />
         <action
             android:id="@+id/action_dashboard_to_benefitsOfSubscription"
             app:destination="@id/benefitsOfSubscriptionFragment"
-            app:popUpTo="@id/dashboardFragment" />
+            app:popUpTo="@id/myAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/referEarnFragment"

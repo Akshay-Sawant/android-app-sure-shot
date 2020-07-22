@@ -66,7 +66,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.textViewRechargeDetailsChange -> view?.let {
-                Navigation.findNavController(it).popBackStack(R.id.dashboardFragment, false)
+                Navigation.findNavController(it).popBackStack(R.id.myAccountFragment, false)
             }
             R.id.textViewRechargeDetailsChangeMethod -> view?.let {
                 Navigation.findNavController(it).popBackStack()
