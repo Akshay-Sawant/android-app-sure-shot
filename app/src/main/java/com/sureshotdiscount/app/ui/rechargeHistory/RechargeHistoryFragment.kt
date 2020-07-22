@@ -67,7 +67,7 @@ class RechargeHistoryFragment : Fragment(R.layout.fragment_recharge_history) {
                                         mRechargeHistoryModelList.clear()
                                         mRechargeHistoryAdapter = context?.let {
                                             RechargeHistoryAdapter(
-                                                R.layout.recycler_view_sim_company,
+                                                R.layout.rv_recharge_history,
                                                 mRechargeHistoryModelList
                                             )
                                         }!!

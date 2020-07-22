@@ -113,4 +113,6 @@
 
     <!--Recharge History-->
     <string name="text_label_recharge_history">Recharge History</string>
+    <string name="text_label_payment_mode">Payment Mode</string>
+    <string name="text_label_reference_number">Reference number</string>
 </resources>

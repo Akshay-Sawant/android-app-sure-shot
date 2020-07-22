@@ -14,106 +14,108 @@
         android:layout_margin="@dimen/standard_margin_x2">
 
         <TextView
-            android:id="@+id/textViewPlanHead"
+            android:id="@+id/textViewRechargeHistoryMobileNumberTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Mobile Number"
+            android:text="@string/text_mobile_number"
             android:textSize="@dimen/material_text_subhead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewMobileNumber"
+            android:id="@+id/textViewRechargeHistoryMobileNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin"
             android:layout_marginEnd="@dimen/standard_margin_x2"
             android:textAppearance="@android:style/TextAppearance.Medium"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textViewRechargeAmount"
+            app:layout_constraintEnd_toStartOf="@id/textViewRechargeHistoryRechargeAmount"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewPlanHead"
+            app:layout_constraintTop_toBottomOf="@id/textViewRechargeHistoryMobileNumberTitle"
             tools:text="@tools:sample/us_phones" />
 
         <TextView
-            android:id="@+id/textViewRechargeAmount"
+            android:id="@+id/textViewRechargeHistoryRechargeAmount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:hint="@string/text_recharge_amount"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewMobileNumber"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewRechargeHistoryMobileNumber"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="0.5"
-            app:layout_constraintStart_toEndOf="@id/textViewMobileNumber"
-            android:text="@string/text_recharge_amount" />
+            app:layout_constraintStart_toEndOf="@id/textViewRechargeHistoryMobileNumber" />
 
         <TextView
-            android:id="@+id/textViewRechargeDate"
+            android:id="@+id/textViewRechargeHistoryRechargeDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin"
             android:textSize="@dimen/material_text_subhead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewMobileNumber"
+            app:layout_constraintTop_toBottomOf="@id/textViewRechargeHistoryRechargeAmount"
             tools:text="@tools:sample/date/mmddyy" />
+
         <View
-            android:id="@+id/devider"
+            android:id="@+id/viewRechargeHistoryDivider"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_margin"
             android:background="@android:color/darker_gray"
-            android:layout_marginTop="@dimen/standard_margin"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewRechargeDate"/>
-
-        <TextView
-            android:id="@+id/textViewPaymentModeHead"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Payment Mode"
-            android:gravity="start"
-            android:textSize="@dimen/material_text_subhead"
-            android:layout_marginTop="@dimen/standard_margin"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textViewPaymentMode"
-            app:layout_constraintTop_toBottomOf="@id/devider"/>
+            app:layout_constraintTop_toBottomOf="@id/textViewRechargeHistoryRechargeDate" />
 
         <TextView
-            android:id="@+id/textViewPaymentMode"
+            android:id="@+id/textViewRechargeHistoryPaymentModeTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="@tools:sample/lorem"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:gravity="start"
+            android:text="@string/text_label_payment_mode"
+            android:textSize="@dimen/material_text_subhead"
+            app:layout_constraintEnd_toStartOf="@id/textViewRechargeHistoryPaymentMode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewRechargeHistoryDivider" />
+
+        <TextView
+            android:id="@+id/textViewRechargeHistoryPaymentMode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:gravity="end"
             android:textSize="@dimen/material_text_subhead"
-            app:layout_constraintStart_toEndOf="@id/textViewPaymentModeHead"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewPaymentModeHead"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewRechargeHistoryPaymentModeTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewRechargeHistoryPaymentModeTitle"
+            tools:text="@tools:sample/lorem" />
 
         <TextView
-            android:id="@+id/textViewReferenceNumberHead"
+            android:id="@+id/textViewRechargeHistoryReferenceNumberTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Reference number"
-            android:gravity="start"
             android:layout_marginTop="@dimen/standard_margin"
+            android:gravity="start"
+            android:text="@string/text_label_reference_number"
             android:textSize="@dimen/material_text_subhead"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewRechargeHistoryReferenceNumber"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textViewReferenceNumber"
-            app:layout_constraintTop_toBottomOf="@id/textViewPaymentModeHead"/>
+            app:layout_constraintTop_toBottomOf="@id/textViewRechargeHistoryPaymentMode" />
 
         <TextView
-            android:id="@+id/textViewReferenceNumber"
+            android:id="@+id/textViewRechargeHistoryReferenceNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="@tools:sample/us_phones"
             android:gravity="end"
             android:textSize="@dimen/material_text_subhead"
-            app:layout_constraintStart_toEndOf="@id/textViewReferenceNumberHead"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewReferenceNumberHead"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewRechargeHistoryReferenceNumberTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewRechargeHistoryReferenceNumberTitle"
+            tools:text="@tools:sample/us_phones" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
