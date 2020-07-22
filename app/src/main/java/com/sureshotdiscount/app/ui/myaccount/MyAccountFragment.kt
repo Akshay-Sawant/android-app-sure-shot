@@ -1,4 +1,4 @@
-package com.sureshotdiscount.app.ui.dashboard
+package com.sureshotdiscount.app.ui.myaccount
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,11 +12,11 @@ import com.sureshotdiscount.app.R
 /**
  * A simple [Fragment] subclass.
  */
-class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
+class MyAccountFragment : Fragment(R.layout.fragment_my_account) {
 
     private lateinit var mTabLayoutDashboard: TabLayout
     private lateinit var mViewPagerTwoDashboard: ViewPager2
-    private lateinit var mDashboardTabAdapter: DashboadTabAdapter
+    private lateinit var mDashboardTabAdapter: MyAccountTabAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,7 +24,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         mTabLayoutDashboard = view.findViewById(R.id.tabLayoutDashboard)
         mViewPagerTwoDashboard = view.findViewById(R.id.viewPagerDashboard)
         mDashboardTabAdapter =
-            DashboadTabAdapter(activity as FragmentActivity)
+            MyAccountTabAdapter(activity as FragmentActivity)
 
         mViewPagerTwoDashboard.adapter = mDashboardTabAdapter
 

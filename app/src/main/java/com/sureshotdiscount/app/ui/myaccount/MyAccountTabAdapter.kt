@@ -1,4 +1,4 @@
-package com.sureshotdiscount.app.ui.dashboard
+package com.sureshotdiscount.app.ui.myaccount
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.sureshotdiscount.app.ui.dth.DTHFragment
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeFragment
 
-class DashboadTabAdapter(mFragmentActivity: FragmentActivity) :
+class MyAccountTabAdapter(mFragmentActivity: FragmentActivity) :
     FragmentStateAdapter(mFragmentActivity) {
     override fun getItemCount(): Int {
         return 2
