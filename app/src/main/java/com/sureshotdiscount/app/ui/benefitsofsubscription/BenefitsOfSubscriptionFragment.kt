@@ -1,4 +1,4 @@
-package com.sureshotdiscount.app.ui.subscription
+package com.sureshotdiscount.app.ui.benefitsofsubscription
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,12 +12,12 @@ import com.sureshotdiscount.app.data.model.Subscription
 /**
  * A simple [Fragment] subclass.
  */
-class SubscriptionFragment : Fragment(R.layout.fragment_subscription), View.OnClickListener {
+class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_subscription), View.OnClickListener {
 
     private lateinit var mRecyclerViewSubscription: RecyclerView
     private lateinit var mButtonSubscriptionPayNow: Button
 
-    private lateinit var mSubscriptionAdapter: SubscriptionAdapter
+    private lateinit var mBenefitsOfSubscriptionAdapter: BenefitsOfSubscriptionAdapter
     private var mSubscriptionModelList: ArrayList<Subscription> = ArrayList()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,15 +25,15 @@ class SubscriptionFragment : Fragment(R.layout.fragment_subscription), View.OnCl
 
         mRecyclerViewSubscription = view.findViewById(R.id.recyclerViewSubscription)
         mSubscriptionModelList.clear()
-        mSubscriptionAdapter = context?.let {
-            SubscriptionAdapter(
+        mBenefitsOfSubscriptionAdapter = context?.let {
+            BenefitsOfSubscriptionAdapter(
                 it,
-                R.layout.recycler_view_subscriptions,
+                R.layout.rv_benefits_of_subscription,
                 mSubscriptionModelList
             )
         }!!
-        mRecyclerViewSubscription.adapter = mSubscriptionAdapter
-        mSubscriptionAdapter.notifyDataSetChanged()
+        mRecyclerViewSubscription.adapter = mBenefitsOfSubscriptionAdapter
+        mBenefitsOfSubscriptionAdapter.notifyDataSetChanged()
 
         mButtonSubscriptionPayNow = view.findViewById(R.id.buttonSubscriptionPayNow)
         mButtonSubscriptionPayNow.setOnClickListener(this)

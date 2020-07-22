@@ -1,4 +1,4 @@
-package com.sureshotdiscount.app.ui.subscription
+package com.sureshotdiscount.app.ui.benefitsofsubscription
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshotdiscount.app.data.model.Subscription
-import kotlinx.android.synthetic.main.recycler_view_subscriptions.view.*
+import kotlinx.android.synthetic.main.rv_benefits_of_subscription.view.*
 
-class SubscriptionAdapter(
+class BenefitsOfSubscriptionAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
     private var mSubscriptionList: List<Subscription>
-) : RecyclerView.Adapter<SubscriptionAdapter.SubscriptionViewHolder>() {
+) : RecyclerView.Adapter<BenefitsOfSubscriptionAdapter.SubscriptionViewHolder>() {
 
     inner class SubscriptionViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView) {
 
