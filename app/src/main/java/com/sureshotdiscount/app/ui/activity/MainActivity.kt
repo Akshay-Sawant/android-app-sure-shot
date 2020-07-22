@@ -33,7 +33,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         mNavigationViewMain = findViewById(R.id.navigationViewMain)
 
         mNavControllerMain = findNavController(R.id.fragmentNavHost)
-        mAppBarConfiguration = AppBarConfiguration(setOf(R.id.dashboardFragment), mDrawerLayoutMain)
+        mAppBarConfiguration = AppBarConfiguration(
+            setOf(R.id.myAccountFragment, R.id.rechargeHistoryFragment),
+            mDrawerLayoutMain
+        )
 
         setupActionBarWithNavController(mNavControllerMain, mAppBarConfiguration)
 
