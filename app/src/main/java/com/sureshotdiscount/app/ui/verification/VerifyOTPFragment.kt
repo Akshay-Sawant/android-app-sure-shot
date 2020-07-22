@@ -88,7 +88,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
         context?.let {
             mEditTextOTPOne.hasFocus()
             ValidationUtils.getValidationUtils().focusChanger(
-                mEditTextOTPFour,
+                mEditTextOTPOne,
                 mEditTextOTPTwo
             )
             ValidationUtils.getValidationUtils().focusChanger(
