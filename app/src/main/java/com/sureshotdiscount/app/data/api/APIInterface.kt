@@ -18,17 +18,10 @@ interface APIInterface {
     fun logNetworkError(@Field("error") error: String): Call<ResponseBody>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/UpdateLanguagePreference.php")
-    fun updateLanguagePreference(
-        @Field("userLoginToken") userLoginToken: String,
-        @Field("language") language: String // language code - en, hi
-    ): Call<APIActionResponse>
-
-    @FormUrlEncoded
     @POST("$API_VERSION/AppConfig.php")
     fun getAppConfig(@Field("version") version: Int): Call<AppConfigResponse>
 
-    /*Register*/
+    /*Sign Up*/
     @FormUrlEncoded
     @POST("$API_VERSION/RequestSignUpOTP.php")
     fun requestSignUpOTP(
@@ -42,8 +35,9 @@ interface APIInterface {
         @Field("mobile") mobile: String,
         @Field("otp") otp: String
     ): Call<LoggedInUser>
+    /*Sign Up*/
 
-    /*Login*/
+    /*Sign In*/
     @FormUrlEncoded
     @POST("$API_VERSION/RequestLoginOTP.php")
     fun requestSignInOTP(@Field("mobile") mobile: String): Call<APIActionResponse>
@@ -58,27 +52,7 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$API_VERSION/Logout.php")
     fun doLogout(@Field("userLoginToken") userLoginToken: String): Call<APIActionResponse>
-
-    @FormUrlEncoded
-    @POST("$API_VERSION/RefreshFCMToken.php")
-    fun saveFCMToken(
-        @Field("userLoginToken") userLoginToken: String,
-        @Field("FCMToken") FCMToken: String
-    ): Call<APIActionResponse>
-
-    @FormUrlEncoded
-    @POST("$API_VERSION/ForgotPassword.php")
-    fun forgotPassword(@Field("mobile") mobile: String): Call<APIActionResponse>
-
-    @FormUrlEncoded
-    @POST("$API_VERSION/ResetPassword.php")
-    fun resetPassword(
-        @Field("mobile") mobile: String,
-        @Field("otp") otp: String,
-        @Field("newPassword") newPassword: String,
-        @Field("reTypedNewPassword") reTypeNewPassword: String
-    ): Call<APIActionResponse>
-    /*Login*/
+    /*Sign In*/
 
 
     @Deprecated("to be removed")
@@ -90,8 +64,8 @@ interface APIInterface {
     ): Call<APIActionResponse>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/SimCompany.php")
-    fun getSimCompany(@Field("userLoginToken") userLoginToken: String): Call<List<MobileRechargeModel>>
+    @POST("$API_VERSION/MobileRechargeCompany.php")
+    fun getMobileRechargeCompany(@Field("userLoginToken") userLoginToken: String): Call<List<MobileRechargeModel>>
 
     @FormUrlEncoded
     @POST("$API_VERSION/DTHCompany.php")

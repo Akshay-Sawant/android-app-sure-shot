@@ -144,7 +144,7 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
             when {
                 APIClient.isNetworkConnected(it) -> {
                     APIClient.apiInterface
-                        .getSimCompany(
+                        .getMobileRechargeCompany(
                             mSharedPreferenceUtils.getLoggedInUser().loginToken
                         )
                         .enqueue(object : Callback<List<MobileRechargeModel>> {
