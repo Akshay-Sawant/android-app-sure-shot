@@ -126,5 +126,10 @@
         android:id="@+id/subscriptionPlanFragment"
         android:name="com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanFragment"
         android:label="@string/text_label_subscription_plan"
-        tools:layout="@layout/fragment_subscription_plan" />
+        tools:layout="@layout/fragment_subscription_plan">
+        <action
+            android:id="@+id/action_subscriptionPlan_to_benefitsOfSubscription"
+            app:destination="@id/benefitsOfSubscriptionFragment"
+            app:popUpTo="@id/subscriptionPlanFragment" />
+    </fragment>
 </navigation>

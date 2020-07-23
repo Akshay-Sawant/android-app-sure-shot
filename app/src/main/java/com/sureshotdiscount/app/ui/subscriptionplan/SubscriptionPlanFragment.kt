@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.Navigation
 import com.google.android.material.card.MaterialCardView
 import com.sureshotdiscount.app.R
+import com.sureshotdiscount.app.utils.others.ValidationUtils
 
 class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
     View.OnClickListener {
@@ -34,10 +36,16 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
         mButtonSubscriptionPlanRenew.setOnClickListener(this@SubscriptionPlanFragment)
     }
 
+    override fun onResume() {
+        super.onResume()
+        view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonSubscriptionPlanRenew -> {
-
+            R.id.buttonSubscriptionPlanRenew -> view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_subscriptionPlan_to_benefitsOfSubscription)
             }
         }
     }
