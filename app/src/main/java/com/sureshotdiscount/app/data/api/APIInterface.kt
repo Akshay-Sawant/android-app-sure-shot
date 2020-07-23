@@ -43,7 +43,10 @@ interface APIInterface {
     /*Sign In*/
     @FormUrlEncoded
     @POST("$API_VERSION/RequestLoginOTP.php")
-    fun requestSignInOTP(@Field("mobile") mobile: String): Call<APIActionResponse>
+    fun requestSignInOTP(
+        @Field("mobileNumber") mobileNumber: String,
+        @Field("password") password: String
+    ): Call<APIActionResponse>
 
     @FormUrlEncoded
     @POST("$API_VERSION/Login.php")

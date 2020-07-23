@@ -71,6 +71,28 @@
                 android:textAppearance="@android:style/TextAppearance.Large" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSignInPassword"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignInMobileNumber"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextSignInPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/buttonSignInContinue"
             style="@style/AppTheme.Button.Light.Rounded"
@@ -82,7 +104,7 @@
             android:text="@string/button_text_continue"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSignInMobileNumber" />
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSignInPassword" />
 
         <TextView
             android:id="@+id/textViewSignInNoAccount"

@@ -27,6 +27,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
     private lateinit var mTextInputLayoutSignInMobileNumber: TextInputLayout
     private lateinit var mTextInputEditTextSignInMobileNumber: TextInputEditText
 
+    private lateinit var mTextInputLayoutSignInPassword: TextInputLayout
+    private lateinit var mTextInputEditTextSignInPassword: TextInputEditText
+
     private lateinit var mButtonSignInContinue: Button
 
     private lateinit var mTextViewSignInNoAccount: TextView
@@ -38,6 +41,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
             .findViewById(R.id.textInputLayoutSignInMobileNumber)
         mTextInputEditTextSignInMobileNumber = view
             .findViewById(R.id.textInputEditTextSignInMobileNumber)
+
+        mTextInputLayoutSignInPassword = view.findViewById(R.id.textInputLayoutSignInPassword)
+        mTextInputEditTextSignInPassword = view.findViewById(R.id.textInputEditTextSignInPassword)
 
         mButtonSignInContinue = view.findViewById(R.id.buttonSignInContinue)
         mButtonSignInContinue.setOnClickListener(this@SignInFragment)
@@ -77,6 +83,13 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                     mTextInputEditTextSignInMobileNumber,
                     getString(R.string.text_error_mobile)
                 ) -> return
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextLengthFunc(
+                    mTextInputLayoutSignInPassword,
+                    mTextInputEditTextSignInPassword,
+                    6,
+                    getString(R.string.text_error_otp)
+                ) -> return
             else -> {
                 onClickSignIn()
             }
@@ -87,7 +100,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
         context?.let {
             if (APIClient.isNetworkConnected(it)) {
                 APIClient.apiInterface
-                    .requestSignInOTP(mTextInputEditTextSignInMobileNumber.text.toString().trim())
+                    .requestSignInOTP(
+                        mTextInputEditTextSignInMobileNumber.text.toString().trim(),
+                        mTextInputEditTextSignInPassword.text.toString().trim()
+                    )
                     .enqueue(object : Callback<APIActionResponse> {
                         override fun onResponse(
                             call: Call<APIActionResponse>,
