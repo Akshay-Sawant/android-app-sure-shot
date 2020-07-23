@@ -20,7 +20,7 @@
             android:title="@string/text_label_referrals_list" />
 
         <item
-            android:id="@+id/item4"
+            android:id="@+id/contactUsFragment"
             android:title="@string/text_label_contact" />
 
     </group>

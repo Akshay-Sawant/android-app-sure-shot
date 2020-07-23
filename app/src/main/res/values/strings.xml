@@ -118,10 +118,14 @@
     <string name="text_hint_status">Status</string>
     <string name="text_label_my_account">My Account</string>
     <string name="text_label_referrals_list">Referrals List</string>
-    <string name="text_label_contact">Contact</string>
+    <string name="text_label_contact">Contact Us</string>
 
     <!--Recharge History-->
     <string name="text_label_recharge_history">Recharge History</string>
     <string name="text_label_payment_mode">Payment Mode</string>
     <string name="text_label_reference_number">Reference number</string>
+
+    <!--Contact Us-->
+    <string name="text_hint_write_here">Write here…</string>
+    <string name="text_label_submit">Submit</string>
 </resources>

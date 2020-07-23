@@ -117,4 +117,9 @@
         android:name="com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryFragment"
         android:label="@string/text_label_recharge_history"
         tools:layout="@layout/fragment_recharge_history" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.sureshotdiscount.app.ui.contactus.ContactUsFragment"
+        android:label="@string/text_label_contact"
+        tools:layout="@layout/fragment_contact_us" />
 </navigation>
