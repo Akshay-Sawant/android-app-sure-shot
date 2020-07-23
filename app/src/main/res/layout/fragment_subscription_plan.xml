@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.subscriptionplan.SubscriptionPlanFragment">
+
+    <TextView
+        android:id="@+id/textViewSubscriptionPlanNoDataFound"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/text_no_data_found"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardViewSubscriptionPlan"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/material_dimen_small_ldpi"
+        app:cardElevation="@dimen/material_dimen_small_ldpi"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="@dimen/material_dimen_mdpi">
+
+            <TextView
+                android:id="@+id/textViewSubscriptionPlanAmountTitle"
+                android:layout_width="@dimen/material_dimen_constraint"
+                android:layout_height="wrap_content"
+                android:text="@string/text_label_amount"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                app:layout_constraintEnd_toStartOf="@+id/textViewSubscriptionPlanAmount"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewSubscriptionPlanAmount"
+                android:layout_width="@dimen/material_dimen_constraint"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:hint="@string/text_recharge_amount"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewSubscriptionPlanAmountTitle"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewSubscriptionPlanExpiryDateTitle"
+                android:layout_width="@dimen/material_dimen_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_dimen_ldpi"
+                android:text="@string/text_label_expiry_date"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewSubscriptionPlanExpiryDate"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSubscriptionPlanAmountTitle"
+                app:layout_constraintVertical_bias="0" />
+
+            <TextView
+                android:id="@+id/textViewSubscriptionPlanExpiryDate"
+                android:layout_width="@dimen/material_dimen_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_dimen_ldpi"
+                android:gravity="end"
+                android:hint="@string/text_label_expiry_date"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewSubscriptionPlanExpiryDateTitle"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSubscriptionPlanAmount"
+                app:layout_constraintVertical_bias="0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/buttonSubscriptionPlanRenew"
+        style="@style/AppTheme.Button.Light.Rounded"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/material_dimen_mdpi"
+        android:text="@string/text_label_renew"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardViewSubscriptionPlan"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

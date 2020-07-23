@@ -12,8 +12,8 @@
             android:title="@string/text_label_recharge_history" />
 
         <item
-            android:id="@+id/item2"
-            android:title="@string/text_subscription_plan" />
+            android:id="@+id/subscriptionPlanFragment"
+            android:title="@string/text_label_subscription_plan" />
 
         <item
             android:id="@+id/item3"

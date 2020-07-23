@@ -34,7 +34,12 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
         mNavControllerMain = findNavController(R.id.fragmentNavHost)
         mAppBarConfiguration = AppBarConfiguration(
-            setOf(R.id.myAccountFragment, R.id.rechargeHistoryFragment, R.id.contactUsFragment),
+            setOf(
+                R.id.myAccountFragment,
+                R.id.rechargeHistoryFragment,
+                R.id.subscriptionPlanFragment,
+                R.id.contactUsFragment
+            ),
             mDrawerLayoutMain
         )
 

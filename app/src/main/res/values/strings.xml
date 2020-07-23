@@ -42,7 +42,7 @@
     <string name="text_refer_and_earn">Refer and Earn!</string>
     <string name="text_invite_your_friends">Invite Your friends</string>
     <string name="text_refer_now">Refer Now</string>
-    <string name="text_subscription_plan"><![CDATA[SUBSCRIPTION PLAN & BENEFITS ]]></string>
+    <string name="text_subscription_plan_benefits"><![CDATA[SUBSCRIPTION PLAN & BENEFITS ]]></string>
     <string name="text_payment_successful">Payment Successful !</string>
     <string name="button_continue">CONTINUE</string>
     <string name="text_refer_earn"><![CDATA[REFER & EARN]]></string>
@@ -128,4 +128,10 @@
     <!--Contact Us-->
     <string name="text_hint_write_here">Write here…</string>
     <string name="text_label_submit">Submit</string>
+
+    <!--Subscription Plan-->
+    <string name="text_label_amount">Amount</string>
+    <string name="text_label_expiry_date">Expiry Date</string>
+    <string name="text_label_renew">Renew</string>
+    <string name="text_label_subscription_plan">Subscription Plan</string>
 </resources>
