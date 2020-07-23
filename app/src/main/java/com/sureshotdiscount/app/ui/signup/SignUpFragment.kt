@@ -3,10 +3,6 @@ package com.sureshotdiscount.app.ui.signup
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -26,34 +22,61 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 /**
  * A simple [Fragment] subclass.
  */
 class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener {
 
-    private lateinit var mTextInputLayoutMobileNumber: TextInputLayout
-    private lateinit var mTextInputEditTextMobileNumber: TextInputEditText
+    private lateinit var mTextInputLayoutSignUpName: TextInputLayout
+    private lateinit var mTextInputEditTextSignUpName: TextInputEditText
+
+    private lateinit var mTextInputLayoutSignUpEmailId: TextInputLayout
+    private lateinit var mTextInputEditTextSignUpEmailId: TextInputEditText
+
+    private lateinit var mTextInputLayoutSignUpMobileNumber: TextInputLayout
+    private lateinit var mTextInputEditTextSignUpMobileNumber: TextInputEditText
+
+    private lateinit var mTextInputLayoutSignUpPassword: TextInputLayout
+    private lateinit var mTextInputEditTextSignUpPassword: TextInputEditText
+
+    private lateinit var mTextInputLayoutSignUpConfirmPassword: TextInputLayout
+    private lateinit var mTextInputEditTextSignUpConfirmPassword: TextInputEditText
 
     private lateinit var mTextInputLayoutSignUpReferralId: TextInputLayout
     private lateinit var mTextInputEditTextSignUpReferralId: TextInputEditText
 
-    private lateinit var mButtonContinue: Button
+    private lateinit var mButtonSignUpContinue: Button
 
     private lateinit var mTextViewSignUpHaveAccount: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mTextInputLayoutMobileNumber = view.findViewById(R.id.textInputLayoutMobileNumber)
-        mTextInputEditTextMobileNumber = view.findViewById(R.id.textInputEditTextMobileNumber)
+        mTextInputLayoutSignUpName = view.findViewById(R.id.textInputLayoutSignUpName)
+        mTextInputEditTextSignUpName = view.findViewById(R.id.textInputEditTextSignUpName)
+
+        mTextInputLayoutSignUpEmailId = view.findViewById(R.id.textInputLayoutSignUpEmailId)
+        mTextInputEditTextSignUpEmailId = view.findViewById(R.id.textInputEditTextSignUpEmailId)
+
+        mTextInputLayoutSignUpMobileNumber =
+            view.findViewById(R.id.textInputLayoutSignUpMobileNumber)
+        mTextInputEditTextSignUpMobileNumber =
+            view.findViewById(R.id.textInputEditTextSignUpMobileNumber)
+
+        mTextInputLayoutSignUpPassword = view.findViewById(R.id.textInputLayoutSignUpPassword)
+        mTextInputEditTextSignUpPassword = view.findViewById(R.id.textInputEditTextSignUpPassword)
+
+        mTextInputLayoutSignUpConfirmPassword =
+            view.findViewById(R.id.textInputLayoutSignUpConfirmPassword)
+        mTextInputEditTextSignUpConfirmPassword =
+            view.findViewById(R.id.textInputEditTextSignUpConfirmPassword)
 
         mTextInputLayoutSignUpReferralId = view.findViewById(R.id.textInputLayoutSignUpReferralId)
         mTextInputEditTextSignUpReferralId =
             view.findViewById(R.id.textInputEditTextSignUpReferralId)
 
-        mButtonContinue = view.findViewById(R.id.buttonContinue)
-        mButtonContinue.setOnClickListener(this)
+        mButtonSignUpContinue = view.findViewById(R.id.buttonSignUpContinue)
+        mButtonSignUpContinue.setOnClickListener(this)
 
         mTextViewSignUpHaveAccount = view.findViewById(R.id.textViewSignUpHaveAccount)
         mTextViewSignUpHaveAccount.setOnClickListener(this@SignUpFragment)
@@ -69,7 +92,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
     override fun onClick(v: View?) {
         view?.let {
             when (v?.id) {
-                R.id.buttonContinue -> isSignUpValidated()
+                R.id.buttonSignUpContinue -> isSignUpValidated()
                 R.id.textViewSignUpHaveAccount -> Navigation.findNavController(it)
                     .navigate(R.id.action_signUp_to_signIn)
             }
@@ -79,11 +102,32 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
     private fun isSignUpValidated() {
         context?.let {
             when {
-                !ValidationUtils.getValidationUtils().isInputEditTextLengthFunc(
-                    mTextInputLayoutMobileNumber,
-                    mTextInputEditTextMobileNumber,
-                    10,
+                !ValidationUtils.getValidationUtils().isInputEditTextFilledFunc(
+                    mTextInputEditTextSignUpName,
+                    mTextInputLayoutSignUpName,
+                    getString(R.string.text_error_name)
+                ) -> return
+                !ValidationUtils.getValidationUtils().isInputEditTextEmailFunc(
+                    mTextInputEditTextSignUpEmailId,
+                    mTextInputLayoutSignUpEmailId,
+                    getString(R.string.text_error_email_id)
+                ) -> return
+                !ValidationUtils.getValidationUtils().isInputEditTextMobileFunc(
+                    mTextInputLayoutSignUpMobileNumber,
+                    mTextInputEditTextSignUpMobileNumber,
                     getString(R.string.text_error_mobile)
+                ) -> return
+                !ValidationUtils.getValidationUtils().isInputEditTextLengthFunc(
+                    mTextInputLayoutSignUpPassword,
+                    mTextInputEditTextSignUpPassword,
+                    6,
+                    getString(R.string.text_error_password)
+                ) -> return
+                !ValidationUtils.getValidationUtils().isInputEditTextMatches(
+                    mTextInputEditTextSignUpPassword,
+                    mTextInputEditTextSignUpConfirmPassword,
+                    mTextInputLayoutSignUpConfirmPassword,
+                    getString(R.string.text_error_password_match)
                 ) -> return
                 else -> {
 //                    onClickSignUp()
@@ -102,7 +146,10 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                 APIClient.isNetworkConnected(it) -> {
                     APIClient.apiInterface
                         .requestSignUpOTP(
-                            mTextInputEditTextMobileNumber.text.toString().trim(),
+                            mTextInputEditTextSignUpName.text.toString().trim(),
+                            mTextInputEditTextSignUpEmailId.text.toString().trim(),
+                            mTextInputEditTextSignUpMobileNumber.text.toString().trim(),
+                            mTextInputEditTextSignUpPassword.text.toString().trim(),
                             mTextInputEditTextSignUpReferralId.text.toString().trim()
                         )
                         .enqueue(object : Callback<APIActionResponse> {

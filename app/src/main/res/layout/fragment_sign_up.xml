@@ -53,23 +53,107 @@
             app:layout_constraintTop_toBottomOf="@id/textViewSignUpHeader" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutMobileNumber"
+            android:id="@+id/textInputLayoutSignUpName"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSignUpSubHeader">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextSignUpName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSignUpEmailId"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignUpName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextSignUpEmailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_email_id"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSignUpMobileNumber"
             style="@style/AppTheme.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
             app:hintTextAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/textViewSignUpSubHeader">
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSignUpEmailId">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputEditTextMobileNumber"
+                android:id="@+id/textInputEditTextSignUpMobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/text_mobile_number"
                 android:inputType="phone"
                 android:maxLength="10"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSignUpPassword"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignUpMobileNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextSignUpPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSignUpConfirmPassword"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignUpPassword">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextSignUpConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_confirm_password"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:textAppearance="@android:style/TextAppearance.Large" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -83,7 +167,7 @@
             app:hintTextAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@+id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutMobileNumber">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignUpConfirmPassword">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextSignUpReferralId"
@@ -96,17 +180,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/buttonContinue"
+            android:id="@+id/buttonSignUpContinue"
             style="@style/AppTheme.Button.Light.Rounded"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standard_margin_x2"
             android:layout_marginTop="@dimen/standard_margin_x2"
             android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:layout_marginBottom="@dimen/material_dimen_xxxhdpi"
             android:text="@string/button_text_continue"
+            app:layout_constraintBottom_toTopOf="@+id/textViewSignUpHaveAccount"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSignUpReferralId" />
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSignUpReferralId"
+            app:layout_constraintVertical_bias="0" />
 
         <TextView
             android:id="@+id/textViewSignUpHaveAccount"
@@ -118,9 +205,7 @@
             android:textAppearance="@android:style/TextAppearance.Small"
             app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
-            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@+id/buttonContinue"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"
