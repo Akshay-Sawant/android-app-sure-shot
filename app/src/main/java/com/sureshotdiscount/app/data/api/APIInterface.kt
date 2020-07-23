@@ -48,7 +48,7 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$API_VERSION/Login.php")
     fun verifySignInOTP(
-        @Field("mobile") mobile: String,
+        @Field("mobileNumber") mobileNumber: String,
         @Field("otp") otp: String
     ): Call<LoggedInUser>
 
