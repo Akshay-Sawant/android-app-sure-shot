@@ -10,6 +10,7 @@ import com.sureshotdiscount.app.data.api.APIClient.API_VERSION
 import com.sureshotdiscount.app.ui.dth.DTHModel
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
+import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 
 interface APIInterface {
 
@@ -86,4 +87,8 @@ interface APIInterface {
         @Field("userLoginToken") userLoginToken: String,
         @Field("message") message: String
     ): Call<APIActionResponse>
+
+    @FormUrlEncoded
+    @POST("$API_VERSION/SubscriptionPlan.php")
+    fun getSubscriptionPlan(@Field("userLoginToken") userLoginToken: String): Call<SubscriptionPlanModel>
 }
