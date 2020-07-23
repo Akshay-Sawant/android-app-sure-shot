@@ -60,7 +60,6 @@ interface APIInterface {
     fun doLogout(@Field("userLoginToken") userLoginToken: String): Call<APIActionResponse>
     /*Sign In*/
 
-
     @Deprecated("to be removed")
     @FormUrlEncoded
     @POST("$API_VERSION/SendInvoiceEmail.php")
@@ -80,4 +79,11 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$API_VERSION/RechargeHistory.php")
     fun getRechargeHistory(@Field("userLoginToken") userLoginToken: String): Call<List<RechargeHistoryModel>>
+
+    @FormUrlEncoded
+    @POST("$API_VERSION/ContactUs.php")
+    fun contactUs(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("message") message: String
+    ): Call<APIActionResponse>
 }
