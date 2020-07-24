@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.rv_plans.view.*
 
 class PlansAdapter(private val mItemLayout: Int, private val mPlansModelList: List<PlansModel>) :
     RecyclerView.Adapter<PlansAdapter.PlansViewHolder>() {
@@ -28,6 +29,10 @@ class PlansAdapter(private val mItemLayout: Int, private val mPlansModelList: Li
     }
 
     override fun onBindViewHolder(holder: PlansViewHolder, position: Int) {
-
+        holder.itemView.textViewPlansAmount.text = mPlansModelList[position].mAmount
+        holder.itemView.textViewPlansOperatorName.text = mPlansModelList[position].mOperatorName
+        holder.itemView.textViewPlansTalktime.text = mPlansModelList[position].mTalktime
+        holder.itemView.textViewPlansValidity.text = mPlansModelList[position].mValidity
+        holder.itemView.textViewPlansDescription.text = mPlansModelList[position].mDescription
     }
 }

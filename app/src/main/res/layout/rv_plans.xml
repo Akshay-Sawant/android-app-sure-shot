@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/material_dimen_ldpi"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="@dimen/material_dimen_small_ldpi"
+    app:cardElevation="@dimen/material_dimen_small_ldpi">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutPlans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/material_dimen_mdpi">
+
+        <TextView
+            android:id="@+id/textViewPlansAmount"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/text_recharge_amount"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            app:layout_constraintEnd_toEndOf="@+id/textViewPlansOperatorName"
+            app:layout_constraintStart_toStartOf="@+id/textViewPlansOperatorName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPlansOperatorName"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/text_hint_operator_name"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            app:layout_constraintEnd_toStartOf="@+id/textViewPlansTalktimeTitle"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlansAmount" />
+
+        <TextView
+            android:id="@+id/textViewPlansTalktime"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/text_recharge_amount"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            app:layout_constraintEnd_toEndOf="@+id/textViewPlansTalktimeTitle"
+            app:layout_constraintStart_toStartOf="@+id/textViewPlansTalktimeTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPlansTalktimeTitle"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_dimen_mdpi"
+            android:layout_marginEnd="@dimen/material_dimen_mdpi"
+            android:gravity="center"
+            android:hint="@string/text_label_talktime"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewPlansOperatorName"
+            app:layout_constraintEnd_toStartOf="@+id/textViewPlansValidityTitle"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewPlansOperatorName" />
+
+        <TextView
+            android:id="@+id/textViewPlansValidity"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/text_hint_days"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            app:layout_constraintEnd_toEndOf="@+id/textViewPlansValidityTitle"
+            app:layout_constraintStart_toStartOf="@+id/textViewPlansValidityTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPlansValidityTitle"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/text_label_validity"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewPlansTalktimeTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewPlansTalktimeTitle" />
+
+        <View
+            android:id="@+id/viewPlansDivider"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="@dimen/material_dimen_divider"
+            android:layout_marginTop="@dimen/material_dimen_mdpi"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlansOperatorName" />
+
+        <TextView
+            android:id="@+id/textViewPlansDescription"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            android:gravity="start"
+            android:hint="@string/text_hint_description"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPlansDivider"
+            app:layout_constraintVertical_bias="0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

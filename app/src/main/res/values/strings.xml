@@ -137,4 +137,9 @@
 
     <!--Plans-->
     <string name="text_label_plans">Plans</string>
+    <string name="text_hint_operator_name">Operator Name</string>
+    <string name="text_label_talktime">Talktime</string>
+    <string name="text_label_validity">Validity</string>
+    <string name="text_hint_description">Description</string>
+    <string name="text_hint_days">Days</string>
 </resources>

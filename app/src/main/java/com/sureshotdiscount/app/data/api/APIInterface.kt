@@ -9,6 +9,7 @@ import retrofit2.http.*
 import com.sureshotdiscount.app.data.api.APIClient.API_VERSION
 import com.sureshotdiscount.app.ui.dth.DTHModel
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
+import com.sureshotdiscount.app.ui.plans.PlansModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 
@@ -91,4 +92,12 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$API_VERSION/SubscriptionPlan.php")
     fun getSubscriptionPlan(@Field("userLoginToken") userLoginToken: String): Call<SubscriptionPlanModel>
+
+    @FormUrlEncoded
+    @POST("$API_VERSION/Plans.php")
+    fun getPlans(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("companyCode") companyCode: String,
+        @Field("circleCode") circleCode: String
+    ): Call<List<PlansModel>>
 }
