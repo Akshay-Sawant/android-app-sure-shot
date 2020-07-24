@@ -4,13 +4,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.sureshotdiscount.app.ui.rechargeHistory.IPlans
 import kotlinx.android.synthetic.main.rv_plans.view.*
 
-class PlansAdapter(private val mItemLayout: Int, private val mPlansModelList: List<PlansModel>) :
+class PlansAdapter(
+    private val mItemLayout: Int,
+    private val mPlansModelList: List<PlansModel>,
+    private val mIPlans: IPlans
+) :
     RecyclerView.Adapter<PlansAdapter.PlansViewHolder>() {
 
-    inner class PlansViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView) {
+    inner class PlansViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
+        View.OnClickListener {
+        init {
+            mItemView.setOnClickListener(this@PlansViewHolder)
+        }
 
+        override fun onClick(v: View?) {
+            mIPlans.onClickPlans(mPlansModelList[adapterPosition])
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlansViewHolder {

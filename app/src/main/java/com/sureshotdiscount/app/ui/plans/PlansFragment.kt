@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
+import com.sureshotdiscount.app.ui.rechargeHistory.IPlans
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
@@ -15,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PlansFragment : Fragment(R.layout.fragment_plans) {
+class PlansFragment : Fragment(R.layout.fragment_plans), IPlans {
 
     private lateinit var mTextViewPlansNoDataFound: TextView
     private lateinit var mRecyclerViewPlans: RecyclerView
@@ -40,6 +42,11 @@ class PlansFragment : Fragment(R.layout.fragment_plans) {
         super.onResume()
         view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
 //        onLoadPlans()
+    }
+
+    override fun onClickPlans(mPosition: PlansModel) {
+        Toast.makeText(context, mPosition.mPlanId + " " + mPosition.mAmount, Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun onLoadPlans() {
@@ -74,7 +81,8 @@ class PlansFragment : Fragment(R.layout.fragment_plans) {
                                         mPlansAdapter = context?.let {
                                             PlansAdapter(
                                                 R.layout.rv_recharge_history,
-                                                mPlansModelList
+                                                mPlansModelList,
+                                                this@PlansFragment
                                             )
                                         }!!
                                         mRecyclerViewPlans.adapter =
