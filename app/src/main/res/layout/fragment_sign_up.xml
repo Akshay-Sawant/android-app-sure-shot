@@ -125,7 +125,8 @@
             app:hintTextAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@+id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignUpMobileNumber">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignUpMobileNumber"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextSignUpPassword"
@@ -146,7 +147,8 @@
             app:hintTextAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@+id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignUpPassword">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSignUpPassword"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextSignUpConfirmPassword"
