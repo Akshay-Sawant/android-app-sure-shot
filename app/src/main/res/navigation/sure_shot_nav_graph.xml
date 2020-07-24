@@ -78,6 +78,10 @@
             android:id="@+id/action_rechargeDetails_to_paymentSuccessful"
             app:destination="@id/paymentSuccessfulFragment"
             app:popUpTo="@id/rechargeDetailsFragment" />
+        <action
+            android:id="@+id/action_rechargeDetails_to_plans"
+            app:destination="@id/plansFragment"
+            app:popUpTo="@id/rechargeDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/postpaidFragment"
@@ -132,4 +136,9 @@
             app:destination="@id/benefitsOfSubscriptionFragment"
             app:popUpTo="@id/subscriptionPlanFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/plansFragment"
+        android:name="com.sureshotdiscount.app.ui.plans.PlansFragment"
+        android:label="@string/text_label_plans"
+        tools:layout="@layout/fragment_plans" />
 </navigation>

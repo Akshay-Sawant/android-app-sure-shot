@@ -134,4 +134,7 @@
     <string name="text_label_expiry_date">Expiry Date</string>
     <string name="text_label_renew">Renew</string>
     <string name="text_label_subscription_plan">Subscription Plan</string>
+
+    <!--Plans-->
+    <string name="text_label_plans">Plans</string>
 </resources>
