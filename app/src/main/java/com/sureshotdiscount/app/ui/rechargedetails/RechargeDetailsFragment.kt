@@ -71,6 +71,10 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
             R.id.textViewRechargeDetailsChangeMethod -> view?.let {
                 Navigation.findNavController(it).popBackStack()
             }
+            R.id.textViewRechargeDetailsSeePlan->view?.let {
+                Navigation.findNavController(it)
+                    .navigate(R.id.action_rechargeDetails_to_plans)
+            }
             R.id.buttonRechargeDetailsProceed -> view?.let {
 //                isRechargeDetailsValidated()
                 Navigation.findNavController(it)
