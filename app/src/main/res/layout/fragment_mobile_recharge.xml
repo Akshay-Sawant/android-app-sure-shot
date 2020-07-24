@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorRecharge"
     android:fillViewport="true"
     tools:context=".ui.mobile.MobileRechargeFragment">
 
@@ -29,7 +30,7 @@
             android:id="@+id/materialCardViewMobileRecharge"
             android:layout_width="@dimen/material_dimen_constraint"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/white"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             app:cardElevation="@dimen/cardElevation"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"

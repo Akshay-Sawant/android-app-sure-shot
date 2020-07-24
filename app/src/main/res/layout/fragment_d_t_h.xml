@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorRecharge"
     android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".ui.dth.DTHFragment">
@@ -30,7 +31,7 @@
             android:id="@+id/materialCardViewDTH"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/white"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             app:cardElevation="@dimen/cardElevation"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
