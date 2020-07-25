@@ -24,7 +24,7 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
     private lateinit var mRecyclerViewReferralsList: RecyclerView
 
     private lateinit var mReferralsListAdapter: ReferralsListAdapter
-    private var mReferralsModelList: ArrayList<ReferralsModel> = ArrayList()
+    private var mLevelsDetailsModelList: ArrayList<LevelsDetailsModel> = ArrayList()
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
@@ -87,13 +87,13 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
                                                 View.GONE
                                             mRecyclerViewReferralsList.visibility = View.VISIBLE
 
-                                            mReferralsModelList =
-                                                mReferralsListModel.mReferrals as ArrayList<ReferralsModel>
+                                            mLevelsDetailsModelList =
+                                                mReferralsListModel.mReferrals as ArrayList<LevelsDetailsModel>
 
                                             mReferralsListAdapter = context?.let {
                                                 ReferralsListAdapter(
                                                     R.layout.rv_referrals_list,
-                                                    mReferralsModelList
+                                                    mLevelsDetailsModelList
                                                 )
                                             }!!
                                             mRecyclerViewReferralsList.adapter =

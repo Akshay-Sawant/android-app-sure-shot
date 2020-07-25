@@ -15,6 +15,9 @@ class LevelsDetailsFragment : Fragment(R.layout.fragment_levels_details) {
     private lateinit var mTextViewLevelsDetailsNoDataFound: TextView
     private lateinit var mRecyclerViewLevelsDetails: RecyclerView
 
+    private lateinit var mLevelsDetailsAdapter: LevelsDetailsAdapter
+    private var mLevelsDetailsModel: ArrayList<LevelsDetailsModel> = ArrayList()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
