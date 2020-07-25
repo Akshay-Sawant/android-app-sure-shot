@@ -23,10 +23,10 @@ class ReferralsListAdapter(
         fun onItemSelected(bestCampSites: BestCampSites, adapterPosition: Int)
     }*/
     inner class ViewHolder(itemView : View):RecyclerView.ViewHolder(itemView), View.OnClickListener{
-        val textViewLevel : TextView = itemView.findViewById(R.id.textViewLevel)
+        /*val textViewLevel : TextView = itemView.findViewById(R.id.textViewLevel)
         val textViewAmount : TextView = itemView.findViewById(R.id.textViewAmount)
         val layoutSubUnsub : ConstraintLayout = itemView.findViewById(R.id.layoutSubUnsub)
-        val recyclerViewList : RecyclerView = itemView.findViewById(R.id.recyclerViewPhoneNumbers)
+        val recyclerViewList : RecyclerView = itemView.findViewById(R.id.recyclerViewPhoneNumbers)*/
 
 
         init {
@@ -40,7 +40,7 @@ class ReferralsListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_referrals_list, parent, false)
-        mRecyclerViewSubUnSub = itemView.findViewById(R.id.recyclerViewPhoneNumbers)
+//        mRecyclerViewSubUnSub = itemView.findViewById(R.id.recyclerViewPhoneNumbers)
         mSubUnSubModelList.clear()
         mSubUnSubAdapter = this.let {
             SubUnsubAdapter(mSubUnSubModelList)
@@ -93,7 +93,7 @@ class ReferralsListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textViewLevel.text = mList[position].level
+        /*holder.textViewLevel.text = mList[position].level
         holder.textViewAmount.text = mList[position].amount
         val isExpanded = position == mExpandedPosition
         if(position == 0){
@@ -110,7 +110,7 @@ class ReferralsListAdapter(
             mExpandedPosition = if (isExpanded) -1 else position
             notifyItemChanged(previousExpandedPosition)
             notifyItemChanged(position)
-        }
+        }*/
     }
 
     override fun getItemCount(): Int = mList.size

@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.rv_referrals_list.view.*
 
 class ReferralsListAdapter(
     private val mItemLayout: Int,
-    private val mLevelsDetailsModelList: List<LevelsDetailsModel>
+    private val mReferralsModelList: List<ReferralsModel>
 ) : RecyclerView.Adapter<ReferralsListAdapter.ReferralsListViewHolder>() {
 
     inner class ReferralsListViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView) {
@@ -27,13 +27,13 @@ class ReferralsListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mLevelsDetailsModelList.size
+        return mReferralsModelList.size
     }
 
     override fun onBindViewHolder(holder: ReferralsListViewHolder, position: Int) {
         holder.itemView.textViewReferralsListLevel.text =
-            mLevelsDetailsModelList[position].mReferralLevel
+            mReferralsModelList[position].mReferralLevel
         holder.itemView.textViewReferralsListAmount.text =
-            mLevelsDetailsModelList[position].mReferralAmount
+            mReferralsModelList[position].mReferralAmount
     }
 }

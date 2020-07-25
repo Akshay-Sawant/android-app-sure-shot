@@ -30,7 +30,7 @@ class SubUnsubAdapter(private var mList: List<SubUnsubModel>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_subunsub_numbers, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_levels_details, parent, false)
         return ViewHolder(itemView)
     }
 

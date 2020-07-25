@@ -11,6 +11,8 @@ import com.sureshotdiscount.app.ui.dth.DTHModel
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
 import com.sureshotdiscount.app.ui.plans.PlansModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
+import com.sureshotdiscount.app.ui.referralslist.LevelsModel
+import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 
 interface APIInterface {
@@ -25,7 +27,7 @@ interface APIInterface {
 
     /*Sign Up*/
     @FormUrlEncoded
-    @POST("$API_VERSION/RequestSignUpOTP.php")
+    @POST("$API_VERSION/signup.php")
     fun requestSignUpOTP(
         @Field("name") name: String,
         @Field("emailId") emailId: String,
@@ -100,4 +102,15 @@ interface APIInterface {
         @Field("companyCode") companyCode: String,
         @Field("circleCode") circleCode: String
     ): Call<List<PlansModel>>
+
+    @FormUrlEncoded
+    @POST("$API_VERSION/referralsList.php")
+    fun referralsList(@Field("userLoginToken") userLoginToken: String): Call<ReferralsListModel>
+
+    @FormUrlEncoded
+    @POST("$API_VERSION/levelsDetails.php")
+    fun levelsDetails(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("levelId") levelId: String
+    ): Call<LevelsModel>
 }
