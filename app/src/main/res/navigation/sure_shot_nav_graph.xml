@@ -27,6 +27,13 @@
         <action
             android:id="@+id/action_verifyOTP_to_dashboard"
             app:destination="@id/myAccountFragment" />
+        <argument
+            android:name="isRegister"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="verificationMobileNumber"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/myAccountFragment"
@@ -145,7 +152,7 @@
         android:id="@+id/referralsListFragment"
         android:name="com.sureshotdiscount.app.ui.referralslist.ReferralsListFragment"
         android:label="@string/text_label_referrals_list"
-        tools:layout="@layout/fragment_referrals_list" >
+        tools:layout="@layout/fragment_referrals_list">
         <action
             android:id="@+id/action_referralsList_to_levelsDetails"
             app:destination="@id/levelsDetailsFragment"

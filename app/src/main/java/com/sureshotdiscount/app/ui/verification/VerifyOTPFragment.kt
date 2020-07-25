@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.data.model.LoggedInUser
@@ -39,6 +40,10 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
 
     private lateinit var mTextViewOTPTime: TextView
     private lateinit var mTextViewResend: TextView
+
+    lateinit var mMobileNumber: String
+
+    var mIsRegister: Boolean = false
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
@@ -82,6 +87,13 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             }
             R.id.textViewResend -> onLoadTimer()
         }
+    }
+
+    private fun onValidateArguments() {
+        val mVerifyOTPFragmentArgs: VerifyOTPFragmentArgs by navArgs()
+        mIsRegister = mVerifyOTPFragmentArgs.isRegister
+        mMobileNumber = mVerifyOTPFragmentArgs.verificationMobileNumber
+        mTextViewMobile.text = mMobileNumber
     }
 
     private fun onFocusChanger() {
@@ -144,11 +156,11 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                     getString(R.string.text_error_incorrect_o_t_p)
                 ) -> return
                 else -> {
-                    /*if (is_register == true) {
+                    if (mIsRegister) {
                         onClickSignUpOTP()
                     } else {
-                        onClickSignInOtp()
-                    }*/
+//                        onClickSignInOtp()
+                    }
                 }
             }
         }

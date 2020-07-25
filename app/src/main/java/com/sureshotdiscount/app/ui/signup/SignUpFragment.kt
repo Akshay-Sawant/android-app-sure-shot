@@ -176,9 +176,15 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                                 null,
                                                 DialogInterface.OnDismissListener {
                                                     onClearData()
+                                                    val mSignUpAction =
+                                                        SignUpFragmentDirections.actionSignUpToVerifyOTP(
+                                                            true,
+                                                            mTextInputEditTextSignUpMobileNumber.text.toString()
+                                                                .trim()
+                                                        )
                                                     view?.let { it1 ->
                                                         Navigation.findNavController(it1)
-                                                            .navigate(R.id.action_signUp_to_verifyOTP)
+                                                            .navigate(mSignUpAction)
                                                     }
                                                     it.dismiss()
                                                 }
