@@ -176,7 +176,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             when {
                 APIClient.isNetworkConnected(it) -> {
                     APIClient.apiInterface
-                        .verifySignUpOTP(
+                        .verifyOTP(
                             mMobileNumber,
                             mEditTextOTPOne.text.toString().trim() +
                                     mEditTextOTPTwo.text.toString().trim() +
