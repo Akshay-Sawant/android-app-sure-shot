@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 R.id.myAccountFragment,
                 R.id.rechargeHistoryFragment,
                 R.id.subscriptionPlanFragment,
+                R.id.referralsListFragment,
                 R.id.contactUsFragment
             ),
             mDrawerLayoutMain

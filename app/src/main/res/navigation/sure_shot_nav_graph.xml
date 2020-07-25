@@ -141,4 +141,19 @@
         android:name="com.sureshotdiscount.app.ui.plans.PlansFragment"
         android:label="@string/text_label_plans"
         tools:layout="@layout/fragment_plans" />
+    <fragment
+        android:id="@+id/referralsListFragment"
+        android:name="com.sureshotdiscount.app.ui.referralslist.ReferralsListFragment"
+        android:label="@string/text_label_referrals_list"
+        tools:layout="@layout/fragment_referrals_list" >
+        <action
+            android:id="@+id/action_referralsList_to_levelsDetails"
+            app:destination="@id/levelsDetailsFragment"
+            app:popUpTo="@id/referralsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/levelsDetailsFragment"
+        android:name="com.sureshotdiscount.app.ui.referralslist.LevelsDetailsFragment"
+        android:label="fragment_levels_details"
+        tools:layout="@layout/fragment_levels_details" />
 </navigation>

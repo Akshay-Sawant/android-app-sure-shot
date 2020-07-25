@@ -16,7 +16,7 @@
             android:title="@string/text_label_subscription_plan" />
 
         <item
-            android:id="@+id/item3"
+            android:id="@+id/referralsListFragment"
             android:title="@string/text_label_referrals_list" />
 
         <item
