@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -41,7 +42,9 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
     private lateinit var mTextViewOTPTime: TextView
     private lateinit var mTextViewResend: TextView
 
-    lateinit var mMobileNumber: String
+    private lateinit var mContentLoadingProgressBarVerifyOTP: ContentLoadingProgressBar
+
+    private lateinit var mMobileNumber: String
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
@@ -62,6 +65,9 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
 
         mTextViewResend = view.findViewById(R.id.textViewResend)
         mTextViewResend.setOnClickListener(this@VerifyOTPFragment)
+
+        mContentLoadingProgressBarVerifyOTP =
+            view.findViewById(R.id.contentLoadingProgressBarVerifyOTP)
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
@@ -151,7 +157,8 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                     getString(R.string.text_error_incorrect_o_t_p)
                 ) -> return
                 else -> {
-                    onClickSignUpOTP()
+                    mContentLoadingProgressBarVerifyOTP.visibility = View.VISIBLE
+                    onClickVerifyOTP()
                 }
             }
         }
@@ -164,81 +171,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
         mEditTextOTPFour.text?.clear()
     }
 
-    private fun onClickSignInOtp() {
-        context?.let {
-            when {
-                APIClient.isNetworkConnected(it) -> {
-                    APIClient.apiInterface
-                        .verifySignInOTP(
-                            "",
-                            mEditTextOTPOne.text.toString().trim() +
-                                    mEditTextOTPTwo.text.toString().trim() +
-                                    mEditTextOTPThree.text.toString().trim() +
-                                    mEditTextOTPFour.text.toString().trim()
-                        )
-                        .enqueue(object : Callback<LoggedInUser> {
-                            override fun onResponse(
-                                call: Call<LoggedInUser>,
-                                response: Response<LoggedInUser>
-                            ) {
-                                if (response.isSuccessful) {
-                                    val mLoggedInUser: LoggedInUser? = response.body()
-
-                                    if (mLoggedInUser != null) {
-                                        mSharedPreferenceUtils =
-                                            SharedPreferenceUtils(it, mLoggedInUser)
-                                        mSharedPreferenceUtils.saveUpdatedLoggedInUser(it)
-
-                                        AlertDialogUtils.getInstance().showAlert(
-                                            it,
-                                            R.drawable.ic_check_circle_black,
-                                            "Login Successful",
-                                            "Your OTP has been verified successfully!",
-                                            getString(android.R.string.ok),
-                                            null,
-                                            DialogInterface.OnDismissListener {
-                                                view?.let { it1 ->
-                                                    Navigation.findNavController(it1)
-                                                        .navigate(R.id.action_verifyOTP_to_dashboard)
-                                                }
-                                                it.dismiss()
-                                                onClearVerifyOTP()
-                                            }
-                                        )
-                                    } else {
-                                        AlertDialogUtils.getInstance().showAlert(
-                                            it,
-                                            R.drawable.ic_warning_black,
-                                            "Login Failed",
-                                            "Your OTP is invalid. Please to check and try again!",
-                                            getString(android.R.string.ok),
-                                            null,
-                                            DialogInterface.OnDismissListener {
-                                                it.dismiss()
-                                                onClearVerifyOTP()
-                                            }
-                                        )
-                                    }
-                                }
-                            }
-
-                            override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
-                                ErrorUtils.parseOnFailureException(
-                                    it,
-                                    call,
-                                    t
-                                )
-                            }
-                        })
-                }
-                else -> {
-                    AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
-                }
-            }
-        }
-    }
-
-    private fun onClickSignUpOTP() {
+    private fun onClickVerifyOTP() {
         context?.let {
             when {
                 APIClient.isNetworkConnected(it) -> {
@@ -257,6 +190,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                             ) {
                                 if (response.isSuccessful) {
                                     val mLoggedInUser: LoggedInUser? = response.body()
+                                    mContentLoadingProgressBarVerifyOTP.visibility = View.GONE
 
                                     if (mLoggedInUser != null) {
                                         mSharedPreferenceUtils =
@@ -271,6 +205,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                             getString(android.R.string.ok),
                                             null,
                                             DialogInterface.OnDismissListener {
+                                                onClearVerifyOTP()
                                                 view?.let { it1 ->
                                                     Navigation.findNavController(it1)
                                                         .navigate(R.id.action_verifyOTP_to_dashboard)
@@ -287,6 +222,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                             getString(android.R.string.ok),
                                             null,
                                             DialogInterface.OnDismissListener {
+                                                onClearVerifyOTP()
                                                 it.dismiss()
                                             }
                                         )
@@ -300,6 +236,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                     call,
                                     t
                                 )
+                                mContentLoadingProgressBarVerifyOTP.visibility = View.GONE
                             }
                         })
                 }
