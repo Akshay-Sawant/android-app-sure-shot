@@ -37,7 +37,7 @@ interface APIInterface {
     ): Call<APIActionResponse>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/VerifySignUpOTP.php")
+    @POST("$API_VERSION/verify_otp.php")
     fun verifySignUpOTP(
         @Field("mobileNumber") mobileNumber: String,
         @Field("otp") otp: String

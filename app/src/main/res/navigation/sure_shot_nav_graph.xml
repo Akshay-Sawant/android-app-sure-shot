@@ -28,10 +28,6 @@
             android:id="@+id/action_verifyOTP_to_dashboard"
             app:destination="@id/myAccountFragment" />
         <argument
-            android:name="isRegister"
-            android:defaultValue="true"
-            app:argType="boolean" />
-        <argument
             android:name="verificationMobileNumber"
             app:argType="string" />
     </fragment>

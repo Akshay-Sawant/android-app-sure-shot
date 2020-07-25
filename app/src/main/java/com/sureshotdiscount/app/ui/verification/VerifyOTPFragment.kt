@@ -43,8 +43,6 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
 
     lateinit var mMobileNumber: String
 
-    var mIsRegister: Boolean = false
-
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,22 +74,19 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             mTextViewResend,
             Color.BLUE
         )
+
+        onValidateArguments()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonOTPVerifyAndProceed -> view?.let {
-//                onClickSignInOtp()
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_verifyOTP_to_dashboard)
-            }
+            R.id.buttonOTPVerifyAndProceed -> isVerifyOTPValidated()
             R.id.textViewResend -> onLoadTimer()
         }
     }
 
     private fun onValidateArguments() {
         val mVerifyOTPFragmentArgs: VerifyOTPFragmentArgs by navArgs()
-        mIsRegister = mVerifyOTPFragmentArgs.isRegister
         mMobileNumber = mVerifyOTPFragmentArgs.verificationMobileNumber
         mTextViewMobile.text = mMobileNumber
     }
@@ -156,14 +151,17 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                     getString(R.string.text_error_incorrect_o_t_p)
                 ) -> return
                 else -> {
-                    if (mIsRegister) {
-                        onClickSignUpOTP()
-                    } else {
-//                        onClickSignInOtp()
-                    }
+                    onClickSignUpOTP()
                 }
             }
         }
+    }
+
+    private fun onClearVerifyOTP() {
+        mEditTextOTPOne.text?.clear()
+        mEditTextOTPTwo.text?.clear()
+        mEditTextOTPThree.text?.clear()
+        mEditTextOTPFour.text?.clear()
     }
 
     private fun onClickSignInOtp() {
@@ -204,6 +202,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                                         .navigate(R.id.action_verifyOTP_to_dashboard)
                                                 }
                                                 it.dismiss()
+                                                onClearVerifyOTP()
                                             }
                                         )
                                     } else {
@@ -216,6 +215,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                             null,
                                             DialogInterface.OnDismissListener {
                                                 it.dismiss()
+                                                onClearVerifyOTP()
                                             }
                                         )
                                     }
@@ -244,7 +244,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                 APIClient.isNetworkConnected(it) -> {
                     APIClient.apiInterface
                         .verifySignUpOTP(
-                            "",
+                            mMobileNumber,
                             mEditTextOTPOne.text.toString().trim() +
                                     mEditTextOTPTwo.text.toString().trim() +
                                     mEditTextOTPThree.text.toString().trim() +

@@ -142,6 +142,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
         mTextInputEditTextSignUpEmailId.text?.clear()
         mTextInputEditTextSignUpMobileNumber.text?.clear()
         mTextInputEditTextSignUpPassword.text?.clear()
+        mTextInputEditTextSignUpConfirmPassword.text?.clear()
         mTextInputEditTextSignUpReferralId.text?.clear()
     }
 
@@ -175,10 +176,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                                 getString(android.R.string.ok),
                                                 null,
                                                 DialogInterface.OnDismissListener {
-                                                    onClearData()
                                                     val mSignUpAction =
                                                         SignUpFragmentDirections.actionSignUpToVerifyOTP(
-                                                            true,
                                                             mTextInputEditTextSignUpMobileNumber.text.toString()
                                                                 .trim()
                                                         )
@@ -187,6 +186,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                                             .navigate(mSignUpAction)
                                                     }
                                                     it.dismiss()
+                                                    onClearData()
                                                 }
                                             )
                                         } else {
