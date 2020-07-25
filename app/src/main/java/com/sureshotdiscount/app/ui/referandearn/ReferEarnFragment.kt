@@ -1,24 +1,31 @@
 package com.sureshotdiscount.app.ui.referandearn
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.baoyachi.stepview.VerticalStepView
-
 import com.sureshotdiscount.app.R
 
-/**
- * A simple [Fragment] subclass.
- */
-class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn)/*,View.OnClickListener*/ {
 
-    private lateinit var verticalStepView : VerticalStepView
+class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickListener {
+
+    private lateinit var verticalStepView: VerticalStepView
     private var mStepList: ArrayList<String> = ArrayList()
+
+    private lateinit var mTextViewReferAndEarnReferralCode: TextView
+    private lateinit var mTextViewReferAndEarnTapToCopy: TextView
+    private lateinit var mButtonReferAndEarnShareNow: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //view.buttonShareNow.setOnClickListener(this)
+
         verticalStepView = view.findViewById(R.id.stepViewReferEarn)
         mStepList.clear()
         mStepList.add("Get Rs.2 in winnings for every new signup  from your referral link")
@@ -33,16 +40,38 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn)/*,View.OnClickL
             .setStepViewComplectedTextColor(R.color.colorAccent)
             .setStepViewUnComplectedTextColor(R.color.colorAccent)
             .setStepsViewIndicatorUnCompletedLineColor(R.color.colorAccent)
-            .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(requireActivity(),R.drawable.ic_step_icon_24dp))
+            .setStepsViewIndicatorCompleteIcon(
+                ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_step_icon_24dp
+                )
+            )
+
+        mTextViewReferAndEarnReferralCode = view.findViewById(R.id.textViewReferralCode)
+        mTextViewReferAndEarnTapToCopy = view.findViewById(R.id.textViewTapToCopy)
+        mTextViewReferAndEarnTapToCopy.setOnClickListener(this@ReferEarnFragment)
+
+        mButtonReferAndEarnShareNow = view.findViewById(R.id.buttonShareNow)
+        mButtonReferAndEarnShareNow.setOnClickListener(this@ReferEarnFragment)
     }
 
-    /*override fun onClick(v: View?) {
+    override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonShareNow -> view?.let {
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_referEarn_to_rechargeFragment)
+            R.id.textViewTapToCopy -> {
+//                onClickTapToCopy()
+            }
+            R.id.buttonShareNow -> {
+//                onClickShareNow()
             }
         }
-    }*/
+    }
 
+    private fun onClickTapToCopy() {
+        val clipboard: ClipboardManager? =
+            context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
+        val clip =
+            ClipData.newPlainText(getString(R.string.text_your_referral_code), "Text to copy")
+        clipboard?.setPrimaryClip(clip)
+        Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show()
+    }
 }
