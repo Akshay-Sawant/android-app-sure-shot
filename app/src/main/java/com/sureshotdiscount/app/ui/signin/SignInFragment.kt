@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -34,6 +35,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
 
     private lateinit var mTextViewSignInNoAccount: TextView
 
+    private lateinit var mContentLoadingProgressBarSignIn: ContentLoadingProgressBar
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,6 +54,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
         mTextViewSignInNoAccount = view.findViewById(R.id.textViewSignInNoAccount)
         mTextViewSignInNoAccount.setOnClickListener(this@SignInFragment)
 
+        mContentLoadingProgressBarSignIn = view.findViewById(R.id.contentLoadingProgressBarSignIn)
+
         onDecorateText(
             getString(R.string.text_label_no_account),
             20,
@@ -61,11 +66,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonSignInContinue -> view?.let {
-//                isSignInValidated()
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_signIn_to_verifyOTP)
-            }
+            R.id.buttonSignInContinue -> isSignInValidated()
             R.id.textViewSignInNoAccount -> {
                 view?.let {
                     Navigation.findNavController(it)
@@ -91,9 +92,15 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                     getString(R.string.text_error_otp)
                 ) -> return
             else -> {
+                mContentLoadingProgressBarSignIn.visibility = View.VISIBLE
                 onClickSignIn()
             }
         }
+    }
+
+    private fun onClearSignIn() {
+        mTextInputEditTextSignInMobileNumber.text?.clear()
+        mTextInputEditTextSignInPassword.text?.clear()
     }
 
     private fun onClickSignIn() {
@@ -111,6 +118,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                         ) {
                             if (response.isSuccessful) {
                                 val mApiActionResponse: APIActionResponse? = response.body()
+                                mContentLoadingProgressBarSignIn.visibility = View.GONE
 
                                 if (mApiActionResponse != null) {
                                     if (mApiActionResponse.isActionSuccess) {
@@ -124,9 +132,15 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                             DialogInterface.OnDismissListener {
                                                 view?.let { it1 ->
                                                     Navigation.findNavController(it1)
-                                                        .navigate(R.id.action_signIn_to_verifyOTP)
+                                                        .navigate(
+                                                            SignInFragmentDirections.actionSignInToVerifyOTP(
+                                                                mTextInputEditTextSignInMobileNumber.text.toString()
+                                                                    .trim()
+                                                            )
+                                                        )
                                                 }
                                                 it.dismiss()
+                                                onClearSignIn()
                                             }
                                         )
                                     } else {
@@ -139,6 +153,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                             null,
                                             DialogInterface.OnDismissListener {
                                                 it.dismiss()
+                                                onClearSignIn()
                                             }
                                         )
                                     }
@@ -159,6 +174,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                 call,
                                 t
                             )
+                            mContentLoadingProgressBarSignIn.visibility = View.GONE
                         }
                     })
             } else {
