@@ -142,4 +142,9 @@
     <string name="text_label_validity">Validity</string>
     <string name="text_hint_description">Description</string>
     <string name="text_hint_days">Days</string>
+
+    <!--Referrals Lis-->
+    <string name="text_label_balance_earnings">Balance Earnings</string>
+    <string name="text_label_withdraw">Withdraw</string>
+    <string name="text_label_referrals">Referrals</string>
 </resources>

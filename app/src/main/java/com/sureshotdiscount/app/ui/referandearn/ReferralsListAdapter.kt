@@ -39,7 +39,7 @@ class ReferralsListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_referrals_list, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_referrals_list, parent, false)
         mRecyclerViewSubUnSub = itemView.findViewById(R.id.recyclerViewPhoneNumbers)
         mSubUnSubModelList.clear()
         mSubUnSubAdapter = this.let {
