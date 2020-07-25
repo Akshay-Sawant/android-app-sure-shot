@@ -15,27 +15,27 @@
         android:padding="@dimen/standard_margin_x2">
 
         <TextView
-            android:id="@+id/textViewLevelsDetailsPhoneNumber"
+            android:id="@+id/textViewLevelsDetailsContactNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_margin"
             android:gravity="start"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            app:layout_constraintEnd_toStartOf="@id/textViewLevelsDetailsSubStatus"
+            app:layout_constraintEnd_toStartOf="@id/textViewLevelsDetailsStatus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tool:text="@tools:sample/us_phones" />
 
         <TextView
-            android:id="@+id/textViewLevelsDetailsSubStatus"
+            android:id="@+id/textViewLevelsDetailsStatus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
             android:hint="@string/text_hint_status"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewLevelsDetailsPhoneNumber"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewLevelsDetailsContactNumber"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textViewLevelsDetailsPhoneNumber" />
+            app:layout_constraintStart_toEndOf="@id/textViewLevelsDetailsContactNumber" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

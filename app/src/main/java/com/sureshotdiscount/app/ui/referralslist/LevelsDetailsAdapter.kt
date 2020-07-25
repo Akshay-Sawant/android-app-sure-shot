@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.rv_levels_details.view.*
 
 class LevelsDetailsAdapter(
     private val mItemLayout: Int,
-    private val mLevelsDetailsModel: List<LevelsDetailsModel>
+    private val mLevelsDetailsModelList: List<LevelsDetailsModel>
 ) : RecyclerView.Adapter<LevelsDetailsAdapter.LevelsDetailsViewHolder>() {
 
     inner class LevelsDetailsViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView) {
@@ -26,10 +27,12 @@ class LevelsDetailsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mLevelsDetailsModel.size
+        return mLevelsDetailsModelList.size
     }
 
     override fun onBindViewHolder(holder: LevelsDetailsViewHolder, position: Int) {
-
+        holder.itemView.textViewLevelsDetailsContactNumber.text =
+            mLevelsDetailsModelList[position].mContactNumber
+        holder.itemView.textViewLevelsDetailsStatus.text = mLevelsDetailsModelList[position].mStatus
     }
 }
