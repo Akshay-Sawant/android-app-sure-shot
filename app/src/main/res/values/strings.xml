@@ -151,4 +151,5 @@
     <!--Levels Details-->
     <string name="text_label_unsubscribed">Unsubscribed - <xliff:g example="3" id="unsubscribed">%s</xliff:g></string>
     <string name="text_label_subscribed">Subscribed - <xliff:g example="10" id="subscribed">%s</xliff:g></string>
+    <string name="text_label_please_wait">Please wait…</string>
 </resources>

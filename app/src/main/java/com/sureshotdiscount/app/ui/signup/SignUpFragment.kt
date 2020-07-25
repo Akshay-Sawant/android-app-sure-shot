@@ -16,6 +16,7 @@ import com.sureshotdiscount.app.data.model.response.APIActionResponse
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.onDecorateText
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
+import com.sureshotdiscount.app.utils.others.ProgressDialogUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
@@ -91,10 +92,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonSignUpContinue -> view?.let {
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_signUp_to_verifyOTP)
-            }/*isSignUpValidated()*/
+            R.id.buttonSignUpContinue -> isSignUpValidated()
             R.id.textViewSignUpHaveAccount -> view?.let {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_signUp_to_signIn)
@@ -133,7 +131,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                     getString(R.string.text_error_password_match)
                 ) -> return
                 else -> {
-//                    onClickSignUp()
+                    onClickSignUp()
                 }
             }
         }
@@ -171,7 +169,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                                 DialogInterface.OnDismissListener {
                                                     view?.let { it1 ->
                                                         Navigation.findNavController(it1)
-                                                            .navigate(R.id.action_signIn_to_verifyOTP)
+                                                            .navigate(R.id.action_signUp_to_verifyOTP)
                                                     }
                                                     it.dismiss()
                                                 }

@@ -11,9 +11,6 @@ class APIActionResponse {
     @field:Json(name = "status")
     val isActionSuccess: Boolean = false
 
-    @field:Json(name = "status_code")
-    val status_code:Int = 0
-
     @field:Json(name = "title")
     val title: String = "Server busy!"
 
