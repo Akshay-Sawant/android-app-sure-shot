@@ -137,6 +137,14 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
         }
     }
 
+    private fun onClearData() {
+        mTextInputEditTextSignUpName.text?.clear()
+        mTextInputEditTextSignUpEmailId.text?.clear()
+        mTextInputEditTextSignUpMobileNumber.text?.clear()
+        mTextInputEditTextSignUpPassword.text?.clear()
+        mTextInputEditTextSignUpReferralId.text?.clear()
+    }
+
     private fun onClickSignUp() {
         context?.let {
             when {
@@ -167,6 +175,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                                 getString(android.R.string.ok),
                                                 null,
                                                 DialogInterface.OnDismissListener {
+                                                    onClearData()
                                                     view?.let { it1 ->
                                                         Navigation.findNavController(it1)
                                                             .navigate(R.id.action_signUp_to_verifyOTP)
@@ -183,6 +192,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                                 getString(android.R.string.ok),
                                                 null,
                                                 DialogInterface.OnDismissListener {
+                                                    onClearData()
                                                     it.dismiss()
                                                 }
                                             )
