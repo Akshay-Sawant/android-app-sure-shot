@@ -3,6 +3,7 @@ package com.sureshotdiscount.app.ui.referandearn
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -73,5 +74,16 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
             ClipData.newPlainText(getString(R.string.text_your_referral_code), "Text to copy")
         clipboard?.setPrimaryClip(clip)
         Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onClickShareNow() {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "Sure Shot Discounts")
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, "Share Via")
+        startActivity(shareIntent)
     }
 }
