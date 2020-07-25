@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/standard_margin"
     app:cardBackgroundColor="@color/colorPrimary"
     app:cardCornerRadius="@dimen/cardCornerRadius"
@@ -15,27 +15,27 @@
         android:padding="@dimen/standard_margin_x2">
 
         <TextView
-            android:id="@+id/textViewPhoneNumber"
+            android:id="@+id/textViewLevelsDetailsPhoneNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_margin"
             android:gravity="start"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            app:layout_constraintEnd_toStartOf="@id/textViewSubStatus"
+            app:layout_constraintEnd_toStartOf="@id/textViewLevelsDetailsSubStatus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tool:text="@tools:sample/us_phones" />
 
         <TextView
-            android:id="@+id/textViewSubStatus"
+            android:id="@+id/textViewLevelsDetailsSubStatus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:hint="@string/text_hint_status"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewPhoneNumber"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewLevelsDetailsPhoneNumber"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textViewPhoneNumber"
-            tool:text="@tools:sample/us_zipcodes" />
+            app:layout_constraintStart_toEndOf="@id/textViewLevelsDetailsPhoneNumber" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
