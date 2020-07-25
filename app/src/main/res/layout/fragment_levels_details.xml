@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.referralslist.LevelsDetailsFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardViewLevelsDetails"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/material_dimen_mdpi">
+
+            <TextView
+                android:id="@+id/textViewLevelsDetailsUnsubscribed"
+                android:layout_width="@dimen/material_dimen_constraint"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/text_label_unsubscribed"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewLevelsDetailsSubscribed"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewLevelsDetailsSubscribed"
+                android:layout_width="@dimen/material_dimen_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_dimen_mdpi"
+                android:gravity="end"
+                android:text="@string/text_label_subscribed"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewLevelsDetailsUnsubscribed"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewLevelsDetailsUnsubscribed" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textViewLevelsDetailsNoDataFound"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/text_no_data_found"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardViewLevelsDetails" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewLevelsDetails"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardViewLevelsDetails"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/material_dimen_mdpi" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/material_dimen_mdpi" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
