@@ -15,11 +15,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object APIClient {
 
-     const val baseUrl = "http://192.168.1.113/staging/php/webmandi/"
+    const val BASE_URL = "http://shareittofriends.com/"
 
-    const val baseUrl2 = "https://api.goprocessing.in/"
-    //const val baseUrl = "http://shareittofriends.com/demo/webmandi/"
-    const val API_VERSION = "app/v0" // api version dir, do not add / in the end
+    const val API_VERSION = "demo/sureshotdiscount/auth" // api version dir, do not add / in the end
     // const val API_VERSION = "app/v1" // api version dir, do not add / in the end
 
     private var retrofit: Retrofit? = null
@@ -48,7 +46,7 @@ object APIClient {
                 val okClient = builder.build()
 
                 retrofit = Retrofit.Builder()
-                    .baseUrl(baseUrl2)
+                    .baseUrl(BASE_URL)
                     //.addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(MoshiConverterFactory.create())
                     .client(okClient)
@@ -60,12 +58,14 @@ object APIClient {
 
     val apiInterface: APIInterface
         get() = retrofitInstance.create(
-            APIInterface::class.java)
+            APIInterface::class.java
+        )
 
 
     /*Helper Methods*/
     fun isNetworkConnected(context: Context): Boolean {
-        val cm: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm: ConnectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return cm.activeNetworkInfo != null && cm.activeNetworkInfo.isConnected
     }
 
