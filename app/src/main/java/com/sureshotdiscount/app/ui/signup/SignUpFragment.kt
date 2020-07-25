@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputEditText
@@ -16,7 +17,6 @@ import com.sureshotdiscount.app.data.model.response.APIActionResponse
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.onDecorateText
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
-import com.sureshotdiscount.app.utils.others.ProgressDialogUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
@@ -50,6 +50,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
 
     private lateinit var mTextViewSignUpHaveAccount: TextView
 
+    private lateinit var mContentLoadingProgressBar: ContentLoadingProgressBar
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -81,6 +83,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
 
         mTextViewSignUpHaveAccount = view.findViewById(R.id.textViewSignUpHaveAccount)
         mTextViewSignUpHaveAccount.setOnClickListener(this@SignUpFragment)
+
+        mContentLoadingProgressBar = view.findViewById(R.id.contentLoadingProgressBarSignUp)
 
         onDecorateText(
             getString(R.string.text_label_have_account),
@@ -131,6 +135,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                     getString(R.string.text_error_password_match)
                 ) -> return
                 else -> {
+                    mContentLoadingProgressBar.visibility = View.VISIBLE
                     onClickSignUp()
                 }
             }
@@ -164,6 +169,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                 response: Response<APIActionResponse>
                             ) {
                                 if (response.isSuccessful) {
+                                    mContentLoadingProgressBar.visibility = View.GONE
                                     val mApiActionResponse: APIActionResponse? = response.body()
 
                                     if (mApiActionResponse != null) {
@@ -221,6 +227,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                     call,
                                     t
                                 )
+                                mContentLoadingProgressBar.visibility = View.GONE
                             }
                         })
                 }
