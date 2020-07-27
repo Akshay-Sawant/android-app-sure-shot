@@ -53,6 +53,10 @@ interface APIInterface {
     ): Call<APIActionResponse>
 
     @FormUrlEncoded
+    @POST("$AUTH/resend_otp.php")
+    fun resendOTP(@Field("mobileNumber") mobileNumber: String): Call<APIActionResponse>
+
+    @FormUrlEncoded
     @POST("$API_VERSION/Logout.php")
     fun doLogout(@Field("userLoginToken") userLoginToken: String): Call<APIActionResponse>
     /*Sign In*/

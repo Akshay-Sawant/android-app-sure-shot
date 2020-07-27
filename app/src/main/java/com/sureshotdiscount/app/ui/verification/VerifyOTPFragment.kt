@@ -16,11 +16,13 @@ import androidx.navigation.fragment.navArgs
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.data.model.LoggedInUser
+import com.sureshotdiscount.app.data.model.response.APIActionResponse
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.onDecorateText
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
+import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -124,6 +126,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             override fun onTick(millisUntilFinished: Long) {
                 mTextViewOTPTime.text = (millisUntilFinished / 1000).toString() + " Sec"
                 mTextViewResend.isClickable = false
+                onClickResendOTP()
             }
 
             override fun onFinish() {
@@ -193,44 +196,130 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                     mContentLoadingProgressBarVerifyOTP.visibility = View.GONE
 
                                     if (mLoggedInUser != null) {
-                                        mSharedPreferenceUtils =
-                                            SharedPreferenceUtils(it, mLoggedInUser)
-                                        mSharedPreferenceUtils.saveUpdatedLoggedInUser(it)
+                                        if (mLoggedInUser.status) {
+                                            mSharedPreferenceUtils =
+                                                SharedPreferenceUtils(it, mLoggedInUser)
+                                            mSharedPreferenceUtils.saveUpdatedLoggedInUser(it)
 
-                                        AlertDialogUtils.getInstance().showAlert(
-                                            it,
-                                            R.drawable.ic_check_circle_black,
-                                            "Registration Successful",
-                                            "Your OTP has been verified successfully!",
-                                            getString(android.R.string.ok),
-                                            null,
-                                            DialogInterface.OnDismissListener {
-                                                onClearVerifyOTP()
-                                                view?.let { it1 ->
-                                                    Navigation.findNavController(it1)
-                                                        .navigate(R.id.action_verifyOTP_to_dashboard)
+                                            AlertDialogUtils.getInstance().showAlert(
+                                                it,
+                                                R.drawable.ic_check_circle_black,
+                                                "Registration Successful",
+                                                "Your OTP has been verified successfully!",
+                                                getString(android.R.string.ok),
+                                                null,
+                                                DialogInterface.OnDismissListener {
+                                                    onClearVerifyOTP()
+                                                    view?.let { it1 ->
+                                                        Navigation.findNavController(it1)
+                                                            .navigate(R.id.action_verifyOTP_to_dashboard)
+                                                    }
+                                                    it.dismiss()
                                                 }
-                                                it.dismiss()
-                                            }
-                                        )
+                                            )
+                                        } else {
+                                            AlertDialogUtils.getInstance().showAlert(
+                                                it,
+                                                R.drawable.ic_warning_black,
+                                                "Registration Failed",
+                                                "Your OTP is invalid. Please to check and try again!",
+                                                getString(android.R.string.ok),
+                                                null,
+                                                DialogInterface.OnDismissListener {
+                                                    onClearVerifyOTP()
+                                                    it.dismiss()
+                                                }
+                                            )
+                                        }
                                     } else {
-                                        AlertDialogUtils.getInstance().showAlert(
-                                            it,
-                                            R.drawable.ic_warning_black,
-                                            "Registration Failed",
-                                            "Your OTP is invalid. Please to check and try again!",
-                                            getString(android.R.string.ok),
-                                            null,
-                                            DialogInterface.OnDismissListener {
-                                                onClearVerifyOTP()
-                                                it.dismiss()
-                                            }
+                                        ErrorUtils.logNetworkError(
+                                            ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                    "\nResponse: " + response.toString(),
+                                            null
                                         )
+                                        AlertDialogUtils.getInstance()
+                                            .displayInvalidResponseAlert(it)
                                     }
                                 }
                             }
 
                             override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
+                                ErrorUtils.parseOnFailureException(
+                                    it,
+                                    call,
+                                    t
+                                )
+                                mContentLoadingProgressBarVerifyOTP.visibility = View.GONE
+                            }
+                        })
+                }
+                else -> {
+                    AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+                }
+            }
+        }
+    }
+
+    private fun onClickResendOTP() {
+        context?.let {
+            when {
+                APIClient.isNetworkConnected(it) -> {
+                    APIClient.apiInterface
+                        .resendOTP(mMobileNumber.trim())
+                        .enqueue(object : Callback<APIActionResponse> {
+                            override fun onResponse(
+                                call: Call<APIActionResponse>,
+                                response: Response<APIActionResponse>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val mAPIActionResponse: APIActionResponse? = response.body()
+                                    mContentLoadingProgressBarVerifyOTP.visibility = View.GONE
+
+                                    if (mAPIActionResponse != null) {
+                                        if (mAPIActionResponse.isActionSuccess) {
+                                            AlertDialogUtils.getInstance().showAlert(
+                                                it,
+                                                R.drawable.ic_check_circle_black,
+                                                mAPIActionResponse.title,
+                                                mAPIActionResponse.message,
+                                                getString(android.R.string.ok),
+                                                null,
+                                                DialogInterface.OnDismissListener {
+                                                    onClearVerifyOTP()
+                                                    view?.let { it1 ->
+                                                        Navigation.findNavController(it1)
+                                                            .navigate(R.id.action_verifyOTP_to_dashboard)
+                                                    }
+                                                    it.dismiss()
+                                                }
+                                            )
+                                        } else {
+                                            AlertDialogUtils.getInstance().showAlert(
+                                                it,
+                                                R.drawable.ic_warning_black,
+                                                mAPIActionResponse.title,
+                                                mAPIActionResponse.message,
+                                                getString(android.R.string.ok),
+                                                null,
+                                                DialogInterface.OnDismissListener {
+                                                    onClearVerifyOTP()
+                                                    it.dismiss()
+                                                }
+                                            )
+                                        }
+                                    } else {
+                                        ErrorUtils.logNetworkError(
+                                            ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                    "\nResponse: " + response.toString(),
+                                            null
+                                        )
+                                        AlertDialogUtils.getInstance()
+                                            .displayInvalidResponseAlert(it)
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(call: Call<APIActionResponse>, t: Throwable) {
                                 ErrorUtils.parseOnFailureException(
                                     it,
                                     call,
