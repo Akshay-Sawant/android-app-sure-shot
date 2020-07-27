@@ -5,8 +5,6 @@ import com.sureshotdiscount.app.data.model.response.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
-
-import com.sureshotdiscount.app.data.api.APIClient.API_VERSION
 import com.sureshotdiscount.app.ui.dth.DTHModel
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
 import com.sureshotdiscount.app.ui.plans.PlansModel
@@ -14,11 +12,13 @@ import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 import com.sureshotdiscount.app.ui.referralslist.LevelsModel
 import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
+import com.sureshotdiscount.app.utils.API_VERSION
+import com.sureshotdiscount.app.utils.AUTH
 
 interface APIInterface {
 
     @FormUrlEncoded
-    @POST("$API_VERSION/AndroidLogError.php")
+    @POST("$AUTH/AndroidLogError.php")
     fun logNetworkError(@Field("error") error: String): Call<ResponseBody>
 
     @FormUrlEncoded
@@ -27,7 +27,7 @@ interface APIInterface {
 
     /*Sign Up*/
     @FormUrlEncoded
-    @POST("$API_VERSION/signup.php")
+    @POST("$AUTH/signup.php")
     fun requestSignUpOTP(
         @Field("name") name: String,
         @Field("emailId") emailId: String,
@@ -37,7 +37,7 @@ interface APIInterface {
     ): Call<APIActionResponse>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/verify_otp.php")
+    @POST("$AUTH/verify_otp.php")
     fun verifyOTP(
         @Field("mobileNumber") mobileNumber: String,
         @Field("otp") otp: String
@@ -46,7 +46,7 @@ interface APIInterface {
 
     /*Sign In*/
     @FormUrlEncoded
-    @POST("$API_VERSION/RequestLoginOTP.php")
+    @POST("$AUTH/authenticate.php")
     fun requestSignInOTP(
         @Field("mobileNumber") mobileNumber: String,
         @Field("password") password: String

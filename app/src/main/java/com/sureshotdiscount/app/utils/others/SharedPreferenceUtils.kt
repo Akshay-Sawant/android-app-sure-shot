@@ -18,7 +18,12 @@ class SharedPreferenceUtils(context: Context) {
     private val LOGIN_PREF_FILE: String = "LOGIN_PREF_FILE"
 
     private val LOGIN_USER_LOGIN_TOKEN_KEY = "loginToken"
-    private val LOGIN_USER_ID_KEY = "userId"
+    private val LOGIN_USER_ID_KEY = "id"
+    private val LOGIN_USER_NAME_KEY = "name"
+    private val LOGIN_USER_MOBILE_NUMBER_KEY = "mobileNumber"
+    private val LOGIN_USER_EMAIL_ID_KEY = "emailId"
+    private val LOGIN_USER_REFERRAL_ID_KEY = "referralId"
+    /*private val LOGIN_USER_ID_KEY = "userId"
     private val LOGIN_USERNAME_KEY = "userName"
     private val LOGIN_USER_FULL_NAME_KEY = "userFullName"
 
@@ -32,7 +37,7 @@ class SharedPreferenceUtils(context: Context) {
     private val LOGIN_USER_PROFILE_IMAGE_KEY = "userProfileImage"
     private val LOGIN_USER_REFERRAL_ID_KEY = "referralId"
 
-    private val isSocialLoginKey = "isSocialLoginKey"
+    private val isSocialLoginKey = "isSocialLoginKey"*/
 
     private val RECHARGE_ID = "rechargeId"
     private val RECHARGE_COMPANY_LOGO = "rechargeCompanyLogo"
@@ -47,7 +52,12 @@ class SharedPreferenceUtils(context: Context) {
         val prefs = context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
         mLoggedInUser = LoggedInUser()
         mLoggedInUser.loginToken = prefs.getString(LOGIN_USER_LOGIN_TOKEN_KEY, "").toString()
-        mLoggedInUser.userId = prefs.getString(LOGIN_USER_ID_KEY, "").toString()
+        mLoggedInUser.id = prefs.getString(LOGIN_USER_ID_KEY, "").toString()
+        mLoggedInUser.name = prefs.getString(LOGIN_USER_NAME_KEY, "").toString()
+        mLoggedInUser.mobileNumber = prefs.getString(LOGIN_USER_MOBILE_NUMBER_KEY, "").toString()
+        mLoggedInUser.emailid = prefs.getString(LOGIN_USER_EMAIL_ID_KEY, "").toString()
+        mLoggedInUser.referralid = prefs.getString(LOGIN_USER_REFERRAL_ID_KEY, "").toString()
+        /*mLoggedInUser.userId = prefs.getString(LOGIN_USER_ID_KEY, "").toString()
         mLoggedInUser.userName = prefs.getString(LOGIN_USERNAME_KEY, "").toString()
         mLoggedInUser.fullName = prefs.getString(LOGIN_USER_FULL_NAME_KEY, "").toString()
         mLoggedInUser.countryCode =
@@ -59,7 +69,7 @@ class SharedPreferenceUtils(context: Context) {
         mLoggedInUser.profileImage = prefs.getString(LOGIN_USER_PROFILE_IMAGE_KEY, "").toString()
         mLoggedInUser.referralId = prefs.getString(LOGIN_USER_REFERRAL_ID_KEY, "").toString()
 
-        mLoggedInUser.isSocialLogin = prefs.getBoolean(isSocialLoginKey, false)
+        mLoggedInUser.isSocialLogin = prefs.getBoolean(isSocialLoginKey, false)*/
     }
 
     constructor(context: Context, loggedInUser: LoggedInUser) : this(context) {
@@ -85,7 +95,12 @@ class SharedPreferenceUtils(context: Context) {
     fun saveUpdatedLoggedInUser(context: Context): Boolean {
 
         prefEditor.putString(LOGIN_USER_LOGIN_TOKEN_KEY, mLoggedInUser.loginToken)
-        prefEditor.putString(LOGIN_USER_ID_KEY, mLoggedInUser.userId)
+        prefEditor.putString(LOGIN_USER_ID_KEY, mLoggedInUser.id)
+        prefEditor.putString(LOGIN_USER_NAME_KEY, mLoggedInUser.name)
+        prefEditor.putString(LOGIN_USER_MOBILE_NUMBER_KEY, mLoggedInUser.mobileNumber)
+        prefEditor.putString(LOGIN_USER_EMAIL_ID_KEY, mLoggedInUser.emailid)
+        prefEditor.putString(LOGIN_USER_REFERRAL_ID_KEY, mLoggedInUser.referralid)
+        /*prefEditor.putString(LOGIN_USER_ID_KEY, mLoggedInUser.userId)
         prefEditor.putString(LOGIN_USERNAME_KEY, mLoggedInUser.userName)
         prefEditor.putString(LOGIN_USER_FULL_NAME_KEY, mLoggedInUser.fullName)
         prefEditor.putString(LOGIN_USER_MOBILE_COUNTRY_CODE_KEY, mLoggedInUser.countryCode)
@@ -96,7 +111,7 @@ class SharedPreferenceUtils(context: Context) {
         prefEditor.putString(LOGIN_USER_PROFILE_IMAGE_KEY, mLoggedInUser.profileImage)
         prefEditor.putString(LOGIN_USER_REFERRAL_ID_KEY, mLoggedInUser.referralId)
 
-        prefEditor.putBoolean(isSocialLoginKey, mLoggedInUser.isSocialLogin)
+        prefEditor.putBoolean(isSocialLoginKey, mLoggedInUser.isSocialLogin)*/
         return prefEditor.commit()
     }
 
