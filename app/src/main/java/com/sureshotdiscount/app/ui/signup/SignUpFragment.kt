@@ -232,6 +232,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                         })
                 }
                 else -> {
+                    mContentLoadingProgressBar.visibility = View.GONE
                     AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
                 }
             }
