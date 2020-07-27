@@ -126,7 +126,6 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
             override fun onTick(millisUntilFinished: Long) {
                 mTextViewOTPTime.text = (millisUntilFinished / 1000).toString() + " Sec"
                 mTextViewResend.isClickable = false
-                onClickResendOTP()
             }
 
             override fun onFinish() {
@@ -134,6 +133,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                 mTextViewResend.isClickable = true
             }
         }.start()
+        onClickResendOTP()
     }
 
     private fun isVerifyOTPValidated() {
@@ -213,6 +213,8 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                                     view?.let { it1 ->
                                                         ValidationUtils.getValidationUtils()
                                                             .hideKeyboardFunc(it1)
+                                                    }
+                                                    view?.let { it1 ->
                                                         Navigation.findNavController(it1)
                                                             .navigate(R.id.action_verifyOTP_to_dashboard)
                                                     }
@@ -229,6 +231,10 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                                 null,
                                                 DialogInterface.OnDismissListener {
                                                     onClearVerifyOTP()
+                                                    view?.let { it1 ->
+                                                        ValidationUtils.getValidationUtils()
+                                                            .hideKeyboardFunc(it1)
+                                                    }
                                                     it.dismiss()
                                                 }
                                             )
@@ -288,10 +294,9 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                                 getString(android.R.string.ok),
                                                 null,
                                                 DialogInterface.OnDismissListener {
-                                                    onClearVerifyOTP()
                                                     view?.let { it1 ->
-                                                        Navigation.findNavController(it1)
-                                                            .navigate(R.id.action_verifyOTP_to_dashboard)
+                                                        ValidationUtils.getValidationUtils()
+                                                            .hideKeyboardFunc(it1)
                                                     }
                                                     it.dismiss()
                                                 }
@@ -305,7 +310,10 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                                 getString(android.R.string.ok),
                                                 null,
                                                 DialogInterface.OnDismissListener {
-                                                    onClearVerifyOTP()
+                                                    view?.let { it1 ->
+                                                        ValidationUtils.getValidationUtils()
+                                                            .hideKeyboardFunc(it1)
+                                                    }
                                                     it.dismiss()
                                                 }
                                             )
@@ -333,6 +341,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                         })
                 }
                 else -> {
+                    mContentLoadingProgressBarVerifyOTP.visibility = View.GONE
                     AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
                 }
             }
