@@ -27,6 +27,7 @@
         <action
             android:id="@+id/action_verifyOTP_to_dashboard"
             app:destination="@id/myAccountFragment"
+            app:launchSingleTop="true"
             app:popUpToInclusive="true" />
         <argument
             android:name="verificationMobileNumber"

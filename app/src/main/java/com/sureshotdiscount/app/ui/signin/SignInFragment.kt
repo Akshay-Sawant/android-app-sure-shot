@@ -142,9 +142,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                                 it.dismiss()
                                                 onClearSignIn()
                                                 view?.let { it1 ->
-                                                    ValidationUtils.getValidationUtils().hideKeyboardFunc(
-                                                        it1
-                                                    )
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(
+                                                            it1
+                                                        )
                                                 }
                                             }
                                         )
@@ -160,9 +161,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                                 it.dismiss()
                                                 onClearSignIn()
                                                 view?.let { it1 ->
-                                                    ValidationUtils.getValidationUtils().hideKeyboardFunc(
-                                                        it1
-                                                    )
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(
+                                                            it1
+                                                        )
                                                 }
                                             }
                                         )
