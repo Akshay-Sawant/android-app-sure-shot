@@ -1,12 +1,20 @@
 package com.sureshotdiscount.app.utils
 
-import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.widget.TextView
-import com.sureshotdiscount.app.R
+
+const val DEVELOPMENT_URL = "http://shareittofriends.com/"
+const val PRODUCTION_URL = "http://shareittofriends.com/"
+
+const val MIDDLE_URL = DEVELOPMENT_URL + "demo/sureshotdiscount/"
+
+const val AUTH = "auth"
+
+const val API_VERSION = "demo/sureshotdiscount/auth" // api version dir, do not add / in the end
+// const val API_VERSION = "app/v1" // api version dir, do not add / in the end
 
 const val IS_DEBUG_ON = true // TODO: false on live
 

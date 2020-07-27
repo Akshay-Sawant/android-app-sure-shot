@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.sureshotdiscount.app.utils.error.ErrorInterceptor
 import com.sureshotdiscount.app.utils.IS_DEBUG_ON
+import com.sureshotdiscount.app.utils.MIDDLE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,12 +15,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  */
 
 object APIClient {
-
-    const val BASE_URL = "http://shareittofriends.com/"
-
-    const val API_VERSION = "demo/sureshotdiscount/auth" // api version dir, do not add / in the end
-    // const val API_VERSION = "app/v1" // api version dir, do not add / in the end
-
     private var retrofit: Retrofit? = null
 
     /*internal*/
@@ -46,7 +41,7 @@ object APIClient {
                 val okClient = builder.build()
 
                 retrofit = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(MIDDLE_URL)
                     //.addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(MoshiConverterFactory.create())
                     .client(okClient)
