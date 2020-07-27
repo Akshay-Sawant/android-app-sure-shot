@@ -13,7 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.baoyachi.stepview.VerticalStepView
 import com.sureshotdiscount.app.R
-
+import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
+import com.sureshotdiscount.app.utils.others.ValidationUtils
 
 class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickListener {
 
@@ -23,6 +24,8 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
     private lateinit var mTextViewReferAndEarnReferralCode: TextView
     private lateinit var mTextViewReferAndEarnTapToCopy: TextView
     private lateinit var mButtonReferAndEarnShareNow: Button
+
+    private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,16 +57,22 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
 
         mButtonReferAndEarnShareNow = view.findViewById(R.id.buttonShareNow)
         mButtonReferAndEarnShareNow.setOnClickListener(this@ReferEarnFragment)
+
+        context?.let {
+            mSharedPreferenceUtils = SharedPreferenceUtils(it)
+        }
+        mTextViewReferAndEarnReferralCode.text = mSharedPreferenceUtils.getLoggedInUser().referralid
+    }
+
+    override fun onResume() {
+        super.onResume()
+        view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.textViewTapToCopy -> {
-//                onClickTapToCopy()
-            }
-            R.id.buttonShareNow -> {
-//                onClickShareNow()
-            }
+            R.id.textViewTapToCopy -> onClickTapToCopy()
+            R.id.buttonShareNow -> onClickShareNow()
         }
     }
 
@@ -71,7 +80,10 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
         val clipboard: ClipboardManager? =
             context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
         val clip =
-            ClipData.newPlainText(getString(R.string.text_your_referral_code), "Text to copy")
+            ClipData.newPlainText(
+                getString(R.string.text_your_referral_code),
+                mSharedPreferenceUtils.getLoggedInUser().referralid
+            )
         clipboard?.setPrimaryClip(clip)
         Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show()
     }
