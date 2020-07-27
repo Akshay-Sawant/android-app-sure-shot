@@ -100,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin_x2"
             android:background="@drawable/bg_rounded_corners"
+            android:gravity="center"
             android:hint="@string/text_your_referral_code"
             android:padding="@dimen/standard_margin"
             android:paddingStart="@dimen/standard_margin_x2"

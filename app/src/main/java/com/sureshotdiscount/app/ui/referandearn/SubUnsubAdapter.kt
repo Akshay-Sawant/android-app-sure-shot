@@ -16,8 +16,8 @@ class SubUnsubAdapter(private var mList: List<SubUnsubModel>)
         fun onItemSelected(bestCampSites: BestCampSites, adapterPosition: Int)
     }*/
     inner class ViewHolder(itemView : View):RecyclerView.ViewHolder(itemView), View.OnClickListener{
-        val textViewPhoneNumber : TextView = itemView.findViewById(R.id.textViewPhoneNumber)
-        val textViewSubStatus : TextView = itemView.findViewById(R.id.textViewSubStatus)
+        /*val textViewPhoneNumber : TextView = itemView.findViewById(R.id.textViewPhoneNumber)
+        val textViewSubStatus : TextView = itemView.findViewById(R.id.textViewSubStatus)*/
 
 
         init {
@@ -35,8 +35,8 @@ class SubUnsubAdapter(private var mList: List<SubUnsubModel>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textViewPhoneNumber.text = mList[position].number
-        holder.textViewSubStatus.text = mList[position].status
+        /*holder.textViewPhoneNumber.text = mList[position].number
+        holder.textViewSubStatus.text = mList[position].status*/
     }
 
     override fun getItemCount(): Int = mList.size
