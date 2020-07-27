@@ -139,22 +139,22 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
     private fun isVerifyOTPValidated() {
         context?.let {
             when {
-                ValidationUtils.getValidationUtils().isEditTextFilledFunc(
+                !ValidationUtils.getValidationUtils().isEditTextFilledFunc(
                     mEditTextOTPOne,
                     1,
                     getString(R.string.text_error_incorrect_o_t_p)
                 ) -> return
-                ValidationUtils.getValidationUtils().isEditTextFilledFunc(
+                !ValidationUtils.getValidationUtils().isEditTextFilledFunc(
                     mEditTextOTPTwo,
                     1,
                     getString(R.string.text_error_incorrect_o_t_p)
                 ) -> return
-                ValidationUtils.getValidationUtils().isEditTextFilledFunc(
+                !ValidationUtils.getValidationUtils().isEditTextFilledFunc(
                     mEditTextOTPThree,
                     1,
                     getString(R.string.text_error_incorrect_o_t_p)
                 ) -> return
-                ValidationUtils.getValidationUtils().isEditTextFilledFunc(
+                !ValidationUtils.getValidationUtils().isEditTextFilledFunc(
                     mEditTextOTPFour,
                     1,
                     getString(R.string.text_error_incorrect_o_t_p)
@@ -254,6 +254,7 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                         })
                 }
                 else -> {
+                    mContentLoadingProgressBarVerifyOTP.visibility = View.GONE
                     AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
                 }
             }
