@@ -9,9 +9,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
 import com.sureshotdiscount.app.R
+import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
@@ -20,6 +23,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private lateinit var mNavigationViewMain: NavigationView
     private lateinit var mNavControllerMain: NavController
     private lateinit var mAppBarConfiguration: AppBarConfiguration
+
+    private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
+    private lateinit var mLoginToken: String
+    private var mDestination: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +38,18 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
         mDrawerLayoutMain = findViewById(R.id.drawerLayoutMain)
         mNavigationViewMain = findViewById(R.id.navigationViewMain)
+
+        mSharedPreferenceUtils = SharedPreferenceUtils(this@MainActivity)
+        mLoginToken = mSharedPreferenceUtils.getLoggedInUser().loginToken
+
+        mDestination = when {
+            mLoginToken.isEmpty() -> {
+                R.id.signUpFragment
+            }
+            else -> {
+                R.id.myAccountFragment
+            }
+        }
 
         mNavControllerMain = findNavController(R.id.fragmentNavHost)
         mAppBarConfiguration = AppBarConfiguration(
@@ -48,6 +67,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
         mNavigationViewMain.setupWithNavController(mNavControllerMain)
         mNavControllerMain.addOnDestinationChangedListener(this@MainActivity)
+
+        val mNavHostFragment = fragmentNavHost as NavHostFragment
+        val mGraphInflater = mNavHostFragment.navController.navInflater
+        val mNavGraph = mGraphInflater.inflate(R.navigation.sure_shot_nav_graph)
+        val mNavController = mNavHostFragment.navController
+
+        mNavGraph.startDestination = mDestination
+        mNavController.graph = mNavGraph
     }
 
     override fun onSupportNavigateUp(): Boolean {
