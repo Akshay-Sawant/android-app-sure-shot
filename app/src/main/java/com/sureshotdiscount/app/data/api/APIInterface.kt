@@ -14,6 +14,7 @@ import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 import com.sureshotdiscount.app.utils.API_VERSION
 import com.sureshotdiscount.app.utils.AUTH
+import com.sureshotdiscount.app.utils.CONTACT_US
 
 interface APIInterface {
 
@@ -82,7 +83,7 @@ interface APIInterface {
     fun getRechargeHistory(@Field("userLoginToken") userLoginToken: String): Call<List<RechargeHistoryModel>>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/ContactUs.php")
+    @POST("$CONTACT_US/contact_us_api.php")
     fun contactUs(
         @Field("userLoginToken") userLoginToken: String,
         @Field("message") message: String

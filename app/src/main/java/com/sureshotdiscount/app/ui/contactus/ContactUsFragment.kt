@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
+import androidx.core.widget.ContentLoadingProgressBar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
@@ -25,6 +26,7 @@ class ContactUsFragment : Fragment(R.layout.fragment_contact_us), View.OnClickLi
     private lateinit var mTextInputEditTextContactUsMessage: TextInputEditText
 
     private lateinit var mButtonContactUsSubmit: Button
+    private lateinit var mContentLoadingProgressBarContactUs: ContentLoadingProgressBar
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
@@ -37,6 +39,9 @@ class ContactUsFragment : Fragment(R.layout.fragment_contact_us), View.OnClickLi
 
         mButtonContactUsSubmit = view.findViewById(R.id.buttonContactUsSubmit)
         mButtonContactUsSubmit.setOnClickListener(this@ContactUsFragment)
+
+        mContentLoadingProgressBarContactUs =
+            view.findViewById(R.id.contentLoadingProgressBarContactUs)
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
@@ -55,9 +60,7 @@ class ContactUsFragment : Fragment(R.layout.fragment_contact_us), View.OnClickLi
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonContactUsSubmit -> {
-//                isContactUsValidated()
-            }
+            R.id.buttonContactUsSubmit -> isContactUsValidated()
         }
     }
 
@@ -69,6 +72,7 @@ class ContactUsFragment : Fragment(R.layout.fragment_contact_us), View.OnClickLi
                 getString(R.string.text_error_empty_field)
             ) -> return
             else -> {
+                mContentLoadingProgressBarContactUs.show()
                 onClickContactUs()
             }
         }
@@ -89,6 +93,7 @@ class ContactUsFragment : Fragment(R.layout.fragment_contact_us), View.OnClickLi
                         ) {
                             if (response.isSuccessful) {
                                 val mApiActionResponse: APIActionResponse? = response.body()
+                                mContentLoadingProgressBarContactUs.hide()
 
                                 if (mApiActionResponse != null) {
                                     if (mApiActionResponse.isActionSuccess) {
@@ -117,6 +122,11 @@ class ContactUsFragment : Fragment(R.layout.fragment_contact_us), View.OnClickLi
                                             getString(android.R.string.ok),
                                             null,
                                             DialogInterface.OnDismissListener {
+                                                mTextInputEditTextContactUsMessage.text?.clear()
+                                                view?.let {
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(it)
+                                                }
                                                 it.dismiss()
                                             }
                                         )
@@ -138,9 +148,11 @@ class ContactUsFragment : Fragment(R.layout.fragment_contact_us), View.OnClickLi
                                 call,
                                 t
                             )
+                            mContentLoadingProgressBarContactUs.hide()
                         }
                     })
             } else {
+                mContentLoadingProgressBarContactUs.hide()
                 AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
             }
         }
