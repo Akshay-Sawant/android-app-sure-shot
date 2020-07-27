@@ -211,6 +211,8 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                                 DialogInterface.OnDismissListener {
                                                     onClearVerifyOTP()
                                                     view?.let { it1 ->
+                                                        ValidationUtils.getValidationUtils()
+                                                            .hideKeyboardFunc(it1)
                                                         Navigation.findNavController(it1)
                                                             .navigate(R.id.action_verifyOTP_to_dashboard)
                                                     }

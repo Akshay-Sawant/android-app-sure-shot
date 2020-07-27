@@ -188,6 +188,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
                                                                 .trim()
                                                         )
                                                     view?.let { it1 ->
+                                                        ValidationUtils.getValidationUtils()
+                                                            .hideKeyboardFunc(it1)
                                                         Navigation.findNavController(it1)
                                                             .navigate(mSignUpAction)
                                                     }
