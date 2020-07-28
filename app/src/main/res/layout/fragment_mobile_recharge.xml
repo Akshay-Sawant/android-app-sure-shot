@@ -16,6 +16,7 @@
             android:id="@+id/contentLoadingProgressBarMobileRecharge"
             android:layout_width="@dimen/material_dimen_constraint"
             android:layout_height="wrap_content"
+            android:elevation="@dimen/material_dimen_ldpi"
             android:theme="?android:attr/progressBarStyleLarge"
             app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"

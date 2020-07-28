@@ -5,22 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
-import com.sureshotdiscount.app.ui.recharge.RechargeFragmentArgs
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
-import de.hdodenhof.circleimageview.CircleImageView
 
-/**
- * A simple [Fragment] subclass.
- */
 class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListener {
 
     private lateinit var mAppCompatImageViewPrepaidCompanyLogo: AppCompatImageView
@@ -67,11 +60,7 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
             R.id.textViewPrepaidChange -> view?.let {
                 Navigation.findNavController(it).popBackStack()
             }
-            R.id.buttonPrepaidProceed -> view?.let {
-//                isPrepaidValidated()
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_recharge_to_rechargeDetails)
-            }
+            R.id.buttonPrepaidProceed -> isPrepaidValidated()
         }
     }
 

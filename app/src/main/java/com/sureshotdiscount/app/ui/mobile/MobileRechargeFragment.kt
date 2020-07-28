@@ -92,20 +92,15 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
     }
 
     override fun onItemSelected(mPosition: MobileRechargeListModel) {
-        view?.let {
-            Navigation.findNavController(it).navigate(
-                MyAccountFragmentDirections.actionMyAccountToRecharge(
-                    mPosition.mCompanyLogoUrl,
-                    mPosition.mCompanyName
-                )
-            )
-        }
         mSharedPreferenceUtils.saveRechargeDetails(
             mPosition.mCompanyId,
             mPosition.mCompanyCode,
             mPosition.mCompanyName,
             mPosition.mCompanyLogoUrl
         )
+        view?.let {
+            Navigation.findNavController(it).navigate(R.id.action_myAccount_to_recharge)
+        }
     }
 
     private fun onLoadMobileRecharge() {
