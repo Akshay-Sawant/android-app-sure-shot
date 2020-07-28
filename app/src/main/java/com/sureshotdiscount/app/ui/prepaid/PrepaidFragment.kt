@@ -5,10 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
+import com.sureshotdiscount.app.ui.recharge.RechargeFragmentArgs
+import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -17,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView
  */
 class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListener {
 
-    private lateinit var mCircleImageViewPrepaidCompanyLogo: CircleImageView
+    private lateinit var mAppCompatImageViewPrepaidCompanyLogo: AppCompatImageView
     private lateinit var mTextViewPrepaidCompanyName: TextView
     private lateinit var mTextViewPrepaidChange: TextView
 
@@ -26,11 +32,13 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
 
     private lateinit var mButtonPrepaidProceed: Button
 
+    private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mCircleImageViewPrepaidCompanyLogo =
-            view.findViewById(R.id.circleImageViewPrepaidCompanyLogo)
+        mAppCompatImageViewPrepaidCompanyLogo =
+            view.findViewById(R.id.appCompatImageViewPrepaidCompanyLogo)
         mTextViewPrepaidCompanyName = view.findViewById(R.id.textViewPrepaidCompanyName)
         mTextViewPrepaidChange = view.findViewById(R.id.textViewPrepaidChange)
         mTextViewPrepaidChange.setOnClickListener(this@PrepaidFragment)
@@ -42,6 +50,16 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
 
         mButtonPrepaidProceed = view.findViewById(R.id.buttonPrepaidProceed)
         mButtonPrepaidProceed.setOnClickListener(this@PrepaidFragment)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onLoadCompanyDetails()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
     }
 
     override fun onClick(v: View?) {
@@ -57,13 +75,17 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
         }
     }
 
-    /*private fun onLoadPrepaid() {
-        Glide.with(this@PrepaidFragment)
-            .load("")
-            .placeholder(R.drawable.ic_launcher_foreground)
-            .into(mCircleImageViewPrepaidCompanyLogo)
-        mTextViewPrepaidCompanyName.text
-    }*/
+    private fun onLoadCompanyDetails() {
+        context?.let {
+            mSharedPreferenceUtils = SharedPreferenceUtils(it)
+
+            Glide.with(this@PrepaidFragment)
+                .load(mSharedPreferenceUtils.getRechargeCompanyLogo(it))
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(mAppCompatImageViewPrepaidCompanyLogo)
+            mTextViewPrepaidCompanyName.text = mSharedPreferenceUtils.getRechargeCompanyName(it)
+        }
+    }
 
     private fun isPrepaidValidated() {
         when {

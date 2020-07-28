@@ -12,6 +12,8 @@ import com.google.android.material.card.MaterialCardView
 import com.sureshotdiscount.app.utils.others.MiddleDividerItemDecoration
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
+import com.sureshotdiscount.app.ui.myaccount.MyAccountFragmentDirections
+import com.sureshotdiscount.app.ui.recharge.RechargeFragmentDirections
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
@@ -91,8 +93,19 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
 
     override fun onItemSelected(mPosition: MobileRechargeListModel) {
         view?.let {
-            Navigation.findNavController(it).navigate(R.id.action_dashboard_to_recharge)
+            Navigation.findNavController(it).navigate(
+                MyAccountFragmentDirections.actionMyAccountToRecharge(
+                    mPosition.mCompanyLogoUrl,
+                    mPosition.mCompanyName
+                )
+            )
         }
+        mSharedPreferenceUtils.saveRechargeDetails(
+            mPosition.mCompanyId,
+            mPosition.mCompanyCode,
+            mPosition.mCompanyName,
+            mPosition.mCompanyLogoUrl
+        )
     }
 
     private fun onLoadMobileRecharge() {

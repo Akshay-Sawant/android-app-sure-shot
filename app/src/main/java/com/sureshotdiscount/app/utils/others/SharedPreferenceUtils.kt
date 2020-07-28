@@ -39,9 +39,10 @@ class SharedPreferenceUtils(context: Context) {
 
     private val isSocialLoginKey = "isSocialLoginKey"*/
 
-    private val RECHARGE_ID = "rechargeId"
-    private val RECHARGE_COMPANY_LOGO = "rechargeCompanyLogo"
+    private val RECHARGE_COMPANY_ID = "rechargeCompanyId"
+    private val RECHARGE_COMPANY_CODE = "rechargeCompanyCode"
     private val RECHARGE_COMPANY_NAME = "rechargeCompanyName"
+    private val RECHARGE_COMPANY_LOGO = "rechargeCompanyLogo"
 
     private var mLoggedInUser: LoggedInUser
 
@@ -125,28 +126,36 @@ class SharedPreferenceUtils(context: Context) {
     }
 
     fun saveRechargeDetails(
-        mRechargeId: String,
-        mRechargeCompanyLogo: String,
-        mRechargeCompanyName: String
-    ) {
-        prefEditor.putString(RECHARGE_ID, mRechargeId)
-        prefEditor.putString(RECHARGE_COMPANY_LOGO, mRechargeCompanyLogo)
+        mRechargeCompanyId: String,
+        mRechargeCompanyCode: String,
+        mRechargeCompanyName: String,
+        mRechargeCompanyLogo: String
+    ): Boolean {
+        prefEditor.putString(RECHARGE_COMPANY_ID, mRechargeCompanyId)
+        prefEditor.putString(RECHARGE_COMPANY_CODE, mRechargeCompanyCode)
         prefEditor.putString(RECHARGE_COMPANY_NAME, mRechargeCompanyName)
+        prefEditor.putString(RECHARGE_COMPANY_LOGO, mRechargeCompanyLogo)
+        return prefEditor.commit()
     }
 
     fun getRechargeId(context: Context): String? {
         return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
-            .getString(RECHARGE_ID, "")
+            .getString(RECHARGE_COMPANY_ID, "")
     }
 
-    fun getRechargeCompanyLogo(context: Context): String? {
+    fun getRechargeCompanyCode(context: Context): String? {
         return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
-            .getString(RECHARGE_COMPANY_LOGO, "")
+            .getString(RECHARGE_COMPANY_CODE, "")
     }
 
     fun getRechargeCompanyName(context: Context): String? {
         return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
             .getString(RECHARGE_COMPANY_NAME, "")
+    }
+
+    fun getRechargeCompanyLogo(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(RECHARGE_COMPANY_LOGO, "")
     }
 
     /**

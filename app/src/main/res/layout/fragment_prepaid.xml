@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/material_dimen_small_hdpi">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circleImageViewPrepaidCompanyLogo"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageViewPrepaidCompanyLogo"
                     android:layout_width="60dp"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
