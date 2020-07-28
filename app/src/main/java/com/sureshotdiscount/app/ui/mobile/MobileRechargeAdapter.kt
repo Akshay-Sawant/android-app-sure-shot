@@ -13,12 +13,12 @@ import kotlinx.android.synthetic.main.rv_mobile_recharge.view.*
 class MobileRechargeAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mMobileRechargeModelList: List<MobileRechargeModel>,
+    private var mMobileRechargeListModelList: List<MobileRechargeListModel>,
     private val onItemSelectedListener: OnItemSelectedListener
 ) : RecyclerView.Adapter<MobileRechargeAdapter.MobileRechargeViewHolder>() {
 
     interface OnItemSelectedListener {
-        fun onItemSelected(mPosition: MobileRechargeModel)
+        fun onItemSelected(mPosition: MobileRechargeListModel)
     }
 
     inner class MobileRechargeViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
@@ -31,7 +31,7 @@ class MobileRechargeAdapter(
         }
 
         override fun onClick(view: View?) {
-            onItemSelectedListener.onItemSelected(mMobileRechargeModelList[adapterPosition])
+            onItemSelectedListener.onItemSelected(mMobileRechargeListModelList[adapterPosition])
         }
     }
 
@@ -47,15 +47,15 @@ class MobileRechargeAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mMobileRechargeModelList.size
+        return mMobileRechargeListModelList.size
     }
 
     override fun onBindViewHolder(holder: MobileRechargeViewHolder, position: Int) {
         Glide.with(holder.itemView.context)
-            .load(mMobileRechargeModelList[position].mCompanyLogoUrl)
+            .load(mMobileRechargeListModelList[position].mCompanyLogoUrl)
             .error(R.drawable.ic_launcher_background)
-            .into(holder.itemView.circleImageViewMobileRechargeCompanyLogo)
+            .into(holder.itemView.appCompatImageViewMobileRechargeCompanyLogo)
         holder.itemView.textViewMobileRechargeCompanyName.text =
-            mMobileRechargeModelList[position].mCompanyName
+            mMobileRechargeListModelList[position].mCompanyName
     }
 }

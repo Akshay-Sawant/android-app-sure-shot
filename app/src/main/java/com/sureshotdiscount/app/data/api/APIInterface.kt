@@ -15,6 +15,7 @@ import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 import com.sureshotdiscount.app.utils.API_VERSION
 import com.sureshotdiscount.app.utils.AUTH
 import com.sureshotdiscount.app.utils.CONTACT_US
+import com.sureshotdiscount.app.utils.RECHARGE_DATA
 
 interface APIInterface {
 
@@ -71,8 +72,8 @@ interface APIInterface {
     ): Call<APIActionResponse>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/MobileRechargeCompany.php")
-    fun getMobileRechargeCompany(@Field("userLoginToken") userLoginToken: String): Call<List<MobileRechargeModel>>
+    @POST("$RECHARGE_DATA/operator_list.php")
+    fun getMobileRechargeCompany(@Field("userLoginToken") userLoginToken: String): Call<MobileRechargeModel>
 
     @FormUrlEncoded
     @POST("$API_VERSION/DTHCompany.php")

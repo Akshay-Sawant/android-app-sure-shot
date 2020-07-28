@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
@@ -14,6 +15,8 @@ import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
+import com.sureshotdiscount.app.utils.others.ValidationUtils
+import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,10 +28,15 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
     private lateinit var mMaterialCardMobileRecharge: MaterialCardView
     private lateinit var mRecyclerViewMobileRecharge: RecyclerView
     private lateinit var mMobileRechargeAdapter: MobileRechargeAdapter
-    private var mMobileRechargeModelList: ArrayList<MobileRechargeModel> = ArrayList()
+    private var mMobileRechargeListModelList: ArrayList<MobileRechargeListModel> = ArrayList()
 
+    private lateinit var mTextViewMobileRechargeSubscriptionPlan: TextView
     private lateinit var mImageViewMobileRechargeSubscriptionPlan: ImageView
+
+    private lateinit var mTextViewMobileRechargeReferEarn: TextView
     private lateinit var mImageViewMobileRechargeReferEarn: ImageView
+
+    private lateinit var mContentLoadingProgressBarMobileRecharge: ContentLoadingProgressBar
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
@@ -43,36 +51,29 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
 
         mRecyclerViewMobileRecharge = view.findViewById(R.id.recyclerViewMobileRecharge)
 
-        mMobileRechargeModelList.clear()
-        mMobileRechargeAdapter = context?.let {
-            MobileRechargeAdapter(
-                it,
-                R.layout.rv_mobile_recharge,
-                mMobileRechargeModelList,
-                this
-            )
-        }!!
-        mRecyclerViewMobileRecharge.addItemDecoration(
-            MiddleDividerItemDecoration(
-                requireContext(),
-                MiddleDividerItemDecoration.ALL
-            )
-        )
-        mRecyclerViewMobileRecharge.adapter = mMobileRechargeAdapter
-        mMobileRechargeAdapter.notifyDataSetChanged()
-
+        mTextViewMobileRechargeSubscriptionPlan =
+            view.findViewById(R.id.textViewMobileRechargeSubscriptionPlan)
         mImageViewMobileRechargeSubscriptionPlan =
             view.findViewById(R.id.imageViewMobileRechargeSubscriptionPlan)
         mImageViewMobileRechargeSubscriptionPlan.setOnClickListener(this@MobileRechargeFragment)
 
+        mTextViewMobileRechargeReferEarn = view.findViewById(R.id.textViewMobileRechargeReferEarn)
         mImageViewMobileRechargeReferEarn = view.findViewById(R.id.imageViewMobileRechargeReferEarn)
         mImageViewMobileRechargeReferEarn.setOnClickListener(this@MobileRechargeFragment)
+
+        mContentLoadingProgressBarMobileRecharge =
+            view.findViewById(R.id.contentLoadingProgressBarMobileRecharge)
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
         }
+    }
 
-        onLoadSimCompany()
+    override fun onResume() {
+        super.onResume()
+        view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
+        mContentLoadingProgressBarMobileRecharge.visibility = View.VISIBLE
+        onLoadMobileRecharge()
     }
 
     override fun onClick(v: View?) {
@@ -88,58 +89,13 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
         }
     }
 
-    override fun onItemSelected(mPosition: MobileRechargeModel) {
+    override fun onItemSelected(mPosition: MobileRechargeListModel) {
         view?.let {
             Navigation.findNavController(it).navigate(R.id.action_dashboard_to_recharge)
         }
     }
 
-    private fun onLoadSimCompany() {
-        mMobileRechargeModelList.add(
-            MobileRechargeModel(
-                "1",
-                "Airtel",
-                R.drawable.airtel
-            )
-        )
-        mMobileRechargeModelList.add(
-            MobileRechargeModel(
-                "2",
-                "Jio",
-                R.drawable.jio
-            )
-        )
-        mMobileRechargeModelList.add(
-            MobileRechargeModel(
-                "3",
-                "BSNL",
-                R.drawable.bsnllogo
-            )
-        )
-        mMobileRechargeModelList.add(
-            MobileRechargeModel(
-                "4",
-                "idea",
-                R.drawable.idea
-            )
-        )
-        mMobileRechargeModelList.add(
-            MobileRechargeModel(
-                "5",
-                "vodafone",
-                R.drawable.vodafone
-            )
-        )
-        mMobileRechargeModelList.add(
-            MobileRechargeModel(
-                "6",
-                "Tata",
-                R.drawable.tata
-            )
-        )
-    }
-
-    private fun getSimCompany() {
+    private fun onLoadMobileRecharge() {
         context?.let {
             when {
                 APIClient.isNetworkConnected(it) -> {
@@ -147,47 +103,75 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
                         .getMobileRechargeCompany(
                             mSharedPreferenceUtils.getLoggedInUser().loginToken
                         )
-                        .enqueue(object : Callback<List<MobileRechargeModel>> {
+                        .enqueue(object : Callback<MobileRechargeModel> {
                             override fun onResponse(
-                                call: Call<List<MobileRechargeModel>>,
-                                response: Response<List<MobileRechargeModel>>
+                                call: Call<MobileRechargeModel>,
+                                response: Response<MobileRechargeModel>
                             ) {
                                 if (response.isSuccessful) {
-                                    val mMobileRechargeModel: List<MobileRechargeModel>? = response.body()
+                                    val mMobileRechargeModel: MobileRechargeModel? =
+                                        response.body()
+                                    mContentLoadingProgressBarMobileRecharge.visibility = View.GONE
 
-                                    if (mMobileRechargeModel.isNullOrEmpty()) {
-                                        mTextViewMobileRechargeNoDataFound.visibility = View.VISIBLE
-                                        mMaterialCardMobileRecharge.visibility = View.GONE
+                                    if (mMobileRechargeModel != null) {
+                                        if (mMobileRechargeModel.mResponse.isNullOrEmpty()) {
+                                            mTextViewMobileRechargeNoDataFound.visibility =
+                                                View.VISIBLE
+                                            mMaterialCardMobileRecharge.visibility = View.GONE
+                                            mTextViewMobileRechargeSubscriptionPlan.visibility =
+                                                View.GONE
+                                            mImageViewMobileRechargeSubscriptionPlan.visibility =
+                                                View.GONE
+                                            mTextViewMobileRechargeReferEarn.visibility = View.GONE
+                                            mImageViewMobileRechargeReferEarn.visibility = View.GONE
+                                        } else {
+                                            mTextViewMobileRechargeNoDataFound.visibility =
+                                                View.GONE
+                                            mMaterialCardMobileRecharge.visibility = View.VISIBLE
+                                            mTextViewMobileRechargeSubscriptionPlan.visibility =
+                                                View.VISIBLE
+                                            mImageViewMobileRechargeSubscriptionPlan.visibility =
+                                                View.VISIBLE
+                                            mTextViewMobileRechargeReferEarn.visibility =
+                                                View.VISIBLE
+                                            mImageViewMobileRechargeReferEarn.visibility =
+                                                View.VISIBLE
+
+                                            mMobileRechargeListModelList =
+                                                mMobileRechargeModel.mResponse as ArrayList<MobileRechargeListModel>
+
+                                            mMobileRechargeAdapter = context?.let {
+                                                MobileRechargeAdapter(
+                                                    it,
+                                                    R.layout.rv_mobile_recharge,
+                                                    mMobileRechargeListModelList,
+                                                    this@MobileRechargeFragment
+                                                )
+                                            }!!
+                                            mRecyclerViewMobileRecharge.addItemDecoration(
+                                                MiddleDividerItemDecoration(
+                                                    requireContext(),
+                                                    MiddleDividerItemDecoration.ALL
+                                                )
+                                            )
+                                            mRecyclerViewMobileRecharge.adapter =
+                                                mMobileRechargeAdapter
+                                            mMobileRechargeAdapter.notifyDataSetChanged()
+                                        }
                                     } else {
-                                        mTextViewMobileRechargeNoDataFound.visibility = View.GONE
-                                        mMaterialCardMobileRecharge.visibility = View.VISIBLE
-
-                                        mMobileRechargeModelList =
-                                            mMobileRechargeModel as ArrayList<MobileRechargeModel>
-
-                                        mMobileRechargeModelList.clear()
-                                        mMobileRechargeAdapter = context?.let {
-                                            MobileRechargeAdapter(
-                                                it,
-                                                R.layout.rv_mobile_recharge,
-                                                mMobileRechargeModelList,
-                                                this@MobileRechargeFragment
-                                            )
-                                        }!!
-                                        mRecyclerViewMobileRecharge.addItemDecoration(
-                                            MiddleDividerItemDecoration(
-                                                requireContext(),
-                                                MiddleDividerItemDecoration.ALL
-                                            )
+                                        ErrorUtils.logNetworkError(
+                                            ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                    "\nResponse: " + response.toString(),
+                                            null
                                         )
-                                        mRecyclerViewMobileRecharge.adapter = mMobileRechargeAdapter
-                                        mMobileRechargeAdapter.notifyDataSetChanged()
+                                        AlertDialogUtils.getInstance()
+                                            .displayInvalidResponseAlert(it)
                                     }
                                 }
                             }
 
                             override fun onFailure(
-                                call: Call<List<MobileRechargeModel>>,
+                                call: Call<MobileRechargeModel>,
                                 t: Throwable
                             ) {
                                 ErrorUtils.parseOnFailureException(
@@ -195,10 +179,12 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
                                     call,
                                     t
                                 )
+                                mContentLoadingProgressBarMobileRecharge.visibility = View.GONE
                             }
                         })
                 }
                 else -> {
+                    mContentLoadingProgressBarMobileRecharge.visibility = View.GONE
                     AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
                 }
             }
