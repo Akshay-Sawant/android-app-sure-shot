@@ -23,21 +23,6 @@ class SharedPreferenceUtils(context: Context) {
     private val LOGIN_USER_MOBILE_NUMBER_KEY = "mobileNumber"
     private val LOGIN_USER_EMAIL_ID_KEY = "emailId"
     private val LOGIN_USER_REFERRAL_ID_KEY = "referralId"
-    /*private val LOGIN_USER_ID_KEY = "userId"
-    private val LOGIN_USERNAME_KEY = "userName"
-    private val LOGIN_USER_FULL_NAME_KEY = "userFullName"
-
-    private val LOGIN_USER_MOBILE_COUNTRY_CODE_KEY = "userMobileCountryCode"
-    private val LOGIN_USER_MOBILE_KEY = "userMobile"
-    private val LOGIN_IS_MOBILE_VERIFIED_KEY = "isMobileVerified"
-
-    private val LOGIN_USER_EMAIL_KEY = "userEmail"
-    private val LOGIN_IS_EMAIL_VERIFIED_KEY = "isEmailVerified"
-
-    private val LOGIN_USER_PROFILE_IMAGE_KEY = "userProfileImage"
-    private val LOGIN_USER_REFERRAL_ID_KEY = "referralId"
-
-    private val isSocialLoginKey = "isSocialLoginKey"*/
 
     private val RECHARGE_COMPANY_ID = "rechargeCompanyId"
     private val RECHARGE_COMPANY_CODE = "rechargeCompanyCode"
@@ -62,19 +47,6 @@ class SharedPreferenceUtils(context: Context) {
         mLoggedInUser.mobileNumber = prefs.getString(LOGIN_USER_MOBILE_NUMBER_KEY, "").toString()
         mLoggedInUser.emailid = prefs.getString(LOGIN_USER_EMAIL_ID_KEY, "").toString()
         mLoggedInUser.referralid = prefs.getString(LOGIN_USER_REFERRAL_ID_KEY, "").toString()
-        /*mLoggedInUser.userId = prefs.getString(LOGIN_USER_ID_KEY, "").toString()
-        mLoggedInUser.userName = prefs.getString(LOGIN_USERNAME_KEY, "").toString()
-        mLoggedInUser.fullName = prefs.getString(LOGIN_USER_FULL_NAME_KEY, "").toString()
-        mLoggedInUser.countryCode =
-            prefs.getString(LOGIN_USER_MOBILE_COUNTRY_CODE_KEY, "").toString()
-        mLoggedInUser.mobile = prefs.getString(LOGIN_USER_MOBILE_KEY, "").toString()
-        mLoggedInUser.isMobileVerified = prefs.getBoolean(LOGIN_IS_MOBILE_VERIFIED_KEY, false)
-        mLoggedInUser.email = prefs.getString(LOGIN_USER_EMAIL_KEY, "").toString()
-        mLoggedInUser.isEmailVerified = prefs.getBoolean(LOGIN_IS_EMAIL_VERIFIED_KEY, false)
-        mLoggedInUser.profileImage = prefs.getString(LOGIN_USER_PROFILE_IMAGE_KEY, "").toString()
-        mLoggedInUser.referralId = prefs.getString(LOGIN_USER_REFERRAL_ID_KEY, "").toString()
-
-        mLoggedInUser.isSocialLogin = prefs.getBoolean(isSocialLoginKey, false)*/
     }
 
     constructor(context: Context, loggedInUser: LoggedInUser) : this(context) {
@@ -105,18 +77,6 @@ class SharedPreferenceUtils(context: Context) {
         prefEditor.putString(LOGIN_USER_MOBILE_NUMBER_KEY, mLoggedInUser.mobileNumber)
         prefEditor.putString(LOGIN_USER_EMAIL_ID_KEY, mLoggedInUser.emailid)
         prefEditor.putString(LOGIN_USER_REFERRAL_ID_KEY, mLoggedInUser.referralid)
-        /*prefEditor.putString(LOGIN_USER_ID_KEY, mLoggedInUser.userId)
-        prefEditor.putString(LOGIN_USERNAME_KEY, mLoggedInUser.userName)
-        prefEditor.putString(LOGIN_USER_FULL_NAME_KEY, mLoggedInUser.fullName)
-        prefEditor.putString(LOGIN_USER_MOBILE_COUNTRY_CODE_KEY, mLoggedInUser.countryCode)
-        prefEditor.putString(LOGIN_USER_MOBILE_KEY, mLoggedInUser.mobile)
-        prefEditor.putBoolean(LOGIN_IS_MOBILE_VERIFIED_KEY, mLoggedInUser.isMobileVerified)
-        prefEditor.putString(LOGIN_USER_EMAIL_KEY, mLoggedInUser.email)
-        prefEditor.putBoolean(LOGIN_IS_EMAIL_VERIFIED_KEY, mLoggedInUser.isEmailVerified)
-        prefEditor.putString(LOGIN_USER_PROFILE_IMAGE_KEY, mLoggedInUser.profileImage)
-        prefEditor.putString(LOGIN_USER_REFERRAL_ID_KEY, mLoggedInUser.referralId)
-
-        prefEditor.putBoolean(isSocialLoginKey, mLoggedInUser.isSocialLogin)*/
         return prefEditor.commit()
     }
 

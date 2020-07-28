@@ -42,6 +42,8 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
     private var mLocationArrayList = ArrayList<String>()
     private var mLocationCodeArrayList = ArrayList<String>()
     private var mCircleModelListModelList: ArrayList<CircleListModel> = ArrayList()
+    private lateinit var mSelectedLocationName: String
+    private lateinit var mSelectedLocationCode: String
 
     private lateinit var mButtonPostPaidProceed: Button
 
@@ -71,6 +73,10 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
 
         mContentLoadingProgressBarPostpaid =
             view.findViewById(R.id.contentLoadingProgressBarPostpaid)
+
+        context?.let {
+            mSharedPreferenceUtils = SharedPreferenceUtils(it)
+        }
     }
 
     override fun onResume() {
@@ -108,11 +114,14 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
                     position: Int,
                     id: Long
                 ) {
+                    mSelectedLocationName = mLocationArrayList[position]
+                    mSelectedLocationCode = mLocationCodeArrayList[position]
                     when (mAppCompatSpinnerPostpaidLocation.selectedItemPosition) {
                         0 -> {
                             mButtonPostPaidProceed.visibility = View.GONE
                         }
                         else -> {
+                            mSharedPreferenceUtils.saveRechargeCircleCode(mSelectedLocationCode)
                             mButtonPostPaidProceed.visibility = View.VISIBLE
                         }
                     }
@@ -122,8 +131,6 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
 
     private fun onLoadCompanyDetails() {
         context?.let {
-            mSharedPreferenceUtils = SharedPreferenceUtils(it)
-
             Glide.with(it)
                 .load(mSharedPreferenceUtils.getRechargeCompanyLogo(it))
                 .placeholder(R.drawable.launcher_white)
