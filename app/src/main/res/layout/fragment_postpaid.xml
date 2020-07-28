@@ -28,12 +28,12 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/material_dimen_small_hdpi">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circleImageViewPostPaidCompanyLogo"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageViewPostPaidCompanyLogo"
                     android:layout_width="60dp"
                     android:layout_height="0dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/idea"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/launcher_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="4:3"
                     app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
                     android:textAppearance="@android:style/TextAppearance.Medium"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/textViewPostPaidChange"
-                    app:layout_constraintStart_toEndOf="@id/circleImageViewPostPaidCompanyLogo"
+                    app:layout_constraintStart_toEndOf="@id/appCompatImageViewPostPaidCompanyLogo"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
