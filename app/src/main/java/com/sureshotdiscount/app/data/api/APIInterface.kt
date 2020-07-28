@@ -8,6 +8,7 @@ import retrofit2.http.*
 import com.sureshotdiscount.app.ui.dth.DTHModel
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
 import com.sureshotdiscount.app.ui.plans.PlansModel
+import com.sureshotdiscount.app.ui.prepaid.CircleModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 import com.sureshotdiscount.app.ui.referralslist.LevelsModel
 import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
@@ -112,4 +113,8 @@ interface APIInterface {
         @Field("userLoginToken") userLoginToken: String,
         @Field("levelId") levelId: String
     ): Call<LevelsModel>
+
+    @FormUrlEncoded
+    @POST("$RECHARGE_DATA/circle_list.php")
+    fun getCircleList(@Field("userLoginToken") userLoginToken: String): Call<CircleModel>
 }

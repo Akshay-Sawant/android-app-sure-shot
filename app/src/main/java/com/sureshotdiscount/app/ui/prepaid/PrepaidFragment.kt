@@ -1,20 +1,30 @@
 package com.sureshotdiscount.app.ui.prepaid
 
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
+import com.sureshotdiscount.app.data.api.APIClient
+import com.sureshotdiscount.app.utils.error.ErrorUtils
+import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
+import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListener {
 
@@ -26,8 +36,14 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
     private lateinit var mTextInputEditTextPrepaidMobileNumber: TextInputEditText
 
     private lateinit var mAppCompatSpinnerPrepaidLocation: AppCompatSpinner
+    private lateinit var mLocationAdapter: ArrayAdapter<String>
+    private var mLocationArrayList = ArrayList<String>()
+    private var mLocationCodeArrayList = ArrayList<String>()
+    private var mCircleModelListModelList: ArrayList<CircleListModel> = ArrayList()
 
     private lateinit var mButtonPrepaidProceed: Button
+
+    private lateinit var mContentLoadingProgressBarPrepaid: ContentLoadingProgressBar
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
@@ -50,12 +66,16 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
 
         mButtonPrepaidProceed = view.findViewById(R.id.buttonPrepaidProceed)
         mButtonPrepaidProceed.setOnClickListener(this@PrepaidFragment)
+
+        mContentLoadingProgressBarPrepaid = view.findViewById(R.id.contentLoadingProgressBarPrepaid)
     }
 
     override fun onResume() {
         super.onResume()
-        onSelectItemFromSpinner()
+        mContentLoadingProgressBarPrepaid.show()
         onLoadCompanyDetails()
+        onSelectItemFromSpinner()
+        onLoadLocation()
     }
 
     override fun onDetach() {
@@ -87,10 +107,10 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
                 ) {
                     when (mAppCompatSpinnerPrepaidLocation.selectedItemPosition) {
                         0 -> {
-                            mButtonPrepaidProceed.isEnabled = false
+                            mButtonPrepaidProceed.visibility = View.GONE
                         }
                         else -> {
-                            mButtonPrepaidProceed.isEnabled = true
+                            mButtonPrepaidProceed.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -125,6 +145,92 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
                 view?.let {
                     Navigation.findNavController(it)
                         .navigate(R.id.action_recharge_to_rechargeDetails)
+                }
+            }
+        }
+    }
+
+    private fun onLoadLocation() {
+        context?.let { it ->
+            when {
+                APIClient.isNetworkConnected(it) -> {
+                    APIClient.apiInterface
+                        .getCircleList(mSharedPreferenceUtils.getLoggedInUser().loginToken)
+                        .enqueue(object : Callback<CircleModel> {
+                            override fun onResponse(
+                                call: Call<CircleModel>,
+                                response: Response<CircleModel>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val mCircleModel: CircleModel? = response.body()
+                                    mContentLoadingProgressBarPrepaid.hide()
+
+                                    if (mCircleModel != null) {
+                                        if (mCircleModel.mStatus) {
+                                            mCircleModelListModelList =
+                                                mCircleModel.mResponse as ArrayList<CircleListModel>
+                                            mLocationArrayList.add(
+                                                0,
+                                                getString(R.string.text_label_location)
+                                            )
+                                            mLocationCodeArrayList.add(
+                                                0,
+                                                getString(R.string.text_label_location)
+                                            )
+                                            for (mItem in mCircleModel.mResponse.indices) {
+                                                mLocationArrayList.add(mCircleModelListModelList[mItem].mCircleName)
+                                                mLocationCodeArrayList.add(mCircleModelListModelList[mItem].mCircleCode)
+                                            }
+                                            mLocationAdapter = ArrayAdapter(
+                                                it,
+                                                android.R.layout.simple_spinner_dropdown_item,
+                                                mLocationArrayList
+                                            )
+                                            mLocationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                                            mAppCompatSpinnerPrepaidLocation.adapter =
+                                                mLocationAdapter
+                                            mLocationAdapter.notifyDataSetChanged()
+                                        } else {
+                                            AlertDialogUtils.getInstance().showAlert(
+                                                it,
+                                                R.drawable.ic_warning_black,
+                                                "Invalid credentials",
+                                                "Your token has been expired. Please do re-login to proceed",
+                                                getString(android.R.string.ok),
+                                                null,
+                                                DialogInterface.OnDismissListener {
+                                                    it.dismiss()
+                                                }
+                                            )
+                                        }
+                                    } else {
+                                        ErrorUtils.logNetworkError(
+                                            ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                    "\nResponse: " + response.toString(),
+                                            null
+                                        )
+                                        AlertDialogUtils.getInstance()
+                                            .displayInvalidResponseAlert(it)
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(
+                                call: Call<CircleModel>,
+                                t: Throwable
+                            ) {
+                                ErrorUtils.parseOnFailureException(
+                                    it,
+                                    call,
+                                    t
+                                )
+                                mContentLoadingProgressBarPrepaid.hide()
+                            }
+                        })
+                }
+                else -> {
+                    mContentLoadingProgressBarPrepaid.hide()
+                    AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
                 }
             }
         }
