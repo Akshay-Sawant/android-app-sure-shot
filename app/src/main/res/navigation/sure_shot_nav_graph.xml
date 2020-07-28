@@ -43,7 +43,7 @@
             app:destination="@id/referEarnFragment"
             app:popUpTo="@id/myAccountFragment" />
         <action
-            android:id="@+id/action_dashboard_to_recharge"
+            android:id="@+id/action_myAccount_to_recharge"
             app:destination="@id/rechargeFragment"
             app:popUpTo="@id/myAccountFragment" />
         <action

@@ -90,7 +90,7 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
 
     override fun onItemSelected(mView: View, mPosition: DTHModel) {
         view?.let {
-            Navigation.findNavController(it).navigate(R.id.action_dashboard_to_recharge)
+            Navigation.findNavController(it).navigate(R.id.action_myAccount_to_recharge)
         }
     }
 
