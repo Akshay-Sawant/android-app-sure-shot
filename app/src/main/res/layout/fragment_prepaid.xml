@@ -32,7 +32,7 @@
                     android:id="@+id/appCompatImageViewPrepaidCompanyLogo"
                     android:layout_width="60dp"
                     android:layout_height="0dp"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/idea"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="4:3"

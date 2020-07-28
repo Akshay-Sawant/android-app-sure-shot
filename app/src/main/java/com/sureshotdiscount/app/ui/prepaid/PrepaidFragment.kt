@@ -85,7 +85,10 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
                     getString(R.string.text_error_mobile)
                 ) -> return
             else -> {
-                mSharedPreferenceUtils.saveRechargeType(getString(R.string.text_label_prepaid))
+                mSharedPreferenceUtils.saveRechargeMobileNumber(
+                    mTextInputEditTextPrepaidMobileNumber.text.toString().trim()
+                )
+                mSharedPreferenceUtils.saveRechargeType("Prepaid")
                 view?.let {
                     Navigation.findNavController(it)
                         .navigate(R.id.action_recharge_to_rechargeDetails)
