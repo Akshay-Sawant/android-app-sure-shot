@@ -3,9 +3,11 @@ package com.sureshotdiscount.app.ui.prepaid
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
@@ -22,6 +24,8 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
 
     private lateinit var mTextInputLayoutPrepaidMobileNumber: TextInputLayout
     private lateinit var mTextInputEditTextPrepaidMobileNumber: TextInputEditText
+
+    private lateinit var mAppCompatSpinnerPrepaidLocation: AppCompatSpinner
 
     private lateinit var mButtonPrepaidProceed: Button
 
@@ -41,12 +45,16 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
         mTextInputEditTextPrepaidMobileNumber =
             view.findViewById(R.id.textInputEditTextPrepaidMobileNumber)
 
+        mAppCompatSpinnerPrepaidLocation = view.findViewById(R.id.appCompatSpinnerPrepaidLocation)
+        mAppCompatSpinnerPrepaidLocation.tag = getString(R.string.text_label_location)
+
         mButtonPrepaidProceed = view.findViewById(R.id.buttonPrepaidProceed)
         mButtonPrepaidProceed.setOnClickListener(this@PrepaidFragment)
     }
 
     override fun onResume() {
         super.onResume()
+        onSelectItemFromSpinner()
         onLoadCompanyDetails()
     }
 
@@ -62,6 +70,31 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
             }
             R.id.buttonPrepaidProceed -> isPrepaidValidated()
         }
+    }
+
+    private fun onSelectItemFromSpinner() {
+        mAppCompatSpinnerPrepaidLocation.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    when (mAppCompatSpinnerPrepaidLocation.selectedItemPosition) {
+                        0 -> {
+                            mButtonPrepaidProceed.isEnabled = false
+                        }
+                        else -> {
+                            mButtonPrepaidProceed.isEnabled = true
+                        }
+                    }
+                }
+            }
     }
 
     private fun onLoadCompanyDetails() {
