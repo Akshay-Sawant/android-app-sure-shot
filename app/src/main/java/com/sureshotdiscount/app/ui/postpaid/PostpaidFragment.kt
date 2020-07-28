@@ -59,11 +59,7 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
             R.id.textViewPostPaidChange -> view?.let {
                 Navigation.findNavController(it).popBackStack()
             }
-            R.id.buttonPostPaidProceed -> view?.let {
-//                isPostpaidValidated()
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_recharge_to_rechargeDetails)
-            }
+            R.id.buttonPostPaidProceed -> isPostpaidValidated()
         }
     }
 
@@ -88,6 +84,10 @@ class PostpaidFragment : Fragment(R.layout.fragment_postpaid), View.OnClickListe
                     getString(R.string.text_error_mobile)
                 ) -> return
             else -> {
+                mSharedPreferenceUtils.saveRechargeMobileNumber(
+                    mTextInputEditTextPostPaidMobileNumber.text.toString().trim()
+                )
+                mSharedPreferenceUtils.saveRechargeType(getString(R.string.text_label_postpaid))
                 view?.let {
                     Navigation.findNavController(it)
                         .navigate(R.id.action_recharge_to_rechargeDetails)
