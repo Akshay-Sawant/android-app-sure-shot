@@ -68,6 +68,18 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/appCompatSpinnerPostpaidLocation"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="@dimen/material_dimen_mdpi"
+            android:background="@drawable/spinner_bg"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/materialCardViewPostPaid" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutPostPaidMobileNumber"
             style="@style/AppTheme.TextInputLayout"
@@ -77,7 +89,7 @@
             app:hintTextAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/materialCardViewPostPaid">
+            app:layout_constraintTop_toBottomOf="@id/appCompatSpinnerPostpaidLocation">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextPostPaidMobileNumber"
@@ -99,11 +111,23 @@
             android:layout_marginTop="@dimen/standard_margin_x2"
             android:layout_marginEnd="@dimen/standard_margin_x2"
             android:text="@string/button_proceed"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/textInputLayoutPostPaidMobileNumber"
             app:layout_constraintVertical_bias="0" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/contentLoadingProgressBarPostpaid"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:theme="?android:attr/progressBarStyleLarge"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"
