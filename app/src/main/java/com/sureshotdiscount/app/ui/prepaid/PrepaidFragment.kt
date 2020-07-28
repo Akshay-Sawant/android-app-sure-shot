@@ -4,10 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.widget.ContentLoadingProgressBar
@@ -40,6 +37,8 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
     private var mLocationArrayList = ArrayList<String>()
     private var mLocationCodeArrayList = ArrayList<String>()
     private var mCircleModelListModelList: ArrayList<CircleListModel> = ArrayList()
+    private lateinit var mSelectedLocationName: String
+    private lateinit var mSelectedLocationCode: String
 
     private lateinit var mButtonPrepaidProceed: Button
 
@@ -68,6 +67,10 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
         mButtonPrepaidProceed.setOnClickListener(this@PrepaidFragment)
 
         mContentLoadingProgressBarPrepaid = view.findViewById(R.id.contentLoadingProgressBarPrepaid)
+
+        context?.let {
+            mSharedPreferenceUtils = SharedPreferenceUtils(it)
+        }
     }
 
     override fun onResume() {
@@ -105,11 +108,14 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
                     position: Int,
                     id: Long
                 ) {
+                    mSelectedLocationName = mLocationArrayList[position]
+                    mSelectedLocationCode = mLocationCodeArrayList[position]
                     when (mAppCompatSpinnerPrepaidLocation.selectedItemPosition) {
                         0 -> {
                             mButtonPrepaidProceed.visibility = View.GONE
                         }
                         else -> {
+                            mSharedPreferenceUtils.saveRechargeCircleCode(mSelectedLocationCode)
                             mButtonPrepaidProceed.visibility = View.VISIBLE
                         }
                     }
@@ -119,8 +125,6 @@ class PrepaidFragment : Fragment(R.layout.fragment_prepaid), View.OnClickListene
 
     private fun onLoadCompanyDetails() {
         context?.let {
-            mSharedPreferenceUtils = SharedPreferenceUtils(it)
-
             Glide.with(this@PrepaidFragment)
                 .load(mSharedPreferenceUtils.getRechargeCompanyLogo(it))
                 .placeholder(R.drawable.ic_launcher_foreground)
