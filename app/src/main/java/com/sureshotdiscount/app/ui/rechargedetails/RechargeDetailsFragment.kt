@@ -1,6 +1,7 @@
 package com.sureshotdiscount.app.ui.rechargedetails
 
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
@@ -13,6 +14,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
+import java.nio.Buffer
 
 class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), View.OnClickListener {
 
@@ -107,6 +109,12 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
             mTextViewRechargeDetailsRechargeType.text = mSharedPreferenceUtils.getRechargeType(it)
             mTextViewRechargeDetailsMobileNumber.text =
                 mSharedPreferenceUtils.getRechargeMobileNumber(it)
+            mTextInputEditTextRechargeDetailsEnterAmount.setText(
+                getString(
+                    R.string.text_label_rupees,
+                    mSharedPreferenceUtils.getRechargeAmount(it)
+                ), TextView.BufferType.EDITABLE
+            )
         }
     }
 
