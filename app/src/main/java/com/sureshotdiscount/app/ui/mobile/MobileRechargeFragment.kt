@@ -12,8 +12,6 @@ import com.google.android.material.card.MaterialCardView
 import com.sureshotdiscount.app.utils.others.MiddleDividerItemDecoration
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
-import com.sureshotdiscount.app.ui.myaccount.MyAccountFragmentDirections
-import com.sureshotdiscount.app.ui.recharge.RechargeFragmentDirections
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
