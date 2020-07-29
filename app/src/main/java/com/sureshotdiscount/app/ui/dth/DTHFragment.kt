@@ -92,6 +92,8 @@ class DTHFragment : Fragment(R.layout.fragment_d_t_h), View.OnClickListener,
             mPosition.mCompanyName,
             mPosition.mCompanyLogoUrl
         )
+        mSharedPreferenceUtils.saveRechargeType(getString(R.string.text_label_dth))
+        mSharedPreferenceUtils.saveIsMobileRecharge(false)
         view?.let {
             Navigation.findNavController(it).navigate(R.id.action_myAccount_to_recharge)
         }

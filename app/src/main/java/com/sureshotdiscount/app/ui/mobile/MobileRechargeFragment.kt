@@ -96,6 +96,8 @@ class MobileRechargeFragment : Fragment(R.layout.fragment_mobile_recharge), View
             mPosition.mCompanyName,
             mPosition.mCompanyLogoUrl
         )
+        mSharedPreferenceUtils.saveRechargeType(getString(R.string.text_label_mobile))
+        mSharedPreferenceUtils.saveIsMobileRecharge(true)
         view?.let {
             Navigation.findNavController(it).navigate(R.id.action_myAccount_to_recharge)
         }

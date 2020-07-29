@@ -33,6 +33,8 @@ class SharedPreferenceUtils(context: Context) {
     private val RECHARGE_CIRCLE_CODE = "rechargeCircleCode"
     private val RECHARGE_AMOUNT = "rechargeAmount"
 
+    private val IS_MOBILE_RECHARGE = "isMobileRecharge"
+
     private var mLoggedInUser: LoggedInUser
 
     private var prefEditor =
@@ -160,6 +162,16 @@ class SharedPreferenceUtils(context: Context) {
     fun getRechargeAmount(context: Context): String? {
         return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
             .getString(RECHARGE_AMOUNT, "0")
+    }
+
+    fun saveIsMobileRecharge(mIsMobileRecharge: Boolean): Boolean {
+        prefEditor.putBoolean(IS_MOBILE_RECHARGE, mIsMobileRecharge)
+        return prefEditor.commit()
+    }
+
+    fun getIsMobileRecharge(context: Context): Boolean {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getBoolean(IS_MOBILE_RECHARGE, false)
     }
 
     /**
