@@ -13,10 +13,7 @@ import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 import com.sureshotdiscount.app.ui.referralslist.LevelsModel
 import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
-import com.sureshotdiscount.app.utils.API_VERSION
-import com.sureshotdiscount.app.utils.AUTH
-import com.sureshotdiscount.app.utils.CONTACT_US
-import com.sureshotdiscount.app.utils.RECHARGE_DATA
+import com.sureshotdiscount.app.utils.*
 
 interface APIInterface {
 
@@ -77,8 +74,8 @@ interface APIInterface {
     fun getMobileRechargeCompany(@Field("userLoginToken") userLoginToken: String): Call<MobileRechargeModel>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/DTHCompany.php")
-    fun getDTHCompany(@Field("userLoginToken") userLoginToken: String): Call<List<DTHModel>>
+    @POST("$D2H_DATA/operator_list.php")
+    fun getDTHCompany(@Field("userLoginToken") userLoginToken: String): Call<DTHModel>
 
     @FormUrlEncoded
     @POST("$API_VERSION/RechargeHistory.php")

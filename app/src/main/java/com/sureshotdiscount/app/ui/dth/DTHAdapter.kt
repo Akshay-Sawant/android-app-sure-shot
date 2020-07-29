@@ -13,12 +13,12 @@ import kotlinx.android.synthetic.main.rv_dth.view.*
 class DTHAdapter(
     private var mContext: Context,
     private var mItemLayout: Int,
-    private var mDTHModelList: List<DTHModel>,
+    private var mDTHListModelList: List<DTHListModel>,
     private val onItemSelectedListener: OnItemSelectedListener
 ) : RecyclerView.Adapter<DTHAdapter.DTHViewHolder>() {
 
     interface OnItemSelectedListener {
-        fun onItemSelected(mView: View, mPosition: DTHModel)
+        fun onItemSelected(mView: View, mPosition: DTHListModel)
     }
 
     inner class DTHViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),
@@ -33,7 +33,7 @@ class DTHAdapter(
         override fun onClick(view: View?) {
             onItemSelectedListener.onItemSelected(
                 mConstrainLayoutDTHCompany,
-                mDTHModelList[adapterPosition]
+                mDTHListModelList[adapterPosition]
             )
         }
     }
@@ -50,14 +50,14 @@ class DTHAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mDTHModelList.size
+        return mDTHListModelList.size
     }
 
     override fun onBindViewHolder(holder: DTHViewHolder, position: Int) {
         Glide.with(holder.itemView.context)
-            .load(mDTHModelList[position].mCompanyLogoUrl)
+            .load(mDTHListModelList[position].mCompanyLogoUrl)
             .error(R.drawable.ic_launcher_background)
-            .into(holder.itemView.circleImageViewDTHCompanyLogo)
-        holder.itemView.textViewDTHCompanyName.text = mDTHModelList[position].mCompanyName
+            .into(holder.itemView.appCompatImageViewDTHCompanyLogo)
+        holder.itemView.textViewDTHCompanyName.text = mDTHListModelList[position].mCompanyName
     }
 }
