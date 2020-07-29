@@ -29,6 +29,7 @@ class SharedPreferenceUtils(context: Context) {
     private val RECHARGE_COMPANY_NAME = "rechargeCompanyName"
     private val RECHARGE_COMPANY_LOGO = "rechargeCompanyLogo"
     private val RECHARGE_MOBILE_NUMBER = "rechargeMobileNumber"
+    private val RECHARGE_SUBSCRIPTION_ID = "rechargeSubscriptionId"
     private val RECHARGE_TYPE = "rechargeType"
     private val RECHARGE_CIRCLE_CODE = "rechargeCircleCode"
     private val RECHARGE_AMOUNT = "rechargeAmount"
@@ -132,6 +133,16 @@ class SharedPreferenceUtils(context: Context) {
     fun getRechargeMobileNumber(context: Context): String? {
         return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
             .getString(RECHARGE_MOBILE_NUMBER, "")
+    }
+
+    fun saveRechargeSubscriptionId(mRechargeSubscriptionId: String): Boolean {
+        prefEditor.putString(RECHARGE_SUBSCRIPTION_ID, mRechargeSubscriptionId)
+        return prefEditor.commit()
+    }
+
+    fun getRechargeSubscriptionId(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(RECHARGE_SUBSCRIPTION_ID, "")
     }
 
     fun saveRechargeType(mRechargeType: String): Boolean {

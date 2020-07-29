@@ -204,6 +204,9 @@ class RechargeFragment : Fragment(R.layout.fragment_recharge), View.OnClickListe
                 mSharedPreferenceUtils.saveRechargeMobileNumber(
                     mTextInputEditTextRechargeMobileNumber.text.toString().trim()
                 )
+                mSharedPreferenceUtils.saveRechargeSubscriptionId(
+                    mTextInputEditTextRechargeSubscriptionId.text.toString().trim()
+                )
                 view?.let {
                     Navigation.findNavController(it)
                         .navigate(R.id.action_recharge_to_rechargeDetails)
