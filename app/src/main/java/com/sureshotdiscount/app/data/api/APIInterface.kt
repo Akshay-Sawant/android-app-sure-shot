@@ -96,12 +96,12 @@ interface APIInterface {
     fun getSubscriptionPlan(@Field("userLoginToken") userLoginToken: String): Call<SubscriptionPlanModel>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/Plans.php")
+    @POST("$RECHARGE_DATA/get_plans.php")
     fun getPlans(
         @Field("userLoginToken") userLoginToken: String,
         @Field("companyCode") companyCode: String,
         @Field("circleCode") circleCode: String
-    ): Call<List<PlansModel>>
+    ): Call<PlansModel>
 
     @FormUrlEncoded
     @POST("$API_VERSION/referralsList.php")

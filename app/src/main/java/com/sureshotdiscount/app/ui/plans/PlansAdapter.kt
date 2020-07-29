@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.rv_plans.view.*
 
 class PlansAdapter(
     private val mItemLayout: Int,
-    private val mPlansModelList: List<PlansModel>,
+    private val mPlansListModelList: List<PlansListModel>,
     private val mIPlans: IPlans
 ) :
     RecyclerView.Adapter<PlansAdapter.PlansViewHolder>() {
@@ -21,7 +21,7 @@ class PlansAdapter(
         }
 
         override fun onClick(v: View?) {
-            mIPlans.onClickPlans(mPlansModelList[adapterPosition])
+            mIPlans.onClickPlans(mPlansListModelList[adapterPosition])
         }
     }
 
@@ -37,14 +37,14 @@ class PlansAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mPlansModelList.size
+        return mPlansListModelList.size
     }
 
     override fun onBindViewHolder(holder: PlansViewHolder, position: Int) {
-        holder.itemView.textViewPlansAmount.text = mPlansModelList[position].mAmount
-        holder.itemView.textViewPlansOperatorName.text = mPlansModelList[position].mOperatorName
-        holder.itemView.textViewPlansTalktime.text = mPlansModelList[position].mTalktime
-        holder.itemView.textViewPlansValidity.text = mPlansModelList[position].mValidity
-        holder.itemView.textViewPlansDescription.text = mPlansModelList[position].mDescription
+        holder.itemView.textViewPlansAmount.text = mPlansListModelList[position].mAmount
+        holder.itemView.textViewPlansOperatorName.text = mPlansListModelList[position].mOperatorName
+        holder.itemView.textViewPlansTalktime.text = mPlansListModelList[position].mTalktime
+        holder.itemView.textViewPlansValidity.text = mPlansListModelList[position].mValidity
+        holder.itemView.textViewPlansDescription.text = mPlansListModelList[position].mDescription
     }
 }
