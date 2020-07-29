@@ -1,4 +1,4 @@
-package com.sureshotdiscount.app.ui.prepaid
+package com.sureshotdiscount.app.ui.recharge
 
 import com.squareup.moshi.Json
 
