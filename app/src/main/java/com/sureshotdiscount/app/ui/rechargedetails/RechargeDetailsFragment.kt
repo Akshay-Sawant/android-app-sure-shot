@@ -103,11 +103,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                 Navigation.findNavController(it)
                     .navigate(R.id.action_rechargeDetails_to_plans)
             }
-            R.id.buttonRechargeDetailsProceed -> view?.let {
-//                isRechargeDetailsValidated()
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_rechargeDetails_to_paymentSuccessful)
-            }
+            R.id.buttonRechargeDetailsProceed -> isRechargeDetailsValidated()
         }
     }
 
@@ -125,25 +121,28 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
             mTextViewRechargeDetailsMobileNumber.text =
                 mSharedPreferenceUtils.getRechargeMobileNumber(it)
 
-            if (mIsMobileRecharge) {
-                mTextViewRechargeDetailsSubscriptionIdLabel.visibility = View.GONE
-                mTextViewRechargeDetailsSubscriptionId.visibility = View.GONE
-                mTextViewRechargeSubscriptionIdChange.visibility = View.GONE
-                mViewRechargeDetailsDividerSubscriptionId.visibility = View.GONE
+            when {
+                mIsMobileRecharge -> {
+                    mTextViewRechargeDetailsSubscriptionIdLabel.visibility = View.GONE
+                    mTextViewRechargeDetailsSubscriptionId.visibility = View.GONE
+                    mTextViewRechargeSubscriptionIdChange.visibility = View.GONE
+                    mViewRechargeDetailsDividerSubscriptionId.visibility = View.GONE
 
-                mTextInputEditTextRechargeDetailsEnterAmount.isEnabled = false
-                mTextViewRechargeDetailsSeePlan.visibility = View.VISIBLE
-            } else {
-                mTextViewRechargeDetailsSubscriptionIdLabel.visibility = View.VISIBLE
-                mTextViewRechargeDetailsSubscriptionId.visibility = View.VISIBLE
-                mTextViewRechargeSubscriptionIdChange.visibility = View.VISIBLE
-                mViewRechargeDetailsDividerSubscriptionId.visibility = View.VISIBLE
+                    mTextInputEditTextRechargeDetailsEnterAmount.isEnabled = false
+                    mTextViewRechargeDetailsSeePlan.visibility = View.VISIBLE
+                }
+                else -> {
+                    mTextViewRechargeDetailsSubscriptionIdLabel.visibility = View.VISIBLE
+                    mTextViewRechargeDetailsSubscriptionId.visibility = View.VISIBLE
+                    mTextViewRechargeSubscriptionIdChange.visibility = View.VISIBLE
+                    mViewRechargeDetailsDividerSubscriptionId.visibility = View.VISIBLE
 
-                mTextViewRechargeDetailsSubscriptionId.text =
-                    mSharedPreferenceUtils.getRechargeSubscriptionId(it)
+                    mTextViewRechargeDetailsSubscriptionId.text =
+                        mSharedPreferenceUtils.getRechargeSubscriptionId(it)
 
-                mTextInputEditTextRechargeDetailsEnterAmount.isEnabled = true
-                mTextViewRechargeDetailsSeePlan.visibility = View.GONE
+                    mTextInputEditTextRechargeDetailsEnterAmount.isEnabled = true
+                    mTextViewRechargeDetailsSeePlan.visibility = View.GONE
+                }
             }
             mTextInputEditTextRechargeDetailsEnterAmount.setText(
                 getString(
