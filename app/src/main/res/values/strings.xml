@@ -53,6 +53,8 @@
     <string name="hint_text_enter_mobile_number">Enter Mobile Number</string>
     <string name="button_proceed">PROCEED</string>
     <string name="text_label_recharge">Recharge</string>
+    <string name="text_label_location">Select Location</string>
+    <string name="text_label_mobile">Mobile</string>
 
     <!--Recharge Details-->
     <string name="text_label_recharge_type">Recharge Type</string>
@@ -152,5 +154,4 @@
     <string name="text_label_unsubscribed">Unsubscribed - <xliff:g example="3" id="unsubscribed">%s</xliff:g></string>
     <string name="text_label_subscribed">Subscribed - <xliff:g example="10" id="subscribed">%s</xliff:g></string>
     <string name="text_label_please_wait">Please wait…</string>
-    <string name="text_label_location">Select Location</string>
 </resources>
