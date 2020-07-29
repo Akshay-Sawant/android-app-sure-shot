@@ -55,6 +55,8 @@
     <string name="text_label_recharge">Recharge</string>
     <string name="text_label_location">Select Location</string>
     <string name="text_label_mobile">Mobile</string>
+    <string name="text_hint_subscription_id">Subscription Id</string>
+    <string name="text_error_subscription_id">Invalid Subscription Id</string>
 
     <!--Recharge Details-->
     <string name="text_label_recharge_type">Recharge Type</string>

@@ -25,6 +25,7 @@ import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.properties.Delegates
 
 class RechargeFragment : Fragment(R.layout.fragment_recharge), View.OnClickListener {
 
@@ -43,11 +44,15 @@ class RechargeFragment : Fragment(R.layout.fragment_recharge), View.OnClickListe
     private lateinit var mSelectedLocationName: String
     private lateinit var mSelectedLocationCode: String
 
+    private lateinit var mTextInputLayoutRechargeSubscriptionId: TextInputLayout
+    private lateinit var mTextInputEditTextRechargeSubscriptionId: TextInputEditText
+
     private lateinit var mButtonRechargeProceed: Button
 
     private lateinit var mContentLoadingProgressBarRecharge: ContentLoadingProgressBar
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
+    private var mIsMobileRecharge by Delegates.notNull<Boolean>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,6 +71,11 @@ class RechargeFragment : Fragment(R.layout.fragment_recharge), View.OnClickListe
         mAppCompatSpinnerRechargeLocation = view.findViewById(R.id.appCompatSpinnerRechargeLocation)
         mAppCompatSpinnerRechargeLocation.tag = getString(R.string.text_label_location)
 
+        mTextInputLayoutRechargeSubscriptionId =
+            view.findViewById(R.id.textInputLayoutRechargeSubscriptionId)
+        mTextInputEditTextRechargeSubscriptionId =
+            view.findViewById(R.id.textInputEditTextRechargeSubscriptionId)
+
         mButtonRechargeProceed = view.findViewById(R.id.buttonRechargeProceed)
         mButtonRechargeProceed.setOnClickListener(this@RechargeFragment)
 
@@ -74,15 +84,28 @@ class RechargeFragment : Fragment(R.layout.fragment_recharge), View.OnClickListe
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
+            mIsMobileRecharge = mSharedPreferenceUtils.getIsMobileRecharge(it)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        mContentLoadingProgressBarRecharge.show()
+        when {
+            mIsMobileRecharge -> {
+                mAppCompatSpinnerRechargeLocation.visibility = View.VISIBLE
+                mTextInputLayoutRechargeSubscriptionId.visibility = View.GONE
+
+                mContentLoadingProgressBarRecharge.show()
+                onSelectItemFromSpinner()
+                onLoadLocation()
+            }
+            else -> {
+                mAppCompatSpinnerRechargeLocation.visibility = View.GONE
+                mTextInputLayoutRechargeSubscriptionId.visibility = View.VISIBLE
+                mButtonRechargeProceed.visibility = View.VISIBLE
+            }
+        }
         onLoadCompanyDetails()
-        onSelectItemFromSpinner()
-        onLoadLocation()
     }
 
     override fun onDetach() {
@@ -95,7 +118,13 @@ class RechargeFragment : Fragment(R.layout.fragment_recharge), View.OnClickListe
             R.id.textViewRechargeChange -> view?.let {
                 Navigation.findNavController(it).popBackStack()
             }
-            R.id.buttonRechargeProceed -> isRechargeValidated()
+            R.id.buttonRechargeProceed -> {
+                if (mIsMobileRecharge) {
+                    isMobileRechargeValidated()
+                } else {
+                    isDTHRechargeValidated()
+                }
+            }
         }
     }
 
@@ -137,13 +166,39 @@ class RechargeFragment : Fragment(R.layout.fragment_recharge), View.OnClickListe
         }
     }
 
-    private fun isRechargeValidated() {
+    private fun isMobileRechargeValidated() {
         when {
             !ValidationUtils.getValidationUtils()
                 .isInputEditTextMobileFunc(
                     mTextInputLayoutRechargeMobileNumber,
                     mTextInputEditTextRechargeMobileNumber,
                     getString(R.string.text_error_mobile)
+                ) -> return
+            else -> {
+                mSharedPreferenceUtils.saveRechargeMobileNumber(
+                    mTextInputEditTextRechargeMobileNumber.text.toString().trim()
+                )
+                view?.let {
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_recharge_to_rechargeDetails)
+                }
+            }
+        }
+    }
+
+    private fun isDTHRechargeValidated() {
+        when {
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextMobileFunc(
+                    mTextInputLayoutRechargeMobileNumber,
+                    mTextInputEditTextRechargeMobileNumber,
+                    getString(R.string.text_error_mobile)
+                ) -> return
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextFilledFunc(
+                    mTextInputEditTextRechargeSubscriptionId,
+                    mTextInputLayoutRechargeSubscriptionId,
+                    getString(R.string.text_error_subscription_id)
                 ) -> return
             else -> {
                 mSharedPreferenceUtils.saveRechargeMobileNumber(
