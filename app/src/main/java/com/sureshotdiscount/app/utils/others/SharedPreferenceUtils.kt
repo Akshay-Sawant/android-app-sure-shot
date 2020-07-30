@@ -4,14 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.Gravity
 import android.widget.Toast
-import com.sureshotdiscount.app.data.model.response.APIActionResponse
-import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.data.model.LoggedInUser
-import com.sureshotdiscount.app.utils.error.ErrorUtils
-import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SharedPreferenceUtils(context: Context) {
 
@@ -86,7 +79,7 @@ class SharedPreferenceUtils(context: Context) {
     /**
      * clears all login related data from device
      */
-    private fun doLogout(context: Context) {
+    fun doLogout(context: Context) {
         val prefEditor = context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE).edit()
         prefEditor.clear()
         prefEditor.apply()
@@ -189,74 +182,4 @@ class SharedPreferenceUtils(context: Context) {
      * returns true if a login token is saved on device
      */
     fun isUserLogin(): Boolean = (mLoggedInUser.loginToken != "")
-
-    fun requestLogout(context: Context) {
-        /*AlertDialogManager.instance.showAlertDialog(context,
-            R.drawable.ic_warning_black_24dp,
-            context.getString(R.string.alert_logout_heads_up_title),
-            context.getString(R.string.alert_logout_heads_up_message),
-            context.getString(R.string.action_logout),
-            DialogInterface.OnClickListener { dialogInterface, i ->
-                doServerLogout(context)
-            },
-            context.getString(android.R.string.no), null);*/
-    }
-
-    fun doServerLogout(context: Context) {
-        // doLogout(context)
-        // startLoginFlow(context as Activity)
-        if (!APIClient.isNetworkConnected(context)) {
-//            AlertDialogManager.instance.displayNoConnectionAlert(context)
-            return
-        }
-
-        if (!APIClient.isNetworkConnected(context)) {
-//                    AlertDialogManager.instance.displayNoConnectionAlert(context)
-            return
-        }
-
-//                ProgressDialogManager.instance.showProgressDialog(context, "Logging out...")
-        val call: Call<APIActionResponse> =
-            APIClient.apiInterface.doLogout(mLoggedInUser.loginToken)
-        call.enqueue(object : Callback<APIActionResponse> {
-
-            override fun onResponse(
-                call: Call<APIActionResponse>,
-                response: Response<APIActionResponse>
-            ) {
-//                        ProgressDialogManager.instance.hideProgressDialog()
-
-                if (response.isSuccessful) {
-                    val apiActionResponse: APIActionResponse? = response.body()
-                    if (apiActionResponse != null) {
-                        if (apiActionResponse.isActionSuccess) {
-                            doLogout(context)
-                            startLoginFlow(
-                                context as Activity
-                            )
-                        } else {
-                            /*AlertDialogManager.instance.showAlertDialog(context,
-                                                            R.drawable.ic_warning_black_24dp,
-                                                            apiActionResponse.title,
-                                                            apiActionResponse.message)*/
-                        }
-                    } else {
-                        // server returned 200 with a blank response :/
-                        ErrorUtils.logNetworkError(
-                            ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
-                                    "\nResponse: " + response.toString(), null
-                        )
-//                                AlertDialogManager.instance.displayInvalidResponseAlert(context);
-                        // server returned 200 with a blank response :/
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<APIActionResponse>, t: Throwable) {
-                // progressDialog.dismiss();
-//                        ProgressDialogManager.instance.hideProgressDialog()
-//                        ErrorUtils.parseOnFailureException(context, call, t, null)
-            }
-        })
-    }
 }

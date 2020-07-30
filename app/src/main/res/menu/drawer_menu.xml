@@ -23,6 +23,10 @@
             android:id="@+id/contactUsFragment"
             android:title="@string/text_label_contact" />
 
+        <item
+            android:id="@+id/logoutFragment"
+            android:title="@string/action_logout" />
+
     </group>
 
 </menu>

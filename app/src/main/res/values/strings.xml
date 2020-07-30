@@ -156,4 +156,11 @@
     <string name="text_label_unsubscribed">Unsubscribed - <xliff:g example="3" id="unsubscribed">%s</xliff:g></string>
     <string name="text_label_subscribed">Subscribed - <xliff:g example="10" id="subscribed">%s</xliff:g></string>
     <string name="text_label_please_wait">Please wait…</string>
+
+    <!--Logout-->
+    <string name="text_hint_title">Title</string>
+    <string name="text_hint_message">Message</string>
+    <string name="text_label_cancel">Cancel</string>
+    <string name="text_label_confirm">Confirm</string>
+    <string name="text_label_logout_message">Are you sure you want to logout from this app?</string>
 </resources>

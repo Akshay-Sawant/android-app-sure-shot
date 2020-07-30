@@ -71,10 +71,6 @@
         android:name="com.sureshotdiscount.app.ui.mobile.MobileRechargeFragment"
         tools:layout="@layout/fragment_mobile_recharge" />
     <fragment
-        android:id="@+id/prepaidFragment"
-        android:name="com.sureshotdiscount.app.ui.prepaid.PrepaidFragment"
-        tools:layout="@layout/fragment_prepaid" />
-    <fragment
         android:id="@+id/rechargeDetailsFragment"
         android:name="com.sureshotdiscount.app.ui.rechargedetails.RechargeDetailsFragment"
         android:label="@string/text_label_recharge"
@@ -88,10 +84,6 @@
             app:destination="@id/plansFragment"
             app:popUpTo="@id/rechargeDetailsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/postpaidFragment"
-        android:name="com.sureshotdiscount.app.ui.postpaid.PostpaidFragment"
-        tools:layout="@layout/fragment_postpaid" />
     <fragment
         android:id="@+id/DTHFragment"
         android:name="com.sureshotdiscount.app.ui.dth.DTHFragment"
@@ -161,4 +153,9 @@
         android:name="com.sureshotdiscount.app.ui.referralslist.LevelsDetailsFragment"
         android:label="fragment_levels_details"
         tools:layout="@layout/fragment_levels_details" />
+    <dialog
+        android:id="@+id/logoutFragment"
+        android:name="com.sureshotdiscount.app.ui.logout.LogoutFragment"
+        android:label="@string/action_logout"
+        tools:layout="@layout/fragment_logout" />
 </navigation>

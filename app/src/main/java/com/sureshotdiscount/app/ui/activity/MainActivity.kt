@@ -58,7 +58,8 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 R.id.rechargeHistoryFragment,
                 R.id.subscriptionPlanFragment,
                 R.id.referralsListFragment,
-                R.id.contactUsFragment
+                R.id.contactUsFragment,
+                R.id.logoutFragment
             ),
             mDrawerLayoutMain
         )
