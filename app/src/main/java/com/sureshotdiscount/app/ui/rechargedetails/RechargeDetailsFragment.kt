@@ -156,9 +156,9 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
     private fun isRechargeDetailsValidated() {
         when {
             !ValidationUtils.getValidationUtils()
-                .isInputEditTextMobileFunc(
-                    mTextInputLayoutRechargeDetailsEnterAmount,
+                .isInputEditTextFilledFunc(
                     mTextInputEditTextRechargeDetailsEnterAmount,
+                    mTextInputLayoutRechargeDetailsEnterAmount,
                     getString(R.string.text_error_empty_field)
                 ) -> return
             else -> {

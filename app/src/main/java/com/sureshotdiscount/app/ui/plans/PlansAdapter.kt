@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.ui.rechargeHistory.IPlans
 import kotlinx.android.synthetic.main.rv_plans.view.*
 
@@ -41,7 +42,10 @@ class PlansAdapter(
     }
 
     override fun onBindViewHolder(holder: PlansViewHolder, position: Int) {
-        holder.itemView.textViewPlansAmount.text = mPlansListModelList[position].mAmount
+        holder.itemView.textViewPlansAmount.text = holder.itemView.context.getString(
+            R.string.text_label_rupees,
+            mPlansListModelList[position].mAmount
+        )
         holder.itemView.textViewPlansOperatorName.text = mPlansListModelList[position].mOperatorName
         holder.itemView.textViewPlansTalktime.text = mPlansListModelList[position].mTalktime
         holder.itemView.textViewPlansValidity.text = mPlansListModelList[position].mValidity

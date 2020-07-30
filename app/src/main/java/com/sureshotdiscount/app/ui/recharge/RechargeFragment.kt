@@ -234,6 +234,8 @@ class RechargeFragment : Fragment(R.layout.fragment_recharge), View.OnClickListe
                                         if (mCircleModel.mStatus) {
                                             mCircleModelListModelList =
                                                 mCircleModel.mResponse as ArrayList<CircleListModel>
+                                            mLocationArrayList.clear()
+                                            mLocationCodeArrayList.clear()
                                             mLocationArrayList.add(
                                                 0,
                                                 getString(R.string.text_label_location)

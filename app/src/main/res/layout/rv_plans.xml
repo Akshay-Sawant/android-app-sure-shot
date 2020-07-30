@@ -19,7 +19,7 @@
             android:layout_width="@dimen/material_dimen_constraint"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/text_recharge_amount"
+            android:hint="@string/text_label_rupees"
             android:textAppearance="@android:style/TextAppearance.Large"
             app:layout_constraintEnd_toEndOf="@+id/textViewPlansOperatorName"
             app:layout_constraintStart_toStartOf="@+id/textViewPlansOperatorName"
