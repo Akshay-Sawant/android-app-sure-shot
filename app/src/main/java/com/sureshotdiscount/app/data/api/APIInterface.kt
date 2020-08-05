@@ -89,7 +89,7 @@ interface APIInterface {
     ): Call<APIActionResponse>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/SubscriptionPlan.php")
+    @POST("$SUBSCRIPTION/get_my_subscription.php")
     fun getSubscriptionPlan(@Field("userLoginToken") userLoginToken: String): Call<SubscriptionPlanModel>
 
     @FormUrlEncoded

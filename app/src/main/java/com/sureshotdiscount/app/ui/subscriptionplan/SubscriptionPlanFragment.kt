@@ -13,6 +13,7 @@ import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
+import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,8 +53,7 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
     override fun onResume() {
         super.onResume()
         view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
-
-        //        onLoadSubscriptionPlan()
+        onLoadSubscriptionPlan()
     }
 
     override fun onClick(v: View?) {
@@ -81,18 +81,29 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
                                 val mSubscriptionPlanModel: SubscriptionPlanModel? = response.body()
 
                                 if (mSubscriptionPlanModel != null) {
-                                    mTextViewSubscriptionPlanNoDataFound.visibility = View.GONE
-                                    mMaterialCardViewSubscriptionPlan.visibility = View.VISIBLE
-                                    mButtonSubscriptionPlanRenew.visibility = View.VISIBLE
+                                    if (mSubscriptionPlanModel.mStatus) {
+                                        mTextViewSubscriptionPlanNoDataFound.visibility = View.GONE
+                                        mMaterialCardViewSubscriptionPlan.visibility = View.VISIBLE
+                                        mButtonSubscriptionPlanRenew.visibility = View.VISIBLE
 
-                                    mTextViewSubscriptionPlanAmount.text =
-                                        mSubscriptionPlanModel.mSubscriptionAmount
-                                    mTextViewSubscriptionPlanExpiryDate.text =
-                                        mSubscriptionPlanModel.mSubscriptionExpiryDate
+                                        mTextViewSubscriptionPlanAmount.text =
+                                            mSubscriptionPlanModel.mResponse.mSubscriptionAmount
+                                        mTextViewSubscriptionPlanExpiryDate.text =
+                                            mSubscriptionPlanModel.mResponse.mSubscriptionExpiryDate
+                                    } else {
+                                        mTextViewSubscriptionPlanNoDataFound.visibility =
+                                            View.VISIBLE
+                                        mMaterialCardViewSubscriptionPlan.visibility = View.GONE
+                                        mButtonSubscriptionPlanRenew.visibility = View.GONE
+                                    }
                                 } else {
-                                    mTextViewSubscriptionPlanNoDataFound.visibility = View.VISIBLE
-                                    mMaterialCardViewSubscriptionPlan.visibility = View.GONE
-                                    mButtonSubscriptionPlanRenew.visibility = View.GONE
+                                    ErrorUtils.logNetworkError(
+                                        ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                "\nResponse: " + response.toString(),
+                                        null
+                                    )
+                                    AlertDialogUtils.getInstance()
+                                        .displayInvalidResponseAlert(it)
                                 }
                             }
                         }

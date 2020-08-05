@@ -3,6 +3,9 @@ package com.sureshotdiscount.app.ui.subscriptionplan
 import com.squareup.moshi.Json
 
 class SubscriptionPlanModel(
-    @field:Json(name = "subscriptionAmount") val mSubscriptionAmount: String,
-    @field:Json(name = "subscriptionExpiryDate") val mSubscriptionExpiryDate: String
+    @field:Json(name = "response") val mResponse: SubscriptionPlanDetailsModel,
+    @field:Json(name = "status") val mStatus: Boolean,
+    @field:Json(name = "status_code") val mStatusCode: Int,
+    @field:Json(name = "title") val mTitle: String,
+    @field:Json(name = "message") val mMessage: String
 )
