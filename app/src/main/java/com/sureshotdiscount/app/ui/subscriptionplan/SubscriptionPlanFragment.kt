@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.navigation.Navigation
 import com.google.android.material.card.MaterialCardView
 import com.sureshotdiscount.app.R
@@ -29,6 +30,8 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
 
     private lateinit var mButtonSubscriptionPlanRenew: Button
 
+    private lateinit var mContentLoadingProgressBarSubscriptionPlan: ContentLoadingProgressBar
+
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,6 +48,9 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
         mButtonSubscriptionPlanRenew = view.findViewById(R.id.buttonSubscriptionPlanRenew)
         mButtonSubscriptionPlanRenew.setOnClickListener(this@SubscriptionPlanFragment)
 
+        mContentLoadingProgressBarSubscriptionPlan =
+            view.findViewById(R.id.contentLoadingProgressBarSubscriptionPlan)
+
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
         }
@@ -53,6 +59,7 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
     override fun onResume() {
         super.onResume()
         view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
+        mContentLoadingProgressBarSubscriptionPlan.show()
         onLoadSubscriptionPlan()
     }
 
@@ -79,6 +86,7 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
                         ) {
                             if (response.isSuccessful) {
                                 val mSubscriptionPlanModel: SubscriptionPlanModel? = response.body()
+                                mContentLoadingProgressBarSubscriptionPlan.hide()
 
                                 if (mSubscriptionPlanModel != null) {
                                     if (mSubscriptionPlanModel.mStatus) {
@@ -114,9 +122,11 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
                                 call,
                                 t
                             )
+                            mContentLoadingProgressBarSubscriptionPlan.hide()
                         }
                     })
             } else {
+                mContentLoadingProgressBarSubscriptionPlan.hide()
                 AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
             }
         }
