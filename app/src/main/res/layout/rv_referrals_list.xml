@@ -32,11 +32,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:hint="@string/text_label_rupees"
             android:textAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintBaseline_toBaselineOf="@id/textViewReferralsListLevel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textViewReferralsListLevel"
-            tool:text="@tools:sample/us_zipcodes" />
+            app:layout_constraintStart_toEndOf="@id/textViewReferralsListLevel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

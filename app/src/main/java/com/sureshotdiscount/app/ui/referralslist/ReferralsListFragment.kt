@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
@@ -12,16 +13,20 @@ import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
+import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.OnClickListener {
+class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.OnClickListener,
+    IReferralsListListener {
 
     private lateinit var mTextViewReferralsListBalanceEarnings: TextView
     private lateinit var mButtonReferralsListWithdraw: Button
+    private lateinit var mTextViewReferralsListReferrals: TextView
     private lateinit var mTextViewReferralsListNoDataFound: TextView
     private lateinit var mRecyclerViewReferralsList: RecyclerView
+    private lateinit var mContentLoadingProgressBarReferralsList: ContentLoadingProgressBar
 
     private lateinit var mReferralsListAdapter: ReferralsListAdapter
     private var mReferralsModelList: ArrayList<ReferralsModel> = ArrayList()
@@ -36,9 +41,14 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
         mButtonReferralsListWithdraw = view.findViewById(R.id.buttonReferralsListWithdraw)
         mButtonReferralsListWithdraw.setOnClickListener(this@ReferralsListFragment)
 
+        mTextViewReferralsListReferrals = view.findViewById(R.id.textViewReferralsListReferrals)
+
         mTextViewReferralsListNoDataFound = view.findViewById(R.id.textViewReferralsListNoDataFound)
 
         mRecyclerViewReferralsList = view.findViewById(R.id.recyclerViewReferralsList)
+
+        mContentLoadingProgressBarReferralsList =
+            view.findViewById(R.id.contentLoadingProgressBarReferralsList)
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
@@ -48,6 +58,8 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
     override fun onResume() {
         super.onResume()
         view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
+        mContentLoadingProgressBarReferralsList.show()
+        onLoadReferralsList()
     }
 
     override fun onClick(v: View?) {
@@ -56,6 +68,10 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
 
             }
         }
+    }
+
+    override fun onClickReferralsListsLevels(mView: View, mPosition: ReferralsModel) {
+
     }
 
     private fun onLoadReferralsList() {
@@ -73,35 +89,56 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
                                 if (response.isSuccessful) {
                                     val mReferralsListModel: ReferralsListModel? =
                                         response.body()
+                                    mContentLoadingProgressBarReferralsList.hide()
 
                                     if (mReferralsListModel != null) {
-                                        mTextViewReferralsListBalanceEarnings.text =
-                                            mReferralsListModel.mBalanceEarnings
+                                        if (mReferralsListModel.mStatus) {
+                                            mTextViewReferralsListBalanceEarnings.text = getString(
+                                                R.string.text_label_rupees,
+                                                mReferralsListModel.mResponse.mBalanceEarnings
+                                            )
 
-                                        if (mReferralsListModel.mReferrals.isNullOrEmpty()) {
-                                            mTextViewReferralsListNoDataFound.visibility =
-                                                View.VISIBLE
-                                            mRecyclerViewReferralsList.visibility = View.GONE
+                                            if (mReferralsListModel.mResponse.mReferrals.isNullOrEmpty()) {
+                                                mTextViewReferralsListNoDataFound.visibility =
+                                                    View.VISIBLE
+                                                mTextViewReferralsListReferrals.visibility =
+                                                    View.GONE
+                                                mRecyclerViewReferralsList.visibility = View.GONE
+                                            } else {
+                                                mTextViewReferralsListNoDataFound.visibility =
+                                                    View.GONE
+                                                mTextViewReferralsListReferrals.visibility =
+                                                    View.VISIBLE
+                                                mRecyclerViewReferralsList.visibility = View.VISIBLE
+
+                                                mReferralsModelList =
+                                                    mReferralsListModel.mResponse.mReferrals as ArrayList<ReferralsModel>
+
+                                                mReferralsListAdapter = context?.let {
+                                                    ReferralsListAdapter(
+                                                        R.layout.rv_referrals_list,
+                                                        mReferralsModelList,
+                                                        this@ReferralsListFragment
+                                                    )
+                                                }!!
+                                                mRecyclerViewReferralsList.adapter =
+                                                    mReferralsListAdapter
+                                                mReferralsListAdapter.notifyDataSetChanged()
+                                            }
                                         } else {
-                                            mTextViewReferralsListNoDataFound.visibility =
-                                                View.GONE
-                                            mRecyclerViewReferralsList.visibility = View.VISIBLE
-
-                                            mReferralsModelList =
-                                                mReferralsListModel.mReferrals as ArrayList<ReferralsModel>
-
-                                            mReferralsListAdapter = context?.let {
-                                                ReferralsListAdapter(
-                                                    R.layout.rv_referrals_list,
-                                                    mReferralsModelList
-                                                )
-                                            }!!
-                                            mRecyclerViewReferralsList.adapter =
-                                                mReferralsListAdapter
-                                            mReferralsListAdapter.notifyDataSetChanged()
+                                            mTextViewReferralsListBalanceEarnings.text = getString(
+                                                R.string.text_label_rupees,
+                                                "0"
+                                            )
                                         }
                                     } else {
-
+                                        ErrorUtils.logNetworkError(
+                                            ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                    "\nResponse: " + response.toString(),
+                                            null
+                                        )
+                                        AlertDialogUtils.getInstance()
+                                            .displayInvalidResponseAlert(it)
                                     }
                                 }
                             }
@@ -115,10 +152,12 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
                                     call,
                                     t
                                 )
+                                mContentLoadingProgressBarReferralsList.hide()
                             }
                         })
                 }
                 else -> {
+                    mContentLoadingProgressBarReferralsList.hide()
                     AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
                 }
             }
