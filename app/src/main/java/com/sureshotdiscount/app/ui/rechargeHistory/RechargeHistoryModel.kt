@@ -3,10 +3,9 @@ package com.sureshotdiscount.app.ui.rechargeHistory
 import com.squareup.moshi.Json
 
 class RechargeHistoryModel(
-    @field:Json(name = "id") val mId: String,
-    @field:Json(name = "mobileNumber") val mMobileNumber: String,
-    @field:Json(name = "rechargeAmount") val mRechargeAmount: String,
-    @field:Json(name = "rechargeDate") val mRechargeDate: String,
-    @field:Json(name = "paymentMode") val mPaymentMode: String,
-    @field:Json(name = "referenceNumber") val mReferenceNumber: String
+    @field:Json(name = "response") val mResponse: List<RechargeHistoryDetailsModel>,
+    @field:Json(name = "status") val mStatus: Boolean,
+    @field:Json(name = "status_code") val mStatusCode: Int,
+    @field:Json(name = "title") val mTitle: String,
+    @field:Json(name = "message") val mMessage: String
 )

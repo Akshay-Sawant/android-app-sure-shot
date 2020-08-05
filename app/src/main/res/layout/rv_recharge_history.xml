@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:hint="@string/text_recharge_amount"
+            android:hint="@string/text_label_rupees"
             android:textAppearance="@android:style/TextAppearance.Medium"
             app:layout_constraintBaseline_toBaselineOf="@id/textViewRechargeHistoryMobileNumber"
             app:layout_constraintEnd_toEndOf="parent"

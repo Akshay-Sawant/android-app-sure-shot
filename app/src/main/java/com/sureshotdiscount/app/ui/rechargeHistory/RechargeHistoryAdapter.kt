@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.sureshotdiscount.app.R
 import kotlinx.android.synthetic.main.rv_recharge_history.view.*
 
 class RechargeHistoryAdapter(
     private val mItemLayout: Int,
-    private val mRechargeHistoryModelList: List<RechargeHistoryModel>
+    private val mRechargeHistoryDetailsModelList: List<RechargeHistoryDetailsModel>
 ) :
     RecyclerView.Adapter<RechargeHistoryAdapter.RechargeHistoryViewHolder>() {
 
@@ -28,19 +29,22 @@ class RechargeHistoryAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mRechargeHistoryModelList.size
+        return mRechargeHistoryDetailsModelList.size
     }
 
     override fun onBindViewHolder(holder: RechargeHistoryViewHolder, position: Int) {
         holder.itemView.textViewRechargeHistoryMobileNumber.text =
-            mRechargeHistoryModelList[position].mMobileNumber
+            mRechargeHistoryDetailsModelList[position].mMobileNumber
         holder.itemView.textViewRechargeHistoryRechargeDate.text =
-            mRechargeHistoryModelList[position].mRechargeDate
+            mRechargeHistoryDetailsModelList[position].mRechargeDate
         holder.itemView.textViewRechargeHistoryRechargeAmount.text =
-            mRechargeHistoryModelList[position].mRechargeAmount
+            holder.itemView.context.getString(
+                R.string.text_label_rupees,
+                mRechargeHistoryDetailsModelList[position].mRechargeAmount
+            )
         holder.itemView.textViewRechargeHistoryPaymentMode.text =
-            mRechargeHistoryModelList[position].mPaymentMode
+            mRechargeHistoryDetailsModelList[position].mPaymentMode
         holder.itemView.textViewRechargeHistoryReferenceNumber.text =
-            mRechargeHistoryModelList[position].mReferenceNumber
+            mRechargeHistoryDetailsModelList[position].mReferenceNumber
     }
 }

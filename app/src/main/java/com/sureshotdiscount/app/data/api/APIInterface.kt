@@ -79,7 +79,7 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("$API_VERSION/RechargeHistory.php")
-    fun getRechargeHistory(@Field("userLoginToken") userLoginToken: String): Call<List<RechargeHistoryModel>>
+    fun getRechargeHistory(@Field("userLoginToken") userLoginToken: String): Call<RechargeHistoryModel>
 
     @FormUrlEncoded
     @POST("$CONTACT_US/contact_us_api.php")

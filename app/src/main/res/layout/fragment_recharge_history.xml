@@ -14,6 +14,7 @@
         android:gravity="center"
         android:text="@string/text_no_data_found"
         android:textAppearance="@android:style/TextAppearance.Large"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
@@ -25,6 +26,17 @@
         android:layout_height="@dimen/material_dimen_constraint"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/contentLoadingProgressBarRechargeHistory"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        android:theme="?android:attr/progressBarStyleLarge"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@+id/guidelineStart"
