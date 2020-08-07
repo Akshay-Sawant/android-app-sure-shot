@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/standard_margin"
+    android:layout_margin="@dimen/material_dimen_small_ldpi"
     app:cardBackgroundColor="@color/colorPrimary"
     app:cardCornerRadius="@dimen/cardCornerRadius"
     app:cardElevation="@dimen/cardElevation">
@@ -28,7 +28,7 @@
             android:id="@+id/textViewRechargeHistoryMobileNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/material_dimen_small_ldpi"
             android:layout_marginEnd="@dimen/standard_margin_x2"
             android:textAppearance="@android:style/TextAppearance.Medium"
             android:textStyle="bold"
@@ -98,14 +98,15 @@
             android:id="@+id/textViewRechargeHistoryReferenceNumberTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/material_dimen_small_ldpi"
             android:gravity="start"
             android:text="@string/text_label_reference_number"
             android:textSize="@dimen/material_text_subhead"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/textViewRechargeHistoryReferenceNumber"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewRechargeHistoryPaymentMode" />
+            app:layout_constraintTop_toBottomOf="@id/textViewRechargeHistoryPaymentMode"
+            app:layout_constraintVertical_bias="0" />
 
         <TextView
             android:id="@+id/textViewRechargeHistoryReferenceNumber"

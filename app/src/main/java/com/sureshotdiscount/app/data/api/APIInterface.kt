@@ -78,7 +78,7 @@ interface APIInterface {
     fun getDTHCompany(@Field("userLoginToken") userLoginToken: String): Call<DTHModel>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/RechargeHistory.php")
+    @POST("$RECHARGE_DATA/recharge_history.php")
     fun getRechargeHistory(@Field("userLoginToken") userLoginToken: String): Call<RechargeHistoryModel>
 
     @FormUrlEncoded
