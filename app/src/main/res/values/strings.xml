@@ -68,7 +68,6 @@
     <string name="text_label_rupees">₹ <xliff:g example="250" id="enter_amount">%s</xliff:g></string>
 
     <!--Refer and Earn-->
-    <string name="text_get_rs_5_for_every_referral">Get Rs.5 for every Referral</string>
     <string name="text_your_referral_code">Your Referral code</string>
     <string name="text_tap_to_copy">Tap to copy</string>
     <string name="button_share_now">Share Now</string>
@@ -80,6 +79,13 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="text_hint_address">Address</string>
+    <string name="text_hint_pan_no">Pan No.</string>
+    <string name="text_cd_upload_address_proof">Upload Address Proof</string>
+    <string name="text_cd_upload_pan_card">Upload Pan Card</string>
+    <string name="text_label_accept_contract">I accept the contract between me and Sure Shot Application</string>
+    <string name="text_label_verify">Verify</string>
+    <string name="text_label_verify_your_kyc">Verify your KYC to start earning by referring to others.</string>
 
     <!--Logout-->
     <string name="action_logout">Logout</string>

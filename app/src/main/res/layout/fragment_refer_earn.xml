@@ -12,18 +12,185 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/textViewReferAndEarnVerifyYourKYC"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:text="@string/text_label_verify_your_kyc"
+            android:textStyle="bold"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutReferAndEarnName"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewReferAndEarnVerifyYourKYC">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextReferAndEarnName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutReferAndEarnEmailId"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReferAndEarnName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextReferAndEarnEmailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_email_id"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutReferAndEarnAddress"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReferAndEarnEmailId">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextReferAndEarnAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_address"
+                android:inputType="textPostalAddress"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutReferAndEarnPanNo"
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@android:style/TextAppearance.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReferAndEarnAddress">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextReferAndEarnPanNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_hint_pan_no"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageViewReferAndEarnUploadAddressProof"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="@dimen/material_dimen_constraint"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            android:contentDescription="@string/text_cd_upload_address_proof"
+            android:src="@drawable/ic_upload"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewReferAndEarnUploadPanCard"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReferAndEarnPanNo" />
+
+        <TextView
+            android:id="@+id/textViewReferAndEarnAddressProof"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            android:gravity="center"
+            android:text="@string/text_cd_upload_address_proof"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewReferAndEarnUploadAddressProof"
+            app:layout_constraintStart_toStartOf="@+id/imageViewReferAndEarnUploadAddressProof"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewReferAndEarnUploadAddressProof" />
+
+        <ImageView
+            android:id="@+id/imageViewReferAndEarnUploadPanCard"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="@dimen/material_dimen_constraint"
+            android:layout_marginStart="@dimen/material_dimen_ldpi"
+            android:contentDescription="@string/text_cd_upload_pan_card"
+            android:src="@drawable/ic_upload"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewReferAndEarnUploadAddressProof"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageViewReferAndEarnUploadAddressProof"
+            app:layout_constraintTop_toTopOf="@+id/imageViewReferAndEarnUploadAddressProof" />
+
+        <TextView
+            android:id="@+id/textViewReferAndEarnPanCard"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_ldpi"
+            android:gravity="center"
+            android:text="@string/text_cd_upload_pan_card"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewReferAndEarnUploadPanCard"
+            app:layout_constraintStart_toStartOf="@+id/imageViewReferAndEarnUploadPanCard"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewReferAndEarnUploadPanCard" />
+
+        <CheckBox
+            android:id="@+id/checkboxReferAndEarnAcceptContract"
+            android:layout_width="@dimen/material_dimen_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_dimen_mdpi"
+            android:text="@string/text_label_accept_contract"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewReferAndEarnAddressProof" />
+
+        <Button
+            android:id="@+id/buttonReferAndEarnVerify"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/standard_margin_x2"
+            android:layout_marginTop="@dimen/standard_margin_x2"
+            android:layout_marginEnd="@dimen/standard_margin_x2"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/text_label_verify"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/checkboxReferAndEarnAcceptContract"
+            app:layout_constraintVertical_bias="0" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardViewReferAndEarn"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/material_dimen_mdpi"
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             app:cardElevation="@dimen/cardElevation"
             app:layout_constraintDimensionRatio="16:5"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/guidelineTop">
+            app:layout_constraintTop_toBottomOf="@+id/buttonReferAndEarnVerify">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -42,43 +209,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:id="@+id/textViewReferel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin_x2"
-            android:gravity="center"
-            android:text="@string/text_get_rs_5_for_every_referral"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/materialCardViewReferAndEarn" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardViewReferAndEarnStepView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin_x2"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/cardElevation"
-            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-            app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/textViewReferel">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/standard_margin_x2">
-
-                <com.baoyachi.stepview.VerticalStepView
-                    android:id="@+id/stepViewReferEarn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/standard_margin_x2" />
-            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
@@ -92,7 +222,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/materialCardViewReferAndEarnStepView" />
+            app:layout_constraintTop_toBottomOf="@id/materialCardViewReferAndEarn" />
 
         <TextView
             android:id="@+id/textViewReferralCode"

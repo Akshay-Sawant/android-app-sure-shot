@@ -6,20 +6,40 @@ import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
+import android.widget.*
 import androidx.fragment.app.Fragment
-import com.baoyachi.stepview.VerticalStepView
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 
-class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickListener {
+class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickListener,
+    CompoundButton.OnCheckedChangeListener {
 
-    private lateinit var verticalStepView: VerticalStepView
-    private var mStepList: ArrayList<String> = ArrayList()
+    private lateinit var mTextViewReferAndEarnVerifyYourKYC: TextView
+
+    private lateinit var mTextInputLayoutReferAndEarnName: TextInputLayout
+    private lateinit var mTextInputEditTextReferAndEarnName: TextInputEditText
+
+    private lateinit var mTextInputLayoutReferAndEarnEmailId: TextInputLayout
+    private lateinit var mTextInputEditTextReferAndEarnEmailId: TextInputEditText
+
+    private lateinit var mTextInputLayoutReferAndEarnAddress: TextInputLayout
+    private lateinit var mTextInputEditTextReferAndEarnAddress: TextInputEditText
+
+    private lateinit var mTextInputLayoutReferAndEarnPanNo: TextInputLayout
+    private lateinit var mTextInputEditTextReferAndEarnPanNo: TextInputEditText
+
+    private lateinit var mImageViewReferAndEarnUploadAddressProof: ImageView
+    private lateinit var mTextViewReferAndEarnUploadAddressProof: TextView
+
+    private lateinit var mImageViewReferAndEranUploadPanCard: ImageView
+    private lateinit var mTextTextViewReferAndEarnUploadPanCard: TextView
+
+    private lateinit var mCheckBoxReferAndEarnAcceptContract: CheckBox
+
+    private lateinit var mButtonReferAndEarnVerify: Button
 
     private lateinit var mTextViewReferAndEarnReferralCode: TextView
     private lateinit var mTextViewReferAndEarnTapToCopy: TextView
@@ -30,26 +50,46 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        verticalStepView = view.findViewById(R.id.stepViewReferEarn)
-        mStepList.clear()
-        mStepList.add("Get Rs.2 in winnings for every new signup  from your referral link")
-        mStepList.add("Get Rs.3 in winnings after your friend makes his first deposit  of Rs.10 or more")
-        mStepList.add("A maximum of 25 referrals are allowed")
+        mTextViewReferAndEarnVerifyYourKYC =
+            view.findViewById(R.id.textViewReferAndEarnVerifyYourKYC)
 
-        verticalStepView.setStepsViewIndicatorComplectingPosition(mStepList.size)
-            .reverseDraw(false)
-            .setStepViewTexts(mStepList)
-            .setLinePaddingProportion(1.5f)
-            .setStepsViewIndicatorCompletedLineColor(R.color.colorAccent)
-            .setStepViewComplectedTextColor(R.color.colorAccent)
-            .setStepViewUnComplectedTextColor(R.color.colorAccent)
-            .setStepsViewIndicatorUnCompletedLineColor(R.color.colorAccent)
-            .setStepsViewIndicatorCompleteIcon(
-                ContextCompat.getDrawable(
-                    requireActivity(),
-                    R.drawable.ic_step_icon_24dp
-                )
-            )
+        mTextInputLayoutReferAndEarnName = view.findViewById(R.id.textInputLayoutReferAndEarnName)
+        mTextInputEditTextReferAndEarnName =
+            view.findViewById(R.id.textInputEditTextReferAndEarnName)
+
+        mTextInputLayoutReferAndEarnEmailId =
+            view.findViewById(R.id.textInputLayoutReferAndEarnEmailId)
+        mTextInputEditTextReferAndEarnEmailId =
+            view.findViewById(R.id.textInputEditTextReferAndEarnEmailId)
+
+        mTextInputLayoutReferAndEarnAddress =
+            view.findViewById(R.id.textInputLayoutReferAndEarnAddress)
+        mTextInputEditTextReferAndEarnAddress =
+            view.findViewById(R.id.textInputEditTextReferAndEarnAddress)
+
+        mTextInputLayoutReferAndEarnPanNo = view.findViewById(R.id.textInputLayoutReferAndEarnPanNo)
+        mTextInputEditTextReferAndEarnPanNo =
+            view.findViewById(R.id.textInputEditTextReferAndEarnPanNo)
+
+        mImageViewReferAndEarnUploadAddressProof =
+            view.findViewById(R.id.imageViewReferAndEarnUploadAddressProof)
+        mImageViewReferAndEarnUploadAddressProof.setOnClickListener(this@ReferEarnFragment)
+
+        mTextViewReferAndEarnUploadAddressProof =
+            view.findViewById(R.id.textViewReferAndEarnAddressProof)
+
+        mImageViewReferAndEranUploadPanCard =
+            view.findViewById(R.id.imageViewReferAndEarnUploadPanCard)
+        mImageViewReferAndEranUploadPanCard.setOnClickListener(this@ReferEarnFragment)
+
+        mTextTextViewReferAndEarnUploadPanCard = view.findViewById(R.id.textViewReferAndEarnPanCard)
+
+        mCheckBoxReferAndEarnAcceptContract =
+            view.findViewById(R.id.checkboxReferAndEarnAcceptContract)
+        mCheckBoxReferAndEarnAcceptContract.setOnCheckedChangeListener(this@ReferEarnFragment)
+
+        mButtonReferAndEarnVerify = view.findViewById(R.id.buttonReferAndEarnVerify)
+        mButtonReferAndEarnVerify.setOnClickListener(this@ReferEarnFragment)
 
         mTextViewReferAndEarnReferralCode = view.findViewById(R.id.textViewReferralCode)
         mTextViewReferAndEarnTapToCopy = view.findViewById(R.id.textViewTapToCopy)
@@ -73,6 +113,14 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
         when (v?.id) {
             R.id.textViewTapToCopy -> onClickTapToCopy()
             R.id.buttonShareNow -> onClickShareNow()
+        }
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        when (buttonView?.id) {
+            R.id.checkboxReferAndEarnAcceptContract -> {
+
+            }
         }
     }
 
