@@ -94,20 +94,6 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/buttonSubscriptionPlanRenew"
-        style="@style/AppTheme.Button.Light.Rounded"
-        android:layout_width="@dimen/material_dimen_constraint"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/material_dimen_mdpi"
-        android:text="@string/text_label_renew"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
-        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardViewSubscriptionPlan"
-        app:layout_constraintVertical_bias="0" />
-
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/contentLoadingProgressBarSubscriptionPlan"
         android:layout_width="@dimen/material_dimen_constraint"

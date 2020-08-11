@@ -1,12 +1,10 @@
 package com.sureshotdiscount.app.ui.subscriptionplan
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.core.widget.ContentLoadingProgressBar
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
 import com.google.android.material.card.MaterialCardView
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
@@ -19,16 +17,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
-    View.OnClickListener {
+class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan) {
 
     private lateinit var mTextViewSubscriptionPlanNoDataFound: TextView
 
     private lateinit var mMaterialCardViewSubscriptionPlan: MaterialCardView
     private lateinit var mTextViewSubscriptionPlanAmount: TextView
     private lateinit var mTextViewSubscriptionPlanExpiryDate: TextView
-
-    private lateinit var mButtonSubscriptionPlanRenew: Button
 
     private lateinit var mContentLoadingProgressBarSubscriptionPlan: ContentLoadingProgressBar
 
@@ -45,9 +40,6 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
         mTextViewSubscriptionPlanExpiryDate =
             view.findViewById(R.id.textViewSubscriptionPlanExpiryDate)
 
-        mButtonSubscriptionPlanRenew = view.findViewById(R.id.buttonSubscriptionPlanRenew)
-        mButtonSubscriptionPlanRenew.setOnClickListener(this@SubscriptionPlanFragment)
-
         mContentLoadingProgressBarSubscriptionPlan =
             view.findViewById(R.id.contentLoadingProgressBarSubscriptionPlan)
 
@@ -61,15 +53,6 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
         view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
         mContentLoadingProgressBarSubscriptionPlan.show()
         onLoadSubscriptionPlan()
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.buttonSubscriptionPlanRenew -> view?.let {
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_subscriptionPlan_to_benefitsOfSubscription)
-            }
-        }
     }
 
     private fun onLoadSubscriptionPlan() {
@@ -92,7 +75,6 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
                                     if (mSubscriptionPlanModel.mStatus) {
                                         mTextViewSubscriptionPlanNoDataFound.visibility = View.GONE
                                         mMaterialCardViewSubscriptionPlan.visibility = View.VISIBLE
-                                        mButtonSubscriptionPlanRenew.visibility = View.VISIBLE
 
                                         mTextViewSubscriptionPlanAmount.text =
                                             mSubscriptionPlanModel.mResponse.mSubscriptionAmount
@@ -101,8 +83,9 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan),
                                     } else {
                                         mTextViewSubscriptionPlanNoDataFound.visibility =
                                             View.VISIBLE
+                                        mTextViewSubscriptionPlanNoDataFound.text =
+                                            mSubscriptionPlanModel.mMessage
                                         mMaterialCardViewSubscriptionPlan.visibility = View.GONE
-                                        mButtonSubscriptionPlanRenew.visibility = View.GONE
                                     }
                                 } else {
                                     ErrorUtils.logNetworkError(
