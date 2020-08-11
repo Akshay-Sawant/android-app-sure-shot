@@ -95,7 +95,7 @@
         tools:layout="@layout/fragment_payment_successful" />
     <fragment
         android:id="@+id/benefitsOfSubscriptionFragment"
-        android:name="com.sureshotdiscount.app.ui.benefitsofsubscription.BenefitsOfSubscriptionFragment"
+        android:name="com.sureshotdiscount.app.ui.subscriptionplan.BenefitsOfSubscriptionFragment"
         android:label="@string/text_label_benefits_of_subscription"
         tools:layout="@layout/fragment_benefits_of_subscription">
         <action

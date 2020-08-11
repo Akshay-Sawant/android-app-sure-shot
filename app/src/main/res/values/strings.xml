@@ -109,11 +109,8 @@
 
     <!--Benefits of Subscription-->
     <string name="text_label_benefits_of_subscription">Benefits of Subscription</string>
-    <string name="subscription_one">- Fixed discounts for recharges as per chart\n" + " ( In chart we will give range and mention the present %ages).</string>
-    <string name="subscription_two">- No cashbacks only Discounts.</string>
-    <string name="subscription_three">- No validity period.</string>
-    <string name="subscription_four">- You will automatically subscribed for discounts of future services in this app.</string>
-    <string name="subscription_five">- Also you will be eligible for referral earnings. (As referral cash in wallet)</string>
+    <string name="text_label_pay_to_subscribe_now">Pay to subscribe now</string>
+    <string name="text_error_unable_to_load">Unable to load data, please make sure you are connected to the Internet</string>
 
     <!--Payment-->
     <string name="text_hint_payment_medium">Payment Medium</string>
