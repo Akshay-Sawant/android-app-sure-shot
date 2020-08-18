@@ -114,4 +114,11 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$RECHARGE_DATA/circle_list.php")
     fun getCircleList(@Field("userLoginToken") userLoginToken: String): Call<CircleModel>
+
+    @FormUrlEncoded
+    @POST("$RECHARGE_DATA/paytm_withdraw.php")
+    fun paytmWithdraw(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("amountToBeWithdrawn") amountToBeWithdrawn: String
+    ): Call<APIActionResponse>
 }

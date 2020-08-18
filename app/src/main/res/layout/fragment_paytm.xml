@@ -91,13 +91,24 @@
         android:id="@+id/textViewPaytmTermAndConditions"
         android:layout_width="@dimen/material_dimen_constraint"
         android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Small"
         android:text="@string/text_label_all_terms_and_conditions"
+        android:textAppearance="@android:style/TextAppearance.Small"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@+id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/textViewPaytmTermAndConditionsLabel"
         app:layout_constraintVertical_bias="0" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/contentLoadingProgressBarPaytm"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        android:theme="?android:attr/progressBarStyleLarge"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineStart"
