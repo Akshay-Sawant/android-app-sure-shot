@@ -101,7 +101,7 @@ interface APIInterface {
     ): Call<PlansModel>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/referralsList.php")
+    @POST("$SUBSCRIPTION/get_my_level_list.php")
     fun referralsList(@Field("userLoginToken") userLoginToken: String): Call<ReferralsListModel>
 
     @FormUrlEncoded

@@ -53,6 +53,11 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
+            mTextViewReferralsListBalanceEarnings.text =
+                getString(
+                    R.string.text_label_rupees,
+                    mSharedPreferenceUtils.getBalanceEarnings(it).toString()
+                )
         }
     }
 
@@ -96,10 +101,13 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
                                         if (mReferralsListModel.mStatus) {
                                             mTextViewReferralsListBalanceEarnings.text = getString(
                                                 R.string.text_label_rupees,
-                                                mReferralsListModel.mResponse.mBalanceEarnings
+                                                mReferralsListModel.mBalanceEarnings.toString()
+                                            )
+                                            mSharedPreferenceUtils.saveBalanceEarnings(
+                                                mReferralsListModel.mBalanceEarnings
                                             )
 
-                                            if (mReferralsListModel.mResponse.mReferrals.isNullOrEmpty()) {
+                                            if (mReferralsListModel.mReferrals.isNullOrEmpty()) {
                                                 mTextViewReferralsListNoDataFound.visibility =
                                                     View.VISIBLE
                                                 mTextViewReferralsListReferrals.visibility =
@@ -113,7 +121,7 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
                                                 mRecyclerViewReferralsList.visibility = View.VISIBLE
 
                                                 mReferralsModelList =
-                                                    mReferralsListModel.mResponse.mReferrals as ArrayList<ReferralsModel>
+                                                    mReferralsListModel.mReferrals as ArrayList<ReferralsModel>
 
                                                 mReferralsListAdapter = context?.let {
                                                     ReferralsListAdapter(
@@ -129,7 +137,10 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
                                         } else {
                                             mTextViewReferralsListBalanceEarnings.text = getString(
                                                 R.string.text_label_rupees,
-                                                "0"
+                                                mReferralsListModel.mBalanceEarnings.toString()
+                                            )
+                                            mSharedPreferenceUtils.saveBalanceEarnings(
+                                                mReferralsListModel.mBalanceEarnings
                                             )
                                         }
                                     } else {
