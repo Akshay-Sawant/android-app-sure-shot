@@ -29,6 +29,14 @@ class SharedPreferenceUtils(context: Context) {
 
     private val IS_MOBILE_RECHARGE = "isMobileRecharge"
 
+    private val BALANCE_EARNINGS = "balanceEarnings"
+
+    private val NAME_ON_ACCOUNT = "nameOnAccount"
+    private val ACCOUNT_NUMBER = "accountNumber"
+    private val IFSC_CODE = "ifscCode"
+    private val BANK_NAME = "bankName"
+    private val BRANCH_NAME = "branchName"
+
     private var mLoggedInUser: LoggedInUser
 
     private var prefEditor =
@@ -176,6 +184,56 @@ class SharedPreferenceUtils(context: Context) {
     fun getIsMobileRecharge(context: Context): Boolean {
         return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
             .getBoolean(IS_MOBILE_RECHARGE, false)
+    }
+
+    fun saveBalanceEarnings(mBalanceEarnings: Int): Boolean {
+        prefEditor.putInt(BALANCE_EARNINGS, mBalanceEarnings)
+        return prefEditor.commit()
+    }
+
+    fun getBalanceEarnings(context: Context): Int? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getInt(BALANCE_EARNINGS, 0)
+    }
+
+    fun saveBankDetails(
+        mNameOnAccount: String,
+        mAccountNumber: String,
+        mIFSCCode: String,
+        mBankName: String,
+        mBranchAddress: String
+    ): Boolean {
+        prefEditor.putString(NAME_ON_ACCOUNT, mNameOnAccount)
+        prefEditor.putString(ACCOUNT_NUMBER, mAccountNumber)
+        prefEditor.putString(IFSC_CODE, mIFSCCode)
+        prefEditor.putString(BANK_NAME, mBankName)
+        prefEditor.putString(BRANCH_NAME, mBranchAddress)
+        return prefEditor.commit()
+    }
+
+    fun getNameOnAccount(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(NAME_ON_ACCOUNT, "")
+    }
+
+    fun getAccountNumber(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(ACCOUNT_NUMBER, "")
+    }
+
+    fun getIFSCCode(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(IFSC_CODE, "")
+    }
+
+    fun getBankName(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(BANK_NAME, "")
+    }
+
+    fun getBranchName(context: Context): String? {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getString(BRANCH_NAME, "")
     }
 
     /**

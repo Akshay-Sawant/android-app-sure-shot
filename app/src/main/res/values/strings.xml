@@ -178,4 +178,16 @@
     <string name="text_label_all_terms_and_conditions">
         Your number should be active with PayTM.\nMinimum withdrawal amount is Rs.10.\nYou should have your KYC done for your PayTM Wallet.\nWithdrawal request sent with invalid PayTM number will not be refunded.
     </string>
+
+    <!--Bank-->
+    <string name="text_label_enter_bank_details">Enter your bank detail to continue!</string>
+    <string name="text_label_why_need_details">Why do you need these details?</string>
+    <string name="text_label_bank_needs">We need these details so that we can transfer the amount to your account.\n\nDon\'t worry we will
+        call and verify these details at least once before er transfer the amount to your bank account.</string>
+    <string name="text_hint_name_on_account">Name on Account</string>
+    <string name="text_hint_account_number">Account Number</string>
+    <string name="text_hint_ifsc_code">IFSC Code</string>
+    <string name="text_hint_bank_name">Bank Name</string>
+    <string name="text_hint_branch_address">Branch Address</string>
+    <string name="text_label_save_bank_details_and_withdraw">Save Bank Details And Withdraw</string>
 </resources>

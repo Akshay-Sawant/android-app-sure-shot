@@ -122,4 +122,16 @@ interface APIInterface {
         @Field("mobileNumber") mobileNumber: String,
         @Field("amountToBeWithdrawn") amountToBeWithdrawn: String
     ): Call<APIActionResponse>
+
+    @FormUrlEncoded
+    @POST("$RECHARGE_DATA/bank_withdraw.php")
+    fun bankWithdraw(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("amountToBeWithdrawn") amountToBeWithdrawn: String,
+        @Field("nameOnAccount") nameOnAccount: String,
+        @Field("accountNumber") accountNumber: String,
+        @Field("ifscCode") ifscCode: String,
+        @Field("bankName") bankName: String,
+        @Field("bankBranch") bankBranch: String
+    ): Call<APIActionResponse>
 }
