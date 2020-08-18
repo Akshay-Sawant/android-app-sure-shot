@@ -53,6 +53,10 @@ class PaytmFragment : Fragment(R.layout.fragment_paytm), View.OnClickListener {
         super.onResume()
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
+            mTextViewPaytmBalanceEarnings.text = getString(
+                R.string.text_label_rupees,
+                mSharedPreferenceUtils.getBalanceEarnings(it).toString()
+            )
         }
         mContentLoadingProgressBarPaytm.hide()
     }
