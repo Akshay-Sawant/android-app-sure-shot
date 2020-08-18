@@ -41,7 +41,7 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
     private lateinit var merchant_trxnId: String
-    private lateinit var merchant_payment_amount: String
+    private var merchant_payment_amount: String? = null
     private lateinit var merchant_productInfo: String
     private lateinit var customer_firstName: String
     private lateinit var customer_email_id: String
@@ -170,6 +170,8 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
                                         mWebViewBenefitsOfSubscription.loadUrl(
                                             mSubscriptionPlanModel.mLink
                                         )
+                                        merchant_payment_amount =
+                                            mSubscriptionPlanModel.mSubscriptionAmount.toString()
                                     }
                                 } else {
                                     ErrorUtils.logNetworkError(
@@ -281,7 +283,7 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
     private fun onLoadPaymentGatewayDetails() {
         val salt = "DAH88E3UWQ"
         merchant_trxnId = "1001"
-        merchant_payment_amount = "100"
+        merchant_payment_amount
         merchant_productInfo = "Headphones"
         customer_firstName = "Suraj"
         customer_email_id = "suraj@innovins.com"
@@ -295,7 +297,7 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
         udf4 = ""
         udf5 = ""
         val hash_string =
-            "$merchant_key|$merchant_trxnId|${merchant_payment_amount.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$salt|$merchant_key"
+            "$merchant_key|$merchant_trxnId|${merchant_payment_amount?.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$salt|$merchant_key"
         hash = getSHA512(hash_string)
     }
 
@@ -325,7 +327,7 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
             Intent.FLAG_ACTIVITY_REORDER_TO_FRONT // This is mandatory flag
 
         intentProceed.putExtra("txnid", merchant_trxnId)
-        intentProceed.putExtra("amount", merchant_payment_amount.toDouble())
+        intentProceed.putExtra("amount", merchant_payment_amount?.toDouble())
         intentProceed.putExtra("productinfo", merchant_productInfo)
         intentProceed.putExtra("firstname", customer_firstName)
         intentProceed.putExtra("email", customer_email_id)
