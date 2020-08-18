@@ -190,4 +190,10 @@
     <string name="text_hint_bank_name">Bank Name</string>
     <string name="text_hint_branch_address">Branch Address</string>
     <string name="text_label_save_bank_details_and_withdraw">Save Bank Details And Withdraw</string>
+
+    <!--Forgot Password-->
+    <string name="text_label_forgot_password">Forgot Password</string>
+    <string name="text_label_forgot_password_message">Enter your mobile number to get otp to create new password</string>
+    <string name="text_label_get_otp">Get OTP</string>
+    <string name="text_label_forgot">Forgot Password?</string>
 </resources>

@@ -134,4 +134,8 @@ interface APIInterface {
         @Field("bankName") bankName: String,
         @Field("bankBranch") bankBranch: String
     ): Call<APIActionResponse>
+
+    @FormUrlEncoded
+    @POST("$AUTH/forgotPassword.php")
+    fun forgotPassword(@Field("mobileNumber") mobileNumber: String): Call<APIActionResponse>
 }
