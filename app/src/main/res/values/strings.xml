@@ -176,9 +176,6 @@
     <string name="text_hint_enter_withdrawal_amount">Enter withdrawal amount</string>
     <string name="text_label_terms_and_conditions">Terms And Conditions:</string>
     <string name="text_label_all_terms_and_conditions">
-        Your number should be active with PayTM.\n
-        Minimum withdrawal amount is Rs.10.\n
-        You should have your KYC done for your PayTM Wallet.\n
-        Withdrawal request sent with invalid PayTM number will not be refunded.
+        Your number should be active with PayTM.\nMinimum withdrawal amount is Rs.10.\nYou should have your KYC done for your PayTM Wallet.\nWithdrawal request sent with invalid PayTM number will not be refunded.
     </string>
 </resources>

@@ -45,6 +45,8 @@ class PaytmFragment : Fragment(R.layout.fragment_paytm), View.OnClickListener {
 
         mButtonPaytmWithdraw = view.findViewById(R.id.buttonPaytmWithdraw)
         mButtonPaytmWithdraw.setOnClickListener(this@PaytmFragment)
+
+        mContentLoadingProgressBarPaytm = view.findViewById(R.id.contentLoadingProgressBarPaytm)
     }
 
     override fun onResume() {
@@ -81,6 +83,7 @@ class PaytmFragment : Fragment(R.layout.fragment_paytm), View.OnClickListener {
                     APIClient.apiInterface
                         .paytmWithdraw(
                             mSharedPreferenceUtils.getLoggedInUser().loginToken,
+                            mSharedPreferenceUtils.getLoggedInUser().mobileNumber,
                             mTextInputEditTextPaytmEnterWithdrawalAmount.text.toString().trim()
                         ).enqueue(object : Callback<APIActionResponse> {
                             override fun onResponse(

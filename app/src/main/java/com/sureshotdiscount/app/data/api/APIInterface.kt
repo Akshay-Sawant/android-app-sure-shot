@@ -119,6 +119,7 @@ interface APIInterface {
     @POST("$RECHARGE_DATA/paytm_withdraw.php")
     fun paytmWithdraw(
         @Field("userLoginToken") userLoginToken: String,
+        @Field("mobileNumber") mobileNumber: String,
         @Field("amountToBeWithdrawn") amountToBeWithdrawn: String
     ): Call<APIActionResponse>
 }
