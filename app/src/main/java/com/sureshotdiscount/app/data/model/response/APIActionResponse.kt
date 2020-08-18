@@ -16,4 +16,7 @@ class APIActionResponse {
     @field:Json(name = "message")
     val message: String =
         "We are unable to process the request at the moment, please try again after a while"
+
+    @field:Json(name = "balanceEarnings")
+    val balanceEarnings: Int = 0
 }

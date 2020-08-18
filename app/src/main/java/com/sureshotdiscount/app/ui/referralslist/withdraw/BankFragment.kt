@@ -223,6 +223,10 @@ class BankFragment : Fragment(R.layout.fragment_bank), View.OnClickListener {
                                                 null,
                                                 DialogInterface.OnDismissListener {
                                                     it.dismiss()
+                                                    mSharedPreferenceUtils.saveBalanceEarnings(
+                                                        mAPIActionResponse.balanceEarnings
+                                                    )
+
                                                     mTextInputEditTextBankEnterWithdrawalAmount.text?.clear()
                                                     mSharedPreferenceUtils.saveBankDetails(
                                                         mTextInputEditTextBankNameOnAccount.text.toString()
