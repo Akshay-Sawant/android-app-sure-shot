@@ -138,4 +138,12 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$AUTH/forgotPassword.php")
     fun forgotPassword(@Field("mobileNumber") mobileNumber: String): Call<APIActionResponse>
+
+    @FormUrlEncoded
+    @POST("$AUTH/createNewPassword.php")
+    fun createNewPassword(
+        @Field("mobileNumber") mobileNumber: String,
+        @Field("otp") otp: String,
+        @Field("password") password: String
+    ): Call<APIActionResponse>
 }

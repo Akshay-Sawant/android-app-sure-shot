@@ -196,4 +196,11 @@
     <string name="text_label_forgot_password_message">Enter your mobile number to get otp to create new password</string>
     <string name="text_label_get_otp">Get OTP</string>
     <string name="text_label_forgot">Forgot Password?</string>
+
+    <!--Create New Password-->
+    <string name="text_label_create_new_password">Create New Password</string>
+    <string name="text_label_create_new_password_message">Enter your details to create new password</string>
+    <string name="text_hint_enter_new_password">Enter New Password</string>
+    <string name="text_hint_enter_otp">Enter OTP</string>
+    <string name="text_hint_confirm_new_password">Confirm New Password</string>
 </resources>
