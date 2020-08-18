@@ -1,4 +1,4 @@
-package com.sureshotdiscount.app.ui.rechargeHistory.withdraw
+package com.sureshotdiscount.app.ui.referralslist.withdraw
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

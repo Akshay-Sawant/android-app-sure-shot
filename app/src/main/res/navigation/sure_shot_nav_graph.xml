@@ -164,7 +164,7 @@
         tools:layout="@layout/fragment_logout" />
     <fragment
         android:id="@+id/withdrawFragment"
-        android:name="com.sureshotdiscount.app.ui.rechargeHistory.withdraw.WithdrawFragment"
-        android:label="fragment_withdraw"
+        android:name="com.sureshotdiscount.app.ui.referralslist.withdraw.WithdrawFragment"
+        android:label="@string/text_label_withdraw"
         tools:layout="@layout/fragment_withdraw" />
 </navigation>

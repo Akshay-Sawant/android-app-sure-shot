@@ -1,4 +1,4 @@
-package com.sureshotdiscount.app.ui.rechargeHistory.withdraw
+package com.sureshotdiscount.app.ui.referralslist.withdraw
 
 import android.os.Bundle
 import android.view.View

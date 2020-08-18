@@ -166,8 +166,19 @@
     <string name="text_label_cancel">Cancel</string>
     <string name="text_label_confirm">Confirm</string>
     <string name="text_label_logout_message">Are you sure you want to logout from this app?</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Withdraw-->
     <string name="text_label_paytm">PAYTM</string>
     <string name="text_label_bank">BANK</string>
+
+    <!--Paytm-->
+    <string name="text_label_how_much_money_do_you_want_to_withdraw">How much money do you want to withdraw?</string>
+    <string name="text_hint_enter_withdrawal_amount">Enter withdrawal amount</string>
+    <string name="text_label_terms_and_conditions">Terms And Conditions:</string>
+    <string name="text_label_all_terms_and_conditions">
+        Your number should be active with PayTM.\n
+        Minimum withdrawal amount is Rs.10.\n
+        You should have your KYC done for your PayTM Wallet.\n
+        Withdrawal request sent with invalid PayTM number will not be refunded.
+    </string>
 </resources>

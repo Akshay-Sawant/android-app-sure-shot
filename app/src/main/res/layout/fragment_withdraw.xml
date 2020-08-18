@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.rechargeHistory.withdraw.WithdrawFragment">
+    tools:context=".ui.referralslist.withdraw.WithdrawFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutWithdraw"
+        style="@style/AppTheme.TabLayout"
         android:layout_width="@dimen/material_dimen_constraint"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"

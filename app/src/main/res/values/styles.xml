@@ -89,4 +89,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Tab Layout-->
+    <style name="AppTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:textAllCaps">false</item>
+        <item name="tabTextAppearance">@android:style/TextAppearance.Small</item>
+        <item name="tabTextColor">@android:color/darker_gray</item>
+        <item name="tabSelectedTextColor">@android:color/black</item>
+        <item name="tabBackground">@color/colorPrimary</item>
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabIconTint">@color/tab_icon_selector</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+    </style>
+
 </resources>
