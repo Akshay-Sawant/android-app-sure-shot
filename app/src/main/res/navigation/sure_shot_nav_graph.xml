@@ -117,7 +117,12 @@
         android:id="@+id/rechargeHistoryFragment"
         android:name="com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryFragment"
         android:label="@string/text_label_recharge_history"
-        tools:layout="@layout/fragment_recharge_history" />
+        tools:layout="@layout/fragment_recharge_history" >
+        <action
+            android:id="@+id/action_rechargeHistory_to_withdraw"
+            app:destination="@id/withdrawFragment"
+            app:popUpTo="@id/rechargeHistoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/contactUsFragment"
         android:name="com.sureshotdiscount.app.ui.contactus.ContactUsFragment"
@@ -158,4 +163,9 @@
         android:name="com.sureshotdiscount.app.ui.logout.LogoutFragment"
         android:label="@string/action_logout"
         tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/withdrawFragment"
+        android:name="com.sureshotdiscount.app.ui.rechargeHistory.withdraw.WithdrawFragment"
+        android:label="fragment_withdraw"
+        tools:layout="@layout/fragment_withdraw" />
 </navigation>
