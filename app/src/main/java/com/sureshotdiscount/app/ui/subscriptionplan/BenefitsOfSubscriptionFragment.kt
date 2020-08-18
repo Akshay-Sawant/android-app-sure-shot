@@ -9,18 +9,24 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.easebuzz.payment.kit.PWECouponsActivity
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
+import datamodels.PWEStaticDataModel
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.math.BigInteger
+import java.security.MessageDigest
 
 @Suppress("DEPRECATION")
 class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_subscription),
@@ -33,6 +39,22 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
     private lateinit var mContentLoadingProgressBarBenefitsOfSubscription: ContentLoadingProgressBar
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
+
+    private lateinit var merchant_trxnId: String
+    private lateinit var merchant_payment_amount: String
+    private lateinit var merchant_productInfo: String
+    private lateinit var customer_firstName: String
+    private lateinit var customer_email_id: String
+    private lateinit var customer_phone: String
+    private lateinit var merchant_key: String
+    private lateinit var hash: String
+    private lateinit var customers_unique_id: String
+    private lateinit var payment_mode: String
+    private lateinit var udf1: String
+    private lateinit var udf2: String
+    private lateinit var udf3: String
+    private lateinit var udf4: String
+    private lateinit var udf5: String
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,13 +85,13 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
         }
         onLoadWebView()
+        onLoadPaymentGatewayDetails()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.buttonBenefitsOfSubscriptionPayToSubscribeNow -> view?.let {
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_benefitsOfSubscription_to_paymentSuccessful)
+                onClickPayToSubscribe()
             }
         }
     }
@@ -175,5 +197,148 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
                 AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            if (requestCode == PWEStaticDataModel.PWE_REQUEST_CODE) {
+                try {
+                    val result = data.getStringExtra("result")
+                    val payment_response = data.getStringExtra("payment_response")
+                    when (result) {
+                        PWEStaticDataModel.TXN_SUCCESS_CODE -> {
+                            payment_response?.let {
+                                val mainObject = JSONObject(payment_response)
+                                val pay_txnid = mainObject.getString("txnid")
+                                val pay_firstname = mainObject.getString("firstname")
+                                val pay_status = mainObject.getString("status")
+                                val pay_phone = mainObject.getString("phone")
+                                val pay_amount = mainObject.getString("amount")
+                                /*startActivity(
+                                    PaymentSuccessActivity.newIntent(
+                                        this,
+                                        pay_txnid,
+                                        pay_firstname,
+                                        pay_status,
+                                        pay_phone,
+                                        pay_amount
+                                    )
+                                )*/
+                                Toast.makeText(
+                                    context,
+                                    "$pay_txnid $pay_firstname $pay_status $pay_phone $pay_amount",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                view?.let {
+                                    Navigation.findNavController(it)
+                                        .navigate(R.id.action_benefitsOfSubscription_to_paymentSuccessful)
+                                }
+                            }
+                        }
+                        PWEStaticDataModel.TXN_FAILED_CODE,
+                        PWEStaticDataModel.TXN_ERROR_NO_RETRY_CODE,
+                        PWEStaticDataModel.TXN_ERROR_RETRY_FAILED_CODE -> Toast.makeText(
+                            context,
+                            "Payment Failed!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        PWEStaticDataModel.TXN_INVALID_INPUT_DATA_CODE -> Toast.makeText(
+                            context,
+                            "Payment Failed, Invalid input data",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        PWEStaticDataModel.TXN_TIMEOUT_CODE -> Toast.makeText(
+                            context,
+                            "Sessiom Timeout!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        PWEStaticDataModel.TXN_USERCANCELLED_CODE,
+                        PWEStaticDataModel.TXN_BACKPRESSED_CODE,
+                        PWEStaticDataModel.TXN_BANK_BACK_PRESSED_CODE -> Toast.makeText(
+                            context,
+                            "Transaction Cancelled!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        PWEStaticDataModel.TXN_ERROR_SERVER_ERROR_CODE -> Toast.makeText(
+                            context,
+                            "An error occured at our server!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        PWEStaticDataModel.TXN_ERROR_TXN_NOT_ALLOWED_CODE -> Toast.makeText(
+                            context,
+                            "There seems problem, transaction not allowed from your bank!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun onLoadPaymentGatewayDetails() {
+        val salt = "DAH88E3UWQ"
+        merchant_trxnId = "1001"
+        merchant_payment_amount = "100"
+        merchant_productInfo = "Headphones"
+        customer_firstName = "Suraj"
+        customer_email_id = "suraj@innovins.com"
+        customer_phone = "9970783832"
+        merchant_key = "2PBP7IABZ2"
+        customers_unique_id = "199SS"
+        payment_mode = "test"
+        udf1 = ""
+        udf2 = ""
+        udf3 = ""
+        udf4 = ""
+        udf5 = ""
+        val hash_string =
+            "$merchant_key|$merchant_trxnId|${merchant_payment_amount.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$salt|$merchant_key"
+        hash = getSHA512(hash_string)
+    }
+
+    private fun getSHA512(input: String): String {
+        val md: MessageDigest = MessageDigest.getInstance("SHA-512")
+        val messageDigest = md.digest(input.toByteArray())
+
+        // Convert byte array into signum representation
+        val no = BigInteger(1, messageDigest)
+
+        // Convert message digest into hex value
+        var hashtext: String = no.toString(16)
+
+        // Add preceding 0s to make it 32 bit
+        while (hashtext.length < 32) {
+            hashtext = "0$hashtext"
+        }
+
+        // return the HashText
+        return hashtext
+    }
+
+    private fun onClickPayToSubscribe() {
+        val intentProceed =
+            Intent(context, PWECouponsActivity::class.java)
+        intentProceed.flags =
+            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT // This is mandatory flag
+
+        intentProceed.putExtra("txnid", merchant_trxnId)
+        intentProceed.putExtra("amount", merchant_payment_amount.toDouble())
+        intentProceed.putExtra("productinfo", merchant_productInfo)
+        intentProceed.putExtra("firstname", customer_firstName)
+        intentProceed.putExtra("email", customer_email_id)
+        intentProceed.putExtra("phone", customer_phone)
+        intentProceed.putExtra("key", merchant_key)
+        intentProceed.putExtra("udf1", udf1)
+        intentProceed.putExtra("udf2", udf2)
+        intentProceed.putExtra("udf3", udf3)
+        intentProceed.putExtra("udf4", udf4)
+        intentProceed.putExtra("udf5", udf5)
+        intentProceed.putExtra("hash", hash)
+        intentProceed.putExtra("unique_id", customers_unique_id)
+        intentProceed.putExtra("pay_mode", payment_mode)
+        startActivityForResult(intentProceed, PWEStaticDataModel.PWE_REQUEST_CODE)
     }
 }
