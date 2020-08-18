@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.widget.ContentLoadingProgressBar
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
@@ -64,8 +65,8 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonReferralsListWithdraw -> {
-
+            R.id.buttonReferralsListWithdraw -> view?.let {
+                Navigation.findNavController(it).navigate(R.id.action_referralsList_to_withdraw)
             }
         }
     }
