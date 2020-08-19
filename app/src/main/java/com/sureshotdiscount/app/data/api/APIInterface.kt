@@ -116,17 +116,19 @@ interface APIInterface {
     fun getCircleList(@Field("userLoginToken") userLoginToken: String): Call<CircleModel>
 
     @FormUrlEncoded
-    @POST("$RECHARGE_DATA/paytm_withdraw.php")
+    @POST("$REFERRAL/withdraw_payment.php")
     fun paytmWithdraw(
         @Field("userLoginToken") userLoginToken: String,
+        @Field("flag") flag: String,
         @Field("mobileNumber") mobileNumber: String,
         @Field("amountToBeWithdrawn") amountToBeWithdrawn: String
     ): Call<APIActionResponse>
 
     @FormUrlEncoded
-    @POST("$RECHARGE_DATA/bank_withdraw.php")
+    @POST("$REFERRAL/withdraw_payment.php")
     fun bankWithdraw(
         @Field("userLoginToken") userLoginToken: String,
+        @Field("flag") flag: String,
         @Field("amountToBeWithdrawn") amountToBeWithdrawn: String,
         @Field("nameOnAccount") nameOnAccount: String,
         @Field("accountNumber") accountNumber: String,

@@ -16,6 +16,7 @@ const val RECHARGE_DATA = "recharge_data"
 const val D2H_DATA = "d2h_data"
 const val SUBSCRIPTION = "subscription"
 const val CONTACT_US = "contact_us"
+const val REFERRAL = "referral"
 
 const val API_VERSION = "demo/sureshotdiscount/auth" // api version dir, do not add / in the end
 // const val API_VERSION = "app/v1" // api version dir, do not add / in the end

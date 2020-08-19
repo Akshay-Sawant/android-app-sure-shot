@@ -58,7 +58,6 @@ class PaytmFragment : Fragment(R.layout.fragment_paytm), View.OnClickListener {
                 mSharedPreferenceUtils.getBalanceEarnings(it).toString()
             )
         }
-        mContentLoadingProgressBarPaytm.hide()
     }
 
     override fun onClick(v: View?) {
@@ -75,7 +74,8 @@ class PaytmFragment : Fragment(R.layout.fragment_paytm), View.OnClickListener {
                 getString(R.string.text_error_empty_field)
             ) -> return
             else -> {
-//                onClickPaytmWithdraw()
+                mContentLoadingProgressBarPaytm.show()
+                onClickPaytmWithdraw()
             }
         }
     }
@@ -87,6 +87,7 @@ class PaytmFragment : Fragment(R.layout.fragment_paytm), View.OnClickListener {
                     APIClient.apiInterface
                         .paytmWithdraw(
                             mSharedPreferenceUtils.getLoggedInUser().loginToken,
+                            "paytm",
                             mSharedPreferenceUtils.getLoggedInUser().mobileNumber,
                             mTextInputEditTextPaytmEnterWithdrawalAmount.text.toString().trim()
                         ).enqueue(object : Callback<APIActionResponse> {
