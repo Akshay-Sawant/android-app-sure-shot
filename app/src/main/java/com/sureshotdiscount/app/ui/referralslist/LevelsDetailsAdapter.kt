@@ -32,7 +32,7 @@ class LevelsDetailsAdapter(
 
     override fun onBindViewHolder(holder: LevelsDetailsViewHolder, position: Int) {
         holder.itemView.textViewLevelsDetailsContactNumber.text =
-            mLevelsDetailsModelList[position].mContactNumber
+            mLevelsDetailsModelList[position].mMobileNo
         holder.itemView.textViewLevelsDetailsStatus.text = mLevelsDetailsModelList[position].mStatus
     }
 }

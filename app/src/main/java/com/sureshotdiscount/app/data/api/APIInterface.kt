@@ -105,10 +105,10 @@ interface APIInterface {
     fun referralsList(@Field("userLoginToken") userLoginToken: String): Call<ReferralsListModel>
 
     @FormUrlEncoded
-    @POST("$API_VERSION/levelsDetails.php")
+    @POST("$SUBSCRIPTION/get_level_details.php")
     fun levelsDetails(
         @Field("userLoginToken") userLoginToken: String,
-        @Field("levelId") levelId: String
+        @Field("levelId") levelId: Int
     ): Call<LevelsModel>
 
     @FormUrlEncoded

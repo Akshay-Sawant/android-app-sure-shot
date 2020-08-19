@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorRecharge"
     tools:context=".ui.referralslist.LevelsDetailsFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardViewLevelsDetails"
         android:layout_width="@dimen/material_dimen_constraint"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/material_dimen_small_ldpi"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@+id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
@@ -26,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/text_label_unsubscribed"
-                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textViewLevelsDetailsSubscribed"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -40,7 +46,8 @@
                 android:layout_marginStart="@dimen/material_dimen_mdpi"
                 android:gravity="end"
                 android:text="@string/text_label_subscribed"
-                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textViewLevelsDetailsUnsubscribed"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -57,6 +64,7 @@
         android:gravity="center"
         android:text="@string/text_no_data_found"
         android:textAppearance="@android:style/TextAppearance.Large"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@+id/guidelineStart"
@@ -65,13 +73,27 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewLevelsDetails"
         android:layout_width="@dimen/material_dimen_constraint"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/material_dimen_constraint"
+        android:layout_marginTop="@dimen/material_dimen_ldpi"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
         app:layout_constraintStart_toEndOf="@+id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/materialCardViewLevelsDetails"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintVertical_bias="0"
+        tools:listitem="@layout/rv_levels_details" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/contentLoadingProgressBarLevelsDetails"
+        android:layout_width="@dimen/material_dimen_constraint"
+        android:layout_height="wrap_content"
+        android:theme="?android:attr/progressBarStyleLarge"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineStart"
