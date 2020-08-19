@@ -184,7 +184,8 @@ class BankFragment : Fragment(R.layout.fragment_bank), View.OnClickListener {
                     )
                 }
             } else {
-//                onClickSaveBankDetailsAndWithdraw()
+                mContextLoadingProgressBarBank.show()
+                onClickSaveBankDetailsAndWithdraw()
             }
         }
     }
@@ -196,6 +197,7 @@ class BankFragment : Fragment(R.layout.fragment_bank), View.OnClickListener {
                     APIClient.apiInterface
                         .bankWithdraw(
                             mSharedPreferenceUtils.getLoggedInUser().loginToken,
+                            "bank_account",
                             mTextInputEditTextBankEnterWithdrawalAmount.text.toString().trim(),
                             mTextInputEditTextBankNameOnAccount.text.toString().trim(),
                             mTextInputEditTextBankAccountNumber.text.toString().trim(),
@@ -251,6 +253,18 @@ class BankFragment : Fragment(R.layout.fragment_bank), View.OnClickListener {
                                                 null,
                                                 DialogInterface.OnDismissListener {
                                                     mTextInputEditTextBankEnterWithdrawalAmount.text?.clear()
+                                                    mTextInputEditTextBankEnterWithdrawalAmount.text?.clear()
+                                                    mSharedPreferenceUtils.saveBankDetails(
+                                                        mTextInputEditTextBankNameOnAccount.text.toString()
+                                                            .trim(),
+                                                        mTextInputEditTextBankAccountNumber.text.toString(),
+                                                        mTextInputEditTextBankIFSCCode.text.toString()
+                                                            .trim(),
+                                                        mTextInputEditTextBankName.text.toString()
+                                                            .trim(),
+                                                        mTextInputEditTextBankBranchAddress.text.toString()
+                                                            .trim()
+                                                    )
                                                     it.dismiss()
                                                 }
                                             )
