@@ -32,6 +32,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
     private lateinit var mTextInputEditTextSignInPassword: TextInputEditText
 
     private lateinit var mButtonSignInContinue: Button
+    private lateinit var mTextViewSignInForgotPassword: TextView
 
     private lateinit var mTextViewSignInNoAccount: TextView
 
@@ -51,6 +52,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
         mButtonSignInContinue = view.findViewById(R.id.buttonSignInContinue)
         mButtonSignInContinue.setOnClickListener(this@SignInFragment)
 
+        mTextViewSignInForgotPassword = view.findViewById(R.id.textViewSignInForgotPassword)
+        mTextViewSignInForgotPassword.setOnClickListener(this@SignInFragment)
+
         mTextViewSignInNoAccount = view.findViewById(R.id.textViewSignInNoAccount)
         mTextViewSignInNoAccount.setOnClickListener(this@SignInFragment)
 
@@ -67,6 +71,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.buttonSignInContinue -> isSignInValidated()
+            R.id.textViewSignInForgotPassword -> view?.let {
+                Navigation.findNavController(it).navigate(R.id.action_signIn_to_forgotPassword)
+            }
             R.id.textViewSignInNoAccount -> {
                 view?.let {
                     Navigation.findNavController(it)

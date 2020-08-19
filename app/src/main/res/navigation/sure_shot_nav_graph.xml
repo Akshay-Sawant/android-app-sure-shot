@@ -196,9 +196,8 @@
         android:name="com.sureshotdiscount.app.ui.createnewpassword.CreateNewPasswordFragment"
         android:label="@string/text_label_create_new_password"
         tools:layout="@layout/fragment_create_new_password">
-        <action
-            android:id="@+id/action_createNewPassword_to_signIn"
-            app:destination="@id/signInFragment"
-            app:popUpToInclusive="false" />
+        <argument
+            android:name="mobileNumber"
+            app:argType="string" />
     </fragment>
 </navigation>

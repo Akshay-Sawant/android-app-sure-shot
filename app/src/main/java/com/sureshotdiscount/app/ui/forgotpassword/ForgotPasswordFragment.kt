@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
@@ -58,6 +59,15 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password), View
             ) -> return
             else -> {
 //                onClickGetOTP()
+                view?.let { it1 ->
+                    Navigation.findNavController(it1)
+                        .navigate(
+                            ForgotPasswordFragmentDirections.actionForgotPasswordToCreateNewPassword(
+                                mTextInputEditTextForgotPasswordMobileNumber.text.toString()
+                                    .trim()
+                            )
+                        )
+                }
             }
         }
     }
@@ -90,6 +100,15 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password), View
                                             DialogInterface.OnDismissListener {
                                                 it.dismiss()
                                                 mTextInputEditTextForgotPasswordMobileNumber.text?.clear()
+                                                view?.let { it1 ->
+                                                    Navigation.findNavController(it1)
+                                                        .navigate(
+                                                            ForgotPasswordFragmentDirections.actionForgotPasswordToCreateNewPassword(
+                                                                mTextInputEditTextForgotPasswordMobileNumber.text.toString()
+                                                                    .trim()
+                                                            )
+                                                        )
+                                                }
                                                 view?.let { it1 ->
                                                     ValidationUtils.getValidationUtils()
                                                         .hideKeyboardFunc(

@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.Button
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
@@ -33,7 +35,9 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
 
     private lateinit var mButtonCreateNewPassword: Button
 
-    private lateinit var mContentLoadingProgressBarCreateNewPasssword: ContentLoadingProgressBar
+    private lateinit var mContentLoadingProgressBarCreateNewPassword: ContentLoadingProgressBar
+
+    private lateinit var mMobileNumber: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,16 +60,21 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
         mButtonCreateNewPassword = view.findViewById(R.id.buttonCreateNewPassword)
         mButtonCreateNewPassword.setOnClickListener(this@CreateNewPasswordFragment)
 
-        mContentLoadingProgressBarCreateNewPasssword =
+        mContentLoadingProgressBarCreateNewPassword =
             view.findViewById(R.id.contentLoadingProgressBarCreateNewPassword)
+
+        onValidateArguments()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonCreateNewPassword -> {
-
-            }
+            R.id.buttonCreateNewPassword -> isCreateNewPasswordValidated()
         }
+    }
+
+    private fun onValidateArguments() {
+        val mCreateNewPasswordFragmentArgs: CreateNewPasswordFragmentArgs by navArgs()
+        mMobileNumber = mCreateNewPasswordFragmentArgs.mobileNumber
     }
 
     private fun isCreateNewPasswordValidated() {
@@ -90,6 +99,10 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
             ) -> return
             else -> {
 //                onClickCreateNewPassword()
+                view?.let { it1 ->
+                    Navigation.findNavController(it1)
+                        .popBackStack(R.id.signInFragment, false)
+                }
             }
         }
     }
@@ -105,7 +118,7 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
             if (APIClient.isNetworkConnected(it)) {
                 APIClient.apiInterface
                     .createNewPassword(
-                        "",
+                        mMobileNumber,
                         mTextInputEditTextCreateNewPasswordEnterOTP.text.toString().trim(),
                         mTextInputEditTextCreateNewPasswordConfirmNewPassword.text.toString().trim()
                     )
@@ -116,7 +129,7 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
                         ) {
                             if (response.isSuccessful) {
                                 val mApiActionResponse: APIActionResponse? = response.body()
-                                mContentLoadingProgressBarCreateNewPasssword.visibility = View.GONE
+                                mContentLoadingProgressBarCreateNewPassword.visibility = View.GONE
 
                                 if (mApiActionResponse != null) {
                                     if (mApiActionResponse.isActionSuccess) {
@@ -129,6 +142,10 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
                                             null,
                                             DialogInterface.OnDismissListener {
                                                 it.dismiss()
+                                                view?.let { it1 ->
+                                                    Navigation.findNavController(it1)
+                                                        .popBackStack(R.id.signInFragment, false)
+                                                }
                                                 onClearCreateNewPassword()
                                                 view?.let { it1 ->
                                                     ValidationUtils.getValidationUtils()
@@ -175,11 +192,11 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
                                 call,
                                 t
                             )
-                            mContentLoadingProgressBarCreateNewPasssword.visibility = View.GONE
+                            mContentLoadingProgressBarCreateNewPassword.visibility = View.GONE
                         }
                     })
             } else {
-                mContentLoadingProgressBarCreateNewPasssword.visibility = View.GONE
+                mContentLoadingProgressBarCreateNewPassword.visibility = View.GONE
                 AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
             }
         }
