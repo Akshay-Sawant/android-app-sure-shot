@@ -112,6 +112,10 @@
             android:id="@+id/action_signIn_to_verifyOTP"
             app:destination="@id/verifyOTPFragment"
             app:popUpTo="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signIn_to_forgotPassword"
+            app:destination="@id/forgotPasswordFragment"
+            app:popUpTo="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/rechargeHistoryFragment"
@@ -167,4 +171,34 @@
         android:name="com.sureshotdiscount.app.ui.referralslist.withdraw.WithdrawFragment"
         android:label="@string/text_label_withdraw"
         tools:layout="@layout/fragment_withdraw" />
+    <fragment
+        android:id="@+id/bankFragment"
+        android:name="com.sureshotdiscount.app.ui.referralslist.withdraw.BankFragment"
+        android:label="fragment_bank"
+        tools:layout="@layout/fragment_bank" />
+    <fragment
+        android:id="@+id/paytmFragment"
+        android:name="com.sureshotdiscount.app.ui.referralslist.withdraw.PaytmFragment"
+        android:label="fragment_paytm"
+        tools:layout="@layout/fragment_paytm" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.sureshotdiscount.app.ui.forgotpassword.ForgotPasswordFragment"
+        android:label="@string/text_label_forgot_password"
+        tools:layout="@layout/fragment_forgot_password">
+        <action
+            android:id="@+id/action_forgotPassword_to_createNewPassword"
+            app:destination="@id/createNewPasswordFragment"
+            app:popUpTo="@id/forgotPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewPasswordFragment"
+        android:name="com.sureshotdiscount.app.ui.createnewpassword.CreateNewPasswordFragment"
+        android:label="@string/text_label_create_new_password"
+        tools:layout="@layout/fragment_create_new_password">
+        <action
+            android:id="@+id/action_createNewPassword_to_signIn"
+            app:destination="@id/signInFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>
