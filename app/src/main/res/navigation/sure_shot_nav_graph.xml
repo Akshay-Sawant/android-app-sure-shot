@@ -159,8 +159,12 @@
     <fragment
         android:id="@+id/levelsDetailsFragment"
         android:name="com.sureshotdiscount.app.ui.referralslist.LevelsDetailsFragment"
-        android:label="fragment_levels_details"
-        tools:layout="@layout/fragment_levels_details" />
+        android:label="@string/text_label_levels_detail"
+        tools:layout="@layout/fragment_levels_details" >
+        <argument
+            android:name="levelId"
+            app:argType="integer" />
+    </fragment>
     <dialog
         android:id="@+id/logoutFragment"
         android:name="com.sureshotdiscount.app.ui.logout.LogoutFragment"

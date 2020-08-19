@@ -77,7 +77,14 @@ class ReferralsListFragment : Fragment(R.layout.fragment_referrals_list), View.O
     }
 
     override fun onClickReferralsListsLevels(mView: View, mPosition: ReferralsModel) {
-
+        view?.let {
+            Navigation.findNavController(it)
+                .navigate(
+                    ReferralsListFragmentDirections.actionReferralsListToLevelsDetails(
+                        mPosition.mReferralId
+                    )
+                )
+        }
     }
 
     private fun onLoadReferralsList() {
