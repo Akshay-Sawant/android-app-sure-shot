@@ -77,7 +77,10 @@ class SubscriptionPlanFragment : Fragment(R.layout.fragment_subscription_plan) {
                                         mMaterialCardViewSubscriptionPlan.visibility = View.VISIBLE
 
                                         mTextViewSubscriptionPlanAmount.text =
-                                            mSubscriptionPlanModel.mResponse.mSubscriptionAmount
+                                            getString(
+                                                R.string.text_label_rupees,
+                                                mSubscriptionPlanModel.mResponse.mSubscriptionAmount
+                                            )
                                         mTextViewSubscriptionPlanExpiryDate.text =
                                             mSubscriptionPlanModel.mResponse.mSubscriptionExpiryDate
                                     } else {

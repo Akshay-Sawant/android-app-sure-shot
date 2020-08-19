@@ -54,7 +54,7 @@
                 android:layout_width="@dimen/material_dimen_constraint"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:hint="@string/text_recharge_amount"
+                android:text="@string/text_label_rupees"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
