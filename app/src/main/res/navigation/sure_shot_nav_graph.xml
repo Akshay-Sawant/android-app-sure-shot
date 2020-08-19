@@ -184,7 +184,7 @@
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.sureshotdiscount.app.ui.forgotpassword.ForgotPasswordFragment"
-        android:label="@string/text_label_forgot_password"
+        android:label=""
         tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_forgotPassword_to_createNewPassword"
@@ -194,7 +194,7 @@
     <fragment
         android:id="@+id/createNewPasswordFragment"
         android:name="com.sureshotdiscount.app.ui.createnewpassword.CreateNewPasswordFragment"
-        android:label="@string/text_label_create_new_password"
+        android:label=""
         tools:layout="@layout/fragment_create_new_password">
         <argument
             android:name="mobileNumber"

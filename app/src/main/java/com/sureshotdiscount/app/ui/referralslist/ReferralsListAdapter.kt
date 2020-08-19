@@ -50,7 +50,10 @@ class ReferralsListAdapter(
 
     override fun onBindViewHolder(holder: ReferralsListViewHolder, position: Int) {
         holder.itemView.textViewReferralsListLevel.text =
-            mReferralsModelList[position].mReferralLevel.toString()
+            holder.itemView.context.getString(
+                R.string.text_label_level,
+                mReferralsModelList[position].mReferralLevel.toString()
+            )
         holder.itemView.textViewReferralsListAmount.text = holder.itemView.context.getString(
             R.string.text_label_rupees,
             mReferralsModelList[position].mReferralAmount.toString()

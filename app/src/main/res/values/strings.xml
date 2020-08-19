@@ -154,6 +154,7 @@
     <string name="text_label_balance_earnings">Balance Earnings</string>
     <string name="text_label_withdraw">Withdraw</string>
     <string name="text_label_referrals">Referrals</string>
+    <string name="text_label_level">LEVEL <xliff:g example="1" id="level">%s</xliff:g></string>
 
     <!--Levels Details-->
     <string name="text_label_unsubscribed">Unsubscribed - <xliff:g example="3" id="unsubscribed">%s</xliff:g></string>
