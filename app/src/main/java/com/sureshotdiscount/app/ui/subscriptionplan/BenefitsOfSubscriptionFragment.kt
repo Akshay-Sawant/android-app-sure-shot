@@ -1,6 +1,7 @@
 package com.sureshotdiscount.app.ui.subscriptionplan
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.sureshotdiscount.app.data.api.APIClient
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
+import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import datamodels.PWEStaticDataModel
 import org.json.JSONObject
@@ -40,16 +42,6 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
-    private lateinit var merchant_trxnId: String
-    private var merchant_payment_amount: String? = null
-    private lateinit var merchant_productInfo: String
-    private lateinit var customer_firstName: String
-    private lateinit var customer_email_id: String
-    private lateinit var customer_phone: String
-    private lateinit var merchant_key: String
-    private lateinit var hash: String
-    private lateinit var customers_unique_id: String
-    private lateinit var payment_mode: String
     private lateinit var udf1: String
     private lateinit var udf2: String
     private lateinit var udf3: String
@@ -85,7 +77,7 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
         }
         onLoadWebView()
-        onLoadPaymentGatewayDetails()
+//        onLoadPaymentGatewayDetails()
     }
 
     override fun onClick(v: View?) {
@@ -157,6 +149,8 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
                                     if (mSubscriptionPlanModel.mStatus) {
                                         mTextViewBenefitsOfSubscriptionMessage.visibility =
                                             View.VISIBLE
+                                        mTextViewBenefitsOfSubscriptionMessage.text =
+                                            mSubscriptionPlanModel.mMessage
                                         mWebViewBenefitsOfSubscription.visibility = View.GONE
                                         mButtonBenefitsOfSubscriptionPayToSubscribeNow.visibility =
                                             View.GONE
@@ -170,8 +164,6 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
                                         mWebViewBenefitsOfSubscription.loadUrl(
                                             mSubscriptionPlanModel.mLink
                                         )
-                                        merchant_payment_amount =
-                                            mSubscriptionPlanModel.mSubscriptionAmount.toString()
                                     }
                                 } else {
                                     ErrorUtils.logNetworkError(
@@ -280,27 +272,6 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
         }
     }
 
-    private fun onLoadPaymentGatewayDetails() {
-        val salt = "DAH88E3UWQ"
-        merchant_trxnId = "1001"
-        merchant_payment_amount
-        merchant_productInfo = "Headphones"
-        customer_firstName = "Suraj"
-        customer_email_id = "suraj@innovins.com"
-        customer_phone = "9970783832"
-        merchant_key = "2PBP7IABZ2"
-        customers_unique_id = "199SS"
-        payment_mode = "test"
-        udf1 = ""
-        udf2 = ""
-        udf3 = ""
-        udf4 = ""
-        udf5 = ""
-        val hash_string =
-            "$merchant_key|$merchant_trxnId|${merchant_payment_amount?.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$salt|$merchant_key"
-        hash = getSHA512(hash_string)
-    }
-
     private fun getSHA512(input: String): String {
         val md: MessageDigest = MessageDigest.getInstance("SHA-512")
         val messageDigest = md.digest(input.toByteArray())
@@ -321,26 +292,132 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
     }
 
     private fun onClickPayToSubscribe() {
-        val intentProceed =
-            Intent(context, PWECouponsActivity::class.java)
-        intentProceed.flags =
-            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT // This is mandatory flag
+        context?.let {
+            if (APIClient.isNetworkConnected(it)) {
+                APIClient.apiInterface
+                    .initiateSubscription(
+                        mSharedPreferenceUtils.getLoggedInUser().loginToken
+                    )
+                    .enqueue(object : Callback<BenefitsOfSubscriptionModel> {
+                        override fun onResponse(
+                            call: Call<BenefitsOfSubscriptionModel>,
+                            response: Response<BenefitsOfSubscriptionModel>
+                        ) {
+                            if (response.isSuccessful) {
+                                val mBenefitsOfSubscriptionModel: BenefitsOfSubscriptionModel? =
+                                    response.body()
+                                mContentLoadingProgressBarBenefitsOfSubscription.hide()
 
-        intentProceed.putExtra("txnid", merchant_trxnId)
-        intentProceed.putExtra("amount", merchant_payment_amount?.toDouble())
-        intentProceed.putExtra("productinfo", merchant_productInfo)
-        intentProceed.putExtra("firstname", customer_firstName)
-        intentProceed.putExtra("email", customer_email_id)
-        intentProceed.putExtra("phone", customer_phone)
-        intentProceed.putExtra("key", merchant_key)
-        intentProceed.putExtra("udf1", udf1)
-        intentProceed.putExtra("udf2", udf2)
-        intentProceed.putExtra("udf3", udf3)
-        intentProceed.putExtra("udf4", udf4)
-        intentProceed.putExtra("udf5", udf5)
-        intentProceed.putExtra("hash", hash)
-        intentProceed.putExtra("unique_id", customers_unique_id)
-        intentProceed.putExtra("pay_mode", payment_mode)
-        startActivityForResult(intentProceed, PWEStaticDataModel.PWE_REQUEST_CODE)
+                                if (mBenefitsOfSubscriptionModel != null) {
+                                    if (mBenefitsOfSubscriptionModel.mStatus) {
+                                        val intentProceed =
+                                            Intent(context, PWECouponsActivity::class.java)
+                                        intentProceed.flags =
+                                            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT // This is mandatory flag
+
+                                        val mHash =
+                                            "$mBenefitsOfSubscriptionModel.mData.mMerchantKey|" +
+                                                    "$mBenefitsOfSubscriptionModel.mData.mMerchantTrxnId|" +
+                                                    "${mBenefitsOfSubscriptionModel.mData.mMerchantPaymentAmount.toDouble()}|" +
+                                                    "$mBenefitsOfSubscriptionModel.mData.mMerchantProductInfo|" +
+                                                    "$mBenefitsOfSubscriptionModel.mData.mCustomerFirstName|" +
+                                                    "$mBenefitsOfSubscriptionModel.mData.mCustomerEmailId|" +
+                                                    "$udf1|" +
+                                                    "$udf2|" +
+                                                    "$udf3|" +
+                                                    "$udf4|" +
+                                                    "$udf5||||||" +
+                                                    "${mBenefitsOfSubscriptionModel.mData.mSalt}|" +
+                                                    "$mBenefitsOfSubscriptionModel.mData.mMerchantKey"
+
+                                        intentProceed.putExtra(
+                                            "txnid",
+                                            mBenefitsOfSubscriptionModel.mData.mMerchantTrxnId
+                                        )
+                                        intentProceed.putExtra(
+                                            "amount",
+                                            mBenefitsOfSubscriptionModel.mData.mMerchantPaymentAmount.toDouble()
+                                        )
+                                        intentProceed.putExtra(
+                                            "productinfo",
+                                            mBenefitsOfSubscriptionModel.mData.mMerchantProductInfo
+                                        )
+                                        intentProceed.putExtra(
+                                            "firstname",
+                                            mBenefitsOfSubscriptionModel.mData.mCustomerFirstName
+                                        )
+                                        intentProceed.putExtra(
+                                            "email",
+                                            mBenefitsOfSubscriptionModel.mData.mCustomerEmailId
+                                        )
+                                        intentProceed.putExtra(
+                                            "phone",
+                                            mBenefitsOfSubscriptionModel.mData.customer_phone
+                                        )
+                                        intentProceed.putExtra(
+                                            "key",
+                                            mBenefitsOfSubscriptionModel.mData.mMerchantKey
+                                        )
+                                        intentProceed.putExtra("udf1", udf1)
+                                        intentProceed.putExtra("udf2", udf2)
+                                        intentProceed.putExtra("udf3", udf3)
+                                        intentProceed.putExtra("udf4", udf4)
+                                        intentProceed.putExtra("udf5", udf5)
+                                        intentProceed.putExtra("hash", getSHA512(mHash))
+                                        intentProceed.putExtra(
+                                            "unique_id",
+                                            mBenefitsOfSubscriptionModel.mData.mCustomersUniqueId
+                                        )
+                                        intentProceed.putExtra("pay_mode", "test")
+                                        startActivityForResult(
+                                            intentProceed,
+                                            PWEStaticDataModel.PWE_REQUEST_CODE
+                                        )
+                                    } else {
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_warning_black,
+                                            mBenefitsOfSubscriptionModel.mTitle,
+                                            mBenefitsOfSubscriptionModel.message,
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener {
+                                                view?.let { it1 ->
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(it1)
+                                                }
+                                                it.dismiss()
+                                            }
+                                        )
+                                    }
+                                } else {
+                                    ErrorUtils.logNetworkError(
+                                        ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                "\nResponse: " + response.toString(),
+                                        null
+                                    )
+                                    AlertDialogUtils.getInstance()
+                                        .displayInvalidResponseAlert(it)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(
+                            call: Call<BenefitsOfSubscriptionModel>,
+                            t: Throwable
+                        ) {
+                            ErrorUtils.parseOnFailureException(
+                                it,
+                                call,
+                                t
+                            )
+                            mContentLoadingProgressBarBenefitsOfSubscription.hide()
+                        }
+                    })
+            } else {
+                mContentLoadingProgressBarBenefitsOfSubscription.hide()
+                AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+            }
+        }
     }
 }

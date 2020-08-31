@@ -12,6 +12,7 @@ import com.sureshotdiscount.app.ui.recharge.CircleModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 import com.sureshotdiscount.app.ui.referralslist.LevelsModel
 import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
+import com.sureshotdiscount.app.ui.subscriptionplan.BenefitsOfSubscriptionModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 import com.sureshotdiscount.app.utils.*
 
@@ -91,6 +92,10 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$SUBSCRIPTION/get_my_subscription.php")
     fun getSubscriptionPlan(@Field("userLoginToken") userLoginToken: String): Call<SubscriptionPlanModel>
+
+    @FormUrlEncoded
+    @POST("$SUBSCRIPTION/initiate_subscription.php")
+    fun initiateSubscription(@Field("userLoginToken") userLoginToken: String): Call<BenefitsOfSubscriptionModel>
 
     @FormUrlEncoded
     @POST("$RECHARGE_DATA/get_plans.php")
