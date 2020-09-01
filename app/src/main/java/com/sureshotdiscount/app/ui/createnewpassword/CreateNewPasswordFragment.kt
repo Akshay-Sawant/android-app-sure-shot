@@ -98,11 +98,7 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
                 getString(R.string.text_error_password_match)
             ) -> return
             else -> {
-//                onClickCreateNewPassword()
-                view?.let { it1 ->
-                    Navigation.findNavController(it1)
-                        .popBackStack(R.id.signInFragment, false)
-                }
+                onClickCreateNewPassword()
             }
         }
     }
