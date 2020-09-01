@@ -51,7 +51,7 @@ interface APIInterface {
     fun requestSignInOTP(
         @Field("mobileNumber") mobileNumber: String,
         @Field("password") password: String
-    ): Call<APIActionResponse>
+    ): Call<LoggedInUser>
 
     @FormUrlEncoded
     @POST("$AUTH/resend_otp.php")

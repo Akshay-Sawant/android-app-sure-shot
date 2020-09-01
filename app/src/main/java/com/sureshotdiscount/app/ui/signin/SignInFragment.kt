@@ -13,10 +13,12 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
 import com.sureshotdiscount.app.data.api.APIClient
+import com.sureshotdiscount.app.data.model.LoggedInUser
 import com.sureshotdiscount.app.data.model.response.APIActionResponse
 import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.onDecorateText
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
+import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import retrofit2.Call
@@ -37,6 +39,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
     private lateinit var mTextViewSignInNoAccount: TextView
 
     private lateinit var mContentLoadingProgressBarSignIn: ContentLoadingProgressBar
+
+    private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,6 +70,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
             mTextViewSignInNoAccount,
             Color.BLUE
         )
+
+        context?.let {
+            mSharedPreferenceUtils = SharedPreferenceUtils(it)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -118,33 +126,32 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                         mTextInputEditTextSignInMobileNumber.text.toString().trim(),
                         mTextInputEditTextSignInPassword.text.toString().trim()
                     )
-                    .enqueue(object : Callback<APIActionResponse> {
+                    .enqueue(object : Callback<LoggedInUser> {
                         override fun onResponse(
-                            call: Call<APIActionResponse>,
-                            response: Response<APIActionResponse>
+                            call: Call<LoggedInUser>,
+                            response: Response<LoggedInUser>
                         ) {
                             if (response.isSuccessful) {
-                                val mApiActionResponse: APIActionResponse? = response.body()
+                                val mLoggedInUser: LoggedInUser? = response.body()
                                 mContentLoadingProgressBarSignIn.visibility = View.GONE
 
-                                if (mApiActionResponse != null) {
-                                    if (mApiActionResponse.isActionSuccess) {
+                                if (mLoggedInUser != null) {
+                                    if (mLoggedInUser.status) {
+                                        mSharedPreferenceUtils =
+                                            SharedPreferenceUtils(it, mLoggedInUser)
+                                        mSharedPreferenceUtils.saveUpdatedLoggedInUser(it)
+
                                         AlertDialogUtils.getInstance().showAlert(
                                             it,
                                             R.drawable.ic_check_circle_black,
-                                            mApiActionResponse.title,
-                                            mApiActionResponse.message,
+                                            mLoggedInUser.title,
+                                            mLoggedInUser.message,
                                             getString(android.R.string.ok),
                                             null,
                                             DialogInterface.OnDismissListener {
                                                 view?.let { it1 ->
                                                     Navigation.findNavController(it1)
-                                                        .navigate(
-                                                            SignInFragmentDirections.actionSignInToVerifyOTP(
-                                                                mTextInputEditTextSignInMobileNumber.text.toString()
-                                                                    .trim()
-                                                            )
-                                                        )
+                                                        .navigate(R.id.action_signIn_to_myAccount)
                                                 }
                                                 it.dismiss()
                                                 onClearSignIn()
@@ -160,8 +167,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                         AlertDialogUtils.getInstance().showAlert(
                                             it,
                                             R.drawable.ic_warning_black,
-                                            mApiActionResponse.title,
-                                            mApiActionResponse.message,
+                                            mLoggedInUser.title,
+                                            mLoggedInUser.message,
                                             getString(android.R.string.ok),
                                             null,
                                             DialogInterface.OnDismissListener {
@@ -187,7 +194,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                             }
                         }
 
-                        override fun onFailure(call: Call<APIActionResponse>, t: Throwable) {
+                        override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
                             ErrorUtils.parseOnFailureException(
                                 it,
                                 call,

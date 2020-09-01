@@ -109,13 +109,12 @@
         android:label=""
         tools:layout="@layout/fragment_sign_in">
         <action
-            android:id="@+id/action_signIn_to_verifyOTP"
-            app:destination="@id/verifyOTPFragment"
-            app:popUpTo="@id/signInFragment" />
-        <action
             android:id="@+id/action_signIn_to_forgotPassword"
             app:destination="@id/forgotPasswordFragment"
             app:popUpTo="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signIn_to_myAccount"
+            app:destination="@id/myAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/rechargeHistoryFragment"
