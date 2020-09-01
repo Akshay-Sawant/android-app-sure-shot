@@ -58,16 +58,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password), View
                 getString(R.string.text_error_mobile)
             ) -> return
             else -> {
-//                onClickGetOTP()
-                view?.let { it1 ->
-                    Navigation.findNavController(it1)
-                        .navigate(
-                            ForgotPasswordFragmentDirections.actionForgotPasswordToCreateNewPassword(
-                                mTextInputEditTextForgotPasswordMobileNumber.text.toString()
-                                    .trim()
-                            )
-                        )
-                }
+                onClickGetOTP()
             }
         }
     }
