@@ -42,11 +42,22 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
+    private lateinit var merchant_trxnId: String
+    private lateinit var merchant_payment_amount: String
+    private lateinit var merchant_productInfo: String
+    private lateinit var customer_firstName: String
+    private lateinit var customer_email_id: String
+    private lateinit var customer_phone: String
+    private lateinit var merchant_key: String
+    private lateinit var hash: String
+    private lateinit var customers_unique_id: String
+    private lateinit var payment_mode: String
     private lateinit var udf1: String
     private lateinit var udf2: String
     private lateinit var udf3: String
     private lateinit var udf4: String
     private lateinit var udf5: String
+    private lateinit var mSalt: String
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,7 +88,6 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
         }
         onLoadWebView()
-//        onLoadPaymentGatewayDetails()
     }
 
     override fun onClick(v: View?) {
@@ -310,69 +320,63 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
 
                                 if (mBenefitsOfSubscriptionModel != null) {
                                     if (mBenefitsOfSubscriptionModel.mStatus) {
+
+                                        mSalt = mBenefitsOfSubscriptionModel.mData.mSalt
+                                        merchant_trxnId =
+                                            mBenefitsOfSubscriptionModel.mData.mMerchantTrxnId
+                                        merchant_payment_amount =
+                                            mBenefitsOfSubscriptionModel.mData.mMerchantPaymentAmount
+                                        merchant_productInfo =
+                                            mBenefitsOfSubscriptionModel.mData.mMerchantProductInfo
+                                        customer_firstName =
+                                            mBenefitsOfSubscriptionModel.mData.mCustomerFirstName
+                                        customer_email_id =
+                                            mBenefitsOfSubscriptionModel.mData.mCustomerEmailId
+                                        customer_phone =
+                                            mBenefitsOfSubscriptionModel.mData.customer_phone
+                                        merchant_key =
+                                            mBenefitsOfSubscriptionModel.mData.mMerchantKey
+                                        customers_unique_id =
+                                            mBenefitsOfSubscriptionModel.mData.mCustomersUniqueId
+                                        payment_mode = "test"
+                                        udf1 = ""
+                                        udf2 = ""
+                                        udf3 = ""
+                                        udf4 = ""
+                                        udf5 = ""
+
+                                        val hash_string =
+                                            "$merchant_key|$merchant_trxnId|${merchant_payment_amount.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$mSalt|$merchant_key"
+                                        hash = getSHA512(hash_string)
+
                                         val intentProceed =
                                             Intent(context, PWECouponsActivity::class.java)
                                         intentProceed.flags =
                                             Intent.FLAG_ACTIVITY_REORDER_TO_FRONT // This is mandatory flag
 
-                                        val mHash =
-                                            "$mBenefitsOfSubscriptionModel.mData.mMerchantKey|" +
-                                                    "$mBenefitsOfSubscriptionModel.mData.mMerchantTrxnId|" +
-                                                    "${mBenefitsOfSubscriptionModel.mData.mMerchantPaymentAmount.toDouble()}|" +
-                                                    "$mBenefitsOfSubscriptionModel.mData.mMerchantProductInfo|" +
-                                                    "$mBenefitsOfSubscriptionModel.mData.mCustomerFirstName|" +
-                                                    "$mBenefitsOfSubscriptionModel.mData.mCustomerEmailId|" +
-                                                    "$udf1|" +
-                                                    "$udf2|" +
-                                                    "$udf3|" +
-                                                    "$udf4|" +
-                                                    "$udf5||||||" +
-                                                    "${mBenefitsOfSubscriptionModel.mData.mSalt}|" +
-                                                    "$mBenefitsOfSubscriptionModel.mData.mMerchantKey"
-
-                                        intentProceed.putExtra(
-                                            "txnid",
-                                            mBenefitsOfSubscriptionModel.mData.mMerchantTrxnId
-                                        )
+                                        intentProceed.putExtra("txnid", merchant_trxnId)
                                         intentProceed.putExtra(
                                             "amount",
-                                            mBenefitsOfSubscriptionModel.mData.mMerchantPaymentAmount.toDouble()
+                                            merchant_payment_amount.toDouble()
                                         )
-                                        intentProceed.putExtra(
-                                            "productinfo",
-                                            mBenefitsOfSubscriptionModel.mData.mMerchantProductInfo
-                                        )
-                                        intentProceed.putExtra(
-                                            "firstname",
-                                            mBenefitsOfSubscriptionModel.mData.mCustomerFirstName
-                                        )
-                                        intentProceed.putExtra(
-                                            "email",
-                                            mBenefitsOfSubscriptionModel.mData.mCustomerEmailId
-                                        )
-                                        intentProceed.putExtra(
-                                            "phone",
-                                            mBenefitsOfSubscriptionModel.mData.customer_phone
-                                        )
-                                        intentProceed.putExtra(
-                                            "key",
-                                            mBenefitsOfSubscriptionModel.mData.mMerchantKey
-                                        )
+                                        intentProceed.putExtra("productinfo", merchant_productInfo)
+                                        intentProceed.putExtra("firstname", customer_firstName)
+                                        intentProceed.putExtra("email", customer_email_id)
+                                        intentProceed.putExtra("phone", customer_phone)
+                                        intentProceed.putExtra("key", merchant_key)
                                         intentProceed.putExtra("udf1", udf1)
                                         intentProceed.putExtra("udf2", udf2)
                                         intentProceed.putExtra("udf3", udf3)
                                         intentProceed.putExtra("udf4", udf4)
                                         intentProceed.putExtra("udf5", udf5)
-                                        intentProceed.putExtra("hash", getSHA512(mHash))
-                                        intentProceed.putExtra(
-                                            "unique_id",
-                                            mBenefitsOfSubscriptionModel.mData.mCustomersUniqueId
-                                        )
-                                        intentProceed.putExtra("pay_mode", "test")
+                                        intentProceed.putExtra("hash", hash)
+                                        intentProceed.putExtra("unique_id", customers_unique_id)
+                                        intentProceed.putExtra("pay_mode", payment_mode)
                                         startActivityForResult(
                                             intentProceed,
                                             PWEStaticDataModel.PWE_REQUEST_CODE
                                         )
+
                                     } else {
                                         AlertDialogUtils.getInstance().showAlert(
                                             it,
