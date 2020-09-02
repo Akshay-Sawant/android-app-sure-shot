@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -114,9 +115,10 @@ class CreateNewPasswordFragment : Fragment(R.layout.fragment_create_new_password
             if (APIClient.isNetworkConnected(it)) {
                 APIClient.apiInterface
                     .createNewPassword(
-                        mMobileNumber,
                         mTextInputEditTextCreateNewPasswordEnterOTP.text.toString().trim(),
-                        mTextInputEditTextCreateNewPasswordConfirmNewPassword.text.toString().trim()
+                        mTextInputEditTextCreateNewPasswordConfirmNewPassword.text.toString()
+                            .trim(),
+                        mMobileNumber
                     )
                     .enqueue(object : Callback<APIActionResponse> {
                         override fun onResponse(

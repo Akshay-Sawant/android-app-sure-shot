@@ -12,6 +12,7 @@ import com.sureshotdiscount.app.ui.recharge.CircleModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 import com.sureshotdiscount.app.ui.referralslist.LevelsModel
 import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
+import com.sureshotdiscount.app.ui.signin.SignInModel
 import com.sureshotdiscount.app.ui.subscriptionplan.BenefitsOfSubscriptionModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 import com.sureshotdiscount.app.utils.*
@@ -51,7 +52,7 @@ interface APIInterface {
     fun requestSignInOTP(
         @Field("mobileNumber") mobileNumber: String,
         @Field("password") password: String
-    ): Call<LoggedInUser>
+    ): Call<SignInModel>
 
     @FormUrlEncoded
     @POST("$AUTH/resend_otp.php")
@@ -149,8 +150,8 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$AUTH/create_new_password.php")
     fun createNewPassword(
-        @Field("mobileNumber") mobileNumber: String,
         @Field("otp") otp: String,
-        @Field("password") password: String
+        @Field("newPassword") password: String,
+        @Field("mobileNumber") mobileNumber: String
     ): Call<APIActionResponse>
 }

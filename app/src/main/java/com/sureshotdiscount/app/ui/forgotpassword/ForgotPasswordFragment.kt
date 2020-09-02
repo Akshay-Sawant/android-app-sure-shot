@@ -90,7 +90,6 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password), View
                                             null,
                                             DialogInterface.OnDismissListener {
                                                 it.dismiss()
-                                                mTextInputEditTextForgotPasswordMobileNumber.text?.clear()
                                                 view?.let { it1 ->
                                                     Navigation.findNavController(it1)
                                                         .navigate(
@@ -106,6 +105,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password), View
                                                             it1
                                                         )
                                                 }
+                                                mTextInputEditTextForgotPasswordMobileNumber.text?.clear()
                                             }
                                         )
                                     } else {

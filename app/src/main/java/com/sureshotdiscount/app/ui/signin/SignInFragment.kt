@@ -126,26 +126,26 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                         mTextInputEditTextSignInMobileNumber.text.toString().trim(),
                         mTextInputEditTextSignInPassword.text.toString().trim()
                     )
-                    .enqueue(object : Callback<LoggedInUser> {
+                    .enqueue(object : Callback<SignInModel> {
                         override fun onResponse(
-                            call: Call<LoggedInUser>,
-                            response: Response<LoggedInUser>
+                            call: Call<SignInModel>,
+                            response: Response<SignInModel>
                         ) {
                             if (response.isSuccessful) {
-                                val mLoggedInUser: LoggedInUser? = response.body()
+                                val mSignInModel: SignInModel? = response.body()
                                 mContentLoadingProgressBarSignIn.visibility = View.GONE
 
-                                if (mLoggedInUser != null) {
-                                    if (mLoggedInUser.status) {
+                                if (mSignInModel != null) {
+                                    if (mSignInModel.mStatus) {
                                         mSharedPreferenceUtils =
-                                            SharedPreferenceUtils(it, mLoggedInUser)
+                                            SharedPreferenceUtils(it, mSignInModel.mLoggedInUser)
                                         mSharedPreferenceUtils.saveUpdatedLoggedInUser(it)
 
                                         AlertDialogUtils.getInstance().showAlert(
                                             it,
                                             R.drawable.ic_check_circle_black,
-                                            mLoggedInUser.title,
-                                            mLoggedInUser.message,
+                                            mSignInModel.mTitle,
+                                            mSignInModel.mMessage,
                                             getString(android.R.string.ok),
                                             null,
                                             DialogInterface.OnDismissListener {
@@ -167,8 +167,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                         AlertDialogUtils.getInstance().showAlert(
                                             it,
                                             R.drawable.ic_warning_black,
-                                            mLoggedInUser.title,
-                                            mLoggedInUser.message,
+                                            mSignInModel.mTitle,
+                                            mSignInModel.mMessage,
                                             getString(android.R.string.ok),
                                             null,
                                             DialogInterface.OnDismissListener {
@@ -194,7 +194,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                             }
                         }
 
-                        override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
+                        override fun onFailure(call: Call<SignInModel>, t: Throwable) {
                             ErrorUtils.parseOnFailureException(
                                 it,
                                 call,
