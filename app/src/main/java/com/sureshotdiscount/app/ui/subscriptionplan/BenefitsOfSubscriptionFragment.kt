@@ -476,6 +476,9 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
 
                                 if (mPaymentResultModel != null) {
                                     if (mPaymentResultModel.mStatus) {
+                                        mSharedPreferenceUtils.saveSubscriptionDone(
+                                            mPaymentResultModel.mPaymentResultDetailsModel.mPaymentStatus
+                                        )
                                         view?.let {
                                             Navigation.findNavController(it)
                                                 .navigate(
