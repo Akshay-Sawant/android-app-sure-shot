@@ -201,26 +201,15 @@ class VerifyOTPFragment : Fragment(R.layout.fragment_verify_o_t_p), View.OnClick
                                                 SharedPreferenceUtils(it, mLoggedInUser)
                                             mSharedPreferenceUtils.saveUpdatedLoggedInUser(it)
 
-                                            AlertDialogUtils.getInstance().showAlert(
-                                                it,
-                                                R.drawable.ic_check_circle_black,
-                                                "Registration Successful",
-                                                "Your OTP has been verified successfully!",
-                                                getString(android.R.string.ok),
-                                                null,
-                                                DialogInterface.OnDismissListener {
-                                                    onClearVerifyOTP()
-                                                    view?.let { it1 ->
-                                                        ValidationUtils.getValidationUtils()
-                                                            .hideKeyboardFunc(it1)
-                                                    }
-                                                    view?.let { it1 ->
-                                                        Navigation.findNavController(it1)
-                                                            .navigate(R.id.action_verifyOTP_to_dashboard)
-                                                    }
-                                                    it.dismiss()
-                                                }
-                                            )
+                                            onClearVerifyOTP()
+                                            view?.let { it1 ->
+                                                ValidationUtils.getValidationUtils()
+                                                    .hideKeyboardFunc(it1)
+                                            }
+                                            view?.let { it1 ->
+                                                Navigation.findNavController(it1)
+                                                    .navigate(R.id.action_verifyOTP_to_dashboard)
+                                            }
                                         } else {
                                             AlertDialogUtils.getInstance().showAlert(
                                                 it,

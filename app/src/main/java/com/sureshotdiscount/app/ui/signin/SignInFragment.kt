@@ -141,28 +141,17 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), View.OnClickListener
                                             SharedPreferenceUtils(it, mSignInModel.mLoggedInUser)
                                         mSharedPreferenceUtils.saveUpdatedLoggedInUser(it)
 
-                                        AlertDialogUtils.getInstance().showAlert(
-                                            it,
-                                            R.drawable.ic_check_circle_black,
-                                            mSignInModel.mTitle,
-                                            mSignInModel.mMessage,
-                                            getString(android.R.string.ok),
-                                            null,
-                                            DialogInterface.OnDismissListener {
-                                                view?.let { it1 ->
-                                                    Navigation.findNavController(it1)
-                                                        .navigate(R.id.action_signIn_to_myAccount)
-                                                }
-                                                it.dismiss()
-                                                onClearSignIn()
-                                                view?.let { it1 ->
-                                                    ValidationUtils.getValidationUtils()
-                                                        .hideKeyboardFunc(
-                                                            it1
-                                                        )
-                                                }
-                                            }
-                                        )
+                                        view?.let { it1 ->
+                                            Navigation.findNavController(it1)
+                                                .navigate(R.id.action_signIn_to_myAccount)
+                                        }
+                                        onClearSignIn()
+                                        view?.let { it1 ->
+                                            ValidationUtils.getValidationUtils()
+                                                .hideKeyboardFunc(
+                                                    it1
+                                                )
+                                        }
                                     } else {
                                         AlertDialogUtils.getInstance().showAlert(
                                             it,

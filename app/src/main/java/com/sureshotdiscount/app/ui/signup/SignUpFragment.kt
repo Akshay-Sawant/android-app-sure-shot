@@ -174,29 +174,18 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), View.OnClickListener
 
                                     if (mApiActionResponse != null) {
                                         if (mApiActionResponse.isActionSuccess) {
-                                            AlertDialogUtils.getInstance().showAlert(
-                                                it,
-                                                R.drawable.ic_check_circle_black,
-                                                mApiActionResponse.title,
-                                                mApiActionResponse.message,
-                                                getString(android.R.string.ok),
-                                                null,
-                                                DialogInterface.OnDismissListener {
-                                                    val mSignUpAction =
-                                                        SignUpFragmentDirections.actionSignUpToVerifyOTP(
-                                                            mTextInputEditTextSignUpMobileNumber.text.toString()
-                                                                .trim()
-                                                        )
-                                                    view?.let { it1 ->
-                                                        ValidationUtils.getValidationUtils()
-                                                            .hideKeyboardFunc(it1)
-                                                        Navigation.findNavController(it1)
-                                                            .navigate(mSignUpAction)
-                                                    }
-                                                    it.dismiss()
-                                                    onClearData()
-                                                }
-                                            )
+                                            val mSignUpAction =
+                                                SignUpFragmentDirections.actionSignUpToVerifyOTP(
+                                                    mTextInputEditTextSignUpMobileNumber.text.toString()
+                                                        .trim()
+                                                )
+                                            view?.let { it1 ->
+                                                ValidationUtils.getValidationUtils()
+                                                    .hideKeyboardFunc(it1)
+                                                Navigation.findNavController(it1)
+                                                    .navigate(mSignUpAction)
+                                            }
+                                            onClearData()
                                         } else {
                                             AlertDialogUtils.getInstance().showAlert(
                                                 it,
