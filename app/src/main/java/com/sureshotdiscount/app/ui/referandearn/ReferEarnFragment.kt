@@ -18,8 +18,10 @@ import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
@@ -61,9 +63,14 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
 
     private lateinit var mButtonReferAndEarnVerify: Button
 
+    private lateinit var mMaterialCardViewReferAndEarn: MaterialCardView
+
+    private lateinit var mTextViewYourReferralCode: TextView
     private lateinit var mTextViewReferAndEarnReferralCode: TextView
     private lateinit var mTextViewReferAndEarnTapToCopy: TextView
     private lateinit var mButtonReferAndEarnShareNow: Button
+
+    private lateinit var mContentLoadingProgressBarReferAndEarn: ContentLoadingProgressBar
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
 
@@ -122,12 +129,18 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
         mButtonReferAndEarnVerify = view.findViewById(R.id.buttonReferAndEarnVerify)
         mButtonReferAndEarnVerify.setOnClickListener(this@ReferEarnFragment)
 
+        mMaterialCardViewReferAndEarn = view.findViewById(R.id.materialCardViewReferAndEarn)
+
+        mTextViewYourReferralCode = view.findViewById(R.id.textViewYourReferralCode)
         mTextViewReferAndEarnReferralCode = view.findViewById(R.id.textViewReferralCode)
         mTextViewReferAndEarnTapToCopy = view.findViewById(R.id.textViewTapToCopy)
         mTextViewReferAndEarnTapToCopy.setOnClickListener(this@ReferEarnFragment)
 
         mButtonReferAndEarnShareNow = view.findViewById(R.id.buttonShareNow)
         mButtonReferAndEarnShareNow.setOnClickListener(this@ReferEarnFragment)
+
+        mContentLoadingProgressBarReferAndEarn =
+            view.findViewById(R.id.contentLoadingProgressBarReferAndEarn)
 
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
@@ -137,7 +150,9 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
 
     override fun onResume() {
         super.onResume()
+        mContentLoadingProgressBarReferAndEarn.show()
         view?.let { ValidationUtils.getValidationUtils().hideKeyboardFunc(it) }
+        checkIfKYCIsDone()
     }
 
     override fun onClick(v: View?) {
@@ -529,5 +544,71 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
 
         val shareIntent = Intent.createChooser(sendIntent, "Share Via")
         startActivity(shareIntent)
+    }
+
+    private fun showKYCForm() {
+        //KYC Form VISIBLE
+        mTextViewReferAndEarnVerifyYourKYC.visibility = View.VISIBLE
+        mTextInputLayoutReferAndEarnName.visibility = View.VISIBLE
+        mTextInputLayoutReferAndEarnEmailId.visibility = View.VISIBLE
+        mTextInputLayoutReferAndEarnAddress.visibility = View.VISIBLE
+        mTextInputLayoutReferAndEarnPanNo.visibility = View.VISIBLE
+
+        mImageViewReferAndEarnUploadAddressProof.visibility = View.VISIBLE
+        mTextViewReferAndEarnUploadAddressProof.visibility = View.VISIBLE
+
+        mImageViewReferAndEranUploadPanCard.visibility = View.VISIBLE
+        mTextTextViewReferAndEarnUploadPanCard.visibility = View.VISIBLE
+
+        mCheckBoxReferAndEarnAcceptContract.visibility = View.VISIBLE
+
+        mButtonReferAndEarnVerify.visibility = View.VISIBLE
+
+        //Referral Code GONE
+        mMaterialCardViewReferAndEarn.visibility = View.GONE
+
+        mTextViewYourReferralCode.visibility = View.GONE
+        mTextViewReferAndEarnReferralCode.visibility = View.GONE
+        mTextViewReferAndEarnTapToCopy.visibility = View.GONE
+
+        mButtonReferAndEarnShareNow.visibility = View.GONE
+    }
+
+    private fun showReferralCode() {
+        //KYC Form GONE
+        mTextViewReferAndEarnVerifyYourKYC.visibility = View.GONE
+        mTextInputLayoutReferAndEarnName.visibility = View.GONE
+        mTextInputLayoutReferAndEarnEmailId.visibility = View.GONE
+        mTextInputLayoutReferAndEarnAddress.visibility = View.GONE
+        mTextInputLayoutReferAndEarnPanNo.visibility = View.GONE
+
+        mImageViewReferAndEarnUploadAddressProof.visibility = View.GONE
+        mTextViewReferAndEarnUploadAddressProof.visibility = View.GONE
+
+        mImageViewReferAndEranUploadPanCard.visibility = View.GONE
+        mTextTextViewReferAndEarnUploadPanCard.visibility = View.GONE
+
+        mCheckBoxReferAndEarnAcceptContract.visibility = View.GONE
+
+        mButtonReferAndEarnVerify.visibility = View.GONE
+
+        //Referral Code VISIBLE
+        mMaterialCardViewReferAndEarn.visibility = View.VISIBLE
+
+        mTextViewYourReferralCode.visibility = View.VISIBLE
+        mTextViewReferAndEarnReferralCode.visibility = View.VISIBLE
+        mTextViewReferAndEarnTapToCopy.visibility = View.VISIBLE
+
+        mButtonReferAndEarnShareNow.visibility = View.VISIBLE
+    }
+
+    private fun checkIfKYCIsDone() {
+        if (context?.let { mSharedPreferenceUtils.getIsKYCDone(it) }!!) {
+            mContentLoadingProgressBarReferAndEarn.hide()
+            showReferralCode()
+        } else {
+            mContentLoadingProgressBarReferAndEarn.hide()
+            showKYCForm()
+        }
     }
 }
