@@ -92,7 +92,23 @@
         android:id="@+id/paymentSuccessfulFragment"
         android:name="com.sureshotdiscount.app.ui.payment.PaymentSuccessfulFragment"
         android:label=""
-        tools:layout="@layout/fragment_payment_successful" />
+        tools:layout="@layout/fragment_payment_successful" >
+        <argument
+            android:name="status"
+            app:argType="boolean" />
+        <argument
+            android:name="paymentStatus"
+            app:argType="string" />
+        <argument
+            android:name="rechargeFor"
+            app:argType="string" />
+        <argument
+            android:name="mobileNumber"
+            app:argType="string" />
+        <argument
+            android:name="orderId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/benefitsOfSubscriptionFragment"
         android:name="com.sureshotdiscount.app.ui.subscriptionplan.BenefitsOfSubscriptionFragment"

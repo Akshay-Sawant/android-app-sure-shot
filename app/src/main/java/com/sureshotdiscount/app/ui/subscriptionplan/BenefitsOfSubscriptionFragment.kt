@@ -211,69 +211,96 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
                     val result = data.getStringExtra("result")
                     val payment_response = data.getStringExtra("payment_response")
                     when (result) {
-                        PWEStaticDataModel.TXN_SUCCESS_CODE -> {
-                            payment_response?.let {
-                                val mainObject = JSONObject(payment_response)
-                                val pay_txnid = mainObject.getString("txnid")
-                                val pay_firstname = mainObject.getString("firstname")
-                                val pay_status = mainObject.getString("status")
-                                val pay_phone = mainObject.getString("phone")
-                                val pay_amount = mainObject.getString("amount")
-                                /*startActivity(
-                                    PaymentSuccessActivity.newIntent(
-                                        this,
-                                        pay_txnid,
-                                        pay_firstname,
-                                        pay_status,
-                                        pay_phone,
-                                        pay_amount
+                        PWEStaticDataModel.TXN_SUCCESS_CODE -> paymentResult(
+                            getString(R.string.text_label_success),
+                            "Payment Successful",
+                            customers_unique_id
+                        )
+                        /*{
+                        payment_response?.let {
+                            val mainObject = JSONObject(payment_response)
+                            val pay_txnid = mainObject.getString("txnid")
+                            val pay_firstname = mainObject.getString("firstname")
+                            val pay_status = mainObject.getString("status")
+                            val pay_phone = mainObject.getString("phone")
+                            val pay_amount = mainObject.getString("amount")
+                            view?.let {
+                                Navigation.findNavController(it)
+                                    .navigate(
+                                        BenefitsOfSubscriptionFragmentDirections.actionBenefitsOfSubscriptionToPaymentSuccessful(
+                                            true,
+                                            "Payment Successful!",
+                                            "Subscription",
+                                            "8433644897",
+                                            "SUB-VUD22QED01202009231728HDZ"
+                                        )
                                     )
-                                )*/
-                                Toast.makeText(
-                                    context,
-                                    "$pay_txnid $pay_firstname $pay_status $pay_phone $pay_amount",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                view?.let {
-                                    Navigation.findNavController(it)
-                                        .navigate(R.id.action_benefitsOfSubscription_to_paymentSuccessful)
-                                }
                             }
                         }
+                    }*/
                         PWEStaticDataModel.TXN_FAILED_CODE,
                         PWEStaticDataModel.TXN_ERROR_NO_RETRY_CODE,
-                        PWEStaticDataModel.TXN_ERROR_RETRY_FAILED_CODE -> Toast.makeText(
+                        PWEStaticDataModel.TXN_ERROR_RETRY_FAILED_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
+                            "Payment Failed!",
+                            customers_unique_id
+                        )/*Toast.makeText(
                             context,
                             "Payment Failed!",
                             Toast.LENGTH_SHORT
-                        ).show()
-                        PWEStaticDataModel.TXN_INVALID_INPUT_DATA_CODE -> Toast.makeText(
-                            context,
-                            "Payment Failed, Invalid input data",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        PWEStaticDataModel.TXN_TIMEOUT_CODE -> Toast.makeText(
-                            context,
+                        ).show()*/
+                        PWEStaticDataModel.TXN_INVALID_INPUT_DATA_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
+                            "Payment Failed! Invalid input data.",
+                            customers_unique_id
+                        )
+                        /*Toast.makeText(
+                        context,
+                        "Payment Failed, Invalid input data",
+                        Toast.LENGTH_SHORT
+                    ).show()*/
+                        PWEStaticDataModel.TXN_TIMEOUT_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
                             "Sessiom Timeout!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            customers_unique_id
+                        )
+                        /*Toast.makeText(
+                        context,
+                        "Sessiom Timeout!",
+                        Toast.LENGTH_SHORT
+                    ).show()*/
                         PWEStaticDataModel.TXN_USERCANCELLED_CODE,
                         PWEStaticDataModel.TXN_BACKPRESSED_CODE,
-                        PWEStaticDataModel.TXN_BANK_BACK_PRESSED_CODE -> Toast.makeText(
-                            context,
+                        PWEStaticDataModel.TXN_BANK_BACK_PRESSED_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
                             "Transaction Cancelled!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        PWEStaticDataModel.TXN_ERROR_SERVER_ERROR_CODE -> Toast.makeText(
-                            context,
+                            customers_unique_id
+                        )
+                        /*Toast.makeText(
+                        context,
+                        "Transaction Cancelled!",
+                        Toast.LENGTH_SHORT
+                    ).show()*/
+                        PWEStaticDataModel.TXN_ERROR_SERVER_ERROR_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
                             "An error occured at our server!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        PWEStaticDataModel.TXN_ERROR_TXN_NOT_ALLOWED_CODE -> Toast.makeText(
+                            customers_unique_id
+                        )
+                        /*Toast.makeText(
+                        context,
+                        "An error occured at our server!",
+                        Toast.LENGTH_SHORT
+                    ).show()*/
+                        PWEStaticDataModel.TXN_ERROR_TXN_NOT_ALLOWED_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
+                            "There seems problem, transaction not allowed from your bank!",
+                            customers_unique_id
+                        )
+                        /*Toast.makeText(
                             context,
                             "There seems problem, transaction not allowed from your bank!",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
                     }
                 } catch (e: Exception) {
                     Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
@@ -410,6 +437,88 @@ class BenefitsOfSubscriptionFragment : Fragment(R.layout.fragment_benefits_of_su
                             call: Call<BenefitsOfSubscriptionModel>,
                             t: Throwable
                         ) {
+                            ErrorUtils.parseOnFailureException(
+                                it,
+                                call,
+                                t
+                            )
+                            mContentLoadingProgressBarBenefitsOfSubscription.hide()
+                        }
+                    })
+            } else {
+                mContentLoadingProgressBarBenefitsOfSubscription.hide()
+                AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+            }
+        }
+    }
+
+    private fun paymentResult(
+        mResponse: String,
+        mResponseText: String,
+        mUniqueReferenceId: String
+    ) {
+        context?.let {
+            if (APIClient.isNetworkConnected(it)) {
+                APIClient.apiInterface
+                    .paymentResult(
+                        mSharedPreferenceUtils.getLoggedInUser().loginToken,
+                        mResponse,
+                        mResponseText,
+                        mUniqueReferenceId
+                    )
+                    .enqueue(object : Callback<PaymentResultModel> {
+                        override fun onResponse(
+                            call: Call<PaymentResultModel>,
+                            response: Response<PaymentResultModel>
+                        ) {
+                            if (response.isSuccessful) {
+                                val mPaymentResultModel: PaymentResultModel? = response.body()
+                                mContentLoadingProgressBarBenefitsOfSubscription.hide()
+
+                                if (mPaymentResultModel != null) {
+                                    if (mPaymentResultModel.mStatus) {
+                                        view?.let {
+                                            Navigation.findNavController(it)
+                                                .navigate(
+                                                    BenefitsOfSubscriptionFragmentDirections.actionBenefitsOfSubscriptionToPaymentSuccessful(
+                                                        mPaymentResultModel.mPaymentResultDetailsModel.mPaymentStatus,
+                                                        mResponseText,
+                                                        mPaymentResultModel.mPaymentResultDetailsModel.mRechargeFor,
+                                                        mPaymentResultModel.mPaymentResultDetailsModel.mMobileNumber,
+                                                        mPaymentResultModel.mPaymentResultDetailsModel.mOrderId
+                                                    )
+                                                )
+                                        }
+                                    } else {
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_warning_black,
+                                            mPaymentResultModel.mTitle,
+                                            mPaymentResultModel.mMessage,
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener {
+                                                view?.let { it1 ->
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(it1)
+                                                }
+                                                it.dismiss()
+                                            }
+                                        )
+                                    }
+                                } else {
+                                    ErrorUtils.logNetworkError(
+                                        ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                "\nResponse: " + response.toString(),
+                                        null
+                                    )
+                                    AlertDialogUtils.getInstance()
+                                        .displayInvalidResponseAlert(it)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<PaymentResultModel>, t: Throwable) {
                             ErrorUtils.parseOnFailureException(
                                 it,
                                 call,

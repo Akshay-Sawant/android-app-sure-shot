@@ -205,4 +205,6 @@
     <string name="text_hint_enter_new_password">Enter New Password</string>
     <string name="text_hint_enter_otp">Enter OTP</string>
     <string name="text_hint_confirm_new_password">Confirm New Password</string>
+    <string name="text_label_success">Success</string>
+    <string name="text_label_failure">Failure</string>
 </resources>

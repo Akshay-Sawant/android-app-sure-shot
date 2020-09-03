@@ -14,6 +14,7 @@ import com.sureshotdiscount.app.ui.referralslist.LevelsModel
 import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
 import com.sureshotdiscount.app.ui.signin.SignInModel
 import com.sureshotdiscount.app.ui.subscriptionplan.BenefitsOfSubscriptionModel
+import com.sureshotdiscount.app.ui.subscriptionplan.PaymentResultModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 import com.sureshotdiscount.app.utils.*
 
@@ -93,6 +94,15 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$SUBSCRIPTION/get_my_subscription.php")
     fun getSubscriptionPlan(@Field("userLoginToken") userLoginToken: String): Call<SubscriptionPlanModel>
+
+    @FormUrlEncoded
+    @POST("$SUBSCRIPTION/payment_success.php")
+    fun paymentResult(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("response") response: String,
+        @Field("responseText") responseText: String,
+        @Field("unique_ref_id") unique_ref_id: String
+    ): Call<PaymentResultModel>
 
     @FormUrlEncoded
     @POST("$SUBSCRIPTION/initiate_subscription.php")
