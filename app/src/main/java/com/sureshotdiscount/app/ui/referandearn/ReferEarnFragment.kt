@@ -1,18 +1,38 @@
 package com.sureshotdiscount.app.ui.referandearn
 
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
+import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
 
 class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickListener,
     CompoundButton.OnCheckedChangeListener {
@@ -46,6 +66,17 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
     private lateinit var mButtonReferAndEarnShareNow: Button
 
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
+
+    private val TAKE_PICTURE = 10
+    private val PICK_IMAGE_REQUEST = 1
+    private val STORAGE_PERMISSION_CODE = 123
+    private var filePath: Uri? = null
+
+    private var mAddressProofBody: MultipartBody.Part? = null
+    private var mPanCardBody: MultipartBody.Part? = null
+
+    private var mIsAddressProofClicked: Boolean = false
+    private var mIsPanCardClicked: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -111,6 +142,17 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.imageViewReferAndEarnUploadAddressProof -> {
+                mIsAddressProofClicked = true
+                mIsPanCardClicked = false
+                openAlert()
+            }
+            R.id.imageViewReferAndEarnUploadPanCard -> {
+                mIsPanCardClicked = true
+                mIsAddressProofClicked = false
+                openAlert()
+            }
+            R.id.buttonReferAndEarnVerify -> isReferEarnValidated()
             R.id.textViewTapToCopy -> onClickTapToCopy()
             R.id.buttonShareNow -> onClickShareNow()
         }
@@ -121,6 +163,348 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
             R.id.checkboxReferAndEarnAcceptContract -> {
 
             }
+        }
+    }
+
+    //This method will be called when the user will tap on allow or deny
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(
+                    context,
+                    "Permission granted now you can read the storage",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(context, "Oops you just denied the permission", Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+    }
+
+    //handling the image chooser activity result
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            PICK_IMAGE_REQUEST -> {
+                if (resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+                    filePath = data.data
+                    try {
+                        if (filePath == null) {
+                            Toast.makeText(context, "No image selected", Toast.LENGTH_SHORT).show()
+                            if (mIsAddressProofClicked) {
+                                mIsAddressProofClicked = false
+                            } else {
+                                mIsPanCardClicked = false
+                            }
+                        } else {
+                            if (mIsAddressProofClicked) {
+                                getAddressProof(filePath)
+                                mIsPanCardClicked = false
+                            }
+                            if (mIsPanCardClicked) {
+                                getPanCard(filePath)
+                                mIsAddressProofClicked = false
+                            }
+                        }
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+            TAKE_PICTURE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val photo = data!!.extras!!["data"] as Bitmap?
+                    filePath = photo?.let { getImageUri(it) }
+                    try {
+                        if (filePath == null) {
+                            Toast.makeText(context, "No image selected", Toast.LENGTH_SHORT).show()
+                            if (mIsAddressProofClicked) {
+                                mIsAddressProofClicked = false
+                            } else {
+                                mIsPanCardClicked = false
+                            }
+                        } else {
+                            if (mIsAddressProofClicked) {
+                                getAddressProof(filePath)
+                            }
+                            if (mIsPanCardClicked) {
+                                getPanCard(filePath)
+                            }
+                        }
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                } else {
+                    Toast.makeText(context, "No Image", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun getImageUri(inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            context?.contentResolver,
+            inImage,
+            "Title",
+            null
+        )
+        return Uri.parse(path)
+    }
+
+    private fun openAlert() {
+        val options = arrayOf("Take Photo", "Choose from Gallery", "Cancel")
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Select Your Photo")
+        builder.setItems(options) { dialog: DialogInterface?, which: Int ->
+            when (options[which]) {
+                "Take Photo" -> {
+                    takePhoto()
+                }
+                "Choose from Gallery" -> {
+                    requestStoragePermission()
+                }
+                "Cancel" -> {
+                    dialog?.dismiss()
+                }
+            }
+        }
+
+        builder.show()
+    }
+
+    private fun takePhoto() {
+        val intent = Intent()
+        intent.action = MediaStore.ACTION_IMAGE_CAPTURE
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, filePath)
+        startActivityForResult(intent, TAKE_PICTURE)
+    }
+
+    //Requesting permission
+    private fun requestStoragePermission() {
+        when {
+            context?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            } == PackageManager.PERMISSION_GRANTED -> {
+                showFileChooser()
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                context as Activity,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) -> {
+                AlertDialogUtils.getInstance().showAlert(
+                    context as Activity,
+                    R.drawable.ic_check_circle_black,
+                    "Alert",
+                    "This app needs to access your device's settings to change the permission for gallery. Please allow!",
+                    getString(android.R.string.ok),
+                    DialogInterface.OnClickListener { dialog, _ ->
+                        dialog.dismiss()
+                    },
+                    getString(R.string.text_label_cancel),
+                    DialogInterface.OnClickListener { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                )
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                context as Activity,
+                Manifest.permission.CAMERA
+            ) -> {
+                AlertDialogUtils.getInstance().showAlert(
+                    context as Activity,
+                    R.drawable.ic_check_circle_black,
+                    "Alert",
+                    "This app needs to access your device's settings to change the permission for camera. Please allow!",
+                    getString(android.R.string.ok),
+                    DialogInterface.OnClickListener { dialog, _ ->
+                        dialog.dismiss()
+                    },
+                    getString(R.string.text_label_cancel),
+                    DialogInterface.OnClickListener { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                )
+            }
+            else -> {
+                //And finally ask for the permission
+                ActivityCompat.requestPermissions(
+                    context as Activity,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
+                    STORAGE_PERMISSION_CODE
+                )
+            }
+        }
+    }
+
+    //method to show file chooser
+    private fun showFileChooser() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+    }
+
+    //method to get the file path from uri
+    private fun getPath(uri: Uri?): String? {
+        var path: String? = null
+        var cursor: Cursor? =
+            uri?.let {
+                context?.contentResolver?.query(
+                    it,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+            }
+        cursor?.moveToFirst()
+        var document_id: String = cursor?.getString(0).toString()
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1)
+        cursor?.close()
+        cursor = context?.contentResolver?.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            null, MediaStore.Images.Media._ID + " = ? ", arrayOf(document_id), null
+        )
+        cursor?.moveToFirst()
+        path = cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
+        cursor?.close()
+
+        return path
+    }
+
+    private fun isReferEarnValidated() {
+        when {
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextFilledFunc(
+                    mTextInputEditTextReferAndEarnName,
+                    mTextInputLayoutReferAndEarnName,
+                    getString(R.string.text_error_empty_field)
+                ) -> return
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextEmailFunc(
+                    mTextInputEditTextReferAndEarnEmailId,
+                    mTextInputLayoutReferAndEarnEmailId,
+                    getString(R.string.text_error_email_id)
+                ) -> return
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextFilledFunc(
+                    mTextInputEditTextReferAndEarnAddress,
+                    mTextInputLayoutReferAndEarnAddress,
+                    getString(R.string.text_error_empty_field)
+                ) -> return
+            !ValidationUtils.getValidationUtils()
+                .isInputEditTextFilledFunc(
+                    mTextInputEditTextReferAndEarnPanNo,
+                    mTextInputLayoutReferAndEarnPanNo,
+                    getString(R.string.text_error_empty_field)
+                ) -> return
+            !mCheckBoxReferAndEarnAcceptContract.isChecked ->
+                context?.let {
+                    AlertDialogUtils.getInstance().showAlert(
+                        it,
+                        R.drawable.ic_warning_black,
+                        "Alert",
+                        "Please accept the contract by checking the check box.",
+                        getString(android.R.string.ok),
+                        null,
+                        DialogInterface.OnDismissListener {
+                            it.dismiss()
+                            view?.let { it1 ->
+                                ValidationUtils.getValidationUtils()
+                                    .hideKeyboardFunc(
+                                        it1
+                                    )
+                            }
+                        }
+                    )
+                }
+            else -> {
+                context?.let {
+                    if (mSharedPreferenceUtils.getSubscriptionDone(it)!!) {
+                        Toast.makeText(context, "KYC Done", Toast.LENGTH_SHORT).show()
+                    } else {
+                        AlertDialogUtils.getInstance().showAlert(
+                            it,
+                            R.drawable.ic_warning_black,
+                            "Subscription Pending",
+                            "Please do complete your subscription to proceed further.",
+                            getString(android.R.string.ok),
+                            null,
+                            DialogInterface.OnDismissListener {
+                                it.dismiss()
+                                view?.let { it1 ->
+                                    ValidationUtils.getValidationUtils()
+                                        .hideKeyboardFunc(
+                                            it1
+                                        )
+                                }
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getAddressProof(mFilePath: Uri?) {
+        if (mFilePath != null) {
+            Glide.with(this)
+                .load(filePath)
+                .into(mImageViewReferAndEarnUploadAddressProof)
+
+            //pass it like this
+            val mAddressProofFile = File(getPath(filePath)!!)
+            val mAddressProofRequestFile: RequestBody =
+                mAddressProofFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            // MultipartBody.Part is used to send also the actual file name
+            mAddressProofBody =
+                MultipartBody.Part.createFormData(
+                    "image",
+                    mAddressProofFile.name,
+                    mAddressProofRequestFile
+                )
+        }
+    }
+
+    private fun getPanCard(mFilePath: Uri?) {
+        if (mFilePath != null) {
+            Glide.with(this)
+                .load(filePath)
+                .into(mImageViewReferAndEranUploadPanCard)
+
+            //pass it like this
+            val mPanCardFile = File(getPath(filePath)!!)
+            val mPanCardRequestFile: RequestBody =
+                mPanCardFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            // MultipartBody.Part is used to send also the actual file name
+            mPanCardBody =
+                MultipartBody.Part.createFormData(
+                    "image",
+                    mPanCardFile.name,
+                    mPanCardRequestFile
+                )
         }
     }
 
