@@ -129,6 +129,15 @@ interface APIInterface {
     ): Call<InitiateRechargeModel>
 
     @FormUrlEncoded
+    @POST("$RECHARGE_DATA/payment_success.php")
+    fun mobileRechargePaymentResult(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("response") response: String,
+        @Field("responseText") responseText: String,
+        @Field("unique_ref_id") unique_ref_id: String
+    ): Call<PaymentResultModel>
+
+    @FormUrlEncoded
     @POST("$D2H_DATA/initiate_recharge.php")
     fun initiateD2HRecharge(
         @Field("userLoginToken") userLoginToken: String,
