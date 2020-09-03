@@ -299,7 +299,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                         mSharedPreferenceUtils.getRechargeCompanyCode(it)!!,
                         mSharedPreferenceUtils.getRechargeCircleCode(it)!!,
                         mSharedPreferenceUtils.getRechargeMobileNumber(it)!!,
-                        mSharedPreferenceUtils.getRechargeAmount(it)!!,
+                        mTextInputEditTextRechargeDetailsEnterAmount.text.toString().trim(),
                         mSharedPreferenceUtils.getPlanId(it)!!
                     )
                     .enqueue(object : Callback<InitiateRechargeModel> {
@@ -428,7 +428,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                         mSharedPreferenceUtils.getLoggedInUser().loginToken,
                         mSharedPreferenceUtils.getRechargeCompanyCode(it)!!,
                         mSharedPreferenceUtils.getRechargeSubscriptionId(it)!!,
-                        mSharedPreferenceUtils.getRechargeAmount(it)!!
+                        mTextInputEditTextRechargeDetailsEnterAmount.text.toString().trim()
                     )
                     .enqueue(object : Callback<InitiateRechargeModel> {
                         override fun onResponse(
