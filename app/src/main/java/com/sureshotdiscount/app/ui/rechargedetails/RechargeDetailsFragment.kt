@@ -553,34 +553,10 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
         mUniqueReferenceId: String
     ) {
         if (mIsMobileRecharge) {
-            view?.let {
-                Navigation.findNavController(it)
-                    .navigate(
-                        BenefitsOfSubscriptionFragmentDirections.actionBenefitsOfSubscriptionToPaymentSuccessful(
-                            false,
-                            mResponseText,
-                            "Mobile",
-                            mSharedPreferenceUtils.getRechargeMobileNumber(requireContext())!!,
-                            "22",
-                            context?.let { mSharedPreferenceUtils.getRechargeCompanyLogo(it) }
-                        )
-                    )
-            }
+            Toast.makeText(context, "Mobile Recharge: $mResponseText", Toast.LENGTH_SHORT).show()
 //            onMobileRechargePaymentResult(mResponse, mResponseText, mUniqueReferenceId)
         } else {
-            view?.let {
-                Navigation.findNavController(it)
-                    .navigate(
-                        BenefitsOfSubscriptionFragmentDirections.actionBenefitsOfSubscriptionToPaymentSuccessful(
-                            false,
-                            mResponseText,
-                            "D2H",
-                            mSharedPreferenceUtils.getRechargeMobileNumber(requireContext())!!,
-                            "22",
-                            context?.let { mSharedPreferenceUtils.getRechargeCompanyLogo(it) }
-                        )
-                    )
-            }
+            Toast.makeText(context, "D2H Recharge: $mResponseText", Toast.LENGTH_SHORT).show()
 //            onD2HRechargePaymentResult(mResponse, mResponseText, mUniqueReferenceId)
         }
     }

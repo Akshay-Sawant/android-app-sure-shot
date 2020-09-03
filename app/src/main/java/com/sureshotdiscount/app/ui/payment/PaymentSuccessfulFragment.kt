@@ -92,7 +92,7 @@ class PaymentSuccessfulFragment : Fragment(R.layout.fragment_payment_successful)
                 } else {
                     context?.let {
                         Glide.with(it)
-                            .load(R.drawable.idea)
+                            .load(mPaymentSuccessfulFragmentArgs.companyLogo)
                             .into(mCircleImageViewPaymentSuccessfulCompanyLogo)
                     }
                 }
@@ -121,7 +121,7 @@ class PaymentSuccessfulFragment : Fragment(R.layout.fragment_payment_successful)
                 } else {
                     context?.let {
                         Glide.with(it)
-                            .load(R.drawable.idea)
+                            .load(mPaymentSuccessfulFragmentArgs.companyLogo)
                             .into(mCircleImageViewPaymentSuccessfulCompanyLogo)
                     }
                 }
