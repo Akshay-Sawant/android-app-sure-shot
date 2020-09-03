@@ -62,6 +62,7 @@ class PlansFragment : Fragment(R.layout.fragment_plans), IPlans {
 
     override fun onClickPlans(mPosition: PlansListModel) {
         mSharedPreferenceUtils.saveRechargeAmount(mPosition.mAmount)
+        mSharedPreferenceUtils.savePlanId(mPosition.mPlanId)
         view?.let { Navigation.findNavController(it).popBackStack() }
     }
 

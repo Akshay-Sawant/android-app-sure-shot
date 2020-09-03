@@ -23,7 +23,6 @@ import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import datamodels.PWEStaticDataModel
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

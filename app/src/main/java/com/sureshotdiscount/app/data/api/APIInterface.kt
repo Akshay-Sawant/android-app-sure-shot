@@ -10,6 +10,7 @@ import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
 import com.sureshotdiscount.app.ui.plans.PlansModel
 import com.sureshotdiscount.app.ui.recharge.CircleModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
+import com.sureshotdiscount.app.ui.rechargedetails.InitiateRechargeModel
 import com.sureshotdiscount.app.ui.referralslist.LevelsModel
 import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
 import com.sureshotdiscount.app.ui.signin.SignInModel
@@ -115,6 +116,17 @@ interface APIInterface {
         @Field("companyCode") companyCode: String,
         @Field("circleCode") circleCode: String
     ): Call<PlansModel>
+
+    @FormUrlEncoded
+    @POST("$RECHARGE_DATA/initiate_recharge.php")
+    fun initiateMobileRecharge(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("operator_code") operator_code: String,
+        @Field("circle_code") circle_code: String,
+        @Field("consumer_no") consumer_no: String,
+        @Field("amount") amount: String,
+        @Field("plan_id") plan_id: String
+    ): Call<InitiateRechargeModel>
 
     @FormUrlEncoded
     @POST("$SUBSCRIPTION/get_my_level_list.php")

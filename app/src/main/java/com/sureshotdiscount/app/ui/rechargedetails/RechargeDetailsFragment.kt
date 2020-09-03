@@ -1,27 +1,39 @@
 package com.sureshotdiscount.app.ui.rechargedetails
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.widget.ContentLoadingProgressBar
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.easebuzz.payment.kit.PWECouponsActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
+import com.sureshotdiscount.app.data.api.APIClient
+import com.sureshotdiscount.app.utils.error.ErrorUtils
+import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
+import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import datamodels.PWEStaticDataModel
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.text.NumberFormat
+import java.util.*
 import kotlin.properties.Delegates
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), View.OnClickListener {
 
     private lateinit var mAppCompatImageViewRechargeDetailsCompanyLogo: AppCompatImageView
@@ -43,9 +55,12 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
 
     private lateinit var mButtonRechargeDetailsProceed: Button
 
+    private lateinit var mContentLoadingProgressBarRechargeDetails: ContentLoadingProgressBar
+
     private lateinit var mSharedPreferenceUtils: SharedPreferenceUtils
     private var mIsMobileRecharge by Delegates.notNull<Boolean>()
 
+    private lateinit var mSalt: String
     private lateinit var merchant_trxnId: String
     private lateinit var merchant_payment_amount: String
     private lateinit var merchant_productInfo: String
@@ -101,12 +116,14 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
 
         mButtonRechargeDetailsProceed = view.findViewById(R.id.buttonRechargeDetailsProceed)
         mButtonRechargeDetailsProceed.setOnClickListener(this@RechargeDetailsFragment)
+
+        mContentLoadingProgressBarRechargeDetails =
+            view.findViewById(R.id.contentLoadingProgressBarRechargeDetails)
     }
 
     override fun onResume() {
         super.onResume()
         onLoadCompanyDetails()
-        onLoadPaymentGatewayDetails()
     }
 
     override fun onDetach() {
@@ -139,69 +156,45 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                     val result = data.getStringExtra("result")
                     val payment_response = data.getStringExtra("payment_response")
                     when (result) {
-                        PWEStaticDataModel.TXN_SUCCESS_CODE -> {
-                            payment_response?.let {
-                                val mainObject = JSONObject(payment_response)
-                                val pay_txnid = mainObject.getString("txnid")
-                                val pay_firstname = mainObject.getString("firstname")
-                                val pay_status = mainObject.getString("status")
-                                val pay_phone = mainObject.getString("phone")
-                                val pay_amount = mainObject.getString("amount")
-                                /*startActivity(
-                                    PaymentSuccessActivity.newIntent(
-                                        this,
-                                        pay_txnid,
-                                        pay_firstname,
-                                        pay_status,
-                                        pay_phone,
-                                        pay_amount
-                                    )
-                                )*/
-                                Toast.makeText(
-                                    context,
-                                    "$pay_txnid $pay_firstname $pay_status $pay_phone $pay_amount",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                view?.let {
-                                    Navigation.findNavController(it)
-                                        .navigate(R.id.action_rechargeDetails_to_paymentSuccessful)
-                                }
-                            }
-                        }
+                        PWEStaticDataModel.TXN_SUCCESS_CODE -> paymentResult(
+                            getString(R.string.text_label_success),
+                            "Payment Successful",
+                            customers_unique_id
+                        )
                         PWEStaticDataModel.TXN_FAILED_CODE,
                         PWEStaticDataModel.TXN_ERROR_NO_RETRY_CODE,
-                        PWEStaticDataModel.TXN_ERROR_RETRY_FAILED_CODE -> Toast.makeText(
-                            context,
+                        PWEStaticDataModel.TXN_ERROR_RETRY_FAILED_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
                             "Payment Failed!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        PWEStaticDataModel.TXN_INVALID_INPUT_DATA_CODE -> Toast.makeText(
-                            context,
-                            "Payment Failed, Invalid input data",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        PWEStaticDataModel.TXN_TIMEOUT_CODE -> Toast.makeText(
-                            context,
+                            customers_unique_id
+                        )
+                        PWEStaticDataModel.TXN_INVALID_INPUT_DATA_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
+                            "Payment Failed! Invalid input data.",
+                            customers_unique_id
+                        )
+                        PWEStaticDataModel.TXN_TIMEOUT_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
                             "Sessiom Timeout!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            customers_unique_id
+                        )
                         PWEStaticDataModel.TXN_USERCANCELLED_CODE,
                         PWEStaticDataModel.TXN_BACKPRESSED_CODE,
-                        PWEStaticDataModel.TXN_BANK_BACK_PRESSED_CODE -> Toast.makeText(
-                            context,
+                        PWEStaticDataModel.TXN_BANK_BACK_PRESSED_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
                             "Transaction Cancelled!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        PWEStaticDataModel.TXN_ERROR_SERVER_ERROR_CODE -> Toast.makeText(
-                            context,
+                            customers_unique_id
+                        )
+                        PWEStaticDataModel.TXN_ERROR_SERVER_ERROR_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
                             "An error occured at our server!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        PWEStaticDataModel.TXN_ERROR_TXN_NOT_ALLOWED_CODE -> Toast.makeText(
-                            context,
+                            customers_unique_id
+                        )
+                        PWEStaticDataModel.TXN_ERROR_TXN_NOT_ALLOWED_CODE -> paymentResult(
+                            getString(R.string.text_label_failure),
                             "There seems problem, transaction not allowed from your bank!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            customers_unique_id
+                        )
                     }
                 } catch (e: Exception) {
                     Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
@@ -210,43 +203,16 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
         }
     }
 
-    private fun onLoadPaymentGatewayDetails() {
-        val salt = "DAH88E3UWQ"
-        merchant_trxnId = "1001"
-        merchant_payment_amount = "100"
-        merchant_productInfo = "Headphones"
-        customer_firstName = "Suraj"
-        customer_email_id = "suraj@innovins.com"
-        customer_phone = "9970783832"
-        merchant_key = "2PBP7IABZ2"
-        customers_unique_id = "199SS"
-        payment_mode = "test"
-        udf1 = ""
-        udf2 = ""
-        udf3 = ""
-        udf4 = ""
-        udf5 = ""
-        val hash_string =
-            "$merchant_key|$merchant_trxnId|${merchant_payment_amount.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$salt|$merchant_key"
-        hash = getSHA512(hash_string)
-    }
-
     private fun getSHA512(input: String): String {
         val md: MessageDigest = MessageDigest.getInstance("SHA-512")
         val messageDigest = md.digest(input.toByteArray())
-
-        // Convert byte array into signum representation
         val no = BigInteger(1, messageDigest)
-
-        // Convert message digest into hex value
         var hashtext: String = no.toString(16)
 
-        // Add preceding 0s to make it 32 bit
         while (hashtext.length < 32) {
             hashtext = "0$hashtext"
         }
 
-        // return the HashText
         return hashtext
     }
 
@@ -287,10 +253,15 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                     mTextViewRechargeDetailsSeePlan.visibility = View.GONE
                 }
             }
-            mTextInputEditTextRechargeDetailsEnterAmount.setText(
+            /*mTextInputEditTextRechargeDetailsEnterAmount.setText(
                 getString(
                     R.string.text_label_rupees,
                     mSharedPreferenceUtils.getRechargeAmount(it)
+                ), TextView.BufferType.EDITABLE
+            )*/
+            mTextInputEditTextRechargeDetailsEnterAmount.setText(
+                mSharedPreferenceUtils.getRechargeAmount(
+                    it
                 ), TextView.BufferType.EDITABLE
             )
         }
@@ -305,36 +276,167 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                     getString(R.string.text_error_empty_field)
                 ) -> return
             else -> {
-                /*view?.let {
-                    Navigation.findNavController(it)
-                        .navigate(R.id.action_rechargeDetails_to_paymentSuccessful)
-                }*/
+                mContentLoadingProgressBarRechargeDetails.show()
                 onClickRechargeDetails()
             }
         }
     }
 
     private fun onClickRechargeDetails() {
-        val intentProceed =
-            Intent(context, PWECouponsActivity::class.java)
-        intentProceed.flags =
-            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT // This is mandatory flag
+        if (mIsMobileRecharge) {
+            onClickProceedToRechargeMobile()
+        } else {
+            onClickProceedToRechargeD2H()
+        }
+    }
 
-        intentProceed.putExtra("txnid", merchant_trxnId)
-        intentProceed.putExtra("amount", merchant_payment_amount.toDouble())
-        intentProceed.putExtra("productinfo", merchant_productInfo)
-        intentProceed.putExtra("firstname", customer_firstName)
-        intentProceed.putExtra("email", customer_email_id)
-        intentProceed.putExtra("phone", customer_phone)
-        intentProceed.putExtra("key", merchant_key)
-        intentProceed.putExtra("udf1", udf1)
-        intentProceed.putExtra("udf2", udf2)
-        intentProceed.putExtra("udf3", udf3)
-        intentProceed.putExtra("udf4", udf4)
-        intentProceed.putExtra("udf5", udf5)
-        intentProceed.putExtra("hash", hash)
-        intentProceed.putExtra("unique_id", customers_unique_id)
-        intentProceed.putExtra("pay_mode", payment_mode)
-        startActivityForResult(intentProceed, PWEStaticDataModel.PWE_REQUEST_CODE)
+    private fun onClickProceedToRechargeMobile() {
+        context?.let {
+            if (APIClient.isNetworkConnected(it)) {
+                APIClient.apiInterface
+                    .initiateMobileRecharge(
+                        mSharedPreferenceUtils.getLoggedInUser().loginToken,
+                        mSharedPreferenceUtils.getRechargeCompanyCode(it)!!,
+                        mSharedPreferenceUtils.getRechargeCircleCode(it)!!,
+                        mSharedPreferenceUtils.getRechargeMobileNumber(it)!!,
+                        mSharedPreferenceUtils.getRechargeAmount(it)!!,
+                        mSharedPreferenceUtils.getPlanId(it)!!
+                    )
+                    .enqueue(object : Callback<InitiateRechargeModel> {
+                        override fun onResponse(
+                            call: Call<InitiateRechargeModel>,
+                            response: Response<InitiateRechargeModel>
+                        ) {
+                            if (response.isSuccessful) {
+                                val mInitiateRechargeModel: InitiateRechargeModel? =
+                                    response.body()
+                                mContentLoadingProgressBarRechargeDetails.hide()
+
+                                if (mInitiateRechargeModel != null) {
+                                    if (mInitiateRechargeModel.mStatus) {
+
+                                        mSalt =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mSalt
+                                        merchant_trxnId =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mMerchantTrxnId
+                                        merchant_payment_amount =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mMerchantPaymentAmount
+                                        merchant_productInfo =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mMerchantProductInfo
+                                        customer_firstName =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mCustomerFirstName
+                                        customer_email_id =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mCustomerEmailId
+                                        customer_phone =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.customer_phone
+                                        merchant_key =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mMerchantKey
+                                        customers_unique_id =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mCustomersUniqueId
+                                        payment_mode = "test"
+                                        udf1 = ""
+                                        udf2 = ""
+                                        udf3 = ""
+                                        udf4 = ""
+                                        udf5 = ""
+
+                                        val hash_string =
+                                            "$merchant_key|$merchant_trxnId|${merchant_payment_amount.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$mSalt|$merchant_key"
+                                        hash = getSHA512(hash_string)
+
+                                        val intentProceed =
+                                            Intent(context, PWECouponsActivity::class.java)
+                                        intentProceed.flags =
+                                            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT // This is mandatory flag
+
+                                        intentProceed.putExtra("txnid", merchant_trxnId)
+                                        intentProceed.putExtra(
+                                            "amount",
+                                            merchant_payment_amount.toDouble()
+                                        )
+                                        intentProceed.putExtra("productinfo", merchant_productInfo)
+                                        intentProceed.putExtra("firstname", customer_firstName)
+                                        intentProceed.putExtra("email", customer_email_id)
+                                        intentProceed.putExtra("phone", customer_phone)
+                                        intentProceed.putExtra("key", merchant_key)
+                                        intentProceed.putExtra("udf1", udf1)
+                                        intentProceed.putExtra("udf2", udf2)
+                                        intentProceed.putExtra("udf3", udf3)
+                                        intentProceed.putExtra("udf4", udf4)
+                                        intentProceed.putExtra("udf5", udf5)
+                                        intentProceed.putExtra("hash", hash)
+                                        intentProceed.putExtra("unique_id", customers_unique_id)
+                                        intentProceed.putExtra("pay_mode", payment_mode)
+                                        startActivityForResult(
+                                            intentProceed,
+                                            PWEStaticDataModel.PWE_REQUEST_CODE
+                                        )
+
+                                    } else {
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_warning_black,
+                                            mInitiateRechargeModel.mTitle,
+                                            mInitiateRechargeModel.mMessage,
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener {
+                                                view?.let { it1 ->
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(it1)
+                                                }
+                                                it.dismiss()
+                                            }
+                                        )
+                                    }
+                                } else {
+                                    ErrorUtils.logNetworkError(
+                                        ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                "\nResponse: " + response.toString(),
+                                        null
+                                    )
+                                    AlertDialogUtils.getInstance()
+                                        .displayInvalidResponseAlert(it)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(
+                            call: Call<InitiateRechargeModel>,
+                            t: Throwable
+                        ) {
+                            ErrorUtils.parseOnFailureException(
+                                it,
+                                call,
+                                t
+                            )
+                            mContentLoadingProgressBarRechargeDetails.hide()
+                        }
+                    })
+            } else {
+                mContentLoadingProgressBarRechargeDetails.hide()
+                AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+            }
+        }
+    }
+
+    private fun onClickProceedToRechargeD2H() {
+        Toast.makeText(
+            context,
+            mSharedPreferenceUtils.getLoggedInUser().loginToken + "\n" + context?.let {
+                mSharedPreferenceUtils.getRechargeCompanyCode(it) + "\n" +
+                        mSharedPreferenceUtils.getRechargeCircleCode(it) + "\n" +
+                        mSharedPreferenceUtils.getRechargeMobileNumber(it) + "\n" +
+                        mTextInputEditTextRechargeDetailsEnterAmount.text.toString().trim()
+            }, Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun paymentResult(
+        mResponse: String,
+        mResponseText: String,
+        mUniqueReferenceId: String
+    ) {
+
     }
 }
