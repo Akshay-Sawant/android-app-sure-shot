@@ -25,13 +25,19 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.sureshotdiscount.app.R
+import com.sureshotdiscount.app.data.api.APIClient
+import com.sureshotdiscount.app.utils.error.ErrorUtils
 import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
+import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -84,6 +90,7 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
 
     private var mIsAddressProofClicked: Boolean = false
     private var mIsPanCardClicked: Boolean = false
+    private var mShareableData: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -457,6 +464,27 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
                 context?.let {
                     if (mSharedPreferenceUtils.getSubscriptionDone(it)!!) {
                         Toast.makeText(context, "KYC Done", Toast.LENGTH_SHORT).show()
+                        /*val mLoginToken = mSharedPreferenceUtils.getLoggedInUser().loginToken
+                            .toRequestBody("text/plain".toMediaTypeOrNull())
+                        val mName = mTextInputEditTextReferAndEarnName.text.toString().trim()
+                            .toRequestBody("text/plain".toMediaTypeOrNull())
+                        val mEmailId = mTextInputEditTextReferAndEarnEmailId.text.toString().trim()
+                            .toRequestBody("text/plain".toMediaTypeOrNull())
+                        val mAddress = mTextInputEditTextReferAndEarnAddress.text.toString().trim()
+                            .toRequestBody("text/plain".toMediaTypeOrNull())
+                        val mPanNo = mTextInputEditTextReferAndEarnPanNo.text.toString().trim()
+                            .toRequestBody("text/plain".toMediaTypeOrNull())
+                        val mContract = mCheckBoxReferAndEarnAcceptContract.isChecked.toString()
+                            .toRequestBody("text/plain".toMediaTypeOrNull())
+
+                        onClickVerify(
+                            mLoginToken,
+                            mName,
+                            mEmailId,
+                            mAddress,
+                            mPanNo,
+                            mContract
+                        )*/
                     } else {
                         AlertDialogUtils.getInstance().showAlert(
                             it,
@@ -538,7 +566,7 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
     private fun onClickShareNow() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Sure Shot Discounts")
+            putExtra(Intent.EXTRA_TEXT, mShareableData)
             type = "text/plain"
         }
 
@@ -609,6 +637,113 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
         } else {
             mContentLoadingProgressBarReferAndEarn.hide()
             showKYCForm()
+        }
+    }
+
+    private fun onClickVerify(
+        mLoginToken: RequestBody,
+        mName: RequestBody,
+        mEmailId: RequestBody,
+        mAddress: RequestBody,
+        mPanNo: RequestBody,
+        mContract: RequestBody
+    ) {
+        context?.let {
+            if (APIClient.isNetworkConnected(it)) {
+                APIClient.apiInterface
+                    .fillKyc(
+                        mLoginToken,
+                        mName,
+                        mEmailId,
+                        mAddress,
+                        mPanNo,
+                        mAddressProofBody,
+                        mPanCardBody,
+                        mContract
+                    )
+                    .enqueue(object : Callback<KYCModel> {
+                        override fun onResponse(
+                            call: Call<KYCModel>,
+                            response: Response<KYCModel>
+                        ) {
+                            if (response.isSuccessful) {
+                                val mKYCModel: KYCModel? = response.body()
+                                mContentLoadingProgressBarReferAndEarn.visibility = View.GONE
+
+                                if (mKYCModel != null) {
+                                    if (mKYCModel.mStatus) {
+                                        mSharedPreferenceUtils.saveIsKYCDone(mKYCModel.mKYCDetailsModel.mKycStatus)
+
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_check_circle_black,
+                                            mKYCModel.mTitle,
+                                            mKYCModel.mMessage,
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener { mDialogInterface ->
+                                                if (mSharedPreferenceUtils.getIsKYCDone(it)) {
+                                                    showReferralCode()
+
+                                                    mTextViewReferAndEarnReferralCode.text =
+                                                        mKYCModel.mKYCDetailsModel.mReferralCode
+                                                    mShareableData =
+                                                        mKYCModel.mKYCDetailsModel.mShareNow
+                                                } else {
+                                                    showKYCForm()
+                                                }
+                                                mDialogInterface.dismiss()
+                                                view?.let { it1 ->
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(
+                                                            it1
+                                                        )
+                                                }
+                                            }
+                                        )
+                                    } else {
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_warning_black,
+                                            mKYCModel.mTitle,
+                                            mKYCModel.mMessage,
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener {
+                                                it.dismiss()
+                                                view?.let { it1 ->
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(
+                                                            it1
+                                                        )
+                                                }
+                                            }
+                                        )
+                                    }
+                                } else {
+                                    ErrorUtils.logNetworkError(
+                                        ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                "\nResponse: " + response.toString(),
+                                        null
+                                    )
+                                    AlertDialogUtils.getInstance().displayInvalidResponseAlert(it)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<KYCModel>, t: Throwable) {
+                            ErrorUtils.parseOnFailureException(
+                                it,
+                                call,
+                                t
+                            )
+                            mContentLoadingProgressBarReferAndEarn.visibility = View.GONE
+                        }
+                    })
+            } else {
+                mContentLoadingProgressBarReferAndEarn.visibility = View.GONE
+                AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+            }
         }
     }
 }

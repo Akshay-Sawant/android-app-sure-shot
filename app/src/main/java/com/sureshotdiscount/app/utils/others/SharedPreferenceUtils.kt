@@ -16,6 +16,8 @@ class SharedPreferenceUtils(context: Context) {
     private val LOGIN_USER_MOBILE_NUMBER_KEY = "mobileNumber"
     private val LOGIN_USER_EMAIL_ID_KEY = "emailId"
     private val LOGIN_USER_REFERRAL_ID_KEY = "referralId"
+    private val SUBSCRIPTION_DONE = "subscription_done"
+    private val IS_KYC_DONE = "is_kyc_done"
 
     private val RECHARGE_COMPANY_ID = "rechargeCompanyId"
     private val RECHARGE_COMPANY_CODE = "rechargeCompanyCode"
@@ -27,7 +29,6 @@ class SharedPreferenceUtils(context: Context) {
     private val RECHARGE_CIRCLE_CODE = "rechargeCircleCode"
     private val RECHARGE_AMOUNT = "rechargeAmount"
     private val PLAN_ID = "plan_id"
-    private val SUBSCRIPTION_DONE = "subscription_done"
 
     private val IS_MOBILE_RECHARGE = "isMobileRecharge"
 
@@ -196,6 +197,16 @@ class SharedPreferenceUtils(context: Context) {
     fun getSubscriptionDone(context: Context): Boolean? {
         return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
             .getBoolean(SUBSCRIPTION_DONE, false)
+    }
+
+    fun saveIsKYCDone(mIsKYCDone: Boolean): Boolean {
+        prefEditor.putBoolean(IS_KYC_DONE, mIsKYCDone)
+        return prefEditor.commit()
+    }
+
+    fun getIsKYCDone(context: Context): Boolean {
+        return context.getSharedPreferences(LOGIN_PREF_FILE, Context.MODE_PRIVATE)
+            .getBoolean(IS_KYC_DONE, false)
     }
 
     fun saveIsMobileRecharge(mIsMobileRecharge: Boolean): Boolean {

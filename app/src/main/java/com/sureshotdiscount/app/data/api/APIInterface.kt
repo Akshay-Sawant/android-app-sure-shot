@@ -11,6 +11,7 @@ import com.sureshotdiscount.app.ui.plans.PlansModel
 import com.sureshotdiscount.app.ui.recharge.CircleModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 import com.sureshotdiscount.app.ui.rechargedetails.InitiateRechargeModel
+import com.sureshotdiscount.app.ui.referandearn.KYCModel
 import com.sureshotdiscount.app.ui.referralslist.LevelsModel
 import com.sureshotdiscount.app.ui.referralslist.ReferralsListModel
 import com.sureshotdiscount.app.ui.signin.SignInModel
@@ -18,6 +19,8 @@ import com.sureshotdiscount.app.ui.subscriptionplan.BenefitsOfSubscriptionModel
 import com.sureshotdiscount.app.ui.subscriptionplan.PaymentResultModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 import com.sureshotdiscount.app.utils.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 interface APIInterface {
 
@@ -203,4 +206,17 @@ interface APIInterface {
         @Field("newPassword") password: String,
         @Field("mobileNumber") mobileNumber: String
     ): Call<APIActionResponse>
+
+    @FormUrlEncoded
+    @POST("$SUBSCRIPTION/fill_kyc.php")
+    fun fillKyc(
+        @Part("userLoginToken") userLoginToken: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("emailId") emailId: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("panNo") panNo: RequestBody,
+        @Part addressProof: MultipartBody.Part?,
+        @Part panCard: MultipartBody.Part?,
+        @Part acceptContract: RequestBody
+    ): Call<KYCModel>
 }
