@@ -25,14 +25,11 @@ import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
 import datamodels.PWEStaticDataModel
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.text.NumberFormat
-import java.util.*
 import kotlin.properties.Delegates
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -571,7 +568,20 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
             }
 //            onMobileRechargePaymentResult(mResponse, mResponseText, mUniqueReferenceId)
         } else {
-
+            view?.let {
+                Navigation.findNavController(it)
+                    .navigate(
+                        BenefitsOfSubscriptionFragmentDirections.actionBenefitsOfSubscriptionToPaymentSuccessful(
+                            false,
+                            mResponseText,
+                            "D2H",
+                            mSharedPreferenceUtils.getRechargeMobileNumber(requireContext())!!,
+                            "22",
+                            context?.let { mSharedPreferenceUtils.getRechargeCompanyLogo(it) }
+                        )
+                    )
+            }
+//            onD2HRechargePaymentResult(mResponse, mResponseText, mUniqueReferenceId)
         }
     }
 
@@ -667,6 +677,85 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
         mResponseText: String,
         mUniqueReferenceId: String
     ) {
+        context?.let {
+            if (APIClient.isNetworkConnected(it)) {
+                APIClient.apiInterface
+                    .d2hRechargePaymentResult(
+                        mSharedPreferenceUtils.getLoggedInUser().loginToken,
+                        mResponse,
+                        mResponseText,
+                        mUniqueReferenceId
+                    )
+                    .enqueue(object : Callback<PaymentResultModel> {
+                        override fun onResponse(
+                            call: Call<PaymentResultModel>,
+                            response: Response<PaymentResultModel>
+                        ) {
+                            if (response.isSuccessful) {
+                                val mPaymentResultModel: PaymentResultModel? = response.body()
+                                mContentLoadingProgressBarRechargeDetails.hide()
 
+                                if (mPaymentResultModel != null) {
+                                    if (mPaymentResultModel.mStatus) {
+                                        view?.let {
+                                            Navigation.findNavController(it)
+                                                .navigate(
+                                                    BenefitsOfSubscriptionFragmentDirections.actionBenefitsOfSubscriptionToPaymentSuccessful(
+                                                        mPaymentResultModel.mPaymentResultDetailsModel.mPaymentStatus,
+                                                        mResponseText,
+                                                        mPaymentResultModel.mPaymentResultDetailsModel.mRechargeFor,
+                                                        mPaymentResultModel.mPaymentResultDetailsModel.mMobileNumber,
+                                                        mPaymentResultModel.mPaymentResultDetailsModel.mOrderId,
+                                                        context?.let {
+                                                            mSharedPreferenceUtils.getRechargeCompanyLogo(
+                                                                it
+                                                            )
+                                                        }
+                                                    )
+                                                )
+                                        }
+                                    } else {
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_warning_black,
+                                            mPaymentResultModel.mTitle,
+                                            mPaymentResultModel.mMessage,
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener {
+                                                view?.let { it1 ->
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(it1)
+                                                }
+                                                it.dismiss()
+                                            }
+                                        )
+                                    }
+                                } else {
+                                    ErrorUtils.logNetworkError(
+                                        ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                "\nResponse: " + response.toString(),
+                                        null
+                                    )
+                                    AlertDialogUtils.getInstance()
+                                        .displayInvalidResponseAlert(it)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<PaymentResultModel>, t: Throwable) {
+                            ErrorUtils.parseOnFailureException(
+                                it,
+                                call,
+                                t
+                            )
+                            mContentLoadingProgressBarRechargeDetails.hide()
+                        }
+                    })
+            } else {
+                mContentLoadingProgressBarRechargeDetails.hide()
+                AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+            }
+        }
     }
 }

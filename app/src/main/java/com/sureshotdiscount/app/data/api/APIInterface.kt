@@ -147,6 +147,15 @@ interface APIInterface {
     ): Call<InitiateRechargeModel>
 
     @FormUrlEncoded
+    @POST("$D2H_DATA/payment_success.php")
+    fun d2hRechargePaymentResult(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("response") response: String,
+        @Field("responseText") responseText: String,
+        @Field("unique_ref_id") unique_ref_id: String
+    ): Call<PaymentResultModel>
+
+    @FormUrlEncoded
     @POST("$SUBSCRIPTION/get_my_level_list.php")
     fun referralsList(@Field("userLoginToken") userLoginToken: String): Call<ReferralsListModel>
 
