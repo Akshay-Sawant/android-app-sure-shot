@@ -421,15 +421,131 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
     }
 
     private fun onClickProceedToRechargeD2H() {
-        Toast.makeText(
-            context,
-            mSharedPreferenceUtils.getLoggedInUser().loginToken + "\n" + context?.let {
-                mSharedPreferenceUtils.getRechargeCompanyCode(it) + "\n" +
-                        mSharedPreferenceUtils.getRechargeCircleCode(it) + "\n" +
-                        mSharedPreferenceUtils.getRechargeMobileNumber(it) + "\n" +
-                        mTextInputEditTextRechargeDetailsEnterAmount.text.toString().trim()
-            }, Toast.LENGTH_LONG
-        ).show()
+        context?.let {
+            if (APIClient.isNetworkConnected(it)) {
+                APIClient.apiInterface
+                    .initiateD2HRecharge(
+                        mSharedPreferenceUtils.getLoggedInUser().loginToken,
+                        mSharedPreferenceUtils.getRechargeCompanyCode(it)!!,
+                        mSharedPreferenceUtils.getRechargeSubscriptionId(it)!!,
+                        mSharedPreferenceUtils.getRechargeAmount(it)!!
+                    )
+                    .enqueue(object : Callback<InitiateRechargeModel> {
+                        override fun onResponse(
+                            call: Call<InitiateRechargeModel>,
+                            response: Response<InitiateRechargeModel>
+                        ) {
+                            if (response.isSuccessful) {
+                                val mInitiateRechargeModel: InitiateRechargeModel? =
+                                    response.body()
+                                mContentLoadingProgressBarRechargeDetails.hide()
+
+                                if (mInitiateRechargeModel != null) {
+                                    if (mInitiateRechargeModel.mStatus) {
+
+                                        mSalt =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mSalt
+                                        merchant_trxnId =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mMerchantTrxnId
+                                        merchant_payment_amount =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mMerchantPaymentAmount
+                                        merchant_productInfo =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mMerchantProductInfo
+                                        customer_firstName =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mCustomerFirstName
+                                        customer_email_id =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mCustomerEmailId
+                                        customer_phone =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.customer_phone
+                                        merchant_key =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mMerchantKey
+                                        customers_unique_id =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mCustomersUniqueId
+                                        payment_mode = "test"
+                                        udf1 = ""
+                                        udf2 = ""
+                                        udf3 = ""
+                                        udf4 = ""
+                                        udf5 = ""
+
+                                        val hash_string =
+                                            "$merchant_key|$merchant_trxnId|${merchant_payment_amount.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$mSalt|$merchant_key"
+                                        hash = getSHA512(hash_string)
+
+                                        val intentProceed =
+                                            Intent(context, PWECouponsActivity::class.java)
+                                        intentProceed.flags =
+                                            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT // This is mandatory flag
+
+                                        intentProceed.putExtra("txnid", merchant_trxnId)
+                                        intentProceed.putExtra(
+                                            "amount",
+                                            merchant_payment_amount.toDouble()
+                                        )
+                                        intentProceed.putExtra("productinfo", merchant_productInfo)
+                                        intentProceed.putExtra("firstname", customer_firstName)
+                                        intentProceed.putExtra("email", customer_email_id)
+                                        intentProceed.putExtra("phone", customer_phone)
+                                        intentProceed.putExtra("key", merchant_key)
+                                        intentProceed.putExtra("udf1", udf1)
+                                        intentProceed.putExtra("udf2", udf2)
+                                        intentProceed.putExtra("udf3", udf3)
+                                        intentProceed.putExtra("udf4", udf4)
+                                        intentProceed.putExtra("udf5", udf5)
+                                        intentProceed.putExtra("hash", hash)
+                                        intentProceed.putExtra("unique_id", customers_unique_id)
+                                        intentProceed.putExtra("pay_mode", payment_mode)
+                                        startActivityForResult(
+                                            intentProceed,
+                                            PWEStaticDataModel.PWE_REQUEST_CODE
+                                        )
+
+                                    } else {
+                                        AlertDialogUtils.getInstance().showAlert(
+                                            it,
+                                            R.drawable.ic_warning_black,
+                                            mInitiateRechargeModel.mTitle,
+                                            mInitiateRechargeModel.mMessage,
+                                            getString(android.R.string.ok),
+                                            null,
+                                            DialogInterface.OnDismissListener {
+                                                view?.let { it1 ->
+                                                    ValidationUtils.getValidationUtils()
+                                                        .hideKeyboardFunc(it1)
+                                                }
+                                                it.dismiss()
+                                            }
+                                        )
+                                    }
+                                } else {
+                                    ErrorUtils.logNetworkError(
+                                        ServerInvalidResponseException.ERROR_200_BLANK_RESPONSE +
+                                                "\nResponse: " + response.toString(),
+                                        null
+                                    )
+                                    AlertDialogUtils.getInstance()
+                                        .displayInvalidResponseAlert(it)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(
+                            call: Call<InitiateRechargeModel>,
+                            t: Throwable
+                        ) {
+                            ErrorUtils.parseOnFailureException(
+                                it,
+                                call,
+                                t
+                            )
+                            mContentLoadingProgressBarRechargeDetails.hide()
+                        }
+                    })
+            } else {
+                mContentLoadingProgressBarRechargeDetails.hide()
+                AlertDialogUtils.getInstance().displayNoConnectionAlert(it)
+            }
+        }
     }
 
     private fun paymentResult(

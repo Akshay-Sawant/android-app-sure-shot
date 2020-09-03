@@ -129,6 +129,15 @@ interface APIInterface {
     ): Call<InitiateRechargeModel>
 
     @FormUrlEncoded
+    @POST("$D2H_DATA/initiate_recharge.php")
+    fun initiateD2HRecharge(
+        @Field("userLoginToken") userLoginToken: String,
+        @Field("operator_code") operator_code: String,
+        @Field("consumer_no") consumer_no: String,
+        @Field("amount") amount: String
+    ): Call<InitiateRechargeModel>
+
+    @FormUrlEncoded
     @POST("$SUBSCRIPTION/get_my_level_list.php")
     fun referralsList(@Field("userLoginToken") userLoginToken: String): Call<ReferralsListModel>
 
