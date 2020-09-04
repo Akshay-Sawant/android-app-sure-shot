@@ -31,10 +31,12 @@ import com.sureshotdiscount.app.utils.others.AlertDialogUtils
 import com.sureshotdiscount.app.utils.others.SharedPreferenceUtils
 import com.sureshotdiscount.app.utils.others.ValidationUtils
 import com.sureshotdiscount.app.utils.server.ServerInvalidResponseException
+import okhttp3.MediaType.Companion.parse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -85,8 +87,8 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
     private val STORAGE_PERMISSION_CODE = 123
     private var filePath: Uri? = null
 
-    private var mAddressProofBody: MultipartBody.Part? = null
-    private var mPanCardBody: MultipartBody.Part? = null
+    private var mAddressUri: Uri? = null
+    private var mPanCardUri: Uri? = null
 
     private var mIsAddressProofClicked: Boolean = false
     private var mIsPanCardClicked: Boolean = false
@@ -152,7 +154,7 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
         context?.let {
             mSharedPreferenceUtils = SharedPreferenceUtils(it)
         }
-        mTextViewReferAndEarnReferralCode.text = mSharedPreferenceUtils.getLoggedInUser().referralid
+        mTextViewReferAndEarnReferralCode.text = mSharedPreferenceUtils.getLoggedInUser().referralCode
     }
 
     override fun onResume() {
@@ -280,7 +282,7 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
 
     private fun getImageUri(inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        inImage.compress(Bitmap.CompressFormat.JPEG, 50, bytes)
         val path = MediaStore.Images.Media.insertImage(
             context?.contentResolver,
             inImage,
@@ -463,28 +465,8 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
             else -> {
                 context?.let {
                     if (mSharedPreferenceUtils.getSubscriptionDone(it)!!) {
-                        Toast.makeText(context, "KYC Done", Toast.LENGTH_SHORT).show()
-                        /*val mLoginToken = mSharedPreferenceUtils.getLoggedInUser().loginToken
-                            .toRequestBody("text/plain".toMediaTypeOrNull())
-                        val mName = mTextInputEditTextReferAndEarnName.text.toString().trim()
-                            .toRequestBody("text/plain".toMediaTypeOrNull())
-                        val mEmailId = mTextInputEditTextReferAndEarnEmailId.text.toString().trim()
-                            .toRequestBody("text/plain".toMediaTypeOrNull())
-                        val mAddress = mTextInputEditTextReferAndEarnAddress.text.toString().trim()
-                            .toRequestBody("text/plain".toMediaTypeOrNull())
-                        val mPanNo = mTextInputEditTextReferAndEarnPanNo.text.toString().trim()
-                            .toRequestBody("text/plain".toMediaTypeOrNull())
-                        val mContract = mCheckBoxReferAndEarnAcceptContract.isChecked.toString()
-                            .toRequestBody("text/plain".toMediaTypeOrNull())
-
-                        onClickVerify(
-                            mLoginToken,
-                            mName,
-                            mEmailId,
-                            mAddress,
-                            mPanNo,
-                            mContract
-                        )*/
+                        mContentLoadingProgressBarReferAndEarn.show()
+                        onClickVerify()
                     } else {
                         AlertDialogUtils.getInstance().showAlert(
                             it,
@@ -515,18 +497,7 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
                 .load(filePath)
                 .into(mImageViewReferAndEarnUploadAddressProof)
 
-            //pass it like this
-            val mAddressProofFile = File(getPath(filePath)!!)
-            val mAddressProofRequestFile: RequestBody =
-                mAddressProofFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-            // MultipartBody.Part is used to send also the actual file name
-            mAddressProofBody =
-                MultipartBody.Part.createFormData(
-                    "image",
-                    mAddressProofFile.name,
-                    mAddressProofRequestFile
-                )
+            mAddressUri = mFilePath
         }
     }
 
@@ -536,18 +507,7 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
                 .load(filePath)
                 .into(mImageViewReferAndEranUploadPanCard)
 
-            //pass it like this
-            val mPanCardFile = File(getPath(filePath)!!)
-            val mPanCardRequestFile: RequestBody =
-                mPanCardFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-            // MultipartBody.Part is used to send also the actual file name
-            mPanCardBody =
-                MultipartBody.Part.createFormData(
-                    "image",
-                    mPanCardFile.name,
-                    mPanCardRequestFile
-                )
+            mPanCardUri = mFilePath
         }
     }
 
@@ -557,7 +517,7 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
         val clip =
             ClipData.newPlainText(
                 getString(R.string.text_your_referral_code),
-                mSharedPreferenceUtils.getLoggedInUser().referralid
+                mSharedPreferenceUtils.getLoggedInUser().referralCode
             )
         clipboard?.setPrimaryClip(clip)
         Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show()
@@ -640,26 +600,50 @@ class ReferEarnFragment : Fragment(R.layout.fragment_refer_earn), View.OnClickLi
         }
     }
 
-    private fun onClickVerify(
-        mLoginToken: RequestBody,
-        mName: RequestBody,
-        mEmailId: RequestBody,
-        mAddress: RequestBody,
-        mPanNo: RequestBody,
-        mContract: RequestBody
-    ) {
+    private fun onClickVerify() {
         context?.let {
             if (APIClient.isNetworkConnected(it)) {
+
+                val mLoginToken = mSharedPreferenceUtils.getLoggedInUser().loginToken
+                    .toRequestBody("text/plain".toMediaTypeOrNull())
+                val mName = mTextInputEditTextReferAndEarnName.text.toString().trim()
+                    .toRequestBody("text/plain".toMediaTypeOrNull())
+                val mEmailId = mTextInputEditTextReferAndEarnEmailId.text.toString().trim()
+                    .toRequestBody("text/plain".toMediaTypeOrNull())
+                val mAddress = mTextInputEditTextReferAndEarnAddress.text.toString().trim()
+                    .toRequestBody("text/plain".toMediaTypeOrNull())
+                val mPanNo = mTextInputEditTextReferAndEarnPanNo.text.toString().trim()
+                    .toRequestBody("text/plain".toMediaTypeOrNull())
+                val mContract = mCheckBoxReferAndEarnAcceptContract.isChecked.toString()
+                    .toRequestBody("text/plain".toMediaTypeOrNull())
+
+                //pass it like this
+                val file = File(getPath(mAddressUri)!!)
+                val requestFile: RequestBody =
+                    file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+                // MultipartBody.Part is used to send also the actual file name
+                val mAddressProofBody =
+                    MultipartBody.Part.createFormData("addressProof", file.name, requestFile)
+
+                //pass it like this
+                val fileP = File(getPath(mPanCardUri)!!)
+                val requestFileP: RequestBody =
+                    fileP.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+                // MultipartBody.Part is used to send also the actual file name
+                val mPanCardBody =
+                    MultipartBody.Part.createFormData("panCard", fileP.name, requestFileP)
+
                 APIClient.apiInterface
                     .fillKyc(
                         mLoginToken,
                         mName,
                         mEmailId,
                         mAddress,
-                        mPanNo,
+                        mPanNo/*,
                         mAddressProofBody,
-                        mPanCardBody,
-                        mContract
+                        mPanCardBody*/
                     )
                     .enqueue(object : Callback<KYCModel> {
                         override fun onResponse(

@@ -75,6 +75,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
     private lateinit var udf3: String
     private lateinit var udf4: String
     private lateinit var udf5: String
+    private lateinit var mOrderId: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -338,6 +339,8 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                                         udf3 = ""
                                         udf4 = ""
                                         udf5 = ""
+                                        mOrderId =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mOrderId
 
                                         val hash_string =
                                             "$merchant_key|$merchant_trxnId|${merchant_payment_amount.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$mSalt|$merchant_key"
@@ -466,6 +469,8 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                                         udf3 = ""
                                         udf4 = ""
                                         udf5 = ""
+                                        mOrderId =
+                                            mInitiateRechargeModel.mInitiateRechargeDetailsModel.mOrderId
 
                                         val hash_string =
                                             "$merchant_key|$merchant_trxnId|${merchant_payment_amount.toDouble()}|$merchant_productInfo|$customer_firstName|$customer_email_id|$udf1|$udf2|$udf3|$udf4|$udf5||||||$mSalt|$merchant_key"
@@ -553,11 +558,9 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
         mUniqueReferenceId: String
     ) {
         if (mIsMobileRecharge) {
-            Toast.makeText(context, "Mobile Recharge: $mResponseText", Toast.LENGTH_SHORT).show()
-//            onMobileRechargePaymentResult(mResponse, mResponseText, mUniqueReferenceId)
+            onMobileRechargePaymentResult(mResponse, mResponseText, mUniqueReferenceId)
         } else {
-            Toast.makeText(context, "D2H Recharge: $mResponseText", Toast.LENGTH_SHORT).show()
-//            onD2HRechargePaymentResult(mResponse, mResponseText, mUniqueReferenceId)
+            onD2HRechargePaymentResult(mResponse, mResponseText, mUniqueReferenceId)
         }
     }
 
@@ -573,7 +576,8 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                         mSharedPreferenceUtils.getLoggedInUser().loginToken,
                         mResponse,
                         mResponseText,
-                        mUniqueReferenceId
+                        mUniqueReferenceId,
+                        mOrderId
                     )
                     .enqueue(object : Callback<PaymentResultModel> {
                         override fun onResponse(
@@ -589,7 +593,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                                         view?.let {
                                             Navigation.findNavController(it)
                                                 .navigate(
-                                                    BenefitsOfSubscriptionFragmentDirections.actionBenefitsOfSubscriptionToPaymentSuccessful(
+                                                    RechargeDetailsFragmentDirections.actionRechargeDetailsToPaymentSuccessful(
                                                         mPaymentResultModel.mPaymentResultDetailsModel.mPaymentStatus,
                                                         mResponseText,
                                                         mPaymentResultModel.mPaymentResultDetailsModel.mRechargeFor,
@@ -660,7 +664,8 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                         mSharedPreferenceUtils.getLoggedInUser().loginToken,
                         mResponse,
                         mResponseText,
-                        mUniqueReferenceId
+                        mUniqueReferenceId,
+                        mOrderId
                     )
                     .enqueue(object : Callback<PaymentResultModel> {
                         override fun onResponse(
@@ -676,7 +681,7 @@ class RechargeDetailsFragment : Fragment(R.layout.fragment_recharge_details), Vi
                                         view?.let {
                                             Navigation.findNavController(it)
                                                 .navigate(
-                                                    BenefitsOfSubscriptionFragmentDirections.actionBenefitsOfSubscriptionToPaymentSuccessful(
+                                                    RechargeDetailsFragmentDirections.actionRechargeDetailsToPaymentSuccessful(
                                                         mPaymentResultModel.mPaymentResultDetailsModel.mPaymentStatus,
                                                         mResponseText,
                                                         mPaymentResultModel.mPaymentResultDetailsModel.mRechargeFor,

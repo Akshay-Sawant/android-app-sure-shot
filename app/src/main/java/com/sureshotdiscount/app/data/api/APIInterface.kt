@@ -137,7 +137,8 @@ interface APIInterface {
         @Field("userLoginToken") userLoginToken: String,
         @Field("response") response: String,
         @Field("responseText") responseText: String,
-        @Field("unique_ref_id") unique_ref_id: String
+        @Field("unique_ref_id") unique_ref_id: String,
+        @Field("orderId") orderId: String
     ): Call<PaymentResultModel>
 
     @FormUrlEncoded
@@ -155,7 +156,8 @@ interface APIInterface {
         @Field("userLoginToken") userLoginToken: String,
         @Field("response") response: String,
         @Field("responseText") responseText: String,
-        @Field("unique_ref_id") unique_ref_id: String
+        @Field("unique_ref_id") unique_ref_id: String,
+        @Field("orderId") orderId: String
     ): Call<PaymentResultModel>
 
     @FormUrlEncoded
@@ -207,16 +209,15 @@ interface APIInterface {
         @Field("mobileNumber") mobileNumber: String
     ): Call<APIActionResponse>
 
-    @FormUrlEncoded
+    @Multipart
     @POST("$SUBSCRIPTION/fill_kyc.php")
     fun fillKyc(
         @Part("userLoginToken") userLoginToken: RequestBody,
         @Part("name") name: RequestBody,
         @Part("emailId") emailId: RequestBody,
         @Part("address") address: RequestBody,
-        @Part("panNo") panNo: RequestBody,
+        @Part("panNo") panNo: RequestBody/*,
         @Part addressProof: MultipartBody.Part?,
-        @Part panCard: MultipartBody.Part?,
-        @Part acceptContract: RequestBody
+        @Part panCard: MultipartBody.Part?*/
     ): Call<KYCModel>
 }

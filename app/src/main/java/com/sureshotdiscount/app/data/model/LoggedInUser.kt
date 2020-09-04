@@ -20,8 +20,8 @@ class LoggedInUser : Serializable {
     @field:Json(name = "emailid")
     var emailid: String = ""
 
-    @field:Json(name = "referralid")
-    var referralid: String = ""
+    @field:Json(name = "referralCode")
+    var referralCode: String = ""
 
     @field:Json(name = "status")
     var status: Boolean = false
@@ -34,4 +34,13 @@ class LoggedInUser : Serializable {
 
     @field:Json(name = "message")
     var message: String = ""
+
+    @field:Json(name = "balanceEarnings")
+    var balanceEarnings: String = "0"
+
+    @field:Json(name = "isSubcribed")
+    var isSubcribed: Boolean = false
+
+    @field:Json(name = "isKYCDone")
+    var isKYCDone:Boolean = false
 }

@@ -53,7 +53,10 @@ class SharedPreferenceUtils(context: Context) {
         mLoggedInUser.name = prefs.getString(LOGIN_USER_NAME_KEY, "").toString()
         mLoggedInUser.mobileNumber = prefs.getString(LOGIN_USER_MOBILE_NUMBER_KEY, "").toString()
         mLoggedInUser.emailid = prefs.getString(LOGIN_USER_EMAIL_ID_KEY, "").toString()
-        mLoggedInUser.referralid = prefs.getString(LOGIN_USER_REFERRAL_ID_KEY, "").toString()
+        mLoggedInUser.referralCode = prefs.getString(LOGIN_USER_REFERRAL_ID_KEY, "").toString()
+        mLoggedInUser.balanceEarnings = prefs.getString(BALANCE_EARNINGS, "0").toString()
+        mLoggedInUser.isSubcribed = prefs.getBoolean(SUBSCRIPTION_DONE, false)
+        mLoggedInUser.isKYCDone = prefs.getBoolean(IS_KYC_DONE, false)
     }
 
     constructor(context: Context, loggedInUser: LoggedInUser) : this(context) {
@@ -83,7 +86,10 @@ class SharedPreferenceUtils(context: Context) {
         prefEditor.putString(LOGIN_USER_NAME_KEY, mLoggedInUser.name)
         prefEditor.putString(LOGIN_USER_MOBILE_NUMBER_KEY, mLoggedInUser.mobileNumber)
         prefEditor.putString(LOGIN_USER_EMAIL_ID_KEY, mLoggedInUser.emailid)
-        prefEditor.putString(LOGIN_USER_REFERRAL_ID_KEY, mLoggedInUser.referralid)
+        prefEditor.putString(LOGIN_USER_REFERRAL_ID_KEY, mLoggedInUser.referralCode)
+        prefEditor.putString(BALANCE_EARNINGS, mLoggedInUser.balanceEarnings)
+        prefEditor.putBoolean(SUBSCRIPTION_DONE, mLoggedInUser.isSubcribed)
+        prefEditor.putBoolean(IS_KYC_DONE, mLoggedInUser.isKYCDone)
         return prefEditor.commit()
     }
 
