@@ -7,9 +7,10 @@ import android.text.style.UnderlineSpan
 import android.widget.TextView
 
 const val DEVELOPMENT_URL = "http://shareittofriends.com/"
-const val PRODUCTION_URL = "http://shareittofriends.com/"
+const val PRODUCTION_URL = "http://15.207.47.140/"
 
 const val MIDDLE_URL = DEVELOPMENT_URL + "demo/sureshotdiscount/"
+const val PRODUCTION_MIDDLE_URL = PRODUCTION_URL + "appApi/"
 
 const val AUTH = "auth"
 const val RECHARGE_DATA = "recharge_data"

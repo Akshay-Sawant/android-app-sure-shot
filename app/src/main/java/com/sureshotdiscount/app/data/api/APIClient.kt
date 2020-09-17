@@ -2,17 +2,13 @@ package com.sureshotdiscount.app.data.api
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.sureshotdiscount.app.utils.error.ErrorInterceptor
 import com.sureshotdiscount.app.utils.IS_DEBUG_ON
-import com.sureshotdiscount.app.utils.MIDDLE_URL
+import com.sureshotdiscount.app.utils.PRODUCTION_MIDDLE_URL
+import com.sureshotdiscount.app.utils.error.ErrorInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-
-/**
- * Created by Innovins-21 on 022, 22-Jun-18.
- */
 
 object APIClient {
     private var retrofit: Retrofit? = null
@@ -41,7 +37,7 @@ object APIClient {
                 val okClient = builder.build()
 
                 retrofit = Retrofit.Builder()
-                    .baseUrl(MIDDLE_URL)
+                    .baseUrl(PRODUCTION_MIDDLE_URL)
                     //.addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(MoshiConverterFactory.create())
                     .client(okClient)
