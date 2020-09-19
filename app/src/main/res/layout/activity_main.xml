@@ -19,6 +19,7 @@
         android:layout_gravity="start"
         android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true"
+        app:itemTextAppearance="@android:style/TextAppearance.Medium"
         app:itemTextColor="@color/drawer_item_selector"
         app:menu="@menu/drawer_menu" />
 
