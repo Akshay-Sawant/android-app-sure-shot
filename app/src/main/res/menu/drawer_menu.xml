@@ -20,6 +20,10 @@
             android:title="@string/text_label_referrals_list" />
 
         <item
+            android:id="@+id/privacyAndPolicyFragment"
+            android:title="@string/text_label_privacy_and_policy" />
+
+        <item
             android:id="@+id/contactUsFragment"
             android:title="@string/text_label_contact" />
 

@@ -1,13 +1,12 @@
 package com.sureshotdiscount.app.data.api
 
 import com.sureshotdiscount.app.data.model.LoggedInUser
-import com.sureshotdiscount.app.data.model.response.*
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.http.*
+import com.sureshotdiscount.app.data.model.response.APIActionResponse
+import com.sureshotdiscount.app.data.model.response.AppConfigResponse
 import com.sureshotdiscount.app.ui.dth.DTHModel
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
 import com.sureshotdiscount.app.ui.plans.PlansModel
+import com.sureshotdiscount.app.ui.privacypolicy.PrivacyAndPolicyModel
 import com.sureshotdiscount.app.ui.recharge.CircleModel
 import com.sureshotdiscount.app.ui.rechargeHistory.RechargeHistoryModel
 import com.sureshotdiscount.app.ui.rechargedetails.InitiateRechargeModel
@@ -19,8 +18,10 @@ import com.sureshotdiscount.app.ui.subscriptionplan.BenefitsOfSubscriptionModel
 import com.sureshotdiscount.app.ui.subscriptionplan.PaymentResultModel
 import com.sureshotdiscount.app.ui.subscriptionplan.SubscriptionPlanModel
 import com.sureshotdiscount.app.utils.*
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.http.*
 
 interface APIInterface {
 
@@ -220,4 +221,8 @@ interface APIInterface {
         @Part addressProof: MultipartBody.Part?,
         @Part panCard: MultipartBody.Part?*/
     ): Call<KYCModel>
+
+    @FormUrlEncoded
+    @POST("$CMS/privacy_policy.php")
+    fun privacyPolicy(@Field("userLoginToken") userLoginToken: String): Call<PrivacyAndPolicyModel>
 }

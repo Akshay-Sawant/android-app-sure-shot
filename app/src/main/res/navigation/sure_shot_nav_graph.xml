@@ -92,7 +92,7 @@
         android:id="@+id/paymentSuccessfulFragment"
         android:name="com.sureshotdiscount.app.ui.payment.PaymentSuccessfulFragment"
         android:label=""
-        tools:layout="@layout/fragment_payment_successful" >
+        tools:layout="@layout/fragment_payment_successful">
         <argument
             android:name="status"
             app:argType="boolean" />
@@ -179,7 +179,7 @@
         android:id="@+id/levelsDetailsFragment"
         android:name="com.sureshotdiscount.app.ui.referralslist.LevelsDetailsFragment"
         android:label="@string/text_label_levels_detail"
-        tools:layout="@layout/fragment_levels_details" >
+        tools:layout="@layout/fragment_levels_details">
         <argument
             android:name="levelId"
             app:argType="integer" />
@@ -223,4 +223,9 @@
             android:name="mobileNumber"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/privacyAndPolicyFragment"
+        android:name="com.sureshotdiscount.app.ui.privacypolicy.PrivacyAndPolicyFragment"
+        android:label="@string/text_label_privacy_and_policy"
+        tools:layout="@layout/fragment_privacy_and_policy" />
 </navigation>

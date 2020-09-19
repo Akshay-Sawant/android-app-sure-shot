@@ -207,4 +207,7 @@
     <string name="text_hint_confirm_new_password">Confirm New Password</string>
     <string name="text_label_success">Success</string>
     <string name="text_label_failure">Failure</string>
+
+    <!--Privacy And Policy-->
+    <string name="text_label_privacy_and_policy">Privacy And Policy</string>
 </resources>
