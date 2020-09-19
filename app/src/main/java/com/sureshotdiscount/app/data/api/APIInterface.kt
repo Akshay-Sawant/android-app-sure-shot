@@ -3,6 +3,7 @@ package com.sureshotdiscount.app.data.api
 import com.sureshotdiscount.app.data.model.LoggedInUser
 import com.sureshotdiscount.app.data.model.response.APIActionResponse
 import com.sureshotdiscount.app.data.model.response.AppConfigResponse
+import com.sureshotdiscount.app.ui.aboutus.AboutUsModel
 import com.sureshotdiscount.app.ui.dth.DTHModel
 import com.sureshotdiscount.app.ui.mobile.MobileRechargeModel
 import com.sureshotdiscount.app.ui.plans.PlansModel
@@ -225,4 +226,8 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("$CMS/privacy_policy.php")
     fun privacyPolicy(@Field("userLoginToken") userLoginToken: String): Call<PrivacyAndPolicyModel>
+
+    @FormUrlEncoded
+    @POST("$CMS/about_us.php")
+    fun aboutUs(@Field("userLoginToken") userLoginToken: String): Call<AboutUsModel>
 }

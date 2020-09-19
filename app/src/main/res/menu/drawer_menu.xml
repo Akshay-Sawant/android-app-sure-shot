@@ -24,6 +24,10 @@
             android:title="@string/text_label_privacy_and_policy" />
 
         <item
+            android:id="@+id/aboutUsFragment"
+            android:title="@string/text_label_about_us" />
+
+        <item
             android:id="@+id/contactUsFragment"
             android:title="@string/text_label_contact" />
 

@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 R.id.subscriptionPlanFragment,
                 R.id.referralsListFragment,
                 R.id.privacyAndPolicyFragment,
+                R.id.aboutUsFragment,
                 R.id.contactUsFragment,
                 R.id.logoutFragment
             ),

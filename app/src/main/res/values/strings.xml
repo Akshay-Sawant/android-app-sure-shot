@@ -210,4 +210,8 @@
 
     <!--Privacy And Policy-->
     <string name="text_label_privacy_and_policy">Privacy And Policy</string>
+    <string name="text_label_about_us">About Us</string>
+
+    <!--About Us-->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
