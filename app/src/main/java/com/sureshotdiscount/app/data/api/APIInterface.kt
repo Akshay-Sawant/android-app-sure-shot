@@ -224,7 +224,7 @@ interface APIInterface {
     ): Call<KYCModel>
 
     @FormUrlEncoded
-    @POST("$CMS/privacy_policy.php")
+    @POST("$CMS/ppolicy.php")
     fun privacyPolicy(@Field("userLoginToken") userLoginToken: String): Call<PrivacyAndPolicyModel>
 
     @FormUrlEncoded

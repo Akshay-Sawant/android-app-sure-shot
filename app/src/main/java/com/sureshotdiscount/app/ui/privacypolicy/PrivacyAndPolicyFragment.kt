@@ -107,18 +107,18 @@ class PrivacyAndPolicyFragment : Fragment(R.layout.fragment_privacy_and_policy) 
                                 if (mPrivacyAndPolicyModel != null) {
                                     if (mPrivacyAndPolicyModel.mStatus) {
                                         mTextViewPrivacyAndPolicyMessage.visibility =
-                                            View.VISIBLE
-                                        mTextViewPrivacyAndPolicyMessage.text =
-                                            mPrivacyAndPolicyModel.mMessage
-                                        mWebViewPrivacyAndPolicy.visibility = View.GONE
-                                    } else {
-                                        mTextViewPrivacyAndPolicyMessage.visibility =
                                             View.GONE
                                         mWebViewPrivacyAndPolicy.visibility = View.VISIBLE
 
                                         mWebViewPrivacyAndPolicy.loadUrl(
                                             mPrivacyAndPolicyModel.mLink
                                         )
+                                    } else {
+                                        mTextViewPrivacyAndPolicyMessage.visibility =
+                                            View.VISIBLE
+                                        mTextViewPrivacyAndPolicyMessage.text =
+                                            mPrivacyAndPolicyModel.mMessage
+                                        mWebViewPrivacyAndPolicy.visibility = View.GONE
                                     }
                                 } else {
                                     ErrorUtils.logNetworkError(
