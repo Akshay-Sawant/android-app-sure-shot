@@ -106,18 +106,18 @@ class AboutUsFragment : Fragment(R.layout.fragment_about_us) {
                                 if (mAboutUsModel != null) {
                                     if (mAboutUsModel.mStatus) {
                                         mTextViewAboutUsMessage.visibility =
-                                            View.VISIBLE
-                                        mTextViewAboutUsMessage.text =
-                                            mAboutUsModel.mMessage
-                                        mWebViewAboutUs.visibility = View.GONE
-                                    } else {
-                                        mTextViewAboutUsMessage.visibility =
                                             View.GONE
                                         mWebViewAboutUs.visibility = View.VISIBLE
 
                                         mWebViewAboutUs.loadUrl(
                                             mAboutUsModel.mLink
                                         )
+                                    } else {
+                                        mTextViewAboutUsMessage.visibility =
+                                            View.VISIBLE
+                                        mTextViewAboutUsMessage.text =
+                                            mAboutUsModel.mMessage
+                                        mWebViewAboutUs.visibility = View.GONE
                                     }
                                 } else {
                                     ErrorUtils.logNetworkError(

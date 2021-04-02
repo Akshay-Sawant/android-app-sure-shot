@@ -228,6 +228,6 @@ interface APIInterface {
     fun privacyPolicy(@Field("userLoginToken") userLoginToken: String): Call<PrivacyAndPolicyModel>
 
     @FormUrlEncoded
-    @POST("$CMS/about_us.php")
+    @POST("$CMS/aboutus.php")
     fun aboutUs(@Field("userLoginToken") userLoginToken: String): Call<AboutUsModel>
 }
